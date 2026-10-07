@@ -14,7 +14,7 @@ const steps = [
 
 export default function Page() {
   const [documentNumber, setDocumentNumber] = useState('')
-  const [result, setResult] = useState<'success' | 'empty' | null>(null)
+  const [result, setResult] = useState<'success' | 'empty' | 'error' | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const continueButtonRef = useRef<HTMLButtonElement>(null)
 
@@ -26,7 +26,8 @@ export default function Page() {
     setResult(null)
     window.setTimeout(() => {
       const found = value === '7807365'
-      setResult(found ? 'success' : 'empty')
+      const hasServiceError = value === '0000000'
+      setResult(hasServiceError ? 'error' : found ? 'success' : 'empty')
       setIsLoading(false)
       window.setTimeout(() => continueButtonRef.current?.focus(), 0)
     }, 650)
@@ -89,6 +90,7 @@ export default function Page() {
               </div>
             </div>}
             {result === 'empty' && <div className="rounded-xl border border-[#eadcae] bg-[#fffaf0] p-5"><div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"><div><div className="mb-2 text-xs font-bold uppercase tracking-[0.1em] text-[#9b7214]">Sin coincidencias</div><h2 className="text-base font-bold text-[#5d4b19]">No encontramos un cliente asociado a este documento.</h2><p className="mt-1 text-sm text-[#8a7740]">Puedes registrar un nuevo cliente para continuar.</p></div><div className="flex shrink-0 gap-3"><button type="button" className="rounded-lg bg-[#465bc2] px-4 py-2.5 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-[#465bc2]/20">Registrar cliente</button><button ref={continueButtonRef} type="button" className="rounded-lg border border-[#d6c688] bg-white px-4 py-2.5 text-sm font-bold text-[#765d12] focus:outline-none focus:ring-4 focus:ring-[#9b7214]/20">Continuar</button></div></div></div>}
+            {result === 'error' && <div role="alert" className="rounded-xl border border-[#f0c8cf] bg-[#fff5f6] p-5"><div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div><div className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.1em] text-[#b52e45]"><span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#b52e45] text-white">!</span> No pudimos completar la búsqueda</div><h2 className="text-base font-bold text-[#7f2638]">Ocurrió un problema temporal.</h2><p className="mt-1 text-sm text-[#a34f60]">Verifica tu conexión e inténtalo nuevamente. Tu información no se perdió.</p></div><button type="button" onClick={searchClient} className="shrink-0 rounded-lg bg-[#b52e45] px-4 py-2.5 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-[#b52e45]/20">Reintentar</button></div></div>}
             {!result && !isLoading && <p id="form-help" className="text-center text-sm text-[#98a3b6]">El resultado de la búsqueda aparecerá aquí.</p>}
           </div>
         </div>

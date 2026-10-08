@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { deliveryTypeLabel } from "../provider-flows";
 import type { Beneficiary, ProviderId, ProviderQuote } from "../types";
 
 function SummarySection({
@@ -65,6 +66,10 @@ export function ReviewStep({
   destinationCountry,
   payingPartner,
   location,
+  wuService,
+  qpayCompany,
+  terraPayBank,
+  terraPayWallet,
   isKnownClient,
   beneficiary,
   senderName,
@@ -86,6 +91,10 @@ export function ReviewStep({
   destinationCountry: string;
   payingPartner: string;
   location: string;
+  wuService: string;
+  qpayCompany: string;
+  terraPayBank: string;
+  terraPayWallet: string;
   isKnownClient: boolean;
   beneficiary: Beneficiary;
   senderName: string;
@@ -100,9 +109,6 @@ export function ReviewStep({
   onEditBeneficiary: () => void;
   onEditPayment: () => void;
 }) {
-  const destination =
-    [destinationCountry, payingPartner].filter(Boolean).join(" · ") || "—";
-
   return (
     <div className="flex flex-col gap-5">
       <p className="rounded-lg bg-[#fffaf0] p-4 text-sm text-[#765d12]">
@@ -116,6 +122,29 @@ export function ReviewStep({
         highlight
       >
         <SummaryRow label="Proveedor" value={provider} />
+        <SummaryRow
+          label="Tipo de envío"
+          value={deliveryTypeLabel(quote.deliveryType)}
+        />
+        <SummaryRow label="Destino" value={destinationCountry || "—"} />
+        {provider === "RIA" && (
+          <>
+            <SummaryRow label="Socio pagador" value={payingPartner || "—"} />
+            <SummaryRow label="Locación" value={location || "—"} />
+          </>
+        )}
+        {(provider === "WU" || provider === "QPAY") && (
+          <SummaryRow label="Servicio de envío" value={wuService || "—"} />
+        )}
+        {provider === "QPAY" && (
+          <SummaryRow label="Compañía" value={qpayCompany || "—"} />
+        )}
+        {provider === "TERRAPAY" && quote.deliveryType === "BANK" && (
+          <SummaryRow label="Banco" value={terraPayBank || "—"} />
+        )}
+        {provider === "TERRAPAY" && quote.deliveryType === "WALLET" && (
+          <SummaryRow label="Wallet" value={terraPayWallet || "—"} />
+        )}
         <SummaryRow label="Monto a enviar" value={formatUsd(quote.amount)} />
         <SummaryRow label="Cargo" value={formatUsd(quote.fee)} />
         <SummaryRow label="IVA" value={formatUsd(quote.tax)} />
@@ -124,8 +153,6 @@ export function ReviewStep({
           value={formatUsd(totalToCharge)}
           emphasis
         />
-        <SummaryRow label="Destino" value={destination} />
-        <SummaryRow label="Lugar de pago" value={location || "—"} />
       </SummarySection>
       <SummarySection
         title="Beneficiario"

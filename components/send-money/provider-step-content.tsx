@@ -39,6 +39,10 @@ export type ProviderStepContentProps = {
   destinationCountry: string;
   payingPartner: string;
   location: string;
+  wuService: string;
+  qpayCompany: string;
+  terraPayBank: string;
+  terraPayWallet: string;
   senderName: string;
   paymentMethod: string;
   receivedValue: number;
@@ -194,6 +198,10 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       destinationCountry={props.destinationCountry}
       payingPartner={props.payingPartner}
       location={props.location}
+      wuService={props.wuService}
+      qpayCompany={props.qpayCompany}
+      terraPayBank={props.terraPayBank}
+      terraPayWallet={props.terraPayWallet}
       isKnownClient={props.isKnownClient}
       beneficiary={props.beneficiaries[props.selectedBeneficiary]}
       senderName={props.senderName}

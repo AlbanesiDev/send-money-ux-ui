@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const steps = ['Transacción', 'Cotización', 'Remitente', 'Beneficiario', 'Información adicional', 'Método de pago', 'Revisión']
 
@@ -31,9 +31,32 @@ export default function Page() {
 
   function next() { setStep((current) => Math.min(7, current + 1)) }
   function back() { setStep((current) => Math.max(1, current - 1)) }
+  function goToStep(target: number) { if (target < step) setStep(target) }
+
+  useEffect(() => {
+    function handleStepperShortcut(event: KeyboardEvent) {
+      if (!event.shiftKey) return
+      const number = Number(event.key)
+      if (number >= 1 && number <= 7) {
+        event.preventDefault()
+        goToStep(number)
+        return
+      }
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault()
+        back()
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault()
+        next()
+      }
+    }
+    window.addEventListener('keydown', handleStepperShortcut)
+    return () => window.removeEventListener('keydown', handleStepperShortcut)
+  }, [step])
 
   return <main className="min-h-screen bg-[#f4f5fb] px-4 py-5 text-[#17233f] sm:px-8 lg:px-12"><section className="mx-auto max-w-[1540px] overflow-hidden rounded-[18px] bg-white shadow-[0_12px_35px_rgba(24,37,73,0.05)]">
-    <header className="border-b border-[#e9edf5] px-6 py-6 sm:px-10 lg:px-12"><nav aria-label="Progreso de la transacción"><ol className="flex min-w-[760px] items-center gap-3 overflow-x-auto">{steps.map((name, index) => { const number = index + 1; const completed = number < step; const active = number === step; return <li key={name} className={`flex flex-1 items-center gap-3 ${number === 7 ? 'last:flex-none' : ''}`}><div className="flex min-w-0 items-center gap-3"><span aria-current={active ? 'step' : undefined} className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border text-sm font-bold transition-colors ${completed ? 'border-[#b8e8cc] bg-[#e1f7e9] text-[#218052]' : active ? 'border-[#17233f] bg-[#17233f] text-white' : 'border-[#dce3ee] bg-white text-[#73809a]'}`}>{completed ? '✓' : number}</span><span className={`whitespace-nowrap text-sm font-bold ${active ? 'text-[#17233f]' : completed ? 'text-[#263653]' : 'text-[#96a2b8]'}`}>{name}</span></div>{number < 7 && <span className={`h-0.5 min-w-8 flex-1 ${completed ? 'bg-[#74cf98]' : 'bg-[#dfe5ef]'}`} />}</li>})}</ol></nav></header>
+    <header className="border-b border-[#e9edf5] px-6 py-6 sm:px-10 lg:px-12"><nav aria-label="Progreso de la transacción"><ol className="flex min-w-[760px] items-center gap-3 overflow-x-auto">{steps.map((name, index) => { const number = index + 1; const completed = number < step; const active = number === step; const clickable = number < step; return <li key={name} className={`flex flex-1 items-center gap-3 ${number === 7 ? 'last:flex-none' : ''}`}><button type="button" onClick={() => goToStep(number)} disabled={!clickable} aria-current={active ? 'step' : undefined} aria-label={`${name}, paso ${number}${completed ? ', volver a este paso' : active ? ', paso actual' : ', pendiente'}`} className={`group flex min-w-0 shrink-0 items-center gap-3 rounded-lg text-left outline-none focus-visible:ring-4 focus-visible:ring-[#5368c8]/20 ${clickable ? 'cursor-pointer' : 'cursor-default'}`}><span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border text-sm font-bold transition-colors ${completed ? 'border-[#b8e8cc] bg-[#e1f7e9] text-[#218052] group-hover:border-[#74cf98] group-hover:bg-[#d4f2df]' : active ? 'border-[#17233f] bg-[#17233f] text-white' : 'border-[#dce3ee] bg-white text-[#73809a]'}`}>{completed ? '✓' : number}</span><span className={`whitespace-nowrap text-sm font-bold ${active ? 'text-[#17233f]' : completed ? 'text-[#263653]' : 'text-[#96a2b8]'}`}>{name}</span></button>{number < 7 && <span aria-hidden="true" className={`h-0.5 min-w-8 flex-1 ${completed ? 'bg-[#74cf98]' : 'bg-[#dfe5ef]'}`} />}</li>})}</ol></nav></header>
     <div className={`grid gap-8 p-6 sm:p-10 lg:p-12 ${step > 1 ? 'lg:grid-cols-[minmax(0,1fr)_330px]' : ''}`}>
       <div className={`min-w-0 ${step === 1 ? 'mx-auto w-full max-w-[820px]' : ''}`}><div className="mb-8"><p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-[#5368c8]">Paso {step} de 7</p><h1 className="text-2xl font-bold tracking-[-0.02em] text-[#17233f]">{['Identifica al beneficiario','Cotización de la remesa','Datos del remitente','Datos del beneficiario','Información adicional','Método de pago','Revisa y confirma'][step - 1]}</h1><p className="mt-2 text-sm leading-6 text-[#687790]">Completa la información necesaria para continuar con la operación.</p></div>
         {step === 1 && <form onSubmit={(e) => { e.preventDefault(); searchClient() }} className="mx-auto max-w-[680px] space-y-5"><Field label="Tipo de transacción" value="Envío de Remesa RIA - S&L - Bolivia" disabled required /><label className="block"><span className="mb-2 block text-sm font-semibold">Tipo de documento <span className="text-[#c73750]">*</span></span><select defaultValue="ci" className="h-12 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm outline-none focus:border-[#5368c8]"><option value="ci">Cédula</option></select></label><label className="block"><span className="mb-2 block text-sm font-semibold">Número de documento <span className="text-[#c73750]">*</span></span><input autoFocus inputMode="numeric" value={documentNumber} onChange={(e) => { setDocumentNumber(e.target.value.replace(/\D/g, '')); setResult(null) }} placeholder="Ingresa el número de documento" className="h-12 w-full rounded-lg border border-[#cdd5e1] px-3 text-sm outline-none focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10" /><span className="mt-2 block text-xs text-[#7b879b]">Solo números, sin espacios.</span></label><button disabled={!documentNumber || loading} className="h-12 w-full rounded-lg bg-[#465bc2] text-sm font-bold text-white disabled:bg-[#b8c1dc]">{loading ? 'Buscando cliente…' : 'Buscar'}</button><div aria-live="polite" className="min-h-[150px] border-t border-[#e9edf5] pt-6">{result === 'success' && <div className="rounded-xl border border-[#cde8db] bg-[#f1faf5] p-5"><p className="text-xs font-bold uppercase text-[#23815d]">✓ Cliente encontrado</p><h2 className="mt-2 text-xl font-bold text-[#1f6d55]">Eliana Antezana Ovando</h2><p className="mt-2 text-sm text-[#5d7c72]">Documento: {documentNumber} · j***@cislatam.com</p><div className="mt-4 flex justify-end gap-3"><button type="button" className="rounded-lg border border-[#b8d8c9] px-4 py-2 text-sm font-bold text-[#28694f]">Ver perfil</button><button type="button" ref={continueRef} onClick={next} className="rounded-lg bg-[#465bc2] px-4 py-2 text-sm font-bold text-white">Continuar</button></div></div>}{result === 'empty' && <div className="rounded-xl border border-[#eadcae] bg-[#fffaf0] p-5"><p className="font-bold text-[#5d4b19]">No encontramos un cliente asociado a este documento.</p><p className="mt-1 text-sm text-[#8a7740]">Puedes registrar un nuevo cliente para continuar.</p><div className="mt-4 flex justify-end gap-3"><button type="button" className="rounded-lg bg-[#465bc2] px-4 py-2 text-sm font-bold text-white">Registrar cliente</button><button type="button" ref={continueRef} onClick={next} className="rounded-lg border border-[#d6c688] px-4 py-2 text-sm font-bold text-[#765d12]">Continuar</button></div></div>}{result === 'error' && <div role="alert" className="rounded-xl border border-[#f0c8cf] bg-[#fff5f6] p-5"><p className="font-bold text-[#7f2638]">No pudimos completar la búsqueda</p><p className="mt-1 text-sm text-[#a34f60]">Ocurrió un problema temporal. Verifica tu conexión e inténtalo nuevamente.</p><button type="button" onClick={searchClient} className="mt-4 rounded-lg bg-[#b52e45] px-4 py-2 text-sm font-bold text-white">Reintentar</button></div>}</div></form>}

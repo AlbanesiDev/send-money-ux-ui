@@ -29,6 +29,7 @@ export default function RemittanceSuccessPage() {
             <button type="button" className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#dce3ee] px-5 py-3 text-sm font-bold text-[#17233f] transition-colors hover:border-[#465bc2] hover:text-[#465bc2]"><Printer className="h-4 w-4" aria-hidden="true" />Imprimir</button>
             <button type="button" className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#dce3ee] px-5 py-3 text-sm font-bold text-[#17233f] transition-colors hover:border-[#465bc2] hover:text-[#465bc2]"><Download className="h-4 w-4" aria-hidden="true" />Descargar</button>
           </div>
+          <button type="button" className="mt-5 inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#dce3ee] bg-[#f8f9fc] px-6 py-3 text-sm font-bold text-[#17233f] transition-colors hover:border-[#465bc2] hover:text-[#465bc2]"><Download className="h-4 w-4" aria-hidden="true" />Descargar factura electrónica</button>
           <div className="mt-8 w-full border-t border-[#dce3ee] pt-8">
             <button type="button" onClick={() => router.push('/')} className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-[#465bc2] px-8 py-3 text-sm font-bold text-white transition-colors hover:bg-[#394ba9]"><RotateCcw className="h-4 w-4" aria-hidden="true" />Nueva transacción</button>
           </div>

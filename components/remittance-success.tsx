@@ -1,7 +1,29 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Check, Copy, Download, Eye, Printer, RotateCcw, Users } from 'lucide-react'
+import { Check, Copy, Download, Eye, Loader2, Printer, RotateCcw, Users } from 'lucide-react'
+
+export function RemittanceProcessing({ totalSent }: { totalSent: string }) {
+  return (
+    <div className="flex min-h-0 flex-1 items-center justify-center overflow-y-auto p-6 sm:p-12" role="status" aria-live="polite" aria-busy="true">
+      <div className="flex w-full max-w-[620px] flex-col items-center text-center">
+        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#eef0ff] text-[#465bc2]" aria-hidden="true">
+          <Loader2 className="h-9 w-9 motion-safe:animate-spin" strokeWidth={2.5} />
+        </div>
+        <p className="mt-6 text-xs font-bold uppercase tracking-[0.14em] text-[#465bc2]">Procesando envío</p>
+        <h1 className="mt-2 text-balance text-3xl font-bold tracking-[-0.02em] text-[#17233f]">Estamos registrando la remesa</h1>
+        <p className="mt-3 max-w-lg text-pretty text-sm leading-6 text-[#687790]">No cierres esta ventana. Esto puede tardar unos segundos.</p>
+        <div className="mt-8 flex w-full max-w-md items-center justify-between gap-4 rounded-xl border border-[#dce3ee] bg-[#fbfcfe] p-5 text-left">
+          <span className="text-sm text-[#73809a]">Total a enviar</span>
+          <span className="text-lg font-bold tabular-nums text-[#465bc2]">{totalSent}</span>
+        </div>
+        <div className="mt-6 h-1.5 w-full max-w-md overflow-hidden rounded-full bg-[#eef0ff]" aria-hidden="true">
+          <div className="h-full w-1/3 rounded-full bg-[#465bc2] motion-safe:animate-[processing-bar_1.4s_ease-in-out_infinite]" />
+        </div>
+      </div>
+    </div>
+  )
+}
 
 type RemittanceSuccessProps = {
   operationNumber: string

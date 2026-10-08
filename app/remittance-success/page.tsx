@@ -17,7 +17,7 @@ export default function RemittanceSuccessPage() {
           <div className="mt-8 w-full max-w-md rounded-xl border border-[#dce3ee] bg-[#fbfcfe] p-5 text-left">
             <div className="flex items-center justify-between border-b border-[#e4e8ef] pb-4">
               <span className="text-sm text-[#73809a]">Número de operación</span>
-              <strong className="font-mono text-xl text-[#17233f]">RIA-20261008-018</strong>
+              <strong className="font-mono text-xl text-[#17233f]">12030070733</strong>
             </div>
             <div className="flex items-center justify-between pt-4">
               <span className="text-sm text-[#73809a]">Total enviado</span>

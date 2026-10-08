@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent, type RefObject } from 'react'
 import { flushSync } from 'react-dom'
-import { useRouter } from 'next/navigation'
+import { RemittanceSuccess } from '@/components/remittance-success'
 import { Bell, Ban, ChevronRight, FileText, Landmark, List, Menu, Search, SlidersHorizontal, Wallet, X } from 'lucide-react'
 import countriesCatalog from '../public/catalog-countries.json'
 import payoutPartnersCatalog from '../public/calog-payout-partners.json'
@@ -152,8 +152,12 @@ function Summary({ provider, quote, loading }: { provider: string; quote: Quote 
 }
 
 export default function Page() {
+  const [flowKey, setFlowKey] = useState(0)
+  return <TransactionFlow key={flowKey} onReset={() => setFlowKey((key) => key + 1)} />
+}
+
+function TransactionFlow({ onReset }: { onReset: () => void }) {
   useAltFieldNavigation()
-  const router = useRouter()
   const [step, setStep] = useState(1)
   const [documentNumber, setDocumentNumber] = useState('')
   const [provider, setProvider] = useState('RIA')
@@ -276,7 +280,14 @@ export default function Page() {
   function next() { if (step === 6 && !paymentReady) return; setStep((current) => Math.min(7, current + 1)) }
   function back() { setStep((current) => Math.max(1, current - 1)) }
   function goToStep(target: number) { if (target < step) setStep(target) }
-  function handleContinue() { if (step === 7) router.push('/remittance-success'); else next() }
+  function handleContinue() { if (step === 7) setSent(true); else next() }
+  function startAnotherQuote() {
+    clearAmount()
+    setPaymentMethod('')
+    setReceivedAmount('')
+    setSent(false)
+    setStep(2)
+  }
 
   useEffect(() => {
     function handleStepperShortcut(event: KeyboardEvent) {
@@ -300,7 +311,7 @@ export default function Page() {
     return () => window.removeEventListener('keydown', handleStepperShortcut)
   }, [step, paymentReady])
 
-  return <><VisualToolbar /><main className="flex h-[calc(100vh-74px)] min-h-0 gap-6 overflow-hidden bg-[#F2F2F9] px-4 py-5 text-[#17233f] sm:px-8 lg:px-12"><VisualSidebar /><section className="mx-auto flex min-h-0 min-w-0 max-w-[1540px] flex-1 flex-col overflow-hidden rounded-[18px] bg-white shadow-[0_12px_35px_rgba(24,37,73,0.05)]">
+  return <><VisualToolbar /><main className="flex h-[calc(100vh-74px)] min-h-0 gap-6 overflow-hidden bg-[#F2F2F9] px-4 py-5 text-[#17233f] sm:px-8 lg:px-12"><VisualSidebar /><section className="mx-auto flex min-h-0 min-w-0 max-w-[1540px] flex-1 flex-col overflow-hidden rounded-[18px] bg-white shadow-[0_12px_35px_rgba(24,37,73,0.05)]">{sent ? <RemittanceSuccess operationNumber="12030070733" totalSent={formatUsd(quote ? quote.amount + quote.fee + quote.tax : 0)} onNewTransaction={onReset} onRepeatClient={startAnotherQuote} onSameBeneficiary={startAnotherQuote} /> : <>
     <header className="shrink-0 px-6 py-4 sm:px-10 lg:px-12"><nav aria-label="Progreso de la transacción"><ol className="flex w-full flex-wrap items-center gap-x-3 gap-y-3 overflow-hidden">{steps.map((name, index) => { const number = index + 1; const completed = number < step; const active = number === step; const clickable = number < step; return <li key={name} className={`flex min-w-0 flex-1 items-center gap-2 ${number === 7 ? 'last:flex-none' : ''}`}><button type="button" onClick={() => goToStep(number)} disabled={!clickable} aria-current={active ? 'step' : undefined} aria-label={`${name}, paso ${number}${completed ? ', volver a este paso' : active ? ', paso actual' : ', pendiente'}`} className={`group flex min-w-0 shrink-0 items-center gap-3 rounded-lg text-left outline-none focus-visible:ring-4 focus-visible:ring-[#5368c8]/20 ${clickable ? 'cursor-pointer' : 'cursor-default'}`}><span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border text-sm font-bold transition-colors ${completed ? 'border-[#b8e8cc] bg-[#e1f7e9] text-[#218052] group-hover:border-[#74cf98] group-hover:bg-[#d4f2df]' : active ? 'border-[#17233f] bg-[#17233f] text-white' : 'border-[#dce3ee] bg-white text-[#73809a]'}`}>{completed ? '✓' : number}</span><span className={`whitespace-nowrap text-sm font-bold ${active ? 'text-[#17233f]' : completed ? 'text-[#263653]' : 'text-[#96a2b8]'}`}>{name}</span></button>{number < 7 && <span aria-hidden="true" className={`h-0.5 min-w-8 flex-1 ${completed ? 'bg-[#74cf98]' : 'bg-[#dfe5ef]'}`} />}</li>})}</ol></nav><div aria-hidden="true" className="mt-3 h-px w-[calc(100%+3rem)] -translate-x-6 bg-[#e9edf5] sm:w-[calc(100%+5rem)] sm:-translate-x-10 lg:w-[calc(100%+6rem)] lg:-translate-x-12" />{step > 1 && <div className="mt-3 rounded-xl border border-[#dce3ee] bg-[#fbfcfe] px-4 py-2"><div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1"><div className="flex items-center gap-3 leading-none"><p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#73809a]">Remitente</p><p className="text-sm font-bold text-[#17233f]">{isKnownClient ? 'Eliana Antezana Ovando' : 'Nuevo cliente'}</p><p className="text-xs text-[#687790]">Cédula: {documentNumber}{isKnownClient && ' · j***@cislatam.com'}</p>{isKnownClient && <p className="mt-1 text-sm font-semibold text-[#5368c8]">PEP: Sí</p>}</div><div className="flex items-center gap-2 text-sm text-[#687790]"><span className={`h-2 w-2 rounded-full ${isKnownClient ? 'bg-[#38b878]' : 'bg-[#d9a520]'}`} aria-hidden="true" /> {isKnownClient ? 'Cliente identificado' : 'Cliente no registrado'}</div></div></div>}</header>
     <div className={`grid min-h-0 flex-1 gap-8 overflow-y-auto px-6 pb-6 pt-1 sm:px-10 sm:pb-10 sm:pt-2 lg:px-12 lg:pb-12 lg:pt-3 ${step > 1 && !sent ? 'lg:grid-cols-[minmax(0,1fr)_330px]' : ''}`}>
       <div className={`min-w-0 ${step === 1 || sent ? 'mx-auto w-full max-w-[820px]' : ''}`} data-form-fields data-enter-advance={step >= 3 && step <= 5 ? '' : undefined}><div><div className="mb-5"><p className="mb-1 text-xs font-bold uppercase tracking-[0.14em] text-[#5368c8]">Paso {step} de 7</p><h1 className="text-2xl font-bold tracking-[-0.02em] text-[#17233f]">{['Identifica al beneficiario','Cotización de la remesa','Datos del remitente','Datos del beneficiario','Información adicional','Método de pago','Revisa y confirma'][step - 1]}</h1><p className="mt-2 text-sm leading-6 text-[#687790]">Completa la información necesaria para continuar con la operación.</p></div>
@@ -314,6 +325,6 @@ export default function Page() {
         </div></div>
       {step > 1 && <div className="sticky top-6 self-start"><Summary provider={provider} quote={quote} loading={quoteLoading} /></div>}
     </div>
-    {step > 1 && <div className="shrink-0 border-t border-[#e9edf5] bg-white px-6 py-5 sm:px-10 lg:px-12"><div className="flex w-full justify-between"><button type="button" onClick={back} className="rounded-lg border border-[#dce3ee] px-8 py-3 text-sm font-bold text-[#687790]">Volver</button><button type="button" ref={nextButtonRef} data-next-button onClick={handleContinue} disabled={step === 6 && !paymentReady} className="rounded-lg bg-[#465bc2] px-8 py-3 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-[#5368c8]/30 disabled:cursor-not-allowed disabled:bg-[#b9c1e3]">{step === 7 ? 'Confirmar y enviar' : 'Siguiente'}</button></div></div>}
+    {step > 1 && <div className="shrink-0 border-t border-[#e9edf5] bg-white px-6 py-5 sm:px-10 lg:px-12"><div className="flex w-full justify-between"><button type="button" onClick={back} className="rounded-lg border border-[#dce3ee] px-8 py-3 text-sm font-bold text-[#687790]">Volver</button><button type="button" ref={nextButtonRef} data-next-button onClick={handleContinue} disabled={step === 6 && !paymentReady} className="rounded-lg bg-[#465bc2] px-8 py-3 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-[#5368c8]/30 disabled:cursor-not-allowed disabled:bg-[#b9c1e3]">{step === 7 ? 'Confirmar y enviar' : 'Siguiente'}</button></div></div>}</>}
     </section></main></>
 }

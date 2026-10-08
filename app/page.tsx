@@ -2,99 +2,48 @@
 
 import { useRef, useState } from 'react'
 
-const steps = [
-  'Transacción a realizar',
-  'Cotización',
-  'Datos Remitente',
-  'Datos Beneficiario',
-  'Información Adicional',
-  'Método de Pago',
-  'Visualizar Información',
-]
+const steps = ['Transacción', 'Cotización', 'Remitente', 'Beneficiario', 'Información adicional', 'Método de pago', 'Revisión']
+
+const Field = ({ label, value, required = false, placeholder = '', disabled = false }: { label: string; value?: string; required?: boolean; placeholder?: string; disabled?: boolean }) => (
+  <label className="block">
+    <span className="mb-2 block text-sm font-semibold text-[#263653]">{label} {required && <span className="text-[#c73750]">*</span>}</span>
+    <input defaultValue={value} placeholder={placeholder} disabled={disabled} className="h-12 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm text-[#263653] outline-none transition placeholder:text-[#a2adbf] focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10 disabled:bg-[#f7f8fb] disabled:text-[#73809a]" />
+  </label>
+)
+
+function Summary({ step }: { step: number }) {
+  return <aside className="rounded-xl border border-[#e1e6ef] bg-[#fbfcfe] p-5 lg:sticky lg:top-6 lg:h-fit"><div className="flex items-center justify-between border-b border-[#e4e8ef] pb-4"><h2 className="font-bold text-[#17233f]">Resumen</h2><span className="rounded-full bg-[#eef0ff] px-2 py-1 text-[11px] font-bold text-[#465bc2]">RIA</span></div><dl className="mt-5 space-y-3 text-sm"><div className="flex justify-between gap-4"><dt className="text-[#73809a]">Beneficiario</dt><dd className="text-right font-semibold text-[#263653]">Joaco Test Devv Test</dd></div><div className="flex justify-between"><dt className="text-[#73809a]">Dinero a enviar</dt><dd className="font-semibold">11,00 USD</dd></div><div className="flex justify-between"><dt className="text-[#73809a]">Cargo de envío</dt><dd className="font-semibold">5,00 USD</dd></div><div className="flex justify-between"><dt className="text-[#73809a]">IVA</dt><dd className="font-semibold">0,91 USD</dd></div><div className="mt-4 flex justify-between border-t border-[#e4e8ef] pt-4 text-base"><dt className="font-bold">Total</dt><dd className="font-bold text-[#465bc2]">18,01 USD</dd></div></dl><p className="mt-5 rounded-lg bg-[#f3f6ff] p-3 text-xs leading-5 text-[#687790]">Paso {step} de 7 · La información se conserva al avanzar.</p></aside>
+}
 
 export default function Page() {
+  const [step, setStep] = useState(1)
   const [documentNumber, setDocumentNumber] = useState('')
   const [result, setResult] = useState<'success' | 'empty' | 'error' | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const continueButtonRef = useRef<HTMLButtonElement>(null)
+  const [loading, setLoading] = useState(false)
+  const continueRef = useRef<HTMLButtonElement>(null)
 
   function searchClient() {
     const value = documentNumber.trim()
-    if (!value || isLoading) return
-
-    setIsLoading(true)
-    setResult(null)
-    window.setTimeout(() => {
-      const found = value === '7807365'
-      const hasServiceError = value === '0000000'
-      setResult(hasServiceError ? 'error' : found ? 'success' : 'empty')
-      setIsLoading(false)
-      window.setTimeout(() => continueButtonRef.current?.focus(), 0)
-    }, 650)
+    if (!value || loading) return
+    setLoading(true); setResult(null)
+    window.setTimeout(() => { setResult(value === '0000000' ? 'error' : value === '7807365' ? 'success' : 'empty'); setLoading(false); window.setTimeout(() => continueRef.current?.focus(), 0) }, 550)
   }
 
-  return (
-    <main className="min-h-screen bg-[#f4f5fb] px-4 py-5 text-[#17233f] sm:px-8 lg:px-12">
-      <section className="mx-auto max-w-[1540px] overflow-hidden rounded-[18px] bg-white shadow-[0_12px_35px_rgba(24,37,73,0.05)]">
-        <nav aria-label="Progreso de la transacción" className="overflow-x-auto border-b border-[#e9edf5] px-6 py-6 sm:px-10 lg:px-12">
-          <ol className="flex min-w-[900px] items-center gap-3 text-[12px] font-medium text-[#96a2b8]">
-            {steps.map((step, index) => (
-              <li key={step} className="flex flex-1 items-center gap-3 whitespace-nowrap last:flex-none">
-                <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border text-[11px] font-bold ${index === 0 ? 'border-[#17233f] bg-[#17233f] text-white' : 'border-[#dce3ee] bg-white text-[#60718e]'}`} aria-current={index === 0 ? 'step' : undefined}>{index + 1}</span>
-                <span className={index === 0 ? 'font-bold text-[#17233f]' : ''}>{step}</span>
-                {index < steps.length - 1 && <span className="mx-1 h-px flex-1 bg-[#dfe5ef]" aria-hidden="true" />}
-              </li>
-            ))}
-          </ol>
-        </nav>
+  function next() { setStep((current) => Math.min(7, current + 1)) }
+  function back() { setStep((current) => Math.max(1, current - 1)) }
 
-        <div className="mx-auto max-w-[680px] px-6 py-10 sm:px-10 sm:py-12">
-          <div className="mb-8">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#5368c8]">Paso 1 de 7</p>
-            <h1 className="text-2xl font-bold tracking-[-0.02em] text-[#17233f]">Identifica al beneficiario</h1>
-            <p className="mt-2 text-sm leading-6 text-[#687790]">Ingresa los datos para buscar un cliente existente antes de continuar.</p>
-          </div>
-
-          <form onSubmit={(event) => { event.preventDefault(); searchClient() }} className="space-y-5" aria-describedby="form-help">
-            <div>
-              <label htmlFor="transaction" className="mb-2 block text-sm font-semibold text-[#263653]">Tipo de transacción <span className="text-[#c73750]" aria-hidden="true">*</span></label>
-              <select id="transaction" className="h-12 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm text-[#263653] outline-none transition focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10" defaultValue="ria">
-                <option value="ria">Envío de Remesa RIA - S&amp;L - Bolivia</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="document-type" className="mb-2 block text-sm font-semibold text-[#263653]">Tipo de documento <span className="text-[#c73750]" aria-hidden="true">*</span></label>
-              <select id="document-type" className="h-12 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm text-[#263653] outline-none transition focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10" defaultValue="ci">
-                <option value="ci">Cédula</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="document-number" className="mb-2 block text-sm font-semibold text-[#263653]">Número de documento <span className="text-[#c73750]" aria-hidden="true">*</span></label>
-              <input id="document-number" inputMode="numeric" autoComplete="off" value={documentNumber} onChange={(event) => { setDocumentNumber(event.target.value.replace(/\D/g, '')); setResult(null) }} placeholder="Ingresa el número de documento" aria-describedby="document-help" className="h-12 w-full rounded-lg border border-[#cdd5e1] px-3 text-sm text-[#263653] outline-none transition placeholder:text-[#a2adbf] focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10" />
-              <p id="document-help" className="mt-2 text-xs text-[#7b879b]">Solo números, sin espacios.</p>
-            </div>
-            <button type="submit" disabled={!documentNumber.trim() || isLoading} className="flex h-12 w-full items-center justify-center rounded-lg bg-[#465bc2] text-sm font-bold text-white transition hover:bg-[#3d50b0] focus:outline-none focus:ring-4 focus:ring-[#465bc2]/20 disabled:cursor-not-allowed disabled:bg-[#b8c1dc]">
-              {isLoading ? <><span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" aria-hidden="true" />Buscando cliente…</> : 'Buscar'}
-            </button>
-          </form>
-
-          <div className="mt-9 min-h-[164px] border-t border-[#e9edf5] pt-6" aria-live="polite" aria-atomic="true">
-            {result === 'success' && <div className="rounded-xl border border-[#cde8db] bg-[#f1faf5] p-5">
-              <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-                <div>
-                  <div className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.1em] text-[#23815d]"><span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#23815d] text-white">✓</span> Cliente encontrado</div>
-                  <h2 className="text-xl font-bold text-[#1f6d55]">Eliana Antezana Ovando</h2>
-                  <dl className="mt-3 grid gap-1 text-sm text-[#5d7c72]"><div><dt className="inline font-semibold">Documento: </dt><dd className="inline">{documentNumber}</dd></div><div><dt className="inline font-semibold">Correo: </dt><dd className="inline">j***@cislatam.com</dd></div></dl>
-                </div>
-                <div className="flex shrink-0 gap-3 sm:pt-8"><button type="button" className="rounded-lg border border-[#b8d8c9] bg-white px-4 py-2.5 text-sm font-bold text-[#28694f] focus:outline-none focus:ring-4 focus:ring-[#23815d]/20">Ver perfil</button><button ref={continueButtonRef} type="button" className="rounded-lg bg-[#465bc2] px-4 py-2.5 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-[#465bc2]/20">Continuar</button></div>
-              </div>
-            </div>}
-            {result === 'empty' && <div className="rounded-xl border border-[#eadcae] bg-[#fffaf0] p-5"><div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"><div><div className="mb-2 text-xs font-bold uppercase tracking-[0.1em] text-[#9b7214]">Sin coincidencias</div><h2 className="text-base font-bold text-[#5d4b19]">No encontramos un cliente asociado a este documento.</h2><p className="mt-1 text-sm text-[#8a7740]">Puedes registrar un nuevo cliente para continuar.</p></div><div className="flex shrink-0 gap-3"><button type="button" className="rounded-lg bg-[#465bc2] px-4 py-2.5 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-[#465bc2]/20">Registrar cliente</button><button ref={continueButtonRef} type="button" className="rounded-lg border border-[#d6c688] bg-white px-4 py-2.5 text-sm font-bold text-[#765d12] focus:outline-none focus:ring-4 focus:ring-[#9b7214]/20">Continuar</button></div></div></div>}
-            {result === 'error' && <div role="alert" className="rounded-xl border border-[#f0c8cf] bg-[#fff5f6] p-5"><div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div><div className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.1em] text-[#b52e45]"><span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#b52e45] text-white">!</span> No pudimos completar la búsqueda</div><h2 className="text-base font-bold text-[#7f2638]">Ocurrió un problema temporal.</h2><p className="mt-1 text-sm text-[#a34f60]">Verifica tu conexión e inténtalo nuevamente. Tu información no se perdió.</p></div><button type="button" onClick={searchClient} className="shrink-0 rounded-lg bg-[#b52e45] px-4 py-2.5 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-[#b52e45]/20">Reintentar</button></div></div>}
-            {!result && !isLoading && <p id="form-help" className="text-center text-sm text-[#98a3b6]">El resultado de la búsqueda aparecerá aquí.</p>}
-          </div>
-        </div>
-      </section>
-    </main>
-  )
+  return <main className="min-h-screen bg-[#f4f5fb] px-4 py-5 text-[#17233f] sm:px-8 lg:px-12"><section className="mx-auto max-w-[1540px] overflow-hidden rounded-[18px] bg-white shadow-[0_12px_35px_rgba(24,37,73,0.05)]">
+    <header className="border-b border-[#e9edf5] px-6 py-6 sm:px-10 lg:px-12"><nav aria-label="Progreso de la transacción"><ol className="flex min-w-[760px] items-start gap-2 overflow-x-auto">{steps.map((name, index) => { const number = index + 1; return <li key={name} className={`flex flex-1 items-start gap-2 ${number === 7 ? 'last:flex-none' : ''}`}><div className="flex min-w-0 flex-1 flex-col items-center gap-2 text-center"><span className={`flex h-7 w-7 items-center justify-center rounded-lg border text-[11px] font-bold ${number <= step ? 'border-[#465bc2] bg-[#465bc2] text-white' : 'border-[#dce3ee] bg-white text-[#60718e]'}`}>{number <= step ? '✓' : number}</span><span className={`text-[11px] font-semibold leading-4 ${number === step ? 'text-[#465bc2]' : number < step ? 'text-[#263653]' : 'text-[#96a2b8]'}`}>{name}</span></div>{number < 7 && <span className={`mt-3 h-px flex-1 ${number < step ? 'bg-[#465bc2]' : 'bg-[#dfe5ef]'}`} />}</li>})}</ol></nav></header>
+    <div className="grid gap-8 p-6 sm:p-10 lg:grid-cols-[minmax(0,1fr)_330px] lg:p-12">
+      <div className="min-w-0"><div className="mb-8"><p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-[#5368c8]">Paso {step} de 7</p><h1 className="text-2xl font-bold tracking-[-0.02em] text-[#17233f]">{['Identifica al beneficiario','Cotización de la remesa','Datos del remitente','Datos del beneficiario','Información adicional','Método de pago','Revisa y confirma'][step - 1]}</h1><p className="mt-2 text-sm leading-6 text-[#687790]">Completa la información necesaria para continuar con la operación.</p></div>
+        {step === 1 && <form onSubmit={(e) => { e.preventDefault(); searchClient() }} className="max-w-[680px] space-y-5"><Field label="Tipo de transacción" value="Envío de Remesa RIA - S&L - Bolivia" disabled required /><label className="block"><span className="mb-2 block text-sm font-semibold">Tipo de documento <span className="text-[#c73750]">*</span></span><select defaultValue="ci" className="h-12 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm outline-none focus:border-[#5368c8]"><option value="ci">Cédula</option></select></label><label className="block"><span className="mb-2 block text-sm font-semibold">Número de documento <span className="text-[#c73750]">*</span></span><input autoFocus inputMode="numeric" value={documentNumber} onChange={(e) => { setDocumentNumber(e.target.value.replace(/\D/g, '')); setResult(null) }} placeholder="Ingresa el número de documento" className="h-12 w-full rounded-lg border border-[#cdd5e1] px-3 text-sm outline-none focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10" /><span className="mt-2 block text-xs text-[#7b879b]">Solo números, sin espacios.</span></label><button disabled={!documentNumber || loading} className="h-12 w-full rounded-lg bg-[#465bc2] text-sm font-bold text-white disabled:bg-[#b8c1dc]">{loading ? 'Buscando cliente…' : 'Buscar'}</button><div aria-live="polite" className="min-h-[150px] border-t border-[#e9edf5] pt-6">{result === 'success' && <div className="rounded-xl border border-[#cde8db] bg-[#f1faf5] p-5"><p className="text-xs font-bold uppercase text-[#23815d]">✓ Cliente encontrado</p><h2 className="mt-2 text-xl font-bold text-[#1f6d55]">Eliana Antezana Ovando</h2><p className="mt-2 text-sm text-[#5d7c72]">Documento: {documentNumber} · j***@cislatam.com</p><div className="mt-4 flex justify-end gap-3"><button type="button" className="rounded-lg border border-[#b8d8c9] px-4 py-2 text-sm font-bold text-[#28694f]">Ver perfil</button><button type="button" ref={continueRef} onClick={next} className="rounded-lg bg-[#465bc2] px-4 py-2 text-sm font-bold text-white">Continuar</button></div></div>}{result === 'empty' && <div className="rounded-xl border border-[#eadcae] bg-[#fffaf0] p-5"><p className="font-bold text-[#5d4b19]">No encontramos un cliente asociado a este documento.</p><p className="mt-1 text-sm text-[#8a7740]">Puedes registrar un nuevo cliente para continuar.</p><div className="mt-4 flex justify-end gap-3"><button type="button" className="rounded-lg bg-[#465bc2] px-4 py-2 text-sm font-bold text-white">Registrar cliente</button><button type="button" ref={continueRef} onClick={next} className="rounded-lg border border-[#d6c688] px-4 py-2 text-sm font-bold text-[#765d12]">Continuar</button></div></div>}{result === 'error' && <div role="alert" className="rounded-xl border border-[#f0c8cf] bg-[#fff5f6] p-5"><p className="font-bold text-[#7f2638]">No pudimos completar la búsqueda</p><p className="mt-1 text-sm text-[#a34f60]">Ocurrió un problema temporal. Verifica tu conexión e inténtalo nuevamente.</p><button type="button" onClick={searchClient} className="mt-4 rounded-lg bg-[#b52e45] px-4 py-2 text-sm font-bold text-white">Reintentar</button></div>}</div></form>}
+        {step === 2 && <div className="space-y-6"><div className="grid gap-5 sm:grid-cols-2"><Field label="País de pago" value="Bolivia" disabled required /><Field label="Moneda de origen" value="USD" disabled required /><Field label="Moneda de destino" value="BOB" disabled required /><Field label="Monto a enviar" value="11,00" required /></div><div className="rounded-xl border border-[#dce3ee] bg-[#f8faff] p-5"><h2 className="font-bold">Resultado de la cotización</h2><div className="mt-4 grid gap-3 text-sm sm:grid-cols-3"><div>Beneficiario recibe<strong className="mt-1 block text-lg">11,00 USD</strong></div><div>Cargo de envío<strong className="mt-1 block text-lg">5,00 USD</strong></div><div>Total a pagar<strong className="mt-1 block text-lg text-[#465bc2]">18,01 USD</strong></div></div></div></div>}
+        {step === 3 && <div className="space-y-6"><h2 className="font-bold">Datos personales</h2><div className="grid gap-5 sm:grid-cols-2"><Field label="Nombre" value="Eliana" required /><Field label="Segundo nombre" /><Field label="Primer apellido" value="Antezana" required /><Field label="Segundo apellido" value="Ovando" /><Field label="Correo electrónico" value="jorge.gimenez@cislatam.com" required /><Field label="Número de documento" value="7807365" disabled required /></div><h2 className="pt-4 font-bold">Datos de dirección</h2><div className="grid gap-5 sm:grid-cols-2"><Field label="País de residencia" value="Bolivia" disabled required /><Field label="Estado" value="La Paz" required /><Field label="Ciudad" value="Acarapiri" required /><Field label="Dirección" value="Fabian Vaca 3712" required /><Field label="Número de teléfono" value="45545454" /></div></div>}
+        {step === 4 && <div className="space-y-6"><div className="grid gap-5 sm:grid-cols-2"><Field label="Nombre completo" value="Joaco Test Devv Test" required /><Field label="Ciudad" value="Acerani" required /><Field label="País de residencia" value="Bolivia" required /><Field label="Estado" value="La Paz" required /><Field label="Dirección" value="Calle 123" /><Field label="Número de teléfono" value="4554545454" /></div><label className="flex items-center gap-3 text-sm"><input type="checkbox" defaultChecked className="h-5 w-5 accent-[#465bc2]" /> Guardar en mi lista de beneficiarios frecuentes</label><div className="rounded-lg bg-[#f8faff] p-4 text-sm text-[#687790]">Los datos del beneficiario se guardan para agilizar futuros envíos.</div></div>}
+        {step === 5 && <div className="space-y-5"><h2 className="font-bold">Declaraciones de la operación</h2>{['Información adicional','¿Es una Persona Expuesta Políticamente (PEP)?','¿Es allegado a una PEP?','Transacción sospechosa o inusual'].map((label) => <label key={label} className="flex items-center gap-3 rounded-lg border border-[#e1e6ef] p-4 text-sm"><input type="checkbox" className="h-5 w-5 accent-[#465bc2]" />{label}</label>)}</div>}
+        {step === 6 && <div className="space-y-6"><h2 className="font-bold">Registra el pago recibido</h2><div className="grid gap-5 sm:grid-cols-2"><Field label="Total a cobrar" value="18,01 USD" disabled required /><Field label="Método de pago" value="Pago en efectivo" disabled required /><Field label="Monto recibido" placeholder="Ingresa el monto recibido" required /></div><div className="rounded-xl border border-[#cde8db] bg-[#f1faf5] p-5"><div className="flex justify-between font-semibold"><span>Vuelto</span><span className="text-[#23815d]">0,00 USD</span></div><p className="mt-2 text-sm text-[#5d7c72]">El saldo pendiente se actualizará automáticamente.</p></div></div>}
+        {step === 7 && <div className="space-y-6"><div className="rounded-xl border border-[#dce3ee] bg-[#fbfcfe] p-5"><h2 className="font-bold">Resumen de la operación</h2><div className="mt-5 grid gap-4 text-sm sm:grid-cols-2"><Field label="Remitente" value="Eliana Antezana Ovando" disabled /><Field label="Beneficiario" value="Joaco Test Devv Test" disabled /><Field label="Destino" value="Bolivia · Acerani" disabled /><Field label="Total a pagar" value="18,01 USD" disabled /></div></div><p className="rounded-lg bg-[#fffaf0] p-4 text-sm text-[#765d12]">Confirma con el cliente el monto, el beneficiario y el lugar de pago antes de enviar.</p></div>}
+        {step > 1 && <div className="mt-10 flex justify-between border-t border-[#e9edf5] pt-6"><button type="button" onClick={back} className="rounded-lg border border-[#dce3ee] px-8 py-3 text-sm font-bold text-[#687790]">Volver</button><button type="button" onClick={next} className="rounded-lg bg-[#465bc2] px-8 py-3 text-sm font-bold text-white">{step === 7 ? 'Confirmar y enviar' : 'Siguiente'}</button></div>}</div>
+      <Summary step={step} />
+    </div></section></main>
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { Download, Eye, Printer, RotateCcw } from 'lucide-react'
+import { Copy, Download, Eye, Printer, RotateCcw, Users } from 'lucide-react'
 
 export default function RemittanceSuccessPage() {
   const router = useRouter()
@@ -17,7 +17,7 @@ export default function RemittanceSuccessPage() {
           <div className="mt-8 w-full max-w-md rounded-xl border border-[#dce3ee] bg-[#fbfcfe] p-5 text-left">
             <div className="flex items-center justify-between border-b border-[#e4e8ef] pb-4">
               <span className="text-sm text-[#73809a]">Número de operación</span>
-              <strong className="font-mono text-xl text-[#17233f]">12030070733</strong>
+              <div className="flex items-center gap-2"><strong className="font-mono text-xl text-[#17233f]">12030070733</strong><button type="button" onClick={() => navigator.clipboard?.writeText('12030070733')} aria-label="Copiar número de operación" className="cursor-pointer rounded-md p-2 text-[#465bc2] hover:bg-[#eef0ff]"><Copy className="h-4 w-4" aria-hidden="true" /></button></div>
             </div>
             <div className="flex items-center justify-between pt-4">
               <span className="text-sm text-[#73809a]">Total enviado</span>
@@ -30,7 +30,7 @@ export default function RemittanceSuccessPage() {
             <button type="button" className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#dce3ee] px-5 py-3 text-sm font-bold text-[#17233f] transition-colors hover:border-[#465bc2] hover:text-[#465bc2]"><Download className="h-4 w-4" aria-hidden="true" />Descargar</button>
           </div>
           <button type="button" className="mt-5 inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#dce3ee] bg-[#f8f9fc] px-6 py-3 text-sm font-bold text-[#17233f] transition-colors hover:border-[#465bc2] hover:text-[#465bc2]"><Download className="h-4 w-4" aria-hidden="true" />Descargar factura electrónica</button>
-          <div className="mt-8 w-full border-t border-[#dce3ee] pt-8">
+          <div className="mt-8 w-full border-t border-[#dce3ee] pt-8"><div className="mb-4 flex flex-wrap justify-center gap-3"><button type="button" className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#dce3ee] px-5 py-3 text-sm font-bold text-[#17233f]"><Users className="h-4 w-4" aria-hidden="true" />Repetir con el mismo cliente</button><button type="button" className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#dce3ee] px-5 py-3 text-sm font-bold text-[#17233f]"><Users className="h-4 w-4" aria-hidden="true" />Mismo beneficiario</button></div>
             <button type="button" onClick={() => router.push('/')} className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-[#465bc2] px-8 py-3 text-sm font-bold text-white transition-colors hover:bg-[#394ba9]"><RotateCcw className="h-4 w-4" aria-hidden="true" />Nueva transacción</button>
           </div>
         </div>

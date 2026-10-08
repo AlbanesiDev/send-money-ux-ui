@@ -39,12 +39,18 @@ function SearchableSelect({ label, value, options, onChange, disabled = false, l
     onChange(option)
     setOpen(false)
     setFilter('')
-    window.requestAnimationFrame(() => (nextRef ?? fieldRef).current?.focus())
+    window.requestAnimationFrame(() => {
+      const active = document.activeElement
+      if (!active || active === document.body || active === filterRef.current) (nextRef ?? fieldRef).current?.focus()
+    })
   }
   useEffect(() => {
     if (open) window.requestAnimationFrame(() => filterRef.current?.focus())
   }, [open])
-  return <div className="relative block"><span className="mb-2 block text-sm font-semibold">{label} <span className="text-[#c73750]">*</span></span><button ref={fieldRef} type="button" disabled={disabled || loading} aria-busy={loading} onClick={() => setOpen((current) => !current)} aria-haspopup="listbox" aria-expanded={open} className="flex h-12 w-full items-center justify-between rounded-lg border border-[#cdd5e1] bg-white px-3 text-left text-sm text-[#17233f] outline-none focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10 disabled:bg-[#f3f5f9] disabled:text-[#8a96aa]">{loading ? <span role="status" className="flex items-center gap-2 text-[#5368c8]"><span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-[#c9d1f0] border-t-[#465bc2]" />Cargando {label.toLowerCase()}...</span> : <span className={`flex min-w-0 items-center gap-2 ${value ? '' : 'text-[#8a96aa]'}`}>{showFlags && value && <CountryFlag country={value} />}<span className="truncate">{value || `Selecciona ${label.toLowerCase()}`}</span></span>}<span aria-hidden="true">⌄</span></button>{open && <div className="absolute inset-x-0 top-full z-20 mt-1 rounded-lg border border-[#cdd5e1] bg-white p-2 shadow-lg"><input ref={filterRef} value={filter} onChange={(event) => setFilter(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter') { event.preventDefault(); if (filteredOptions[0]) choose(filteredOptions[0]) } if (event.key === 'Escape') { setOpen(false); fieldRef.current?.focus() } }} placeholder="Filtrar opciones" aria-label={`Filtrar ${label.toLowerCase()}`} className="h-10 w-full rounded-md border border-[#dce3ee] px-3 text-sm outline-none focus:border-[#5368c8]" /> <div role="listbox" aria-label={label} className="mt-1 max-h-48 overflow-y-auto">{filteredOptions.map((option) => <button key={option} type="button" role="option" aria-selected={value === option} onClick={() => choose(option)} className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm hover:bg-[#f4f6ff] ${value === option ? 'bg-[#eef1ff] font-semibold text-[#465bc2]' : ''}`}>{showFlags && <CountryFlag country={option} />}<span className="truncate">{option}</span></button>)}{filteredOptions.length === 0 && <p className="px-3 py-2 text-sm text-[#8a96aa]">Sin resultados</p>}</div></div>}</div>
+  useEffect(() => {
+    if (loading) setOpen(false)
+  }, [loading])
+  return <div className="relative block"><span className="mb-2 block text-sm font-semibold">{label} <span className="text-[#c73750]">*</span></span><button ref={fieldRef} type="button" disabled={disabled} aria-disabled={loading || undefined} aria-busy={loading} onClick={() => { if (!loading) setOpen((current) => !current) }} aria-haspopup="listbox" aria-expanded={open} className="flex h-12 w-full items-center justify-between rounded-lg border border-[#cdd5e1] bg-white px-3 text-left text-sm text-[#17233f] outline-none focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10 disabled:bg-[#f3f5f9] disabled:text-[#8a96aa]">{loading ? <span role="status" className="flex items-center gap-2 text-[#5368c8]"><span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-[#c9d1f0] border-t-[#465bc2]" />Cargando {label.toLowerCase()}...</span> : <span className={`flex min-w-0 items-center gap-2 ${value ? '' : 'text-[#8a96aa]'}`}>{showFlags && value && <CountryFlag country={value} />}<span className="truncate">{value || `Selecciona ${label.toLowerCase()}`}</span></span>}<span aria-hidden="true">⌄</span></button>{open && <div className="absolute inset-x-0 top-full z-20 mt-1 rounded-lg border border-[#cdd5e1] bg-white p-2 shadow-lg"><input ref={filterRef} value={filter} onChange={(event) => setFilter(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter') { event.preventDefault(); if (filteredOptions[0]) choose(filteredOptions[0]) } if (event.key === 'Escape') { setOpen(false); fieldRef.current?.focus() } }} placeholder="Filtrar opciones" aria-label={`Filtrar ${label.toLowerCase()}`} className="h-10 w-full rounded-md border border-[#dce3ee] px-3 text-sm outline-none focus:border-[#5368c8]" /> <div role="listbox" aria-label={label} className="mt-1 max-h-48 overflow-y-auto">{filteredOptions.map((option) => <button key={option} type="button" role="option" aria-selected={value === option} onClick={() => choose(option)} className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm hover:bg-[#f4f6ff] ${value === option ? 'bg-[#eef1ff] font-semibold text-[#465bc2]' : ''}`}>{showFlags && <CountryFlag country={option} />}<span className="truncate">{option}</span></button>)}{filteredOptions.length === 0 && <p className="px-3 py-2 text-sm text-[#8a96aa]">Sin resultados</p>}</div></div>}</div>
 }
 
 function useAltFieldNavigation() {
@@ -259,7 +265,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     const requestId = ++optionsRequestRef.current
     setPartnerLoading(false)
     setLocationLoading(false)
-    setLoadingState(true)
+    flushSync(() => setLoadingState(true))
+    target.current?.focus()
     window.setTimeout(() => {
       if (requestId !== optionsRequestRef.current) return
       flushSync(() => setLoadingState(false))

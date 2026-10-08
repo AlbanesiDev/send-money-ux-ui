@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
+import { useEffect, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { Bell, Ban, ChevronRight, FileText, Landmark, List, Menu, Search, SlidersHorizontal, Wallet, X } from 'lucide-react'
 
@@ -88,7 +88,6 @@ export default function Page() {
     { name: 'Carlos Alberto Rojas', document: '9876543', city: 'Cochabamba', phone: '765432109', email: 'c***@example.com' },
   ]
   const beneficiary = beneficiaries[selectedBeneficiary]
-  const continueRef = useRef<HTMLButtonElement>(null)
 
   function trapDocumentFocus(event: ReactKeyboardEvent<HTMLInputElement>) {
     if (event.key !== 'Tab') return
@@ -110,7 +109,7 @@ export default function Page() {
     const value = documentNumber.trim()
     if (!value || loading) return
     setLoading(true); setResult(null)
-    window.setTimeout(() => { setResult(value === '0000000' ? 'error' : value === '7807365' ? 'success' : 'empty'); setLoading(false); window.setTimeout(() => continueRef.current?.focus(), 0) }, 550)
+    window.setTimeout(() => { setResult(value === '0000000' ? 'error' : value === '7807365' ? 'success' : 'empty'); setLoading(false); window.setTimeout(() => document.querySelector<HTMLFormElement>('form button:last-of-type')?.focus(), 0) }, 550)
   }
 
   function next() { setStep((current) => Math.min(7, current + 1)) }

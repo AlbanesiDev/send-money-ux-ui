@@ -1,8 +1,10 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
 import { Download, Eye, Printer, RotateCcw } from 'lucide-react'
 
-const operationNumber = 'RIA-20261008-018'
-
 export default function RemittanceSuccessPage() {
+  const router = useRouter()
 
   return (
     <main className="min-h-screen bg-[#f4f5fb] px-4 py-5 text-[#17233f] sm:px-8 lg:px-12">
@@ -27,8 +29,9 @@ export default function RemittanceSuccessPage() {
             <button type="button" className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#dce3ee] px-5 py-3 text-sm font-bold text-[#17233f] transition-colors hover:border-[#465bc2] hover:text-[#465bc2]"><Printer className="h-4 w-4" aria-hidden="true" />Imprimir</button>
             <button type="button" className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#dce3ee] px-5 py-3 text-sm font-bold text-[#17233f] transition-colors hover:border-[#465bc2] hover:text-[#465bc2]"><Download className="h-4 w-4" aria-hidden="true" />Descargar</button>
           </div>
-          <div className="mt-5 w-full max-w-md rounded-xl border border-[#dce3ee] bg-white p-5 text-left text-sm"><h2 className="font-bold text-[#17233f]">Comprobante de remesa</h2><p className="mt-2 text-[#687790]">Operación: <span className="font-mono text-[#17233f]">{operationNumber}</span></p><p className="mt-1 text-[#687790]">Estado: <span className="font-semibold text-[#218052]">Completada</span></p></div>
-          <button type="button" className="mt-8 inline-flex cursor-pointer items-center gap-2 rounded-lg bg-[#465bc2] px-8 py-3 text-sm font-bold text-white transition-colors hover:bg-[#394ba9]"><RotateCcw className="h-4 w-4" aria-hidden="true" />Nueva transacción</button>
+          <div className="mt-8 w-full border-t border-[#dce3ee] pt-8">
+            <button type="button" onClick={() => router.push('/')} className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-[#465bc2] px-8 py-3 text-sm font-bold text-white transition-colors hover:bg-[#394ba9]"><RotateCcw className="h-4 w-4" aria-hidden="true" />Nueva transacción</button>
+          </div>
         </div>
       </section>
     </main>

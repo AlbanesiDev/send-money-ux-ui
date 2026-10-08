@@ -1,0 +1,899 @@
+{
+  "result": {
+    "payoutPartners": [
+      {
+        "id": 12328911,
+        "name": "Banco Economico",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "PayoutPartnerId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 116,
+            "name": "Customer to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 117,
+            "name": "Business to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/12328911",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/12328911/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartner"
+          }
+        ]
+      },
+      {
+        "id": 104588711,
+        "name": "Banco Fassil (Sub-Agentes)",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "PayoutPartnerId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 116,
+            "name": "Customer to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 117,
+            "name": "Business to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/104588711",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/104588711/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartner"
+          }
+        ]
+      },
+      {
+        "id": 448312,
+        "name": "Banco FIE S.A.",
+        "networkModel": {
+          "model": "Point to Point",
+          "requiredFields": ["CountryTo", "PayoutPartnerId", "PayoutLocationId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 13000.0
+              }
+            ]
+          },
+          {
+            "id": 116,
+            "name": "Customer to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 13000.0
+              }
+            ]
+          },
+          {
+            "id": 117,
+            "name": "Business to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 13000.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 13000.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/448312",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/448312/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          }
+        ]
+      },
+      {
+        "id": 12394611,
+        "name": "Banco Ganadero",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "PayoutPartnerId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 116,
+            "name": "Customer to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 117,
+            "name": "Business to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/12394611",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/12394611/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartner"
+          }
+        ]
+      },
+      {
+        "id": 20843911,
+        "name": "Banco Nacional De Bolivia",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "PayoutPartnerId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 116,
+            "name": "Customer to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 117,
+            "name": "Business to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/20843911",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/20843911/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartner"
+          }
+        ]
+      },
+      {
+        "id": 6171811,
+        "name": "Banco Sol- Banco Solidario Bolivia",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "PayoutPartnerId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 6000.0
+              }
+            ]
+          },
+          {
+            "id": 116,
+            "name": "Customer to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 6000.0
+              }
+            ]
+          },
+          {
+            "id": 117,
+            "name": "Business to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 6000.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 6000.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/6171811",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/6171811/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartner"
+          }
+        ]
+      },
+      {
+        "id": 1065811,
+        "name": "Bancomer",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "PayoutPartnerId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "MXN",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 1450.0
+              }
+            ]
+          },
+          {
+            "id": 116,
+            "name": "Customer to Business",
+            "currencies": [
+              {
+                "code": "MXN",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 1450.0
+              }
+            ]
+          },
+          {
+            "id": 117,
+            "name": "Business to Business",
+            "currencies": [
+              {
+                "code": "MXN",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 1450.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "MXN",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 1450.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/1065811",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/1065811/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartner"
+          }
+        ]
+      },
+      {
+        "id": 221393411,
+        "name": "CIS Bolivia",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "PayoutPartnerId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 116,
+            "name": "Customer to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 117,
+            "name": "Business to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/221393411",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/221393411/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartner"
+          }
+        ]
+      },
+      {
+        "id": 4344411,
+        "name": "Euroenvios",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "PayoutPartnerId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 116,
+            "name": "Customer to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 117,
+            "name": "Business to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              },
+              {
+                "code": "USD",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/4344411",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/4344411/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartner"
+          }
+        ]
+      },
+      {
+        "id": 102071611,
+        "name": "Tigo Money - BG",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "PayoutPartnerId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 34900.0
+              }
+            ]
+          },
+          {
+            "id": 116,
+            "name": "Customer to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 34900.0
+              }
+            ]
+          },
+          {
+            "id": 117,
+            "name": "Business to Business",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 34900.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "BOB",
+                "minAmount": 0.0,
+                "maxAmount": 34900.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/102071611",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/102071611/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartner"
+          }
+        ]
+      }
+    ],
+    "links": [
+      {
+        "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners?PageSize=10&PageNumber=2",
+        "rel": "next",
+        "action": "GET",
+        "description": "Next page."
+      },
+      {
+        "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners?PageSize=10&PageNumber=2",
+        "rel": "last",
+        "action": "GET",
+        "description": "Last page."
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

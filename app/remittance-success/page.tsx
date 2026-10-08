@@ -1,27 +1,8 @@
-'use client'
-
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { Download, Eye, Printer, RotateCcw } from 'lucide-react'
 
 const operationNumber = 'RIA-20261008-018'
 
 export default function RemittanceSuccessPage() {
-  const router = useRouter()
-  const [showReceipt, setShowReceipt] = useState(false)
-
-  function downloadReceipt() {
-    const receipt = `Comprobante de remesa\nOperación: ${operationNumber}\nTotal enviado: 18,01 USD`
-    const url = URL.createObjectURL(new Blob([receipt], { type: 'text/plain;charset=utf-8' }))
-    const link = document.createElement('a')
-    link.href = url
-    link.download = `${operationNumber}.txt`
-    link.click()
-    URL.revokeObjectURL(url)
-  }
-
-  function printReceipt() {
-    window.print()
-  }
 
   return (
     <main className="min-h-screen bg-[#f4f5fb] px-4 py-5 text-[#17233f] sm:px-8 lg:px-12">
@@ -42,12 +23,12 @@ export default function RemittanceSuccessPage() {
             </div>
           </div>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <button type="button" onClick={() => setShowReceipt((visible) => !visible)} className="rounded-full border border-[#dce3ee] px-5 py-3 text-sm font-bold text-[#17233f] transition-colors hover:border-[#465bc2] hover:text-[#465bc2]">Ver comprobantes</button>
-            <button type="button" onClick={printReceipt} className="rounded-full border border-[#dce3ee] px-5 py-3 text-sm font-bold text-[#17233f] transition-colors hover:border-[#465bc2] hover:text-[#465bc2]">Imprimir</button>
-            <button type="button" onClick={downloadReceipt} className="rounded-full border border-[#dce3ee] px-5 py-3 text-sm font-bold text-[#17233f] transition-colors hover:border-[#465bc2] hover:text-[#465bc2]">Descargar</button>
+            <button type="button" className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#dce3ee] px-5 py-3 text-sm font-bold text-[#17233f] transition-colors hover:border-[#465bc2] hover:text-[#465bc2]"><Eye className="h-4 w-4" aria-hidden="true" />Ver comprobantes</button>
+            <button type="button" className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#dce3ee] px-5 py-3 text-sm font-bold text-[#17233f] transition-colors hover:border-[#465bc2] hover:text-[#465bc2]"><Printer className="h-4 w-4" aria-hidden="true" />Imprimir</button>
+            <button type="button" className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#dce3ee] px-5 py-3 text-sm font-bold text-[#17233f] transition-colors hover:border-[#465bc2] hover:text-[#465bc2]"><Download className="h-4 w-4" aria-hidden="true" />Descargar</button>
           </div>
-          {showReceipt && <div className="mt-5 w-full max-w-md rounded-xl border border-[#dce3ee] bg-white p-5 text-left text-sm"><h2 className="font-bold text-[#17233f]">Comprobante de remesa</h2><p className="mt-2 text-[#687790]">Operación: <span className="font-mono text-[#17233f]">{operationNumber}</span></p><p className="mt-1 text-[#687790]">Estado: <span className="font-semibold text-[#218052]">Completada</span></p></div>}
-          <button type="button" onClick={() => router.push('/')} className="mt-8 rounded-lg bg-[#465bc2] px-8 py-3 text-sm font-bold text-white transition-colors hover:bg-[#394ba9]">Nueva transacción</button>
+          <div className="mt-5 w-full max-w-md rounded-xl border border-[#dce3ee] bg-white p-5 text-left text-sm"><h2 className="font-bold text-[#17233f]">Comprobante de remesa</h2><p className="mt-2 text-[#687790]">Operación: <span className="font-mono text-[#17233f]">{operationNumber}</span></p><p className="mt-1 text-[#687790]">Estado: <span className="font-semibold text-[#218052]">Completada</span></p></div>
+          <button type="button" className="mt-8 inline-flex cursor-pointer items-center gap-2 rounded-lg bg-[#465bc2] px-8 py-3 text-sm font-bold text-white transition-colors hover:bg-[#394ba9]"><RotateCcw className="h-4 w-4" aria-hidden="true" />Nueva transacción</button>
         </div>
       </section>
     </main>

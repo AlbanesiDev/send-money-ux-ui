@@ -1,0 +1,328 @@
+{
+    "result": {
+        "payoutPartnerLocations": [
+            {
+                "id": 38000055,
+                "name": "CSCAR",
+                "number": "CSCAR",
+                "address": {
+                    "address": "Av.Beni edif TorreEmpresarial Cubo Santa ",
+                    "zipCode": "",
+                    "state": "SC",
+                    "city": "Santa Cruz De La Sierra",
+                    "country": "BO"
+                },
+                "products": [
+                    {
+                        "id": 111,
+                        "name": "Customer to Customer",
+                        "currencies": [
+                            {
+                                "code": "BOB",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            },
+                            {
+                                "code": "USD",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            }
+                        ]
+                    },
+                    {
+                        "id": 116,
+                        "name": "Customer to Business",
+                        "currencies": [
+                            {
+                                "code": "BOB",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            },
+                            {
+                                "code": "USD",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            }
+                        ]
+                    },
+                    {
+                        "id": 117,
+                        "name": "Business to Business",
+                        "currencies": [
+                            {
+                                "code": "BOB",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            },
+                            {
+                                "code": "USD",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            }
+                        ]
+                    },
+                    {
+                        "id": 118,
+                        "name": "Business to Customer",
+                        "currencies": [
+                            {
+                                "code": "BOB",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            },
+                            {
+                                "code": "USD",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            }
+                        ]
+                    }
+                ],
+                "contactInformation": {
+                    "emailAddress": "",
+                    "phones": [
+                        {
+                            "typeId": 0,
+                            "number": {
+                                "subscriptionNumber": ""
+                            }
+                        }
+                    ]
+                },
+                "links": [
+                    {
+                        "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/221393411/Locations/38000055",
+                        "rel": "self",
+                        "action": "GET",
+                        "description": "Get a specific payout partner's location  by ID"
+                    },
+                    {
+                        "href": "https://mt-staging.dandelionpayments.com/Quotations",
+                        "rel": "Quotation",
+                        "action": "POST",
+                        "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+                    }
+                ]
+            },
+            {
+                "id": 37999955,
+                "name": "CSCBO",
+                "number": "CSCBO",
+                "address": {
+                    "address": "Av.Beni edif TorreEmpresarial Cubo Santa ",
+                    "zipCode": "",
+                    "state": "SC",
+                    "city": "Santa Cruz De La Sierra",
+                    "country": "BO"
+                },
+                "products": [
+                    {
+                        "id": 111,
+                        "name": "Customer to Customer",
+                        "currencies": [
+                            {
+                                "code": "BOB",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            },
+                            {
+                                "code": "USD",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            }
+                        ]
+                    },
+                    {
+                        "id": 116,
+                        "name": "Customer to Business",
+                        "currencies": [
+                            {
+                                "code": "BOB",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            },
+                            {
+                                "code": "USD",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            }
+                        ]
+                    },
+                    {
+                        "id": 117,
+                        "name": "Business to Business",
+                        "currencies": [
+                            {
+                                "code": "BOB",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            },
+                            {
+                                "code": "USD",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            }
+                        ]
+                    },
+                    {
+                        "id": 118,
+                        "name": "Business to Customer",
+                        "currencies": [
+                            {
+                                "code": "BOB",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            },
+                            {
+                                "code": "USD",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            }
+                        ]
+                    }
+                ],
+                "contactInformation": {
+                    "emailAddress": "",
+                    "phones": [
+                        {
+                            "typeId": 0,
+                            "number": {
+                                "subscriptionNumber": ""
+                            }
+                        }
+                    ]
+                },
+                "links": [
+                    {
+                        "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/221393411/Locations/37999955",
+                        "rel": "self",
+                        "action": "GET",
+                        "description": "Get a specific payout partner's location  by ID"
+                    },
+                    {
+                        "href": "https://mt-staging.dandelionpayments.com/Quotations",
+                        "rel": "Quotation",
+                        "action": "POST",
+                        "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+                    }
+                ]
+            },
+            {
+                "id": 38000155,
+                "name": "CSCCR",
+                "number": "CSCCR",
+                "address": {
+                    "address": "Av.Beni edif TorreEmpresarial Cubo Santa ",
+                    "zipCode": "",
+                    "state": "SC",
+                    "city": "Santa Cruz De La Sierra",
+                    "country": "BO"
+                },
+                "products": [
+                    {
+                        "id": 111,
+                        "name": "Customer to Customer",
+                        "currencies": [
+                            {
+                                "code": "BOB",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            },
+                            {
+                                "code": "USD",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            }
+                        ]
+                    },
+                    {
+                        "id": 116,
+                        "name": "Customer to Business",
+                        "currencies": [
+                            {
+                                "code": "BOB",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            },
+                            {
+                                "code": "USD",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            }
+                        ]
+                    },
+                    {
+                        "id": 117,
+                        "name": "Business to Business",
+                        "currencies": [
+                            {
+                                "code": "BOB",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            },
+                            {
+                                "code": "USD",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            }
+                        ]
+                    },
+                    {
+                        "id": 118,
+                        "name": "Business to Customer",
+                        "currencies": [
+                            {
+                                "code": "BOB",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            },
+                            {
+                                "code": "USD",
+                                "minAmount": 0.0,
+                                "maxAmount": 0.0
+                            }
+                        ]
+                    }
+                ],
+                "contactInformation": {
+                    "emailAddress": "",
+                    "phones": [
+                        {
+                            "typeId": 0,
+                            "number": {
+                                "subscriptionNumber": ""
+                            }
+                        }
+                    ]
+                },
+                "links": [
+                    {
+                        "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/221393411/Locations/38000155",
+                        "rel": "self",
+                        "action": "GET",
+                        "description": "Get a specific payout partner's location  by ID"
+                    },
+                    {
+                        "href": "https://mt-staging.dandelionpayments.com/Quotations",
+                        "rel": "Quotation",
+                        "action": "POST",
+                        "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+                    }
+                ]
+            }
+        ],
+        "links": [
+            {
+                "href": "https://mt-staging.dandelionpayments.com/Network/Countries/BO/DeliveryMethods/1/PayoutPartners/221393411/Locations?PageSize=10&PageNumber=1",
+                "rel": "last",
+                "action": "GET",
+                "description": "Last page."
+            }
+        ]
+    },
+    "targetUrl": null,
+    "success": true,
+    "error": null,
+    "unAuthorizedRequest": false,
+    "__abp": true
+}

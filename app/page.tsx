@@ -245,6 +245,12 @@ export default function Page() {
     if (step === 2) {
       window.requestAnimationFrame(() => destinationCountryRef.current?.focus())
     }
+    if (step === 3 || step === 4) {
+      window.requestAnimationFrame(() => {
+        const fields = Array.from(document.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[data-enter-advance] input:not([disabled]):not([readonly]):not([type=hidden]):not([type=checkbox]):not([type=radio]), [data-enter-advance] select:not([disabled]), [data-enter-advance] textarea:not([disabled]):not([readonly])'))
+        fields.find((field) => !field.value.trim())?.focus()
+      })
+    }
   }, [step])
 
   function next() { setStep((current) => Math.min(7, current + 1)) }

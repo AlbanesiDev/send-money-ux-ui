@@ -12,7 +12,7 @@ export function PepStep({
   return (
     <div className="space-y-6">
       <h2 className="font-bold">{title}</h2>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-3">
         <Field
           label="¿Es una Persona Expuesta Políticamente (PEP)?"
           value={known("Sí")}
@@ -48,11 +48,7 @@ export function PepStep({
           required
         />
         <Field label="Ingreso Mensual" value={known("5.000 USD")} required />
-        <Field
-          label="Origen de los Fondos"
-          value={known("Salario")}
-          required
-        />
+        <Field label="Origen de los Fondos" value={known("Salario")} required />
         <Field
           label="Propósito Transacción"
           value={known("Manutención")}

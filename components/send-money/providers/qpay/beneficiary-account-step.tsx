@@ -11,7 +11,7 @@ export function QpayBeneficiaryAccountStep({
       <p className="text-sm text-[#687790]">
         QPay utiliza datos de compañía y cuenta en lugar de nombre de persona.
       </p>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-3">
         <Field label="Compañía" value={known("Sol & Luna Pagos")} required />
         <Field label="Nro de cuenta" value={known("001234567890")} required />
         <Field label="Codigo de Localidad" value={known("LPZ-001")} required />

@@ -32,7 +32,9 @@ export function RiaBeneficiaryStep({
                     : "border-[#dce3ee] bg-white hover:border-[#aebcf0]"
                 }`}
               >
-                <p className="text-sm font-bold text-[#17233f]">{person.name}</p>
+                <p className="text-sm font-bold text-[#17233f]">
+                  {person.name}
+                </p>
                 <p className="mt-1 text-xs text-[#687790]">
                   {person.city} · ***{person.phone.slice(-3)}
                 </p>
@@ -44,7 +46,7 @@ export function RiaBeneficiaryStep({
       <h2 className="font-bold">Datos personales</h2>
       <div
         key={isKnownClient ? beneficiary.document : "new-beneficiary"}
-        className="grid gap-5 sm:grid-cols-2"
+        className="grid gap-3 sm:grid-cols-3"
       >
         <Field label="Tipo Documento" value="Cédula" disabled required />
         <Field
@@ -79,7 +81,7 @@ export function RiaBeneficiaryStep({
         <Field label="País Residencia" value={known("Bolivia")} required />
       </div>
       <h2 className="pt-4 font-bold">Datos de dirección</h2>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-3">
         <Field label="Calle/Numero" value={known("Calle 123")} required />
         <Field label="Dirección" value={known("Calle 123")} required />
         <Field label="Estado" value={known("La Paz")} required />
@@ -91,7 +93,11 @@ export function RiaBeneficiaryStep({
         />
       </div>
       <label className="flex items-center gap-3 text-sm">
-        <input type="checkbox" defaultChecked className="h-5 w-5 accent-[#465bc2]" />
+        <input
+          type="checkbox"
+          defaultChecked
+          className="h-5 w-5 accent-[#465bc2]"
+        />
         Guardar en mi lista de beneficiarios frecuentes
       </label>
     </div>

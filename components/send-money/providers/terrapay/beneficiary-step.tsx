@@ -46,7 +46,7 @@ export function TerrapayBeneficiaryStep({
       <h2 className="font-bold">Datos del beneficiario</h2>
       <div
         key={isKnownClient ? beneficiary.document : "new-beneficiary"}
-        className="grid gap-5 sm:grid-cols-2"
+        className="grid gap-3 sm:grid-cols-3"
       >
         <Field
           label="Nombre"
@@ -78,7 +78,7 @@ export function TerrapayBeneficiaryStep({
         <Field label="Ciudad" value={known(beneficiary.city)} required />
       </div>
       <h2 className="pt-4 font-bold">Envío directo al banco / billetera</h2>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-3">
         <Field
           label="Forma de Entrega"
           value={known("Cuenta bancaria")}

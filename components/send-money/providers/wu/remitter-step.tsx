@@ -10,7 +10,7 @@ export function WuRemitterStep({
   return (
     <div className="space-y-6">
       <h2 className="font-bold">Documento de identidad</h2>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-3">
         <Field label="Tipo de documento" value="Cédula" disabled required />
         <Field
           label="Número de documento"
@@ -27,12 +27,16 @@ export function WuRemitterStep({
         />
       </div>
       <h2 className="pt-4 font-bold">Datos personales</h2>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-3">
         <Field label="Nombre" value={known("Eliana")} required />
         <Field label="Segundo nombre" />
         <Field label="Primer apellido" value={known("Antezana")} required />
         <Field label="Segundo apellido" value={known("Ovando")} />
-        <Field label="Fecha de nacimiento" value={known("15/03/1985")} required />
+        <Field
+          label="Fecha de nacimiento"
+          value={known("15/03/1985")}
+          required
+        />
         <Field label="País de nacimiento" value={known("Bolivia")} required />
         <Field label="Nacionalidad" value={known("Boliviana")} required />
         <Field label="Género" value={known("Femenino")} required />
@@ -44,7 +48,7 @@ export function WuRemitterStep({
         <Field label="Comentarios" />
       </div>
       <h2 className="pt-4 font-bold">Domicilio y teléfono</h2>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-3">
         <Field label="Calle" value={known("Fabian Vaca")} required />
         <Field label="Dirección" value={known("Fabian Vaca 3712")} required />
         <Field label="País" value="Bolivia" disabled required />

@@ -32,7 +32,9 @@ export function WuBeneficiaryStep({
                     : "border-[#dce3ee] bg-white hover:border-[#aebcf0]"
                 }`}
               >
-                <p className="text-sm font-bold text-[#17233f]">{person.name}</p>
+                <p className="text-sm font-bold text-[#17233f]">
+                  {person.name}
+                </p>
                 <p className="mt-1 text-xs text-[#687790]">
                   {person.city} · ***{person.phone.slice(-3)}
                 </p>
@@ -44,7 +46,7 @@ export function WuBeneficiaryStep({
       <h2 className="font-bold">Datos del beneficiario</h2>
       <div
         key={isKnownClient ? beneficiary.document : "new-beneficiary"}
-        className="grid gap-5 sm:grid-cols-2"
+        className="grid gap-3 sm:grid-cols-3"
       >
         <Field
           label="Nombre"

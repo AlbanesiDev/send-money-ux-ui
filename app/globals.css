@@ -79,7 +79,7 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --private-header-height: 4.25rem;
+  --private-header-height: 3.5rem;
   --private-sidebar-width: 16rem;
   --private-sidebar-width-collapsed: 4.25rem;
   --private-sidebar-rail-padding: 0.75rem;

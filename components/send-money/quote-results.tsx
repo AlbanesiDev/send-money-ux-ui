@@ -1,4 +1,4 @@
-import { deliveryTypeLabel, providerDeliverySupport } from "./provider-flows";
+import { deliveryTypeLabel } from "./provider-flows";
 import type { DeliveryTypeId, ProviderQuote } from "./types";
 
 const usdFormatter = new Intl.NumberFormat("es-ES", {
@@ -23,6 +23,7 @@ export function QuoteResults({
 }) {
   return (
     <div className="space-y-2">
+      <h2 className="font-bold text-[#17233f]">Cotizaciones por proveedor</h2>
       {quotes.length === 0 ? (
         <p className="rounded-lg border border-[#eadcae] bg-[#fffaf0] p-3 text-sm text-[#765d12]">
           Ningún proveedor disponible para este tipo de envío. Probá con otro

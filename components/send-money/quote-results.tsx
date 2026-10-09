@@ -1,4 +1,3 @@
-import { deliveryTypeLabel } from "./provider-flows";
 import type { DeliveryTypeId, ProviderQuote } from "./types";
 
 const usdFormatter = new Intl.NumberFormat("es-ES", {
@@ -49,8 +48,8 @@ export function QuoteResults({
                 aria-pressed={selected}
                 className={`relative min-w-0 flex-1 rounded-xl border p-3 text-left transition-colors ${
                   selected
-                    ? "border-[#5368c8] bg-[#f4f6ff] ring-2 ring-[#5368c8]/20"
-                    : "border-[#dce3ee] bg-white hover:border-[#aebcf0]"
+                    ? "border-[#5368c8] bg-[#f4f6ff]"
+                    : "border-[#dce3ee] bg-white hover:border-[#b8c0d0]"
                 }`}
               >
                 {isBestPrice && (
@@ -58,18 +57,19 @@ export function QuoteResults({
                     Mejor precio
                   </span>
                 )}
-                <div className="flex items-center justify-between gap-3">
+                <div className="flex items-start justify-between gap-3">
                   <p className="text-sm font-bold text-[#17233f]">
                     {quote.provider}
                   </p>
                   <span
-                    className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
-                      selected
-                        ? "bg-[#465bc2] text-white"
-                        : "bg-[#eef1fc] text-[#465bc2]"
+                    aria-hidden="true"
+                    className={`relative mt-0.5 block h-4 w-4 shrink-0 rounded-full border-2 ${
+                      selected ? "border-[#465bc2]" : "border-[#c5cddb]"
                     }`}
                   >
-                    {selected ? "Seleccionado" : "Elegir"}
+                    {selected && (
+                      <span className="absolute top-1/2 left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#465bc2]" />
+                    )}
                   </span>
                 </div>
                 <dl className="mt-2 space-y-1 text-sm">
@@ -91,7 +91,7 @@ export function QuoteResults({
                   </div>
                   <div className="flex justify-between gap-3 border-t border-[#e6ebf3] pt-2">
                     <dt className="font-bold text-[#17233f]">Total</dt>
-                    <dd className="font-bold tabular-nums text-[#465bc2]">
+                    <dd className="font-bold tabular-nums text-[#17233f]">
                       {formatUsd(total)}
                     </dd>
                   </div>

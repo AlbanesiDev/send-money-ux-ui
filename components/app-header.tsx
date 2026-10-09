@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Bell, Home, LogOut, Menu, X } from "lucide-react";
+import { Bell, Home, LogOut, Menu, User, X } from "lucide-react";
 import Link from "next/link";
 
 export function AppHeader({
@@ -135,7 +135,7 @@ export function AppHeader({
             className="private-nav-button"
             aria-label="Cerrar sesión"
           >
-            <LogOut className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
+            <User className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
           </button>
         </div>
       </div>

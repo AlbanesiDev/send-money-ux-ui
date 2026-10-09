@@ -454,7 +454,7 @@ function Summary({
         <div className="mt-2.5 flex justify-between border-t border-[#e4e8ef] pt-2.5 text-base">
           <dt className="font-bold">Total</dt>
           <dd
-            className={`font-bold tabular-nums text-[#465bc2] ${loading ? "animate-pulse opacity-40" : ""}`}
+            className={`font-bold tabular-nums text-[#17233f] ${loading ? "animate-pulse opacity-40" : ""}`}
           >
             {formatUsd(amount + fee + tax)}
           </dd>
@@ -943,58 +943,56 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
         />
       ) : (
         <>
-          {step > 1 && (
+          {step > 0 && (
             <header className="shrink-0 px-4 py-3 sm:px-6 lg:px-8">
-              {step > 2 && (
-                <>
-                  <nav aria-label="Progreso de la transacción">
-                    <ol className="flex w-full flex-wrap items-center gap-x-2 gap-y-2 overflow-hidden">
-                      {activeSteps.map((name, index) => {
-                        const number = index + 1;
-                        const completed = number < step;
-                        const active = number === step;
-                        const clickable = number < step;
-                        return (
-                          <li
-                            key={name}
-                            className={`flex min-w-0 flex-1 items-center gap-2 ${number === lastStep ? "last:flex-none" : ""}`}
+              <>
+                <nav aria-label="Progreso de la transacción">
+                  <ol className="flex w-full flex-wrap items-center gap-x-2 gap-y-2 overflow-hidden">
+                    {activeSteps.map((name, index) => {
+                      const number = index + 1;
+                      const completed = number < step;
+                      const active = number === step;
+                      const clickable = number < step;
+                      return (
+                        <li
+                          key={name}
+                          className={`flex min-w-0 flex-1 items-center gap-2 ${number === lastStep ? "last:flex-none" : ""}`}
+                        >
+                          <button
+                            type="button"
+                            onClick={() => goToStep(number)}
+                            disabled={!clickable}
+                            aria-current={active ? "step" : undefined}
+                            aria-label={`${name}, paso ${number}${completed ? ", volver a este paso" : active ? ", paso actual" : ", pendiente"}`}
+                            className={`group flex min-w-0 shrink-0 items-center gap-2 rounded-lg text-left outline-none focus-visible:ring-4 focus-visible:ring-[#5368c8]/20 ${clickable ? "cursor-pointer" : "cursor-default"}`}
                           >
-                            <button
-                              type="button"
-                              onClick={() => goToStep(number)}
-                              disabled={!clickable}
-                              aria-current={active ? "step" : undefined}
-                              aria-label={`${name}, paso ${number}${completed ? ", volver a este paso" : active ? ", paso actual" : ", pendiente"}`}
-                              className={`group flex min-w-0 shrink-0 items-center gap-2 rounded-lg text-left outline-none focus-visible:ring-4 focus-visible:ring-[#5368c8]/20 ${clickable ? "cursor-pointer" : "cursor-default"}`}
+                            <span
+                              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border text-xs font-bold transition-colors ${completed ? "border-[#b8e8cc] bg-[#e1f7e9] text-[#218052] group-hover:border-[#74cf98] group-hover:bg-[#d4f2df]" : active ? "border-[#17233f] bg-[#17233f] text-white" : "border-[#dce3ee] bg-white text-[#73809a]"}`}
                             >
-                              <span
-                                className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border text-xs font-bold transition-colors ${completed ? "border-[#b8e8cc] bg-[#e1f7e9] text-[#218052] group-hover:border-[#74cf98] group-hover:bg-[#d4f2df]" : active ? "border-[#17233f] bg-[#17233f] text-white" : "border-[#dce3ee] bg-white text-[#73809a]"}`}
-                              >
-                                {completed ? "✓" : number}
-                              </span>
-                              <span
-                                className={`whitespace-nowrap text-sm font-bold ${active ? "text-[#17233f]" : completed ? "text-[#263653]" : "text-[#96a2b8]"}`}
-                              >
-                                {name}
-                              </span>
-                            </button>
-                            {number < lastStep && (
-                              <span
-                                aria-hidden="true"
-                                className={`h-0.5 min-w-8 flex-1 ${completed ? "bg-[#74cf98]" : "bg-[#dfe5ef]"}`}
-                              />
-                            )}
-                          </li>
-                        );
-                      })}
-                    </ol>
-                  </nav>
-                  <div
-                    aria-hidden="true"
-                    className="mt-2 h-px w-[calc(100%+2rem)] -translate-x-4 bg-[#e9edf5] sm:w-[calc(100%+3rem)] sm:-translate-x-6 lg:w-[calc(100%+4rem)] lg:-translate-x-8"
-                  />
-                </>
-              )}
+                              {completed ? "✓" : number}
+                            </span>
+                            <span
+                              className={`whitespace-nowrap text-sm font-bold ${active ? "text-[#17233f]" : completed ? "text-[#263653]" : "text-[#96a2b8]"}`}
+                            >
+                              {name}
+                            </span>
+                          </button>
+                          {number < lastStep && (
+                            <span
+                              aria-hidden="true"
+                              className={`h-0.5 min-w-8 flex-1 ${completed ? "bg-[#74cf98]" : "bg-[#dfe5ef]"}`}
+                            />
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </nav>
+                <div
+                  aria-hidden="true"
+                  className="mt-2 h-px w-[calc(100%+2rem)] -translate-x-4 bg-[#e9edf5] sm:w-[calc(100%+3rem)] sm:-translate-x-6 lg:w-[calc(100%+4rem)] lg:-translate-x-8"
+                />
+              </>
               {step > 1 && (
                 <div className="mt-2 rounded-lg border border-[#dce3ee] bg-[#fbfcfe] px-3 py-1.5">
                   <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
@@ -1016,15 +1014,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                           PEP: Sí
                         </p>
                       )}
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-[#687790] select-none">
-                      <span
-                        className={`h-2 w-2 rounded-full ${isKnownClient ? "bg-[#38b878]" : "bg-[#d9a520]"}`}
-                        aria-hidden="true"
-                      />{" "}
-                      {isKnownClient
-                        ? "Cliente identificado"
-                        : "Cliente no registrado"}
                     </div>
                   </div>
                 </div>
@@ -1049,10 +1038,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
               }
             >
               <div>
-                <div className="mb-3">
-                  <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-[#5368c8]">
+                {/* <div className="mb-3">
+                  {/* <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-[#5368c8]">
                     Paso {step} de {lastStep}
-                  </p>
+                  </p> 
                   <h1 className="text-xl font-bold tracking-[-0.02em] text-[#17233f]">
                     {step === 1
                       ? "Identifica al remitente"
@@ -1063,7 +1052,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                   <p className="mt-1 text-sm leading-5 text-[#687790]">
                     Completa la información necesaria para continuar.
                   </p>
-                </div>
+                </div> */}
                 {step === 1 && (
                   <form
                     onSubmit={(e) => {
@@ -1267,8 +1256,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                       <div>
                         <label className="block">
                           <span className="mb-1 block text-sm font-semibold text-[#263653]">
-                            Monto a enviar{" "}
-                            <span className="text-[#c73750]">*</span>
+                            Monto a enviar
                           </span>
                           <span className="relative block">
                             <span
@@ -1331,7 +1319,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                                   resetQuoteSelection();
                                   sendAmountRef.current?.focus();
                                 }}
-                                className={`h-7 rounded-full border px-2.5 text-xs font-bold transition-colors focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20 disabled:cursor-not-allowed disabled:border-[#e2e7ef] disabled:bg-transparent disabled:text-[#a3adbd] ${selected ? "border-[#465bc2] bg-[#465bc2] text-white" : "border-[#cdd5e1] bg-white text-[#465bc2] hover:border-[#465bc2] hover:bg-[#f1f3fc]"}`}
+                                className={`h-7 rounded-full border px-2.5 text-xs font-bold transition-colors focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20 disabled:cursor-not-allowed disabled:border-[#e2e7ef] disabled:bg-transparent disabled:text-[#a3adbd] ${selected ? "border-[#5a6578] bg-white text-[#17233f]" : "border-[#d5dbe6] bg-white text-[#5a6578] hover:border-[#9aa3b5] hover:text-[#17233f]"}`}
                               >
                                 ${amount}
                               </button>
@@ -1465,7 +1453,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                           disabled={
                             !amountUnlocked || !sendAmount || quoteLoading
                           }
-                          className="inline-flex h-10 items-center gap-2 rounded-lg border border-[#465bc2] px-5 text-sm font-bold text-[#465bc2] transition-colors hover:bg-[#f1f3fc] disabled:cursor-not-allowed disabled:border-[#cdd5e1] disabled:text-[#8a96aa] disabled:hover:bg-transparent focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20"
+                          className="inline-flex h-10 items-center gap-2 rounded-lg border border-[#c5cddb] px-5 text-sm font-bold text-[#3a4558] transition-colors hover:border-[#9aa3b5] hover:bg-[#f5f7fa] disabled:cursor-not-allowed disabled:border-[#e2e7ef] disabled:text-[#a3adbd] disabled:hover:bg-transparent focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20"
                         >
                           {quoteLoading && (
                             <span

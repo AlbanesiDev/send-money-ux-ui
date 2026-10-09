@@ -107,6 +107,8 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       <PepStep
         known={props.known}
         showTerraPayExtras={props.provider === "TERRAPAY"}
+        additionalChecks={props.additionalChecks}
+        onChange={props.onAdditionalCheckChange}
       />
     );
   }

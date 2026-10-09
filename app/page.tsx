@@ -838,7 +838,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       selectedProvider &&
       step >= 3 &&
       (getStepKey(selectedProvider, step) === "remitter" ||
-        getStepKey(selectedProvider, step) === "pep" ||
         getStepKey(selectedProvider, step) === "beneficiary")
     ) {
       window.requestAnimationFrame(() => {
@@ -860,7 +859,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     if (
       selectedProvider &&
       step >= 3 &&
-      getStepKey(selectedProvider, step) === "additionalInfo"
+      (getStepKey(selectedProvider, step) === "additionalInfo" ||
+        getStepKey(selectedProvider, step) === "pep")
     ) {
       window.requestAnimationFrame(() => {
         const checkboxes = Array.from(
@@ -875,7 +875,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
           checkboxes[0].focus();
       });
     }
-  }, [step, isPaymentStep, selectedProvider]);
+    if (isReviewStep) {
+      window.requestAnimationFrame(() => nextButtonRef.current?.blur());
+    }
+  }, [step, isPaymentStep, isReviewStep, selectedProvider]);
 
   function next() {
     if (step === 2 && !selectedProvider) return;

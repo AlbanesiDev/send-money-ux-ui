@@ -420,7 +420,7 @@ function Summary({
   return (
     <aside
       aria-busy={loading}
-      className="rounded-xl border border-[#e1e6ef] bg-[#fbfcfe] p-3 lg:sticky lg:top-4 lg:h-fit"
+      className="rounded-xl border border-[#e1e6ef] bg-[#fbfcfe] p-3"
     >
       <div className="flex items-center justify-between border-b border-[#e4e8ef] pb-2.5">
         <h2 className="font-bold text-[#17233f]">Resumen</h2>
@@ -993,31 +993,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                   className="mt-2 h-px w-[calc(100%+2rem)] -translate-x-4 bg-[#e9edf5] sm:w-[calc(100%+3rem)] sm:-translate-x-6 lg:w-[calc(100%+4rem)] lg:-translate-x-8"
                 />
               </>
-              {step > 1 && (
-                <div className="mt-2 rounded-lg border border-[#dce3ee] bg-[#fbfcfe] px-3 py-1.5">
-                  <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
-                    <div className="flex items-center gap-3 leading-none">
-                      <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-[#73809a]">
-                        Remitente
-                      </p>
-                      <p className="text-sm font-bold text-[#17233f]">
-                        {isKnownClient
-                          ? "Eliana Antezana Ovando"
-                          : "Nuevo cliente"}
-                      </p>
-                      <p className="text-xs text-[#687790]">
-                        Cédula: {documentNumber}
-                        {isKnownClient && " · j***@cislatam.com"}
-                      </p>
-                      {isKnownClient && (
-                        <p className="mt-1 text-sm font-semibold text-[#5368c8]">
-                          PEP: Sí
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )}
             </header>
           )}
           <div
@@ -1038,21 +1013,23 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
               }
             >
               <div>
-                {/* <div className="mb-3">
-                  {/* <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-[#5368c8]">
-                    Paso {step} de {lastStep}
-                  </p> 
-                  <h1 className="text-xl font-bold tracking-[-0.02em] text-[#17233f]">
-                    {step === 1
-                      ? "Identifica al remitente"
-                      : step === 2
-                        ? "Cotización de la remesa"
-                        : activeSteps[step - 1]}
-                  </h1>
-                  <p className="mt-1 text-sm leading-5 text-[#687790]">
-                    Completa la información necesaria para continuar.
-                  </p>
-                </div> */}
+                {step === 1 && (
+                  <div className="mb-4">
+                    <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-[#5368c8]">
+                      Paso {step} de {lastStep}
+                    </p>
+                    <h1 className="text-xl font-bold tracking-[-0.02em] text-[#17233f]">
+                      {step === 1
+                        ? "Identifica al remitente"
+                        : step === 2
+                          ? "Cotización de la remesa"
+                          : activeSteps[step - 1]}
+                    </h1>
+                    <p className="mt-1 text-sm leading-5 text-[#687790]">
+                      Completa la información necesaria para continuar.
+                    </p>
+                  </div>
+                )}
                 {step === 1 && (
                   <form
                     onSubmit={(e) => {
@@ -1062,7 +1039,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     className="mx-auto max-w-[680px] space-y-3"
                   >
                     <label className="block">
-                      <span className="mb-1 block text-sm font-semibold text-[#263653]">
+                      <span className="mb-1 mt-10 block text-sm font-semibold text-[#263653]">
                         Tipo de documento{" "}
                         <span className="text-[#c73750]">*</span>
                       </span>
@@ -1070,7 +1047,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                         defaultValue="ci"
                         className="h-10 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm text-[#263653] outline-none focus:border-[#5368c8]"
                       >
+                        <option value="ci">Carnet de extranjero</option>
                         <option value="ci">Cédula</option>
+                        <option value="ci">Cédula de mercosur</option>
+                        <option value="ci">Pasaporte</option>
                       </select>
                     </label>
                     <label className="block">
@@ -1090,13 +1070,14 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                         placeholder="Ingresa el número de documento"
                         className="h-10 w-full rounded-lg border border-[#cdd5e1] px-3 text-sm text-[#263653] outline-none placeholder:text-[#a2adbf] focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10"
                       />
+
                       <span className="mt-1 block text-xs text-[#7b879b]">
                         Solo números, sin espacios.
                       </span>
                     </label>
                     <button
                       disabled={!documentNumber || loading}
-                      className="h-10 w-full rounded-lg bg-[#465bc2] text-sm font-bold text-white disabled:bg-[#b8c1dc]"
+                      className="h-10 w-full rounded-lg bg-[#465bc2] text-sm font-bold mt-1 text-white disabled:bg-[#b8c1dc]"
                     >
                       {loading ? "Buscando cliente…" : "Buscar"}
                     </button>
@@ -1564,7 +1545,24 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
               </div>
             </div>
             {step > 1 && !isReviewStep && (
-              <div className="sticky top-6 self-start">
+              <div className="sticky top-6 flex flex-col gap-3 self-start">
+                <aside className="rounded-xl border border-[#e1e6ef] bg-[#fbfcfe] p-3">
+                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-[#73809a]">
+                    Remitente
+                  </p>
+                  <p className="mt-1.5 text-sm font-bold text-[#17233f]">
+                    {isKnownClient ? "Eliana Antezana Ovando" : "Nuevo cliente"}
+                  </p>
+                  <p className="mt-1 text-xs text-[#687790]">
+                    Cédula: {documentNumber}
+                    {isKnownClient && " · j***@cislatam.com"}
+                  </p>
+                  {isKnownClient && (
+                    <p className="mt-1 text-sm font-semibold text-[#5368c8]">
+                      PEP: Sí
+                    </p>
+                  )}
+                </aside>
                 <Summary
                   provider={selectedProvider}
                   quote={quote}

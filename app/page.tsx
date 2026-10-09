@@ -152,133 +152,140 @@ function SearchableSelect({
     return () => document.removeEventListener("pointerdown", handlePointerDown);
   }, [open]);
   return (
-    <div ref={rootRef} className={`relative block ${open ? "z-50" : "z-0"}`}>
+    <div
+      ref={rootRef}
+      className={`block self-start ${open ? "relative z-50" : "relative z-0"}`}
+    >
       <span className="mb-1 block text-sm font-semibold text-[#263653]">
         {label}
       </span>
-      <button
-        ref={fieldRef}
-        type="button"
-        disabled={disabled}
-        aria-disabled={loading || undefined}
-        aria-busy={loading}
-        onClick={() => {
-          if (!loading) setOpen((current) => !current);
-        }}
-        onKeyDown={(event) => {
-          if (loading || disabled) return;
-          if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-            event.preventDefault();
-            setOpen(true);
-          }
-        }}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        className="flex h-10 w-full items-center justify-between rounded-lg border border-[#cdd5e1] bg-white px-3 text-left text-sm text-[#17233f] outline-none focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10 disabled:bg-[#f3f5f9] disabled:text-[#8a96aa]"
-      >
-        {loading ? (
-          <span
-            role="status"
-            className="flex items-center gap-2 text-[#5368c8]"
-          >
-            <span
-              aria-hidden="true"
-              className="h-4 w-4 animate-spin rounded-full border-2 border-[#c9d1f0] border-t-[#465bc2]"
-            />
-            Cargando {label.toLowerCase()}...
-          </span>
-        ) : (
-          <span
-            className={`flex min-w-0 items-center gap-2 ${value ? "" : "text-[#8a96aa]"}`}
-          >
-            {showFlags && value && <CountryFlag country={value} />}
-            <span className="truncate">
-              {value || `Selecciona ${label.toLowerCase()}`}
-            </span>
-          </span>
-        )}
-        <span aria-hidden="true">⌄</span>
-      </button>
-      {open && (
-        <div className="absolute inset-x-0 top-full z-50 mt-1 rounded-lg border border-[#cdd5e1] bg-white p-2 shadow-lg">
-          <input
-            ref={filterRef}
-            value={filter}
-            onChange={(event) => setFilter(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "ArrowDown") {
-                event.preventDefault();
-                if (filteredOptions.length === 0) return;
-                setHighlightedIndex(
-                  (current) => (current + 1) % filteredOptions.length,
-                );
-                return;
-              }
-              if (event.key === "ArrowUp") {
-                event.preventDefault();
-                if (filteredOptions.length === 0) return;
-                setHighlightedIndex(
-                  (current) =>
-                    (current - 1 + filteredOptions.length) %
-                    filteredOptions.length,
-                );
-                return;
-              }
-              if (event.key === "Enter") {
-                event.preventDefault();
-                const option = filteredOptions[highlightedIndex];
-                if (option) choose(option);
-                return;
-              }
-              if (event.key === "Escape") {
-                setOpen(false);
-                fieldRef.current?.focus();
-              }
-            }}
-            placeholder="Filtrar opciones"
-            aria-label={`Filtrar ${label.toLowerCase()}`}
-            aria-activedescendant={
-              filteredOptions[highlightedIndex]
-                ? `select-option-${highlightedIndex}`
-                : undefined
+      <div className="relative">
+        <button
+          ref={fieldRef}
+          type="button"
+          disabled={disabled}
+          aria-disabled={loading || undefined}
+          aria-busy={loading}
+          onClick={() => {
+            if (!loading) setOpen((current) => !current);
+          }}
+          onKeyDown={(event) => {
+            if (loading || disabled) return;
+            if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+              event.preventDefault();
+              setOpen(true);
             }
-            className="h-10 w-full rounded-md border border-[#dce3ee] px-3 text-sm outline-none focus:border-[#5368c8]"
-          />{" "}
-          <div
-            role="listbox"
-            aria-label={label}
-            className="mt-1 max-h-48 overflow-y-auto"
-          >
-            {filteredOptions.map((option, index) => (
-              <button
-                key={option}
-                id={`select-option-${index}`}
-                ref={(node) => {
-                  optionRefs.current[index] = node;
-                }}
-                type="button"
-                role="option"
-                aria-selected={value === option}
-                onMouseEnter={() => setHighlightedIndex(index)}
-                onClick={() => choose(option)}
-                className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm hover:bg-[#f4f6ff] ${
-                  index === highlightedIndex
-                    ? "bg-[#eef1ff] font-semibold text-[#465bc2]"
-                    : value === option
-                      ? "font-semibold text-[#465bc2]"
-                      : ""
-                }`}
-              >
-                {showFlags && <CountryFlag country={option} />}
-                <span className="truncate">{option}</span>
-              </button>
-            ))}
-            {filteredOptions.length === 0 && (
-              <p className="px-3 py-2 text-sm text-[#8a96aa]">Sin resultados</p>
-            )}
+          }}
+          aria-haspopup="listbox"
+          aria-expanded={open}
+          className="flex h-10 w-full items-center justify-between rounded-lg border border-[#cdd5e1] bg-white px-3 text-left text-sm text-[#17233f] outline-none focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10 disabled:bg-[#f3f5f9] disabled:text-[#8a96aa]"
+        >
+          {loading ? (
+            <span
+              role="status"
+              className="flex items-center gap-2 text-[#5368c8]"
+            >
+              <span
+                aria-hidden="true"
+                className="h-4 w-4 animate-spin rounded-full border-2 border-[#c9d1f0] border-t-[#465bc2]"
+              />
+              Cargando {label.toLowerCase()}...
+            </span>
+          ) : (
+            <span
+              className={`flex min-w-0 items-center gap-2 ${value ? "" : "text-[#8a96aa]"}`}
+            >
+              {showFlags && value && <CountryFlag country={value} />}
+              <span className="truncate">
+                {value || `Selecciona ${label.toLowerCase()}`}
+              </span>
+            </span>
+          )}
+          <span aria-hidden="true">⌄</span>
+        </button>
+        {open && (
+          <div className="absolute inset-x-0 top-full z-50 mt-1 rounded-lg border border-[#cdd5e1] bg-white p-2 shadow-lg">
+            <input
+              ref={filterRef}
+              value={filter}
+              onChange={(event) => setFilter(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "ArrowDown") {
+                  event.preventDefault();
+                  if (filteredOptions.length === 0) return;
+                  setHighlightedIndex(
+                    (current) => (current + 1) % filteredOptions.length,
+                  );
+                  return;
+                }
+                if (event.key === "ArrowUp") {
+                  event.preventDefault();
+                  if (filteredOptions.length === 0) return;
+                  setHighlightedIndex(
+                    (current) =>
+                      (current - 1 + filteredOptions.length) %
+                      filteredOptions.length,
+                  );
+                  return;
+                }
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  const option = filteredOptions[highlightedIndex];
+                  if (option) choose(option);
+                  return;
+                }
+                if (event.key === "Escape") {
+                  setOpen(false);
+                  fieldRef.current?.focus();
+                }
+              }}
+              placeholder="Filtrar opciones"
+              aria-label={`Filtrar ${label.toLowerCase()}`}
+              aria-activedescendant={
+                filteredOptions[highlightedIndex]
+                  ? `select-option-${highlightedIndex}`
+                  : undefined
+              }
+              className="h-10 w-full rounded-md border border-[#dce3ee] px-3 text-sm outline-none focus:border-[#5368c8]"
+            />{" "}
+            <div
+              role="listbox"
+              aria-label={label}
+              className="mt-1 max-h-48 overflow-y-auto"
+            >
+              {filteredOptions.map((option, index) => (
+                <button
+                  key={option}
+                  id={`select-option-${index}`}
+                  ref={(node) => {
+                    optionRefs.current[index] = node;
+                  }}
+                  type="button"
+                  role="option"
+                  aria-selected={value === option}
+                  onMouseEnter={() => setHighlightedIndex(index)}
+                  onClick={() => choose(option)}
+                  className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm hover:bg-[#f4f6ff] ${
+                    index === highlightedIndex
+                      ? "bg-[#eef1ff] font-semibold text-[#465bc2]"
+                      : value === option
+                        ? "font-semibold text-[#465bc2]"
+                        : ""
+                  }`}
+                >
+                  {showFlags && <CountryFlag country={option} />}
+                  <span className="truncate">{option}</span>
+                </button>
+              ))}
+              {filteredOptions.length === 0 && (
+                <p className="px-3 py-2 text-sm text-[#8a96aa]">
+                  Sin resultados
+                </p>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

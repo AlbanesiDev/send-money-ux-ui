@@ -1,7 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Bell, Home, LogOut, Menu, User, X } from "lucide-react";
+import {
+  Bell,
+  Ellipsis,
+  Home,
+  ImageIcon,
+  LogOut,
+  Menu,
+  User,
+  X,
+} from "lucide-react";
 import Link from "next/link";
 
 export function AppHeader({
@@ -12,18 +21,24 @@ export function AppHeader({
   onToggleSidebar: () => void;
 }) {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const notificationsRoot = useRef<HTMLDivElement>(null);
+  const userMenuRoot = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!notificationsOpen) return;
+    if (!notificationsOpen && !userMenuOpen) return;
     const onDocumentClick = (event: MouseEvent) => {
       const target = event.target;
       if (!(target instanceof Node)) return;
       if (notificationsRoot.current?.contains(target)) return;
+      if (userMenuRoot.current?.contains(target)) return;
       setNotificationsOpen(false);
+      setUserMenuOpen(false);
     };
     const onEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setNotificationsOpen(false);
+      if (event.key !== "Escape") return;
+      setNotificationsOpen(false);
+      setUserMenuOpen(false);
     };
     document.addEventListener("click", onDocumentClick);
     document.addEventListener("keydown", onEscape);
@@ -31,7 +46,7 @@ export function AppHeader({
       document.removeEventListener("click", onDocumentClick);
       document.removeEventListener("keydown", onEscape);
     };
-  }, [notificationsOpen]);
+  }, [notificationsOpen, userMenuOpen]);
 
   return (
     <header className="private-chrome private-header-height sticky top-0 z-50 flex items-center">
@@ -107,7 +122,10 @@ export function AppHeader({
               aria-haspopup="dialog"
               aria-controls="private-notifications-panel"
               aria-expanded={notificationsOpen}
-              onClick={() => setNotificationsOpen((open) => !open)}
+              onClick={() => {
+                setUserMenuOpen(false);
+                setNotificationsOpen((open) => !open);
+              }}
             >
               <Bell className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
               <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[#FFE500]" />
@@ -135,13 +153,84 @@ export function AppHeader({
             )}
           </div>
 
-          <button
-            type="button"
-            className="private-nav-button"
-            aria-label="Cerrar sesión"
-          >
-            <User className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
-          </button>
+          <div className="relative" ref={userMenuRoot}>
+            <button
+              type="button"
+              className="private-nav-button"
+              aria-label="Menú de usuario"
+              aria-haspopup="dialog"
+              aria-controls="private-user-menu-panel"
+              aria-expanded={userMenuOpen}
+              onClick={() => {
+                setNotificationsOpen(false);
+                setUserMenuOpen((open) => !open);
+              }}
+            >
+              <User className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
+            </button>
+            {userMenuOpen && (
+              <div
+                id="private-user-menu-panel"
+                className="absolute top-[calc(100%+0.55rem)] right-0 z-60 w-[18rem] rounded-xl border border-border bg-popover text-popover-foreground shadow-[0_10px_15px_-3px_rgb(15_23_42_/_0.12),0_4px_6px_-4px_rgb(15_23_42_/_0.08)]"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="private-user-menu-heading"
+              >
+                <div className="flex items-center gap-3 border-b border-border px-4 py-3">
+                  <div
+                    className="flex size-11 shrink-0 items-center justify-center rounded-full bg-[#e8d5c4] text-[#a67c52]"
+                    aria-hidden="true"
+                  >
+                    <User className="h-6 w-6" strokeWidth={1.5} />
+                  </div>
+                  <div className="min-w-0">
+                    <h2
+                      id="private-user-menu-heading"
+                      className="truncate text-sm font-semibold"
+                    >
+                      JoacoDev - Agente
+                    </h2>
+                    <p className="truncate text-xs text-muted-foreground">
+                      joaquin@dev.com
+                    </p>
+                  </div>
+                </div>
+
+                <div className="border-b border-border p-1.5">
+                  <button
+                    type="button"
+                    className="flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-left text-sm hover:bg-accent"
+                  >
+                    <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-md bg-[#e8f5e9] text-[#66bb6a]">
+                      <Ellipsis className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                    Cambiar contraseña
+                  </button>
+                  <button
+                    type="button"
+                    className="flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-left text-sm hover:bg-accent"
+                  >
+                    <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-md bg-[#f3e5f5] text-[#ab47bc]">
+                      <ImageIcon className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                    Cambiar foto de perfil
+                  </button>
+                </div>
+
+                <div className="p-1.5">
+                  <button
+                    type="button"
+                    className="flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-left text-sm hover:bg-accent"
+                  >
+                    <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-md bg-[#eceff1] text-[#78909c]">
+                      <LogOut className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                    Salir
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>

@@ -154,6 +154,11 @@
 }
 
 @layer base {
+  html {
+    /* Compact base so rem-based UI fits 1080p without overflow */
+    font-size: 87.5%;
+  }
+
   button:not(:disabled) {
     cursor: pointer;
   }

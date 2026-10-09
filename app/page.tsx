@@ -924,7 +924,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
               <div className="mt-3 rounded-xl border border-[#dce3ee] bg-[#fbfcfe] px-4 py-2">
                 <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
                   <div className="flex items-center gap-3 leading-none">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#73809a]">
+                    <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-[#73809a]">
                       Remitente
                     </p>
                     <p className="text-sm font-bold text-[#17233f]">

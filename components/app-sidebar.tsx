@@ -41,7 +41,7 @@ export function AppSidebar() {
   return (
     <aside
       aria-label="Menú principal"
-      className="hidden h-full w-[300px] shrink-0 overflow-y-auto rounded-[18px] bg-white p-4 shadow-[0_12px_35px_rgba(24,37,73,0.05)] lg:block"
+      className="hidden h-full w-[18.75rem] shrink-0 overflow-y-auto rounded-[18px] bg-white p-4 shadow-[0_12px_35px_rgba(24,37,73,0.05)] lg:block"
     >
       <label className="relative block">
         <span className="sr-only">Buscar</span>
@@ -60,7 +60,7 @@ export function AppSidebar() {
           <button
             key={label}
             type="button"
-            className="flex w-full cursor-pointer items-center gap-4 rounded-lg px-4 py-3 text-left text-[15px] text-[#66718a] hover:bg-[#f5f7ff]"
+            className="flex w-full cursor-pointer items-center gap-4 rounded-lg px-4 py-3 text-left text-[0.9375rem] text-[#66718a] hover:bg-[#f5f7ff]"
           >
             <Icon
               className="h-5 w-5 shrink-0 text-[#7d88a0]"
@@ -77,7 +77,7 @@ export function AppSidebar() {
           <button
             type="button"
             aria-expanded="true"
-            className="flex w-full cursor-pointer items-center gap-4 rounded-lg px-4 py-3 text-left text-[15px] font-bold text-[#17233f] hover:bg-[#f5f7ff]"
+            className="flex w-full cursor-pointer items-center gap-4 rounded-lg px-4 py-3 text-left text-[0.9375rem] font-bold text-[#17233f] hover:bg-[#f5f7ff]"
           >
             <SlidersHorizontal className="h-5 w-5" aria-hidden="true" />
             <span className="flex-1">S&L</span>
@@ -122,7 +122,7 @@ export function AppSidebar() {
         </div>
         <button
           type="button"
-          className="mt-2 flex w-full cursor-pointer items-center gap-4 rounded-lg px-4 py-3 text-left text-[15px] text-[#66718a] hover:bg-[#f5f7ff]"
+          className="mt-2 flex w-full cursor-pointer items-center gap-4 rounded-lg px-4 py-3 text-left text-[0.9375rem] text-[#66718a] hover:bg-[#f5f7ff]"
         >
           <Wallet className="h-5 w-5" aria-hidden="true" />
           <span className="flex-1">Turnero</span>
@@ -130,7 +130,7 @@ export function AppSidebar() {
         </button>
         <button
           type="button"
-          className="flex w-full cursor-pointer items-center gap-4 rounded-lg px-4 py-3 text-left text-[15px] text-[#66718a] hover:bg-[#f5f7ff]"
+          className="flex w-full cursor-pointer items-center gap-4 rounded-lg px-4 py-3 text-left text-[0.9375rem] text-[#66718a] hover:bg-[#f5f7ff]"
         >
           <Wallet className="h-5 w-5" aria-hidden="true" />
           <span className="flex-1">Wallets</span>

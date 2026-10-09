@@ -8,6 +8,7 @@ import {
   type RefObject,
 } from "react";
 import { flushSync } from "react-dom";
+import { AlertDialog } from "@base-ui/react/alert-dialog";
 import {
   RemittanceProcessing,
   RemittanceSuccess,
@@ -785,6 +786,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [processing, setProcessing] = useState(false);
+  const [cancelConfirmOpen, setCancelConfirmOpen] = useState(false);
   const processingTimeoutRef = useRef<number | undefined>(undefined);
   useEffect(() => () => window.clearTimeout(processingTimeoutRef.current), []);
   const [additionalChecks, setAdditionalChecks] = useState<
@@ -976,17 +978,11 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   return (
     <section className="flex h-full min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden rounded-[14px] bg-white text-[#17233f] shadow-[0_12px_35px_rgba(24,37,73,0.06)]">
       {processing ? (
-        <RemittanceProcessing
-          totalSent={formatUsd(
-            quote ? quote.amount + quote.fee + quote.tax : 0,
-          )}
-        />
+        <RemittanceProcessing totalSent={formatUsd(quote ? quote.amount : 0)} />
       ) : sent ? (
         <RemittanceSuccess
           operationNumber="12030070733"
-          totalSent={formatUsd(
-            quote ? quote.amount + quote.fee + quote.tax : 0,
-          )}
+          totalSent={formatUsd(quote ? quote.amount : 0)}
           onNewTransaction={onReset}
           onRepeatClient={startAnotherQuote}
           onSameBeneficiary={startAnotherQuote}
@@ -1682,14 +1678,50 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
           </div>
           {step > 1 && (
             <div className="flex h-[42px] shrink-0 items-center border-t border-[#e9edf5] bg-white px-4 sm:px-6 lg:px-8">
-              <div className="flex w-full items-center justify-between">
-                <button
-                  type="button"
-                  onClick={back}
-                  className="rounded-md border border-[#dce3ee] px-4 py-1 text-sm font-bold text-[#687790]"
-                >
-                  Volver
-                </button>
+              <div className="flex w-full items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={back}
+                    className="rounded-md border border-[#dce3ee] px-4 py-1 text-sm font-bold text-[#687790]"
+                  >
+                    Volver
+                  </button>
+                  <AlertDialog.Root
+                    open={cancelConfirmOpen}
+                    onOpenChange={setCancelConfirmOpen}
+                  >
+                    <AlertDialog.Trigger className="rounded-md border border-[#e3b4b4] px-4 py-1 text-sm font-bold text-[#b42318] hover:bg-[#fef3f2] focus:outline-none focus:ring-4 focus:ring-[#b42318]/15">
+                      Cancelar operación
+                    </AlertDialog.Trigger>
+                    <AlertDialog.Portal>
+                      <AlertDialog.Backdrop className="fixed inset-0 z-50 bg-[#17233f]/45" />
+                      <AlertDialog.Viewport className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                        <AlertDialog.Popup className="w-full max-w-md rounded-xl border border-[#dce3ee] bg-white p-6 shadow-[0_16px_40px_rgba(23,35,63,0.18)] outline-none">
+                          <AlertDialog.Title className="text-lg font-bold tracking-[-0.02em] text-[#17233f]">
+                            ¿Cancelar la operación?
+                          </AlertDialog.Title>
+                          <AlertDialog.Description className="mt-2 text-sm leading-6 text-[#687790]">
+                            Se perderán los datos ingresados y volverás al
+                            primer paso del envío.
+                          </AlertDialog.Description>
+                          <div className="mt-6 flex flex-wrap justify-end gap-2">
+                            <AlertDialog.Close className="rounded-md border border-[#dce3ee] px-4 py-2 text-sm font-bold text-[#687790] hover:bg-[#f8f9fc] focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20">
+                              Continuar operación
+                            </AlertDialog.Close>
+                            <button
+                              type="button"
+                              onClick={onReset}
+                              className="rounded-md bg-[#b42318] px-4 py-2 text-sm font-bold text-white hover:bg-[#912018] focus:outline-none focus:ring-4 focus:ring-[#b42318]/25"
+                            >
+                              Sí, cancelar
+                            </button>
+                          </div>
+                        </AlertDialog.Popup>
+                      </AlertDialog.Viewport>
+                    </AlertDialog.Portal>
+                  </AlertDialog.Root>
+                </div>
                 <button
                   type="button"
                   ref={nextButtonRef}

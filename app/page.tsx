@@ -124,7 +124,7 @@ function SearchableSelect({
   }, [loading]);
   return (
     <div className="relative block">
-      <span className="mb-2 block text-sm font-semibold">
+      <span className="mb-1 block text-sm font-semibold">
         {label} <span className="text-[#c73750]">*</span>
       </span>
       <button
@@ -138,7 +138,7 @@ function SearchableSelect({
         }}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="flex h-12 w-full items-center justify-between rounded-lg border border-[#cdd5e1] bg-white px-3 text-left text-sm text-[#17233f] outline-none focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10 disabled:bg-[#f3f5f9] disabled:text-[#8a96aa]"
+        className="flex h-10 w-full items-center justify-between rounded-lg border border-[#cdd5e1] bg-white px-3 text-left text-sm text-[#17233f] outline-none focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10 disabled:bg-[#f3f5f9] disabled:text-[#8a96aa]"
       >
         {loading ? (
           <span
@@ -361,19 +361,19 @@ function Summary({
   return (
     <aside
       aria-busy={loading}
-      className="rounded-xl border border-[#e1e6ef] bg-[#fbfcfe] p-5 lg:sticky lg:top-6 lg:h-fit"
+      className="rounded-xl border border-[#e1e6ef] bg-[#fbfcfe] p-3 lg:sticky lg:top-4 lg:h-fit"
     >
-      <div className="flex items-center justify-between border-b border-[#e4e8ef] pb-4">
+      <div className="flex items-center justify-between border-b border-[#e4e8ef] pb-2.5">
         <h2 className="font-bold text-[#17233f]">Resumen</h2>
         <span
           aria-label="Ticket"
           title="Ticket"
-          className="flex h-7 w-7 items-center justify-center rounded-full border border-[#cfd7e6] bg-white text-sm font-bold text-[#465bc2]"
+          className="flex h-6 w-6 items-center justify-center rounded-full border border-[#cfd7e6] bg-white text-xs font-bold text-[#465bc2]"
         >
           ▤
         </span>
       </div>
-      <dl className="mt-5 space-y-3 text-sm">
+      <dl className="mt-3 space-y-2 text-sm">
         <div className="flex justify-between gap-4">
           <dt className="text-[#73809a]">Proveedor</dt>
           <dd className="text-right font-semibold text-[#263653]">
@@ -392,7 +392,7 @@ function Summary({
             <dd className={valueClass}>{formatUsd(row.value)}</dd>
           </div>
         ))}
-        <div className="mt-4 flex justify-between border-t border-[#e4e8ef] pt-4 text-base">
+        <div className="mt-2.5 flex justify-between border-t border-[#e4e8ef] pt-2.5 text-base">
           <dt className="font-bold">Total</dt>
           <dd
             className={`font-bold tabular-nums text-[#465bc2] ${loading ? "animate-pulse opacity-40" : ""}`}
@@ -404,7 +404,7 @@ function Summary({
       <p
         role="status"
         aria-live="polite"
-        className="mt-3 min-h-5 text-xs text-[#73809a] select-none"
+        className="mt-2 min-h-4 text-xs text-[#73809a] select-none"
       >
         {loading
           ? "Calculando cotización…"
@@ -444,7 +444,7 @@ function BillingSummary({
   onReset: () => void;
 }) {
   const inputClass =
-    "h-12 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm text-[#263653] outline-none transition focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10";
+    "h-10 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm text-[#263653] outline-none transition focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10";
   return (
     <section className="rounded-xl border border-[#dce3ee] bg-[#fbfcfe]">
       <div className="flex items-center justify-between gap-4 p-4">
@@ -478,7 +478,7 @@ function BillingSummary({
         >
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block">
-              <span className="mb-2 block text-sm font-semibold">
+              <span className="mb-1 block text-sm font-semibold">
                 Nombre o razón social
               </span>
               <input
@@ -488,7 +488,7 @@ function BillingSummary({
               />
             </label>
             <label className="block">
-              <span className="mb-2 block text-sm font-semibold">NIT / CI</span>
+              <span className="mb-1 block text-sm font-semibold">NIT / CI</span>
               <input
                 value={nit}
                 inputMode="numeric"
@@ -873,9 +873,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
         />
       ) : (
         <>
-          <header className="shrink-0 px-6 py-4 sm:px-10 lg:px-12">
+          <header className="shrink-0 px-4 py-3 sm:px-6 lg:px-8">
             <nav aria-label="Progreso de la transacción">
-              <ol className="flex w-full flex-wrap items-center gap-x-3 gap-y-3 overflow-hidden">
+              <ol className="flex w-full flex-wrap items-center gap-x-2 gap-y-2 overflow-hidden">
                 {activeSteps.map((name, index) => {
                   const number = index + 1;
                   const completed = number < step;
@@ -892,10 +892,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                         disabled={!clickable}
                         aria-current={active ? "step" : undefined}
                         aria-label={`${name}, paso ${number}${completed ? ", volver a este paso" : active ? ", paso actual" : ", pendiente"}`}
-                        className={`group flex min-w-0 shrink-0 items-center gap-3 rounded-lg text-left outline-none focus-visible:ring-4 focus-visible:ring-[#5368c8]/20 ${clickable ? "cursor-pointer" : "cursor-default"}`}
+                        className={`group flex min-w-0 shrink-0 items-center gap-2 rounded-lg text-left outline-none focus-visible:ring-4 focus-visible:ring-[#5368c8]/20 ${clickable ? "cursor-pointer" : "cursor-default"}`}
                       >
                         <span
-                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border text-sm font-bold transition-colors ${completed ? "border-[#b8e8cc] bg-[#e1f7e9] text-[#218052] group-hover:border-[#74cf98] group-hover:bg-[#d4f2df]" : active ? "border-[#17233f] bg-[#17233f] text-white" : "border-[#dce3ee] bg-white text-[#73809a]"}`}
+                          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border text-xs font-bold transition-colors ${completed ? "border-[#b8e8cc] bg-[#e1f7e9] text-[#218052] group-hover:border-[#74cf98] group-hover:bg-[#d4f2df]" : active ? "border-[#17233f] bg-[#17233f] text-white" : "border-[#dce3ee] bg-white text-[#73809a]"}`}
                         >
                           {completed ? "✓" : number}
                         </span>
@@ -918,10 +918,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
             </nav>
             <div
               aria-hidden="true"
-              className="mt-3 h-px w-[calc(100%+3rem)] -translate-x-6 bg-[#e9edf5] sm:w-[calc(100%+5rem)] sm:-translate-x-10 lg:w-[calc(100%+6rem)] lg:-translate-x-12"
+              className="mt-2 h-px w-[calc(100%+2rem)] -translate-x-4 bg-[#e9edf5] sm:w-[calc(100%+3rem)] sm:-translate-x-6 lg:w-[calc(100%+4rem)] lg:-translate-x-8"
             />
             {step > 1 && (
-              <div className="mt-3 rounded-xl border border-[#dce3ee] bg-[#fbfcfe] px-4 py-2">
+              <div className="mt-2 rounded-lg border border-[#dce3ee] bg-[#fbfcfe] px-3 py-1.5">
                 <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
                   <div className="flex items-center gap-3 leading-none">
                     <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-[#73809a]">
@@ -956,7 +956,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
             )}
           </header>
           <div
-            className={`grid min-h-0 flex-1 gap-8 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 px-6 pb-6 pt-1 sm:px-10 sm:pb-10 sm:pt-2 lg:px-12 lg:pb-12 lg:pt-3 ${step > 1 && !isReviewStep && !sent ? "lg:grid-cols-[minmax(0,1fr)_330px]" : ""}`}
+            className={`grid min-h-0 flex-1 gap-5 overflow-y-auto px-4 pb-4 pt-1 sm:px-6 sm:pb-5 sm:pt-1 lg:px-8 lg:pb-6 lg:pt-2 ${step > 1 && !isReviewStep && !sent ? "lg:grid-cols-[minmax(0,1fr)_18rem]" : ""}`}
           >
             <div
               className={`min-w-0 ${step === 1 || sent ? "mx-auto w-full max-w-[820px]" : ""}`}
@@ -973,20 +973,21 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
               }
             >
               <div>
-                <div className="mb-5">
-                  <p className="mb-1 text-xs font-bold uppercase tracking-[0.14em] text-[#5368c8]">
+                <div className="mb-3">
+                  <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-[#5368c8]">
                     Paso {step} de {lastStep}
                   </p>
-                  <h1 className="text-2xl font-bold tracking-[-0.02em] text-[#17233f]">
+                  <h1 className="text-xl font-bold tracking-[-0.02em] text-[#17233f]">
                     {step === 1
                       ? "Identifica al remitente"
                       : step === 2
-                        ? "Cotización de la remesa"
+                        ? quotesReady
+                          ? "Selecciona el proveedor"
+                          : "Cotización de la remesa"
                         : activeSteps[step - 1]}
                   </h1>
-                  <p className="mt-2 text-sm leading-6 text-[#687790]">
-                    Completa la información necesaria para continuar con la
-                    operación.
+                  <p className="mt-1 text-sm leading-5 text-[#687790]">
+                    Completa la información necesaria para continuar.
                   </p>
                 </div>
                 {step === 1 && (
@@ -995,22 +996,22 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                       e.preventDefault();
                       searchClient();
                     }}
-                    className="mx-auto max-w-[680px] space-y-5"
+                    className="mx-auto max-w-[680px] space-y-3"
                   >
                     <label className="block">
-                      <span className="mb-2 block text-sm font-semibold">
+                      <span className="mb-1 block text-sm font-semibold">
                         Tipo de documento{" "}
                         <span className="text-[#c73750]">*</span>
                       </span>
                       <select
                         defaultValue="ci"
-                        className="h-12 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm outline-none focus:border-[#5368c8]"
+                        className="h-10 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm outline-none focus:border-[#5368c8]"
                       >
                         <option value="ci">Cédula</option>
                       </select>
                     </label>
                     <label className="block">
-                      <span className="mb-2 block text-sm font-semibold">
+                      <span className="mb-1 block text-sm font-semibold">
                         Número de documento{" "}
                         <span className="text-[#c73750]">*</span>
                       </span>
@@ -1024,15 +1025,15 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                           setResult(null);
                         }}
                         placeholder="Ingresa el número de documento"
-                        className="h-12 w-full rounded-lg border border-[#cdd5e1] px-3 text-sm outline-none focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10"
+                        className="h-10 w-full rounded-lg border border-[#cdd5e1] px-3 text-sm outline-none focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10"
                       />
-                      <span className="mt-2 block text-xs text-[#7b879b]">
+                      <span className="mt-1 block text-xs text-[#7b879b]">
                         Solo números, sin espacios.
                       </span>
                     </label>
                     <button
                       disabled={!documentNumber || loading}
-                      className="h-12 w-full rounded-lg bg-[#465bc2] text-sm font-bold text-white disabled:bg-[#b8c1dc]"
+                      className="h-10 w-full rounded-lg bg-[#465bc2] text-sm font-bold text-white disabled:bg-[#b8c1dc]"
                     >
                       {loading ? "Buscando cliente…" : "Buscar"}
                     </button>
@@ -1123,10 +1124,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     </div>
                   </form>
                 )}
-                {step === 2 && (
-                  <div className="space-y-6">
+                {step === 2 && !quotesReady && (
+                  <div className="space-y-4">
                     <h2 className="font-bold">Datos de la cotización</h2>
-                    <div className="grid gap-5 sm:grid-cols-2">
+                    <div className="grid gap-3 sm:grid-cols-2">
                       <Field
                         label="Moneda de origen"
                         value="USD"
@@ -1303,7 +1304,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                       )}
                       <div>
                         <label className="block">
-                          <span className="mb-2 block text-sm font-semibold">
+                          <span className="mb-1 block text-sm font-semibold">
                             Monto a enviar{" "}
                             <span className="text-[#c73750]">*</span>
                           </span>
@@ -1342,7 +1343,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                               disabled={!amountUnlocked}
                               placeholder="0.00"
                               inputMode="decimal"
-                              className="h-12 w-full rounded-lg border border-[#cdd5e1] pl-16 pr-3 text-sm text-[#17233f] outline-none disabled:bg-[#f3f5f9] disabled:text-[#8a96aa] focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10"
+                              className="h-10 w-full rounded-lg border border-[#cdd5e1] pl-16 pr-3 text-sm text-[#17233f] outline-none disabled:bg-[#f3f5f9] disabled:text-[#8a96aa] focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10"
                             />
                             <span id="send-amount-currency" className="sr-only">
                               Dólares estadounidenses, máximo dos decimales
@@ -1352,7 +1353,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                         <div
                           role="group"
                           aria-label="Montos rápidos"
-                          className="mt-3 flex flex-wrap gap-2"
+                          className="mt-2 flex flex-wrap gap-1.5"
                         >
                           {QUICK_AMOUNTS.map((amount) => {
                             const selected =
@@ -1368,7 +1369,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                                   resetQuoteSelection();
                                   sendAmountRef.current?.focus();
                                 }}
-                                className={`h-8 rounded-full border px-3 text-xs font-bold transition-colors focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20 disabled:cursor-not-allowed disabled:border-[#e2e7ef] disabled:bg-transparent disabled:text-[#a3adbd] ${selected ? "border-[#465bc2] bg-[#465bc2] text-white" : "border-[#cdd5e1] bg-white text-[#465bc2] hover:border-[#465bc2] hover:bg-[#f1f3fc]"}`}
+                                className={`h-7 rounded-full border px-2.5 text-xs font-bold transition-colors focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20 disabled:cursor-not-allowed disabled:border-[#e2e7ef] disabled:bg-transparent disabled:text-[#a3adbd] ${selected ? "border-[#465bc2] bg-[#465bc2] text-white" : "border-[#cdd5e1] bg-white text-[#465bc2] hover:border-[#465bc2] hover:bg-[#f1f3fc]"}`}
                               >
                                 ${amount}
                               </button>
@@ -1386,14 +1387,14 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                         disabled
                         required
                       />
-                      <div>
+                      <div className="sm:col-span-2 sm:flex sm:items-end">
                         <button
                           type="button"
                           onClick={requestQuote}
                           disabled={
                             !amountUnlocked || !sendAmount || quoteLoading
                           }
-                          className="inline-flex h-11 items-center gap-2 rounded-lg border border-[#465bc2] px-6 text-sm font-bold text-[#465bc2] transition-colors hover:bg-[#f1f3fc] disabled:cursor-not-allowed disabled:border-[#cdd5e1] disabled:text-[#8a96aa] disabled:hover:bg-transparent focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20"
+                          className="inline-flex h-10 items-center gap-2 rounded-lg border border-[#465bc2] px-5 text-sm font-bold text-[#465bc2] transition-colors hover:bg-[#f1f3fc] disabled:cursor-not-allowed disabled:border-[#cdd5e1] disabled:text-[#8a96aa] disabled:hover:bg-transparent focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20"
                         >
                           {quoteLoading && (
                             <span
@@ -1405,14 +1406,28 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                         </button>
                       </div>
                     </div>
-                    {quotesReady && deliveryType && (
-                      <QuoteResults
-                        quotes={providerQuotes}
-                        selectedProvider={selectedProvider}
-                        deliveryType={deliveryType}
-                        onSelect={selectProviderQuote}
-                      />
-                    )}
+                  </div>
+                )}
+                {step === 2 && quotesReady && deliveryType && (
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <p className="text-sm text-[#687790]">
+                        Cotización lista. Elige un proveedor para continuar.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={resetQuoteSelection}
+                        className="rounded-md px-3 py-1.5 text-sm font-semibold text-[#465bc2] hover:bg-[#eef1fc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#465bc2]"
+                      >
+                        Editar cotización
+                      </button>
+                    </div>
+                    <QuoteResults
+                      quotes={providerQuotes}
+                      selectedProvider={selectedProvider}
+                      deliveryType={deliveryType}
+                      onSelect={selectProviderQuote}
+                    />
                   </div>
                 )}
                 {step >= 3 && selectedProvider && quote && (
@@ -1515,12 +1530,12 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
             )}
           </div>
           {step > 1 && (
-            <div className="shrink-0 border-t border-[#e9edf5] bg-white px-6 py-5 sm:px-10 lg:px-12">
+            <div className="shrink-0 border-t border-[#e9edf5] bg-white px-4 py-3 sm:px-6 lg:px-8">
               <div className="flex w-full justify-between">
                 <button
                   type="button"
                   onClick={back}
-                  className="rounded-lg border border-[#dce3ee] px-8 py-3 text-sm font-bold text-[#687790]"
+                  className="rounded-lg border border-[#dce3ee] px-5 py-2 text-sm font-bold text-[#687790]"
                 >
                   Volver
                 </button>
@@ -1533,7 +1548,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     (step === 2 && !selectedProvider) ||
                     (isPaymentStep && !paymentReady)
                   }
-                  className="rounded-lg bg-[#465bc2] px-8 py-3 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-[#5368c8]/30 disabled:cursor-not-allowed disabled:bg-[#b9c1e3]"
+                  className="rounded-lg bg-[#465bc2] px-5 py-2 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-[#5368c8]/30 disabled:cursor-not-allowed disabled:bg-[#b9c1e3]"
                 >
                   {isReviewStep ? "Confirmar y enviar" : "Siguiente"}
                 </button>

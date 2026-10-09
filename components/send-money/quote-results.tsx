@@ -38,16 +38,16 @@ export function QuoteResults({
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       <h2 className="font-bold">Cotizaciones por proveedor</h2>
       <p className="text-sm text-[#687790]">{subtitle}</p>
       {quotes.length === 0 ? (
-        <p className="rounded-lg border border-[#eadcae] bg-[#fffaf0] p-4 text-sm text-[#765d12]">
+        <p className="rounded-lg border border-[#eadcae] bg-[#fffaf0] p-3 text-sm text-[#765d12]">
           Ningún proveedor disponible para este tipo de envío. Probá con otro
           tipo.
         </p>
       ) : (
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-2 sm:grid-cols-2">
           {quotes.map((quote) => {
             const selected = selectedProvider === quote.provider;
             const total = quote.amount + quote.fee + quote.tax;
@@ -57,7 +57,7 @@ export function QuoteResults({
                 type="button"
                 onClick={() => onSelect(quote)}
                 aria-pressed={selected}
-                className={`rounded-xl border p-4 text-left transition-colors ${
+                className={`rounded-xl border p-3 text-left transition-colors ${
                   selected
                     ? "border-[#5368c8] bg-[#f4f6ff] ring-2 ring-[#5368c8]/20"
                     : "border-[#dce3ee] bg-white hover:border-[#aebcf0]"
@@ -77,7 +77,7 @@ export function QuoteResults({
                     {selected ? "Seleccionado" : "Elegir"}
                   </span>
                 </div>
-                <dl className="mt-3 space-y-1.5 text-sm">
+                <dl className="mt-2 space-y-1 text-sm">
                   <div className="flex justify-between gap-3">
                     <dt className="text-[#73809a]">Tipo de envío</dt>
                     <dd className="font-semibold">

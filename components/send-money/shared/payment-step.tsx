@@ -35,9 +35,9 @@ export function StandardPaymentStep({
   billingSlot: ReactNode;
 }) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <h2 className="font-bold">Registra el pago recibido</h2>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2">
         <Field
           label="Total a cobrar"
           value={formatUsd(totalToCharge)}
@@ -46,11 +46,11 @@ export function StandardPaymentStep({
         />
         {paymentMethodSlot}
         <label className="block">
-          <span className="mb-2 block text-sm font-semibold">
+          <span className="mb-1 block text-sm font-semibold">
             Monto recibido <span className="text-[#c73750]">*</span>
           </span>
           <div
-            className={`flex h-12 items-center rounded-lg border bg-white transition focus-within:ring-4 ${
+            className={`flex h-10 items-center rounded-lg border bg-white transition focus-within:ring-4 ${
               receivedInsufficient
                 ? "border-[#c73750] focus-within:border-[#c73750] focus-within:ring-[#c73750]/10"
                 : "border-[#cdd5e1] focus-within:border-[#5368c8] focus-within:ring-[#5368c8]/10"
@@ -130,7 +130,7 @@ export function TerrapayPaymentStep({
   return (
     <div className="space-y-6">
       <h2 className="font-bold">Método de pago TerraPay</h2>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2">
         <Field
           label="Total a pagar"
           value={formatUsd(totalToCharge)}

@@ -103,6 +103,7 @@ function SearchableSelect({
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(0);
+  const rootRef = useRef<HTMLDivElement>(null);
   const filterRef = useRef<HTMLInputElement>(null);
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const filteredOptions = options.filter((option) =>
@@ -138,8 +139,20 @@ function SearchableSelect({
   useEffect(() => {
     if (loading) setOpen(false);
   }, [loading]);
+  useEffect(() => {
+    if (!open) return;
+    function handlePointerDown(event: PointerEvent) {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (rootRef.current?.contains(target)) return;
+      setOpen(false);
+      setFilter("");
+    }
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [open]);
   return (
-    <div className="relative block">
+    <div ref={rootRef} className={`relative block ${open ? "z-50" : "z-0"}`}>
       <span className="mb-1 block text-sm font-semibold text-[#263653]">
         {label}
       </span>
@@ -187,7 +200,7 @@ function SearchableSelect({
         <span aria-hidden="true">⌄</span>
       </button>
       {open && (
-        <div className="absolute inset-x-0 top-full z-20 mt-1 rounded-lg border border-[#cdd5e1] bg-white p-2 shadow-lg">
+        <div className="absolute inset-x-0 top-full z-50 mt-1 rounded-lg border border-[#cdd5e1] bg-white p-2 shadow-lg">
           <input
             ref={filterRef}
             value={filter}
@@ -362,6 +375,7 @@ function useAltFieldNavigation() {
 }
 
 const QUICK_AMOUNTS = [50, 100, 200, 500, 1000];
+const AGENCY_USD_BALANCE = 700;
 
 const usdFormatter = new Intl.NumberFormat("es-ES", {
   minimumFractionDigits: 2,
@@ -591,6 +605,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [terraPayBank, setTerraPayBank] = useState("");
   const [terraPayWallet, setTerraPayWallet] = useState("");
   const [sendAmount, setSendAmount] = useState("");
+  const [amountExceedsBalance, setAmountExceedsBalance] = useState(false);
   const deliveryTypeRef = useRef<HTMLButtonElement>(null);
   const wuServiceRef = useRef<HTMLButtonElement>(null);
   const qpayCompanyRef = useRef<HTMLButtonElement>(null);
@@ -633,6 +648,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const clearAmount = () => {
     quoteRequestRef.current += 1;
     setSendAmount("");
+    setAmountExceedsBalance(false);
     setQuote(null);
     setProviderQuotes([]);
     setQuotesReady(false);
@@ -649,6 +665,18 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       normalizedAmount.replace(/\./g, "").replace(",", "."),
     );
     if (!Number.isFinite(amount) || amount <= 0) return;
+    if (toCents(amount) > toCents(AGENCY_USD_BALANCE)) {
+      setAmountExceedsBalance(true);
+      setQuote(null);
+      setProviderQuotes([]);
+      setQuotesReady(false);
+      setSelectedProvider(null);
+      setActiveSteps([...BASE_STEPS]);
+      setQuoteLoading(false);
+      setStep((current) => Math.min(current, 2));
+      return;
+    }
+    setAmountExceedsBalance(false);
     const requestId = ++quoteRequestRef.current;
     setQuoteLoading(true);
     setQuote(null);
@@ -690,9 +718,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setStep((current) => Math.min(current, 2));
     setQuoteLoading(false);
   };
-  const [result, setResult] = useState<"success" | "empty" | "error" | null>(
-    null,
-  );
+  const [result, setResult] = useState<
+    "success" | "empty" | "error" | "blocked" | null
+  >(null);
   const isKnownClient = result === "success";
   const known = (value?: string) => (isKnownClient ? value : undefined);
   const senderName = isKnownClient ? "Eliana Antezana Ovando" : "";
@@ -810,9 +838,11 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       setResult(
         value === "0000000"
           ? "error"
-          : value === "7807365"
-            ? "success"
-            : "empty",
+          : value === "2222222"
+            ? "blocked"
+            : value === "7807365" || value === "1111111"
+              ? "success"
+              : "empty",
       );
       setLoading(false);
     }, 550);
@@ -1060,10 +1090,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                         defaultValue="ci"
                         className="h-10 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm text-[#263653] outline-none focus:border-[#5368c8]"
                       >
-                        <option value="ci">Carnet de extranjero</option>
+                        <option value="cde">Carnet de extranjero</option>
                         <option value="ci">Cédula</option>
-                        <option value="ci">Cédula de mercosur</option>
-                        <option value="ci">Pasaporte</option>
+                        <option value="cdm">Cédula de mercosur</option>
+                        <option value="p">Pasaporte</option>
                       </select>
                     </label>
                     <label className="block">
@@ -1075,9 +1105,12 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                         autoFocus
                         onKeyDown={trapDocumentFocus}
                         inputMode="numeric"
+                        maxLength={7}
                         value={documentNumber}
                         onChange={(e) => {
-                          setDocumentNumber(e.target.value.replace(/\D/g, ""));
+                          setDocumentNumber(
+                            e.target.value.replace(/\D/g, "").slice(0, 7),
+                          );
                           setResult(null);
                         }}
                         placeholder="Ingresa el número de documento"
@@ -1163,7 +1196,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                           className="rounded-xl border border-[#f0c8cf] bg-[#fff5f6] p-5"
                         >
                           <p className="font-bold text-[#7f2638]">
-                            No pudimos completar la b��squeda
+                            No pudimos completar la búsqueda
                           </p>
                           <p className="mt-1 text-sm text-[#a34f60]">
                             Ocurrió un problema temporal. Verifica tu conexión e
@@ -1176,6 +1209,20 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                           >
                             Reintentar
                           </button>
+                        </div>
+                      )}
+                      {result === "blocked" && (
+                        <div
+                          role="alert"
+                          className="rounded-xl border border-[#f0c8cf] bg-[#fff5f6] p-5"
+                        >
+                          <p className="font-bold text-[#7f2638]">
+                            Cliente bloqueado
+                          </p>
+                          <p className="mt-1 text-sm text-[#a34f60]">
+                            Este cliente no puede continuar con la transacción.
+                            Contacta a un supervisor si necesitas asistencia.
+                          </p>
                         </div>
                       )}
                     </div>
@@ -1262,18 +1309,34 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                             <input
                               ref={sendAmountRef}
                               value={sendAmount}
-                              aria-describedby="send-amount-currency"
+                              aria-describedby={
+                                amountExceedsBalance
+                                  ? "send-amount-currency send-amount-balance-error"
+                                  : "send-amount-currency"
+                              }
+                              aria-invalid={amountExceedsBalance}
                               onChange={(event) => {
                                 setSendAmount(
                                   sanitizeAmount(event.target.value),
                                 );
+                                setAmountExceedsBalance(false);
                                 resetQuoteSelection();
                               }}
-                              onBlur={() =>
-                                setSendAmount((current) =>
-                                  normalizeAmount(current),
-                                )
-                              }
+                              onBlur={() => {
+                                const normalized = normalizeAmount(sendAmount);
+                                setSendAmount(normalized);
+                                const amount = Number(
+                                  normalized
+                                    .replace(/\./g, "")
+                                    .replace(",", "."),
+                                );
+                                setAmountExceedsBalance(
+                                  Number.isFinite(amount) &&
+                                    amount > 0 &&
+                                    toCents(amount) >
+                                      toCents(AGENCY_USD_BALANCE),
+                                );
+                              }}
                               onKeyDown={(event) => {
                                 if (
                                   event.key !== "Enter" ||
@@ -1287,13 +1350,24 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                               disabled={!amountUnlocked}
                               placeholder="0,00"
                               inputMode="decimal"
-                              className="h-10 w-full rounded-lg border border-[#cdd5e1] pl-16 pr-3 text-sm text-[#17233f] outline-none disabled:bg-[#f3f5f9] disabled:text-[#8a96aa] focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10"
+                              className={`h-10 w-full rounded-lg border pl-16 pr-3 text-sm text-[#17233f] outline-none disabled:bg-[#f3f5f9] disabled:text-[#8a96aa] focus:ring-4 ${amountExceedsBalance ? "border-[#e39aa8] focus:border-[#b52e45] focus:ring-[#b52e45]/15" : "border-[#cdd5e1] focus:border-[#5368c8] focus:ring-[#5368c8]/10"}`}
                             />
                             <span id="send-amount-currency" className="sr-only">
                               Dólares estadounidenses, máximo dos decimales
                             </span>
                           </span>
                         </label>
+                        {amountExceedsBalance && (
+                          <p
+                            id="send-amount-balance-error"
+                            role="alert"
+                            className="mt-1 text-sm text-[#a34f60]"
+                          >
+                            El monto supera el saldo virtual de la agencia (
+                            {formatUsd(AGENCY_USD_BALANCE)}). No es posible
+                            cotizar.
+                          </p>
+                        )}
                         <div
                           role="group"
                           aria-label="Montos rápidos"
@@ -1311,6 +1385,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                                 disabled={!amountUnlocked || quoteLoading}
                                 onClick={() => {
                                   setSendAmount(usdFormatter.format(amount));
+                                  setAmountExceedsBalance(
+                                    toCents(amount) >
+                                      toCents(AGENCY_USD_BALANCE),
+                                  );
                                   resetQuoteSelection();
                                   sendAmountRef.current?.focus();
                                 }}
@@ -1452,7 +1530,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                           type="button"
                           onClick={requestQuote}
                           disabled={
-                            !amountUnlocked || !sendAmount || quoteLoading
+                            !amountUnlocked ||
+                            !sendAmount ||
+                            quoteLoading ||
+                            amountExceedsBalance
                           }
                           className="inline-flex h-10 items-center gap-2 rounded-lg border border-[#c5cddb] px-5 text-sm font-bold text-[#3a4558] transition-colors hover:border-[#9aa3b5] hover:bg-[#f5f7fa] disabled:cursor-not-allowed disabled:border-[#e2e7ef] disabled:text-[#a3adbd] disabled:hover:bg-transparent focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20"
                         >

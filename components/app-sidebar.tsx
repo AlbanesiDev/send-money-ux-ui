@@ -41,7 +41,7 @@ export function AppSidebar() {
   return (
     <aside
       aria-label="Menú principal"
-      className="hidden h-full w-[18.75rem] shrink-0 overflow-y-auto rounded-[18px] bg-white p-4 shadow-[0_12px_35px_rgba(24,37,73,0.05)] lg:block"
+      className="scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hidden h-full w-[18.75rem] shrink-0 overflow-y-auto rounded-[18px] bg-white p-4 shadow-[0_12px_35px_rgba(24,37,73,0.05)] lg:block"
     >
       <label className="relative block">
         <span className="sr-only">Buscar</span>

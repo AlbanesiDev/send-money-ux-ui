@@ -186,7 +186,7 @@ function SearchableSelect({
           <div
             role="listbox"
             aria-label={label}
-            className="mt-1 max-h-48 overflow-y-auto"
+            className="mt-1 max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"
           >
             {filteredOptions.map((option) => (
               <button
@@ -956,7 +956,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
             )}
           </header>
           <div
-            className={`grid min-h-0 flex-1 gap-8 overflow-y-auto px-6 pb-6 pt-1 sm:px-10 sm:pb-10 sm:pt-2 lg:px-12 lg:pb-12 lg:pt-3 ${step > 1 && !isReviewStep && !sent ? "lg:grid-cols-[minmax(0,1fr)_330px]" : ""}`}
+            className={`grid min-h-0 flex-1 gap-8 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 px-6 pb-6 pt-1 sm:px-10 sm:pb-10 sm:pt-2 lg:px-12 lg:pb-12 lg:pt-3 ${step > 1 && !isReviewStep && !sent ? "lg:grid-cols-[minmax(0,1fr)_330px]" : ""}`}
           >
             <div
               className={`min-w-0 ${step === 1 || sent ? "mx-auto w-full max-w-[820px]" : ""}`}
@@ -1038,7 +1038,11 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     </button>
                     <div
                       aria-live="polite"
-                      className="min-h-[150px] border-t border-[#e9edf5] pt-6"
+                      className={
+                        result
+                          ? "mt-2 border-t border-[#e9edf5] pt-6"
+                          : undefined
+                      }
                     >
                       {result === "success" && (
                         <div className="rounded-xl border border-[#cde8db] bg-[#f1faf5] p-5">

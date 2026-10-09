@@ -363,26 +363,26 @@ function useAltFieldNavigation() {
 
 const QUICK_AMOUNTS = [50, 100, 200, 500, 1000];
 
-function sanitizeAmount(value: string) {
-  const [integerPart, ...decimalParts] = value
-    .replace(/,/g, ".")
-    .replace(/[^0-9.]/g, "")
-    .split(".");
-  if (decimalParts.length === 0) return integerPart;
-  return `${integerPart || "0"}.${decimalParts.join("").slice(0, 2)}`;
-}
-
-function normalizeAmount(value: string) {
-  if (!value) return "";
-  const amount = Number(value);
-  return Number.isFinite(amount) ? amount.toFixed(2) : "";
-}
-
 const usdFormatter = new Intl.NumberFormat("es-ES", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
   useGrouping: true,
 });
+
+function sanitizeAmount(value: string) {
+  const cleaned = value.replace(/\./g, "").replace(/[^0-9,]/g, "");
+  const [integerPart, ...decimalParts] = cleaned.split(",");
+  if (decimalParts.length === 0) return integerPart;
+  return `${integerPart || "0"},${decimalParts.join("").slice(0, 2)}`;
+}
+
+function normalizeAmount(value: string) {
+  if (!value) return "";
+  const amount = Number(value.replace(/\./g, "").replace(",", "."));
+  if (!Number.isFinite(amount)) return "";
+  return usdFormatter.format(amount);
+}
+
 const formatUsd = (value: number) => `${usdFormatter.format(value)} USD`;
 const toCents = (value: number) => Math.round(value * 100);
 const paymentMethodOptions = [
@@ -645,7 +645,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     if (!deliveryType) return;
     const normalizedAmount = normalizeAmount(sendAmount);
     setSendAmount(normalizedAmount);
-    const amount = Number(normalizedAmount);
+    const amount = Number(
+      normalizedAmount.replace(/\./g, "").replace(",", "."),
+    );
     if (!Number.isFinite(amount) || amount <= 0) return;
     const requestId = ++quoteRequestRef.current;
     setQuoteLoading(true);
@@ -709,7 +711,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const paymentMethodRef = useRef<HTMLButtonElement>(null);
   const receivedAmountRef = useRef<HTMLInputElement>(null);
   const totalToCharge = quote ? quote.amount + quote.fee + quote.tax : 0;
-  const receivedValue = receivedAmount ? Number(receivedAmount) : 0;
+  const receivedValue = receivedAmount
+    ? Number(receivedAmount.replace(/\./g, "").replace(",", "."))
+    : 0;
   const changeDue = Math.max(0, receivedValue - totalToCharge);
   const receivedInsufficient =
     receivedAmount !== "" && toCents(receivedValue) < toCents(totalToCharge);
@@ -1281,7 +1285,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                                 requestQuote();
                               }}
                               disabled={!amountUnlocked}
-                              placeholder="0.00"
+                              placeholder="0,00"
                               inputMode="decimal"
                               className="h-10 w-full rounded-lg border border-[#cdd5e1] pl-16 pr-3 text-sm text-[#17233f] outline-none disabled:bg-[#f3f5f9] disabled:text-[#8a96aa] focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10"
                             />
@@ -1297,7 +1301,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                         >
                           {QUICK_AMOUNTS.map((amount) => {
                             const selected =
-                              normalizeAmount(sendAmount) === amount.toFixed(2);
+                              normalizeAmount(sendAmount) ===
+                              usdFormatter.format(amount);
                             return (
                               <button
                                 key={amount}
@@ -1305,7 +1310,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                                 aria-pressed={selected}
                                 disabled={!amountUnlocked || quoteLoading}
                                 onClick={() => {
-                                  setSendAmount(amount.toFixed(2));
+                                  setSendAmount(usdFormatter.format(amount));
                                   resetQuoteSelection();
                                   sendAmountRef.current?.focus();
                                 }}
@@ -1321,7 +1326,13 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                         label="Monto que recibe"
                         value={
                           sendAmount
-                            ? formatUsd(Number(normalizeAmount(sendAmount)))
+                            ? formatUsd(
+                                Number(
+                                  normalizeAmount(sendAmount)
+                                    .replace(/\./g, "")
+                                    .replace(",", "."),
+                                ),
+                              )
                             : ""
                         }
                         disabled

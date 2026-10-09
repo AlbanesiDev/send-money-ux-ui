@@ -84,14 +84,19 @@ export function AppHeader({
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
-          <div className="private-operator-status hidden lg:inline-flex">
-            <span className="private-status-dot" aria-hidden="true" />
-            JoacoDev
+          <div className="private-operator-status flex items-center justify-center">
+            <span
+              className="private-status-dot animate-pulse mt-[0.15rem]"
+              aria-hidden="true"
+            />
+            Turno activo
             <strong>·</strong>
-            Agencia #1939
+            Cis Ariana Mejia
             <strong>·</strong>
-            Caja 1<strong>·</strong>
-            Super Usuario
+            Caja: 1<strong>·</strong>
+            Saldo virtual USD: $700,00
+            <strong>·</strong>
+            Saldo virtual BOB: $6.000,00
           </div>
 
           <div className="relative" ref={notificationsRoot}>

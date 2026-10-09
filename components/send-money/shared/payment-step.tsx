@@ -64,7 +64,7 @@ export function StandardPaymentStep({
               value={receivedAmount}
               inputMode="decimal"
               autoComplete="off"
-              placeholder="0.00"
+              placeholder="0,00"
               aria-invalid={receivedInsufficient}
               aria-describedby={
                 receivedInsufficient ? "received-amount-error" : undefined

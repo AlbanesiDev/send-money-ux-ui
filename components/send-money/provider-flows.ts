@@ -5,7 +5,7 @@ import type {
   ProviderQuote,
 } from "./types";
 
-export const BASE_STEPS = ["Transacción", "Cotización"] as const;
+export const BASE_STEPS = ["Remitente", "Cotización"] as const;
 
 export const PROVIDER_IDS: ProviderId[] = ["RIA", "WU", "QPAY", "TERRAPAY"];
 

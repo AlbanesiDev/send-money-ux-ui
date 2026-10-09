@@ -838,6 +838,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       selectedProvider &&
       step >= 3 &&
       (getStepKey(selectedProvider, step) === "remitter" ||
+        getStepKey(selectedProvider, step) === "pep" ||
         getStepKey(selectedProvider, step) === "beneficiary")
     ) {
       window.requestAnimationFrame(() => {
@@ -845,10 +846,15 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
           document.querySelectorAll<
             HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
           >(
-            "[data-enter-advance] input:not([disabled]):not([readonly]):not([type=hidden]):not([type=checkbox]):not([type=radio]), [data-enter-advance] select:not([disabled]), [data-enter-advance] textarea:not([disabled]):not([readonly])",
+            "[data-enter-advance] input[required]:not([disabled]):not([readonly]):not([type=hidden]):not([type=checkbox]):not([type=radio]), [data-enter-advance] select[required]:not([disabled]), [data-enter-advance] textarea[required]:not([disabled]):not([readonly])",
           ),
         );
-        fields.find((field) => !field.value.trim())?.focus();
+        const firstEmptyRequired = fields.find((field) => !field.value.trim());
+        if (firstEmptyRequired) {
+          firstEmptyRequired.focus();
+          return;
+        }
+        nextButtonRef.current?.focus();
       });
     }
     if (

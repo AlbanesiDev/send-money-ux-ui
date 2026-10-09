@@ -8,15 +8,17 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
 
   return (
-    <>
+    <div className="flex min-h-screen flex-col bg-muted">
       <AppHeader
         sidebarExpanded={sidebarExpanded}
         onToggleSidebar={() => setSidebarExpanded((current) => !current)}
       />
-      <main className="flex h-[calc(100vh-var(--app-header-height))] min-h-0 gap-3 overflow-hidden bg-[#F2F2F9] px-3 py-3 text-[#17233f] sm:px-4 sm:py-3 lg:px-5">
+      <div className="private-chrome private-h-screen flex w-full min-w-0">
         <AppSidebar expanded={sidebarExpanded} />
-        {children}
-      </main>
-    </>
+        <main className="private-content-shell relative z-0 flex min-h-0 min-w-0 flex-1 flex-col p-6 text-[#17233f]">
+          {children}
+        </main>
+      </div>
+    </div>
   );
 }

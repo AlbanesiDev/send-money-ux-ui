@@ -14,7 +14,6 @@ function formatUsd(value: number) {
 export function QuoteResults({
   quotes,
   selectedProvider,
-  deliveryType,
   onSelect,
 }: {
   quotes: ProviderQuote[];
@@ -22,32 +21,15 @@ export function QuoteResults({
   deliveryType: DeliveryTypeId | null;
   onSelect: (quote: ProviderQuote) => void;
 }) {
-  let subtitle =
-    "Selecciona una cotización para continuar con el flujo de ese proveedor.";
-  if (deliveryType) {
-    const supported = (
-      Object.keys(providerDeliverySupport) as Array<
-        keyof typeof providerDeliverySupport
-      >
-    )
-      .filter((provider) =>
-        providerDeliverySupport[provider].includes(deliveryType),
-      )
-      .join(", ");
-    subtitle = `Tipo: ${deliveryTypeLabel(deliveryType)}. Proveedores que lo soportan: ${supported}.`;
-  }
-
   return (
     <div className="space-y-2">
-      <h2 className="font-bold">Cotizaciones por proveedor</h2>
-      <p className="text-sm text-[#687790]">{subtitle}</p>
       {quotes.length === 0 ? (
         <p className="rounded-lg border border-[#eadcae] bg-[#fffaf0] p-3 text-sm text-[#765d12]">
           Ningún proveedor disponible para este tipo de envío. Probá con otro
           tipo.
         </p>
       ) : (
-        <div className="grid gap-2 sm:grid-cols-2">
+        <div className="flex gap-2">
           {quotes.map((quote) => {
             const selected = selectedProvider === quote.provider;
             const total = quote.amount + quote.fee + quote.tax;
@@ -57,7 +39,7 @@ export function QuoteResults({
                 type="button"
                 onClick={() => onSelect(quote)}
                 aria-pressed={selected}
-                className={`rounded-xl border p-3 text-left transition-colors ${
+                className={`min-w-0 flex-1 rounded-xl border p-3 text-left transition-colors ${
                   selected
                     ? "border-[#5368c8] bg-[#f4f6ff] ring-2 ring-[#5368c8]/20"
                     : "border-[#dce3ee] bg-white hover:border-[#aebcf0]"

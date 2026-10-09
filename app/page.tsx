@@ -5,9 +5,11 @@ import {
   useRef,
   useState,
   type KeyboardEvent as ReactKeyboardEvent,
+  type ReactNode,
   type RefObject,
 } from "react";
 import { flushSync } from "react-dom";
+import { ChevronDown } from "lucide-react";
 import {
   RemittanceProcessing,
   RemittanceSuccess,
@@ -124,7 +126,7 @@ function SearchableSelect({
   }, [loading]);
   return (
     <div className="relative block">
-      <span className="mb-1 block text-sm font-semibold">
+      <span className="mb-1 block text-sm font-semibold text-[#263653]">
         {label} <span className="text-[#c73750]">*</span>
       </span>
       <button
@@ -334,6 +336,58 @@ const paymentMethodOptions = [
   "Pago QR",
 ];
 
+function QuoteAccordion({
+  title,
+  subtitle,
+  open,
+  onToggle,
+  disabled = false,
+  children,
+}: {
+  title: string;
+  subtitle?: string;
+  open: boolean;
+  onToggle: () => void;
+  disabled?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      className={`rounded-xl border ${
+        open ? "border-[#c9d2f2] bg-white" : "border-[#dce3ee] bg-[#fbfcfe]"
+      } ${disabled ? "opacity-60" : ""}`}
+    >
+      <button
+        type="button"
+        onClick={onToggle}
+        disabled={disabled}
+        aria-expanded={open}
+        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left disabled:cursor-not-allowed"
+      >
+        <span className="min-w-0">
+          <span className="block text-sm font-bold text-[#17233f]">
+            {title}
+          </span>
+          {subtitle && (
+            <span className="mt-0.5 block text-xs text-[#687790]">
+              {subtitle}
+            </span>
+          )}
+        </span>
+        <ChevronDown
+          className={`h-4 w-4 shrink-0 text-[#687790] transition-transform ${
+            open ? "rotate-180" : ""
+          }`}
+          aria-hidden="true"
+        />
+      </button>
+      {open && (
+        <div className="border-t border-[#e9edf5] px-4 py-4">{children}</div>
+      )}
+    </div>
+  );
+}
+
 function Summary({
   provider,
   quote,
@@ -478,7 +532,7 @@ function BillingSummary({
         >
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block">
-              <span className="mb-1 block text-sm font-semibold">
+              <span className="mb-1 block text-sm font-semibold text-[#263653]">
                 Nombre o razón social
               </span>
               <input
@@ -488,7 +542,9 @@ function BillingSummary({
               />
             </label>
             <label className="block">
-              <span className="mb-1 block text-sm font-semibold">NIT / CI</span>
+              <span className="mb-1 block text-sm font-semibold text-[#263653]">
+                NIT / CI
+              </span>
               <input
                 value={nit}
                 inputMode="numeric"
@@ -566,6 +622,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [quote, setQuote] = useState<ProviderQuote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [quotesReady, setQuotesReady] = useState(false);
+  const [quoteAccordion, setQuoteAccordion] = useState<"form" | "results">(
+    "form",
+  );
   const quoteRequestRef = useRef(0);
   const nextButtonRef = useRef<HTMLButtonElement>(null);
   const lastStep = activeSteps.length;
@@ -575,6 +634,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setQuote(null);
     setProviderQuotes([]);
     setQuotesReady(false);
+    setQuoteAccordion("form");
     setSelectedProvider(null);
     setActiveSteps([...BASE_STEPS]);
     setQuoteLoading(false);
@@ -599,6 +659,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       const quotes = buildProviderQuotes(amount, deliveryType);
       setProviderQuotes(quotes);
       setQuotesReady(true);
+      setQuoteAccordion("results");
       setQuoteLoading(false);
       window.requestAnimationFrame(() => nextButtonRef.current?.focus());
     }, 900);
@@ -613,6 +674,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setQuote(null);
     setProviderQuotes([]);
     setQuotesReady(false);
+    setQuoteAccordion("form");
     setSelectedProvider(null);
     setActiveSteps([...BASE_STEPS]);
     setStep((current) => Math.min(current, 2));
@@ -854,7 +916,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   }, [step, paymentReady, lastStep, selectedProvider, isPaymentStep]);
 
   return (
-    <section className="mx-auto flex min-h-0 min-w-0 max-w-[1540px] flex-1 flex-col overflow-hidden rounded-[18px] bg-white shadow-[0_12px_35px_rgba(24,37,73,0.05)]">
+    <section className="flex h-full min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden rounded-[14px] bg-white text-[#17233f] shadow-[0_12px_35px_rgba(24,37,73,0.06)]">
       {processing ? (
         <RemittanceProcessing
           totalSent={formatUsd(
@@ -981,9 +1043,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     {step === 1
                       ? "Identifica al remitente"
                       : step === 2
-                        ? quotesReady
-                          ? "Selecciona el proveedor"
-                          : "Cotización de la remesa"
+                        ? "Cotización de la remesa"
                         : activeSteps[step - 1]}
                   </h1>
                   <p className="mt-1 text-sm leading-5 text-[#687790]">
@@ -999,19 +1059,19 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     className="mx-auto max-w-[680px] space-y-3"
                   >
                     <label className="block">
-                      <span className="mb-1 block text-sm font-semibold">
+                      <span className="mb-1 block text-sm font-semibold text-[#263653]">
                         Tipo de documento{" "}
                         <span className="text-[#c73750]">*</span>
                       </span>
                       <select
                         defaultValue="ci"
-                        className="h-10 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm outline-none focus:border-[#5368c8]"
+                        className="h-10 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm text-[#263653] outline-none focus:border-[#5368c8]"
                       >
                         <option value="ci">Cédula</option>
                       </select>
                     </label>
                     <label className="block">
-                      <span className="mb-1 block text-sm font-semibold">
+                      <span className="mb-1 block text-sm font-semibold text-[#263653]">
                         Número de documento{" "}
                         <span className="text-[#c73750]">*</span>
                       </span>
@@ -1025,7 +1085,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                           setResult(null);
                         }}
                         placeholder="Ingresa el número de documento"
-                        className="h-10 w-full rounded-lg border border-[#cdd5e1] px-3 text-sm outline-none focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10"
+                        className="h-10 w-full rounded-lg border border-[#cdd5e1] px-3 text-sm text-[#263653] outline-none placeholder:text-[#a2adbf] focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10"
                       />
                       <span className="mt-1 block text-xs text-[#7b879b]">
                         Solo números, sin espacios.
@@ -1124,310 +1184,321 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     </div>
                   </form>
                 )}
-                {step === 2 && !quotesReady && (
-                  <div className="space-y-4">
-                    <h2 className="font-bold">Datos de la cotización</h2>
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      <Field
-                        label="Moneda de origen"
-                        value="USD"
-                        disabled
-                        required
-                      />
-                      <SearchableSelect
-                        label="País de destino"
-                        showFlags
-                        value={destinationCountry}
-                        options={destinationCountryOptions}
-                        fieldRef={destinationCountryRef}
-                        nextRef={deliveryTypeRef}
-                        onChange={(value) => {
-                          setDestinationCountry(value);
-                          setDeliveryType("");
-                          clearDeliveryExtras();
-                          clearAmount();
-                        }}
-                      />
-                      <SearchableSelect
-                        label="Tipo de envío"
-                        value={
-                          deliveryType ? deliveryTypeLabel(deliveryType) : ""
-                        }
-                        options={DELIVERY_TYPE_OPTIONS.map(
-                          (option) => option.label,
-                        )}
-                        fieldRef={deliveryTypeRef}
-                        disabled={!destinationCountry}
-                        onChange={(label) => {
-                          const option = DELIVERY_TYPE_OPTIONS.find(
-                            (item) => item.label === label,
-                          );
-                          if (!option) {
-                            throw new Error(
-                              `Unknown delivery type label: ${label}`,
-                            );
-                          }
-                          setDeliveryType(option.id);
-                          clearDeliveryExtras();
-                          clearAmount();
-                          const nextVisibility = quoteFieldVisibility(
-                            option.id,
-                          );
-                          if (nextVisibility.showRiaPartnerLocation) {
-                            simulateOptionsLoad(
-                              setPartnerLoading,
-                              payingPartnerRef,
-                            );
-                            return;
-                          }
-                          window.requestAnimationFrame(() => {
-                            if (nextVisibility.showWuService) {
-                              wuServiceRef.current?.focus();
-                              return;
-                            }
-                            if (nextVisibility.showQpayCompany) {
-                              qpayCompanyRef.current?.focus();
-                              return;
-                            }
-                            sendAmountRef.current?.focus();
-                          });
-                        }}
-                      />
-                      {showPartnerLocation && (
-                        <>
-                          <SearchableSelect
-                            label="Socio pagador"
-                            value={payingPartner}
-                            options={payoutPartnerOptions}
-                            fieldRef={payingPartnerRef}
-                            loading={partnerLoading}
-                            onChange={(value) => {
-                              setPayingPartner(value);
-                              setLocation("");
-                              resetQuoteSelection();
-                              setSendAmount("");
-                              simulateOptionsLoad(
-                                setLocationLoading,
-                                locationRef,
-                              );
-                            }}
-                          />
-                          <SearchableSelect
-                            label="Locación"
-                            value={location}
-                            options={payoutLocationOptions}
-                            fieldRef={locationRef}
-                            nextRef={
-                              showWuService
-                                ? wuServiceRef
-                                : showQpayCompany
-                                  ? qpayCompanyRef
-                                  : sendAmountRef
-                            }
-                            loading={locationLoading}
-                            disabled={!payingPartner}
-                            onChange={(value) => {
-                              setLocation(value);
-                              resetQuoteSelection();
-                              setSendAmount("");
-                            }}
-                          />
-                        </>
-                      )}
-                      {showWuService && deliveryType !== "" && (
+                {step === 2 && (
+                  <div className="space-y-3">
+                    <QuoteAccordion
+                      title="Datos de la cotización"
+                      subtitle="Completa el formulario y cotiza para ver proveedores"
+                      open={quoteAccordion === "form"}
+                      onToggle={() => setQuoteAccordion("form")}
+                    >
+                      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                        <Field
+                          label="Moneda de origen"
+                          value="USD"
+                          disabled
+                          required
+                        />
                         <SearchableSelect
-                          label="Servicio de envío"
-                          value={wuService}
-                          options={WU_SERVICE_OPTIONS[deliveryType]}
-                          fieldRef={wuServiceRef}
-                          nextRef={
-                            showQpayCompany
-                              ? qpayCompanyRef
-                              : showTerraPayBank
+                          label="País de destino"
+                          showFlags
+                          value={destinationCountry}
+                          options={destinationCountryOptions}
+                          fieldRef={destinationCountryRef}
+                          nextRef={deliveryTypeRef}
+                          onChange={(value) => {
+                            setDestinationCountry(value);
+                            setDeliveryType("");
+                            clearDeliveryExtras();
+                            clearAmount();
+                          }}
+                        />
+                        <SearchableSelect
+                          label="Tipo de envío"
+                          value={
+                            deliveryType ? deliveryTypeLabel(deliveryType) : ""
+                          }
+                          options={DELIVERY_TYPE_OPTIONS.map(
+                            (option) => option.label,
+                          )}
+                          fieldRef={deliveryTypeRef}
+                          disabled={!destinationCountry}
+                          onChange={(label) => {
+                            const option = DELIVERY_TYPE_OPTIONS.find(
+                              (item) => item.label === label,
+                            );
+                            if (!option) {
+                              throw new Error(
+                                `Unknown delivery type label: ${label}`,
+                              );
+                            }
+                            setDeliveryType(option.id);
+                            clearDeliveryExtras();
+                            clearAmount();
+                            const nextVisibility = quoteFieldVisibility(
+                              option.id,
+                            );
+                            if (nextVisibility.showRiaPartnerLocation) {
+                              simulateOptionsLoad(
+                                setPartnerLoading,
+                                payingPartnerRef,
+                              );
+                              return;
+                            }
+                            window.requestAnimationFrame(() => {
+                              if (nextVisibility.showWuService) {
+                                wuServiceRef.current?.focus();
+                                return;
+                              }
+                              if (nextVisibility.showQpayCompany) {
+                                qpayCompanyRef.current?.focus();
+                                return;
+                              }
+                              sendAmountRef.current?.focus();
+                            });
+                          }}
+                        />
+                        {showPartnerLocation && (
+                          <>
+                            <SearchableSelect
+                              label="Socio pagador"
+                              value={payingPartner}
+                              options={payoutPartnerOptions}
+                              fieldRef={payingPartnerRef}
+                              loading={partnerLoading}
+                              onChange={(value) => {
+                                setPayingPartner(value);
+                                setLocation("");
+                                resetQuoteSelection();
+                                setSendAmount("");
+                                simulateOptionsLoad(
+                                  setLocationLoading,
+                                  locationRef,
+                                );
+                              }}
+                            />
+                            <SearchableSelect
+                              label="Locación"
+                              value={location}
+                              options={payoutLocationOptions}
+                              fieldRef={locationRef}
+                              nextRef={
+                                showWuService
+                                  ? wuServiceRef
+                                  : showQpayCompany
+                                    ? qpayCompanyRef
+                                    : sendAmountRef
+                              }
+                              loading={locationLoading}
+                              disabled={!payingPartner}
+                              onChange={(value) => {
+                                setLocation(value);
+                                resetQuoteSelection();
+                                setSendAmount("");
+                              }}
+                            />
+                          </>
+                        )}
+                        {showWuService && deliveryType !== "" && (
+                          <SearchableSelect
+                            label="Servicio de envío"
+                            value={wuService}
+                            options={WU_SERVICE_OPTIONS[deliveryType]}
+                            fieldRef={wuServiceRef}
+                            nextRef={
+                              showQpayCompany
+                                ? qpayCompanyRef
+                                : showTerraPayBank
+                                  ? terraPayBankRef
+                                  : showTerraPayWallet
+                                    ? terraPayWalletRef
+                                    : sendAmountRef
+                            }
+                            onChange={(value) => {
+                              setWuService(value);
+                              resetQuoteSelection();
+                              setSendAmount("");
+                            }}
+                          />
+                        )}
+                        {showQpayCompany && (
+                          <SearchableSelect
+                            label="Compañía"
+                            value={qpayCompany}
+                            options={QPAY_COMPANY_OPTIONS}
+                            fieldRef={qpayCompanyRef}
+                            nextRef={
+                              showTerraPayBank
                                 ? terraPayBankRef
                                 : showTerraPayWallet
                                   ? terraPayWalletRef
                                   : sendAmountRef
-                          }
-                          onChange={(value) => {
-                            setWuService(value);
-                            resetQuoteSelection();
-                            setSendAmount("");
-                          }}
-                        />
-                      )}
-                      {showQpayCompany && (
-                        <SearchableSelect
-                          label="Compañía"
-                          value={qpayCompany}
-                          options={QPAY_COMPANY_OPTIONS}
-                          fieldRef={qpayCompanyRef}
-                          nextRef={
-                            showTerraPayBank
-                              ? terraPayBankRef
-                              : showTerraPayWallet
-                                ? terraPayWalletRef
-                                : sendAmountRef
-                          }
-                          onChange={(value) => {
-                            setQpayCompany(value);
-                            resetQuoteSelection();
-                            setSendAmount("");
-                          }}
-                        />
-                      )}
-                      {showTerraPayBank && (
-                        <SearchableSelect
-                          label="Banco"
-                          value={terraPayBank}
-                          options={TERRAPAY_BANK_OPTIONS}
-                          fieldRef={terraPayBankRef}
-                          nextRef={sendAmountRef}
-                          onChange={(value) => {
-                            setTerraPayBank(value);
-                            resetQuoteSelection();
-                          }}
-                        />
-                      )}
-                      {showTerraPayWallet && (
-                        <SearchableSelect
-                          label="Wallet"
-                          value={terraPayWallet}
-                          options={TERRAPAY_WALLET_OPTIONS}
-                          fieldRef={terraPayWalletRef}
-                          nextRef={sendAmountRef}
-                          onChange={(value) => {
-                            setTerraPayWallet(value);
-                            resetQuoteSelection();
-                          }}
-                        />
-                      )}
-                      <div>
-                        <label className="block">
-                          <span className="mb-1 block text-sm font-semibold">
-                            Monto a enviar{" "}
-                            <span className="text-[#c73750]">*</span>
-                          </span>
-                          <span className="relative block">
-                            <span
-                              aria-hidden="true"
-                              className={`pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm font-bold ${amountUnlocked ? "text-[#465bc2]" : "text-[#a3adbd]"}`}
-                            >
-                              USD $
+                            }
+                            onChange={(value) => {
+                              setQpayCompany(value);
+                              resetQuoteSelection();
+                              setSendAmount("");
+                            }}
+                          />
+                        )}
+                        {showTerraPayBank && (
+                          <SearchableSelect
+                            label="Banco"
+                            value={terraPayBank}
+                            options={TERRAPAY_BANK_OPTIONS}
+                            fieldRef={terraPayBankRef}
+                            nextRef={sendAmountRef}
+                            onChange={(value) => {
+                              setTerraPayBank(value);
+                              resetQuoteSelection();
+                            }}
+                          />
+                        )}
+                        {showTerraPayWallet && (
+                          <SearchableSelect
+                            label="Wallet"
+                            value={terraPayWallet}
+                            options={TERRAPAY_WALLET_OPTIONS}
+                            fieldRef={terraPayWalletRef}
+                            nextRef={sendAmountRef}
+                            onChange={(value) => {
+                              setTerraPayWallet(value);
+                              resetQuoteSelection();
+                            }}
+                          />
+                        )}
+                        <div>
+                          <label className="block">
+                            <span className="mb-1 block text-sm font-semibold text-[#263653]">
+                              Monto a enviar{" "}
+                              <span className="text-[#c73750]">*</span>
                             </span>
-                            <input
-                              ref={sendAmountRef}
-                              value={sendAmount}
-                              aria-describedby="send-amount-currency"
-                              onChange={(event) => {
-                                setSendAmount(
-                                  sanitizeAmount(event.target.value),
-                                );
-                                resetQuoteSelection();
-                              }}
-                              onBlur={() =>
-                                setSendAmount((current) =>
-                                  normalizeAmount(current),
-                                )
-                              }
-                              onKeyDown={(event) => {
-                                if (
-                                  event.key !== "Enter" ||
-                                  event.nativeEvent.isComposing ||
-                                  event.keyCode === 229
-                                )
-                                  return;
-                                event.preventDefault();
-                                requestQuote();
-                              }}
-                              disabled={!amountUnlocked}
-                              placeholder="0.00"
-                              inputMode="decimal"
-                              className="h-10 w-full rounded-lg border border-[#cdd5e1] pl-16 pr-3 text-sm text-[#17233f] outline-none disabled:bg-[#f3f5f9] disabled:text-[#8a96aa] focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10"
-                            />
-                            <span id="send-amount-currency" className="sr-only">
-                              Dólares estadounidenses, máximo dos decimales
-                            </span>
-                          </span>
-                        </label>
-                        <div
-                          role="group"
-                          aria-label="Montos rápidos"
-                          className="mt-2 flex flex-wrap gap-1.5"
-                        >
-                          {QUICK_AMOUNTS.map((amount) => {
-                            const selected =
-                              normalizeAmount(sendAmount) === amount.toFixed(2);
-                            return (
-                              <button
-                                key={amount}
-                                type="button"
-                                aria-pressed={selected}
-                                disabled={!amountUnlocked || quoteLoading}
-                                onClick={() => {
-                                  setSendAmount(amount.toFixed(2));
-                                  resetQuoteSelection();
-                                  sendAmountRef.current?.focus();
-                                }}
-                                className={`h-7 rounded-full border px-2.5 text-xs font-bold transition-colors focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20 disabled:cursor-not-allowed disabled:border-[#e2e7ef] disabled:bg-transparent disabled:text-[#a3adbd] ${selected ? "border-[#465bc2] bg-[#465bc2] text-white" : "border-[#cdd5e1] bg-white text-[#465bc2] hover:border-[#465bc2] hover:bg-[#f1f3fc]"}`}
+                            <span className="relative block">
+                              <span
+                                aria-hidden="true"
+                                className={`pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm font-bold ${amountUnlocked ? "text-[#465bc2]" : "text-[#a3adbd]"}`}
                               >
-                                ${amount}
-                              </button>
-                            );
-                          })}
+                                USD $
+                              </span>
+                              <input
+                                ref={sendAmountRef}
+                                value={sendAmount}
+                                aria-describedby="send-amount-currency"
+                                onChange={(event) => {
+                                  setSendAmount(
+                                    sanitizeAmount(event.target.value),
+                                  );
+                                  resetQuoteSelection();
+                                }}
+                                onBlur={() =>
+                                  setSendAmount((current) =>
+                                    normalizeAmount(current),
+                                  )
+                                }
+                                onKeyDown={(event) => {
+                                  if (
+                                    event.key !== "Enter" ||
+                                    event.nativeEvent.isComposing ||
+                                    event.keyCode === 229
+                                  )
+                                    return;
+                                  event.preventDefault();
+                                  requestQuote();
+                                }}
+                                disabled={!amountUnlocked}
+                                placeholder="0.00"
+                                inputMode="decimal"
+                                className="h-10 w-full rounded-lg border border-[#cdd5e1] pl-16 pr-3 text-sm text-[#17233f] outline-none disabled:bg-[#f3f5f9] disabled:text-[#8a96aa] focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10"
+                              />
+                              <span
+                                id="send-amount-currency"
+                                className="sr-only"
+                              >
+                                Dólares estadounidenses, máximo dos decimales
+                              </span>
+                            </span>
+                          </label>
+                          <div
+                            role="group"
+                            aria-label="Montos rápidos"
+                            className="mt-2 flex flex-wrap gap-1.5"
+                          >
+                            {QUICK_AMOUNTS.map((amount) => {
+                              const selected =
+                                normalizeAmount(sendAmount) ===
+                                amount.toFixed(2);
+                              return (
+                                <button
+                                  key={amount}
+                                  type="button"
+                                  aria-pressed={selected}
+                                  disabled={!amountUnlocked || quoteLoading}
+                                  onClick={() => {
+                                    setSendAmount(amount.toFixed(2));
+                                    resetQuoteSelection();
+                                    sendAmountRef.current?.focus();
+                                  }}
+                                  className={`h-7 rounded-full border px-2.5 text-xs font-bold transition-colors focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20 disabled:cursor-not-allowed disabled:border-[#e2e7ef] disabled:bg-transparent disabled:text-[#a3adbd] ${selected ? "border-[#465bc2] bg-[#465bc2] text-white" : "border-[#cdd5e1] bg-white text-[#465bc2] hover:border-[#465bc2] hover:bg-[#f1f3fc]"}`}
+                                >
+                                  ${amount}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                        <Field
+                          label="Monto que recibe"
+                          value={
+                            sendAmount
+                              ? formatUsd(Number(normalizeAmount(sendAmount)))
+                              : ""
+                          }
+                          disabled
+                          required
+                        />
+                        <div className="sm:col-span-2 sm:flex sm:items-end lg:col-span-3">
+                          <button
+                            type="button"
+                            onClick={requestQuote}
+                            disabled={
+                              !amountUnlocked || !sendAmount || quoteLoading
+                            }
+                            className="inline-flex h-10 items-center gap-2 rounded-lg border border-[#465bc2] px-5 text-sm font-bold text-[#465bc2] transition-colors hover:bg-[#f1f3fc] disabled:cursor-not-allowed disabled:border-[#cdd5e1] disabled:text-[#8a96aa] disabled:hover:bg-transparent focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20"
+                          >
+                            {quoteLoading && (
+                              <span
+                                aria-hidden="true"
+                                className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+                              />
+                            )}
+                            {quoteLoading ? "Cotizando..." : "Cotizar"}
+                          </button>
                         </div>
                       </div>
-                      <Field
-                        label="Monto que recibe"
-                        value={
-                          sendAmount
-                            ? formatUsd(Number(normalizeAmount(sendAmount)))
-                            : ""
-                        }
-                        disabled
-                        required
-                      />
-                      <div className="sm:col-span-2 sm:flex sm:items-end">
-                        <button
-                          type="button"
-                          onClick={requestQuote}
-                          disabled={
-                            !amountUnlocked || !sendAmount || quoteLoading
-                          }
-                          className="inline-flex h-10 items-center gap-2 rounded-lg border border-[#465bc2] px-5 text-sm font-bold text-[#465bc2] transition-colors hover:bg-[#f1f3fc] disabled:cursor-not-allowed disabled:border-[#cdd5e1] disabled:text-[#8a96aa] disabled:hover:bg-transparent focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20"
-                        >
-                          {quoteLoading && (
-                            <span
-                              aria-hidden="true"
-                              className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
-                            />
-                          )}
-                          {quoteLoading ? "Cotizando..." : "Cotizar"}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {step === 2 && quotesReady && deliveryType && (
-                  <div className="space-y-3">
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <p className="text-sm text-[#687790]">
-                        Cotización lista. Elige un proveedor para continuar.
-                      </p>
-                      <button
-                        type="button"
-                        onClick={resetQuoteSelection}
-                        className="rounded-md px-3 py-1.5 text-sm font-semibold text-[#465bc2] hover:bg-[#eef1fc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#465bc2]"
-                      >
-                        Editar cotización
-                      </button>
-                    </div>
-                    <QuoteResults
-                      quotes={providerQuotes}
-                      selectedProvider={selectedProvider}
-                      deliveryType={deliveryType}
-                      onSelect={selectProviderQuote}
-                    />
+                    </QuoteAccordion>
+                    <QuoteAccordion
+                      title="Cotizaciones por proveedor"
+                      subtitle={
+                        quotesReady
+                          ? "Elige un proveedor para continuar"
+                          : "Cotiza primero para ver resultados"
+                      }
+                      open={quoteAccordion === "results"}
+                      onToggle={() => {
+                        if (!quotesReady) return;
+                        setQuoteAccordion("results");
+                      }}
+                      disabled={!quotesReady}
+                    >
+                      {quotesReady && deliveryType && (
+                        <QuoteResults
+                          quotes={providerQuotes}
+                          selectedProvider={selectedProvider}
+                          deliveryType={deliveryType}
+                          onSelect={selectProviderQuote}
+                        />
+                      )}
+                    </QuoteAccordion>
                   </div>
                 )}
                 {step >= 3 && selectedProvider && quote && (

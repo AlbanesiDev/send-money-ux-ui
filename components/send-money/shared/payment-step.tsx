@@ -46,7 +46,7 @@ export function StandardPaymentStep({
         />
         {paymentMethodSlot}
         <label className="block">
-          <span className="mb-1 block text-sm font-semibold">
+          <span className="mb-1 block text-sm font-semibold text-[#263653]">
             Monto recibido <span className="text-[#c73750]">*</span>
           </span>
           <div

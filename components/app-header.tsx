@@ -1,4 +1,8 @@
-import { Bell, Menu, X } from "lucide-react";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { Bell, Home, LogOut, Menu, X } from "lucide-react";
+import Link from "next/link";
 
 export function AppHeader({
   sidebarExpanded,
@@ -7,55 +11,132 @@ export function AppHeader({
   sidebarExpanded: boolean;
   onToggleSidebar: () => void;
 }) {
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const notificationsRoot = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!notificationsOpen) return;
+    const onDocumentClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (notificationsRoot.current?.contains(target)) return;
+      setNotificationsOpen(false);
+    };
+    const onEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setNotificationsOpen(false);
+    };
+    document.addEventListener("click", onDocumentClick);
+    document.addEventListener("keydown", onEscape);
+    return () => {
+      document.removeEventListener("click", onDocumentClick);
+      document.removeEventListener("keydown", onEscape);
+    };
+  }, [notificationsOpen]);
+
   return (
-    <header className="flex h-[var(--app-header-height)] items-center justify-between bg-[#503F93] px-3 text-white sm:px-5">
-      <div className="flex min-w-0 items-center gap-3">
+    <header className="private-chrome private-header-height sticky top-0 z-50 flex items-center">
+      <div
+        className={`private-header-toggle private-sidebar-rail flex h-full shrink-0 items-center justify-start transition-[width] duration-300 ease-out ${
+          sidebarExpanded
+            ? "private-sidebar-width"
+            : "private-sidebar-width-collapsed"
+        }`}
+      >
         <button
           type="button"
-          onClick={onToggleSidebar}
+          className="private-nav-button"
           aria-label={sidebarExpanded ? "Contraer menú" : "Expandir menú"}
           aria-expanded={sidebarExpanded}
-          className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-md text-white/90 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 lg:inline-flex"
+          onClick={onToggleSidebar}
         >
           {sidebarExpanded ? (
-            <X className="h-4 w-4" aria-hidden="true" />
+            <X className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
           ) : (
-            <Menu className="h-4 w-4" aria-hidden="true" />
+            <Menu className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
           )}
         </button>
-        <div
-          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#FFE500] text-sm font-black text-[#503F93]"
-          aria-label="Logo"
-        >
-          <img src="/icon.svg" alt="Logo" className="h-4 w-4" />
-        </div>
-        <div className="flex min-w-0 items-center gap-2 overflow-hidden rounded-full bg-white px-3 py-1 text-[0.6875rem] text-[#263653] shadow-sm sm:gap-3 sm:text-xs">
-          <span className="truncate">
-            <strong>Agente:</strong> JoacoDev
-          </span>
-          <span className="hidden truncate md:inline">
-            <strong>Perfil:</strong> Desarrollo - Super Usuario - BO
-          </span>
-          <span className="truncate">
-            <strong>Agencia:</strong> #1939 TEST
-          </span>
-          <span className="shrink-0">
-            <strong>Caja:</strong> 1
-          </span>
-        </div>
       </div>
-      <div className="flex shrink-0 items-center gap-3">
-        <div className="relative text-white/80">
-          <Bell className="h-4 w-4" aria-label="Notificaciones" />
-          <span className="absolute -right-2 -top-2.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#FFE500] px-1 text-[0.625rem] font-bold text-[#503F93]">
-            11
-          </span>
+
+      <div className="flex min-w-0 flex-1 items-center justify-between gap-3 pr-3">
+        <div className="flex min-w-0 items-center gap-3">
+          <img className="h-7 w-7 shrink-0" src="/icon.svg" alt="" />
+          <nav
+            className="hidden min-w-0 items-center gap-1 text-sm md:flex"
+            aria-label="Miga de pan"
+          >
+            <Link
+              href="/"
+              className="inline-flex size-8 items-center justify-center rounded-md text-slate-400 hover:text-slate-50"
+              aria-label="Inicio"
+            >
+              <Home className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
+            </Link>
+            <span className="text-slate-500" aria-hidden="true">
+              /
+            </span>
+            <span
+              className="truncate font-medium text-slate-50"
+              aria-current="page"
+            >
+              Envíos
+            </span>
+          </nav>
         </div>
-        <div
-          className="flex h-7 w-7 items-center justify-center rounded-full bg-[#FFE500] text-sm font-bold text-[#503F93]"
-          aria-label="Usuario"
-        >
-          J
+
+        <div className="flex shrink-0 items-center gap-2">
+          <div className="private-operator-status hidden lg:inline-flex">
+            <span className="private-status-dot" aria-hidden="true" />
+            JoacoDev
+            <strong>·</strong>
+            Agencia #1939
+            <strong>·</strong>
+            Caja 1<strong>·</strong>
+            Super Usuario
+          </div>
+
+          <div className="relative" ref={notificationsRoot}>
+            <button
+              type="button"
+              className="private-nav-button relative"
+              aria-label="Notificaciones"
+              aria-haspopup="dialog"
+              aria-controls="private-notifications-panel"
+              aria-expanded={notificationsOpen}
+              onClick={() => setNotificationsOpen((open) => !open)}
+            >
+              <Bell className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
+              <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[#FFE500]" />
+            </button>
+            {notificationsOpen && (
+              <div
+                id="private-notifications-panel"
+                className="absolute top-[calc(100%+0.55rem)] right-0 z-60 w-[22rem] rounded-xl border border-border bg-popover text-popover-foreground shadow-[0_10px_15px_-3px_rgb(15_23_42_/_0.12),0_4px_6px_-4px_rgb(15_23_42_/_0.08)]"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="private-notifications-heading"
+              >
+                <div className="border-b border-border px-4 py-3">
+                  <h2
+                    id="private-notifications-heading"
+                    className="text-sm font-semibold"
+                  >
+                    Notificaciones
+                  </h2>
+                </div>
+                <p className="px-4 py-16 text-center text-sm text-muted-foreground">
+                  No hay notificaciones
+                </p>
+              </div>
+            )}
+          </div>
+
+          <button
+            type="button"
+            className="private-nav-button"
+            aria-label="Cerrar sesión"
+          >
+            <LogOut className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
+          </button>
         </div>
       </div>
     </header>

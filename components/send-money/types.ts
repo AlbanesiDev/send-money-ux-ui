@@ -16,9 +16,7 @@ export type ProviderQuote = {
 export type ProviderStepKey =
   | "remitter"
   | "beneficiary"
-  | "additionalInfo"
-  | "pep"
-  | "payment"
+  | "additionalInfo"  | "payment"
   | "review";
 
 export type ProviderFlow = {

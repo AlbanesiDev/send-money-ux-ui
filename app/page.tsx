@@ -941,8 +941,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     if (
       selectedProvider &&
       step >= 3 &&
-      (getStepKey(selectedProvider, step) === "additionalInfo" ||
-        getStepKey(selectedProvider, step) === "pep")
+      getStepKey(selectedProvider, step) === "additionalInfo"
     ) {
       window.requestAnimationFrame(() => {
         const checkboxes = Array.from(
@@ -1092,7 +1091,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                 step >= 3 &&
                 (getStepKey(selectedProvider, step) === "remitter" ||
                   getStepKey(selectedProvider, step) === "beneficiary" ||
-                  getStepKey(selectedProvider, step) === "pep" ||
                   getStepKey(selectedProvider, step) === "additionalInfo")
                   ? ""
                   : undefined
@@ -1505,15 +1503,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                           value={wuService}
                           options={WU_SERVICE_OPTIONS[deliveryType]}
                           fieldRef={wuServiceRef}
-                          nextRef={
-                            showMoneygramCompany
-                              ? moneygramCompanyRef
-                              : showTerraPayBank
-                                ? terraPayBankRef
-                                : showTerraPayWallet
-                                  ? terraPayWalletRef
-                                  : sendAmountRef
-                          }
+                          nextRef={sendAmountRef}
                           onChange={(value) => {
                             setWuService(value);
                             resetQuoteSelection();

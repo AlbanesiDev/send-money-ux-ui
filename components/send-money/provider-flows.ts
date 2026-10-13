@@ -117,34 +117,16 @@ export const providerFlows: Record<ProviderId, ProviderFlow> = {
     ],
   },
   WU: {
-    stepLabels: [
-      "Remitente",
-      "PEP",
-      "Beneficiario",
-      "Método de pago",
-      "Revisión",
-    ],
-    stepKeys: ["remitter", "pep", "beneficiary", "payment", "review"],
+    stepLabels: ["Remitente", "Beneficiario", "Método de pago", "Revisión"],
+    stepKeys: ["remitter", "beneficiary", "payment", "review"],
   },
   MONEYGRAM: {
-    stepLabels: [
-      "Remitente",
-      "PEP",
-      "Beneficiario",
-      "Método de pago",
-      "Revisión",
-    ],
-    stepKeys: ["remitter", "pep", "beneficiary", "payment", "review"],
+    stepLabels: ["Remitente", "Beneficiario", "Método de pago", "Revisión"],
+    stepKeys: ["remitter", "beneficiary", "payment", "review"],
   },
   TERRAPAY: {
-    stepLabels: [
-      "Remitente",
-      "PEP",
-      "Beneficiario",
-      "Método de pago",
-      "Revisión",
-    ],
-    stepKeys: ["remitter", "pep", "beneficiary", "payment", "review"],
+    stepLabels: ["Remitente", "Beneficiario", "Método de pago", "Revisión"],
+    stepKeys: ["remitter", "beneficiary", "payment", "review"],
   },
 };
 

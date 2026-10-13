@@ -111,18 +111,21 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
     );
   }
 
-  if (stepKey === "pep") {
-    return (
-      <PepStep
-        known={props.known}
-        showTerraPayExtras={props.provider === "TERRAPAY"}
-        additionalChecks={props.additionalChecks}
-        onChange={props.onAdditionalCheckChange}
-      />
-    );
-  }
-
   if (stepKey === "beneficiary") {
+    // WU, Moneygram y TerraPay declaran los datos PEP al final del beneficiario.
+    const withPep = (content: ReactNode) => (
+      <div className="space-y-6">
+        {content}
+        <div className="border-t border-[#e6ebf3] pt-6">
+          <PepStep
+            known={props.known}
+            showTerraPayExtras={props.provider === "TERRAPAY"}
+            additionalChecks={props.additionalChecks}
+            onChange={props.onAdditionalCheckChange}
+          />
+        </div>
+      </div>
+    );
     if (props.provider === "RIA") {
       return (
         <RiaBeneficiaryStep
@@ -135,27 +138,27 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       );
     }
     if (props.provider === "WU") {
-      return (
+      return withPep(
         <WuBeneficiaryStep
           isKnownClient={props.isKnownClient}
           beneficiaries={props.beneficiaries}
           selectedBeneficiary={props.selectedBeneficiary}
           onSelectBeneficiary={props.onSelectBeneficiary}
           known={props.known}
-        />
+        />,
       );
     }
     if (props.provider === "MONEYGRAM") {
-      return <MoneygramBeneficiaryAccountStep known={props.known} />;
+      return withPep(<MoneygramBeneficiaryAccountStep known={props.known} />);
     }
-    return (
+    return withPep(
       <TerrapayBeneficiaryStep
         isKnownClient={props.isKnownClient}
         beneficiaries={props.beneficiaries}
         selectedBeneficiary={props.selectedBeneficiary}
         onSelectBeneficiary={props.onSelectBeneficiary}
         known={props.known}
-      />
+      />,
     );
   }
 

@@ -1503,7 +1503,13 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                           value={wuService}
                           options={WU_SERVICE_OPTIONS[deliveryType]}
                           fieldRef={wuServiceRef}
-                          nextRef={sendAmountRef}
+                          nextRef={
+                            showTerraPayBank
+                              ? terraPayBankRef
+                              : showTerraPayWallet
+                                ? terraPayWalletRef
+                                : sendAmountRef
+                          }
                           onChange={(value) => {
                             setWuService(value);
                             resetQuoteSelection();

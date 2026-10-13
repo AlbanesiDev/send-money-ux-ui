@@ -33,3 +33,15 @@ export type Beneficiary = {
   phone: string;
   email: string;
 };
+
+export type PaymentCurrency = "USD" | "BOB";
+
+export type PaymentLine = {
+  id: number;
+  method: string;
+  currency: PaymentCurrency;
+  /** Amount in the line's own currency. */
+  amount: number;
+  /** Equivalent in USD cents, used to discount from the primary line. */
+  usdCents: number;
+};

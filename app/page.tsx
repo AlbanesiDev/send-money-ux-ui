@@ -33,6 +33,8 @@ import { ProviderStepContent } from "@/components/send-money/provider-step-conte
 import { QuoteResults } from "@/components/send-money/quote-results";
 import type {
   DeliveryTypeId,
+  PaymentCurrency,
+  PaymentLine,
   ProviderId,
   ProviderQuote,
 } from "@/components/send-money/types";
@@ -90,6 +92,7 @@ function SearchableSelect({
   fieldRef,
   nextRef,
   showFlags = false,
+  hideLabel = false,
 }: {
   label: string;
   value: string;
@@ -100,6 +103,7 @@ function SearchableSelect({
   fieldRef: RefObject<HTMLButtonElement | null>;
   nextRef?: RefObject<HTMLElement | null>;
   showFlags?: boolean;
+  hideLabel?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
@@ -157,12 +161,19 @@ function SearchableSelect({
       ref={rootRef}
       className={`block self-start ${open ? "relative z-50" : "relative z-0"}`}
     >
-      <span className="mb-1 block text-sm font-semibold text-[#263653]">
+      <span
+        className={
+          hideLabel
+            ? "sr-only"
+            : "mb-1 block text-sm font-semibold text-[#263653]"
+        }
+      >
         {label}
       </span>
       <div className="relative">
         <button
           ref={fieldRef}
+          aria-label={hideLabel ? `${label}: ${value || "sin seleccionar"}` : undefined}
           type="button"
           disabled={disabled}
           aria-disabled={loading || undefined}
@@ -406,7 +417,12 @@ function normalizeAmount(value: string) {
 }
 
 const formatUsd = (value: number) => `${usdFormatter.format(value)} USD`;
+const formatAmount = (value: number) => usdFormatter.format(value);
+const parseAmount = (value: string) =>
+  Number(value.replace(/\./g, "").replace(",", "."));
 const toCents = (value: number) => Math.round(value * 100);
+/** Tipo de cambio oficial BOB por USD (mock hasta integrar el servicio). */
+const BOB_PER_USD = 6.96;
 const paymentMethodOptions = [
   "Pago en efectivo",
   "Tarjeta de débito",
@@ -648,7 +664,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setTerraPayWallet("");
   };
   const [paymentMethod, setPaymentMethod] = useState("");
-  const [receivedAmount, setReceivedAmount] = useState("");
+  const [primaryCurrency, setPrimaryCurrency] =
+    useState<PaymentCurrency>("USD");
+  const [extraPayments, setExtraPayments] = useState<PaymentLine[]>([]);
+  const paymentIdRef = useRef(0);
   const [quote, setQuote] = useState<ProviderQuote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [quotesReady, setQuotesReady] = useState(false);
@@ -747,14 +766,32 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const locationRef = useRef<HTMLButtonElement>(null);
   const sendAmountRef = useRef<HTMLInputElement>(null);
   const paymentMethodRef = useRef<HTMLButtonElement>(null);
-  const receivedAmountRef = useRef<HTMLInputElement>(null);
   const totalToCharge = quote ? quote.amount + quote.fee + quote.tax : 0;
-  const receivedValue = receivedAmount
-    ? Number(receivedAmount.replace(/\./g, "").replace(",", "."))
-    : 0;
-  const changeDue = Math.max(0, receivedValue - totalToCharge);
-  const receivedInsufficient =
-    receivedAmount !== "" && toCents(receivedValue) < toCents(totalToCharge);
+  const primaryCents = Math.max(
+    0,
+    toCents(totalToCharge) -
+      extraPayments.reduce((sum, line) => sum + line.usdCents, 0),
+  );
+  const paymentLines: PaymentLine[] = [
+    ...(primaryCents > 0
+      ? [
+          {
+            id: -1,
+            method: paymentMethod,
+            currency: primaryCurrency,
+            amount:
+              primaryCurrency === "USD"
+                ? primaryCents / 100
+                : (primaryCents * BOB_PER_USD) / 100,
+            usdCents: primaryCents,
+          },
+        ]
+      : []),
+    ...extraPayments,
+  ];
+  useEffect(() => {
+    setExtraPayments([]);
+  }, [totalToCharge]);
   const isPaymentStep =
     selectedProvider !== null &&
     step >= 3 &&
@@ -766,7 +803,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const paymentReady =
     selectedProvider === "TERRAPAY"
       ? true
-      : paymentMethod !== "" && receivedAmount !== "" && !receivedInsufficient;
+      : primaryCents === 0 || paymentMethod !== "";
   const [partnerLoading, setPartnerLoading] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
   const optionsRequestRef = useRef(0);
@@ -948,7 +985,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   function startAnotherQuote() {
     clearAmount();
     setPaymentMethod("");
-    setReceivedAmount("");
+    setPrimaryCurrency("USD");
+    setExtraPayments([]);
     window.clearTimeout(processingTimeoutRef.current);
     setProcessing(false);
     setSent(false);
@@ -1590,9 +1628,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     terraPayBank={terraPayBank}
                     terraPayWallet={terraPayWallet}
                     senderName={senderName}
-                    paymentMethod={paymentMethod}
-                    receivedValue={receivedValue}
-                    changeDue={changeDue}
+                    paymentLines={paymentLines}
                     billingName={billingName}
                     billingNit={billingNit}
                     onEditQuote={() => setStep(2)}
@@ -1605,27 +1641,41 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     onEditPayment={() =>
                       setStep(findStepNumber(activeSteps, "Método de pago"))
                     }
-                    paymentMethodSlot={
-                      <SearchableSelect
-                        label="Método de pago"
-                        value={paymentMethod}
-                        options={paymentMethodOptions}
-                        fieldRef={paymentMethodRef}
-                        nextRef={receivedAmountRef}
-                        onChange={setPaymentMethod}
-                      />
+                    formatAmount={formatAmount}
+                    bobPerUsd={BOB_PER_USD}
+                    primaryMethod={paymentMethod}
+                    onPrimaryMethodChange={setPaymentMethod}
+                    primaryMethodRef={paymentMethodRef}
+                    primaryCurrency={primaryCurrency}
+                    onPrimaryCurrencyChange={setPrimaryCurrency}
+                    primaryCents={primaryCents}
+                    extraPayments={extraPayments}
+                    onAddPayment={(line) =>
+                      setExtraPayments((current) => [
+                        ...current,
+                        { ...line, id: ++paymentIdRef.current },
+                      ])
                     }
-                    receivedAmountRef={receivedAmountRef}
+                    onUpdatePayment={(id, line) =>
+                      setExtraPayments((current) =>
+                        current.map((item) =>
+                          item.id === id ? { ...line, id } : item,
+                        ),
+                      )
+                    }
+                    onRemovePayment={(id) =>
+                      setExtraPayments((current) =>
+                        current.filter((line) => line.id !== id),
+                      )
+                    }
+                    renderSelect={(selectProps) => (
+                      <SearchableSelect {...selectProps} />
+                    )}
+                    paymentMethodOptions={paymentMethodOptions}
                     nextButtonRef={nextButtonRef}
-                    receivedAmount={receivedAmount}
-                    onReceivedAmountChange={setReceivedAmount}
-                    onReceivedAmountBlur={() =>
-                      setReceivedAmount((current) => normalizeAmount(current))
-                    }
                     sanitizeAmount={sanitizeAmount}
-                    receivedInsufficient={receivedInsufficient}
+                    parseAmount={parseAmount}
                     toCents={toCents}
-                    paymentReady={paymentReady}
                     billingSlot={
                       <BillingSummary
                         open={billingOpen}

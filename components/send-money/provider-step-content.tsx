@@ -12,11 +12,14 @@ import { PepStep } from "./shared/pep-step";
 import {
   StandardPaymentStep,
   TerrapayPaymentStep,
+  type SelectRenderer,
 } from "./shared/payment-step";
 import { ReviewStep } from "./shared/review-step";
 import { getStepKey } from "./provider-flows";
 import type {
   Beneficiary,
+  PaymentCurrency,
+  PaymentLine,
   ProviderId,
   ProviderQuote,
   ProviderStepKey,
@@ -44,25 +47,31 @@ export type ProviderStepContentProps = {
   terraPayBank: string;
   terraPayWallet: string;
   senderName: string;
-  paymentMethod: string;
-  receivedValue: number;
-  changeDue: number;
+  paymentLines: PaymentLine[];
   billingName: string;
   billingNit: string;
   onEditQuote: () => void;
   onEditRemitter: () => void;
   onEditBeneficiary: () => void;
   onEditPayment: () => void;
-  paymentMethodSlot: ReactNode;
-  receivedAmountRef: RefObject<HTMLInputElement | null>;
+  formatAmount: (value: number) => string;
+  bobPerUsd: number;
+  primaryMethod: string;
+  onPrimaryMethodChange: (value: string) => void;
+  primaryMethodRef: RefObject<HTMLButtonElement | null>;
+  primaryCurrency: PaymentCurrency;
+  onPrimaryCurrencyChange: (value: PaymentCurrency) => void;
+  primaryCents: number;
+  extraPayments: PaymentLine[];
+  onAddPayment: (line: Omit<PaymentLine, "id">) => void;
+  onUpdatePayment: (id: number, line: Omit<PaymentLine, "id">) => void;
+  onRemovePayment: (id: number) => void;
+  renderSelect: SelectRenderer;
+  paymentMethodOptions: string[];
   nextButtonRef: RefObject<HTMLButtonElement | null>;
-  receivedAmount: string;
-  onReceivedAmountChange: (value: string) => void;
-  onReceivedAmountBlur: () => void;
   sanitizeAmount: (value: string) => string;
-  receivedInsufficient: boolean;
+  parseAmount: (value: string) => number;
   toCents: (value: number) => number;
-  paymentReady: boolean;
   billingSlot: ReactNode;
 };
 
@@ -174,18 +183,24 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       <StandardPaymentStep
         totalToCharge={props.totalToCharge}
         formatUsd={props.formatUsd}
-        paymentMethodSlot={props.paymentMethodSlot}
-        receivedAmountRef={props.receivedAmountRef}
+        formatAmount={props.formatAmount}
+        bobPerUsd={props.bobPerUsd}
+        primaryMethod={props.primaryMethod}
+        onPrimaryMethodChange={props.onPrimaryMethodChange}
+        primaryMethodRef={props.primaryMethodRef}
+        primaryCurrency={props.primaryCurrency}
+        onPrimaryCurrencyChange={props.onPrimaryCurrencyChange}
+        primaryCents={props.primaryCents}
+        extraPayments={props.extraPayments}
+        onAddPayment={props.onAddPayment}
+        onUpdatePayment={props.onUpdatePayment}
+        onRemovePayment={props.onRemovePayment}
+        renderSelect={props.renderSelect}
+        paymentMethodOptions={props.paymentMethodOptions}
         nextButtonRef={props.nextButtonRef}
-        receivedAmount={props.receivedAmount}
-        onReceivedAmountChange={props.onReceivedAmountChange}
-        onReceivedAmountBlur={props.onReceivedAmountBlur}
         sanitizeAmount={props.sanitizeAmount}
-        receivedInsufficient={props.receivedInsufficient}
-        receivedValue={props.receivedValue}
+        parseAmount={props.parseAmount}
         toCents={props.toCents}
-        changeDue={props.changeDue}
-        paymentReady={props.paymentReady}
         billingSlot={props.billingSlot}
       />
     );
@@ -208,9 +223,8 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       beneficiary={props.beneficiaries[props.selectedBeneficiary]}
       senderName={props.senderName}
       documentNumber={props.documentNumber}
-      paymentMethod={props.paymentMethod}
-      receivedValue={props.receivedValue}
-      changeDue={props.changeDue}
+      paymentLines={props.paymentLines}
+      formatAmount={props.formatAmount}
       billingName={props.billingName}
       billingNit={props.billingNit}
       onEditQuote={props.onEditQuote}

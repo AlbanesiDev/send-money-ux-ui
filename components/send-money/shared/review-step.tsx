@@ -1,6 +1,11 @@
 import type { ReactNode } from "react";
 import { deliveryTypeLabel } from "../provider-flows";
-import type { Beneficiary, ProviderId, ProviderQuote } from "../types";
+import type {
+  Beneficiary,
+  PaymentLine,
+  ProviderId,
+  ProviderQuote,
+} from "../types";
 
 function SummarySection({
   title,
@@ -74,9 +79,8 @@ export function ReviewStep({
   beneficiary,
   senderName,
   documentNumber,
-  paymentMethod,
-  receivedValue,
-  changeDue,
+  paymentLines,
+  formatAmount,
   billingName,
   billingNit,
   onEditQuote,
@@ -99,9 +103,8 @@ export function ReviewStep({
   beneficiary: Beneficiary;
   senderName: string;
   documentNumber: string;
-  paymentMethod: string;
-  receivedValue: number;
-  changeDue: number;
+  paymentLines: PaymentLine[];
+  formatAmount: (value: number) => string;
   billingName: string;
   billingNit: string;
   onEditQuote: () => void;
@@ -214,15 +217,21 @@ export function ReviewStep({
               </>
             ) : (
               <>
+                {paymentLines.map((line) => (
+                  <SummaryRow
+                    key={line.id}
+                    label={line.method || "Método de pago"}
+                    value={
+                      line.currency === "USD"
+                        ? formatUsd(line.amount)
+                        : `${formatAmount(line.amount)} BOB (${formatUsd(line.usdCents / 100)})`
+                    }
+                  />
+                ))}
                 <SummaryRow
-                  label="Método de pago"
-                  value={paymentMethod || "—"}
+                  label="Total cobrado"
+                  value={formatUsd(totalToCharge)}
                 />
-                <SummaryRow
-                  label="Monto recibido"
-                  value={formatUsd(receivedValue)}
-                />
-                <SummaryRow label="Vuelto" value={formatUsd(changeDue)} />
               </>
             )}
             <SummaryRow

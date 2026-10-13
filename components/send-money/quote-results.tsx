@@ -59,7 +59,7 @@ export function QuoteResults({
                 )}
                 <div className="flex items-start justify-between gap-3">
                   <p className="text-sm font-bold text-[#17233f]">
-                    {quote.provider}
+                    {quote.label}
                   </p>
                   <span
                     aria-hidden="true"

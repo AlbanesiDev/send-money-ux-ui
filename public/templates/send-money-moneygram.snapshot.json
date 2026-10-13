@@ -1,7 +1,7 @@
 [
   {
     "id": 664,
-    "description": "QPay Sol & Luna Bolivia -  Búsqueda",
+    "description": "Moneygram Sol & Luna Bolivia -  Búsqueda",
     "active": true,
     "addOrder": 1,
     "notes": null,
@@ -9,7 +9,7 @@
     "sections": [
       {
         "id": 1824,
-        "description": "QPay Sol & Luna Bolivia - Datos Busqueda",
+        "description": "Moneygram Sol & Luna Bolivia - Datos Busqueda",
         "notes": null,
         "active": true,
         "addOrder": 1,
@@ -181,7 +181,7 @@
   },
   {
     "id": 665,
-    "description": "QPay Sol & Luna Bolivia -  Cotización",
+    "description": "Moneygram Sol & Luna Bolivia -  Cotización",
     "active": true,
     "addOrder": 2,
     "notes": null,
@@ -189,7 +189,7 @@
     "sections": [
       {
         "id": 1825,
-        "description": "QPay Sol & Luna Bolivia -Datos Transacción",
+        "description": "Moneygram Sol & Luna Bolivia -Datos Transacción",
         "notes": null,
         "active": true,
         "addOrder": 1,
@@ -1123,7 +1123,7 @@
       },
       {
         "id": 1826,
-        "description": "QPay Sol & Luna Bolivia - Calcular Envío",
+        "description": "Moneygram Sol & Luna Bolivia - Calcular Envío",
         "notes": null,
         "active": true,
         "addOrder": 2,
@@ -3171,7 +3171,7 @@
   },
   {
     "id": 666,
-    "description": "QPay Sol & Luna Bolivia -  Datos del Remitente",
+    "description": "Moneygram Sol & Luna Bolivia -  Datos del Remitente",
     "active": true,
     "addOrder": 3,
     "notes": null,
@@ -3179,7 +3179,7 @@
     "sections": [
       {
         "id": 1828,
-        "description": "QPay Sol & Luna Bolivia - Documento de Identificación",
+        "description": "Moneygram Sol & Luna Bolivia - Documento de Identificación",
         "notes": null,
         "active": true,
         "addOrder": 1,
@@ -3568,7 +3568,7 @@
       },
       {
         "id": 1829,
-        "description": "QPay Sol & Luna Bolivia - Datos Personales",
+        "description": "Moneygram Sol & Luna Bolivia - Datos Personales",
         "notes": null,
         "active": true,
         "addOrder": 2,
@@ -4167,7 +4167,7 @@
       },
       {
         "id": 1830,
-        "description": "QPay Sol & Luna Bolivia - Datos Domicilio y Teléfono",
+        "description": "Moneygram Sol & Luna Bolivia - Datos Domicilio y Teléfono",
         "notes": null,
         "active": true,
         "addOrder": 3,
@@ -4682,7 +4682,7 @@
   },
   {
     "id": 667,
-    "description": "QPay Sol & Luna Bolivia -  Datos PEP",
+    "description": "Moneygram Sol & Luna Bolivia -  Datos PEP",
     "active": true,
     "addOrder": 4,
     "notes": null,
@@ -4690,7 +4690,7 @@
     "sections": [
       {
         "id": 1831,
-        "description": "QPay Sol & Luna Bolivia - Para Persona Expuesta Políticamente",
+        "description": "Moneygram Sol & Luna Bolivia - Para Persona Expuesta Políticamente",
         "notes": "Antes de continuar, confirme si el cliente es PEP:",
         "active": true,
         "addOrder": 1,
@@ -5056,7 +5056,7 @@
       },
       {
         "id": 1832,
-        "description": "QPay Sol & Luna Bolivia - Datos Pep",
+        "description": "Moneygram Sol & Luna Bolivia - Datos Pep",
         "notes": null,
         "active": true,
         "addOrder": 2,
@@ -7475,7 +7475,7 @@
   },
   {
     "id": 668,
-    "description": "QPay Sol & Luna Bolivia -  Datos Beneficiario",
+    "description": "Moneygram Sol & Luna Bolivia -  Datos Beneficiario",
     "active": true,
     "addOrder": 5,
     "notes": null,
@@ -7483,7 +7483,7 @@
     "sections": [
       {
         "id": 1835,
-        "description": "QPay Sol & Luna Bolivia - Datos del Beneficiario",
+        "description": "Moneygram Sol & Luna Bolivia - Datos del Beneficiario",
         "notes": null,
         "active": true,
         "addOrder": 1,
@@ -8669,7 +8669,7 @@
       },
       {
         "id": 1836,
-        "description": "QPay Sol & Luna Bolivia - Facturación",
+        "description": "Moneygram Sol & Luna Bolivia - Facturación",
         "notes": null,
         "active": true,
         "addOrder": 2,
@@ -10406,7 +10406,7 @@
   },
   {
     "id": 669,
-    "description": "QPay Sol & Luna Bolivia -  Método de Pago",
+    "description": "Moneygram Sol & Luna Bolivia -  Método de Pago",
     "active": true,
     "addOrder": 6,
     "notes": null,
@@ -11004,7 +11004,7 @@
   },
   {
     "id": 670,
-    "description": "QPay Sol & Luna Bolivia -  Visualizar Información",
+    "description": "Moneygram Sol & Luna Bolivia -  Visualizar Información",
     "active": true,
     "addOrder": 7,
     "notes": null,
@@ -11012,7 +11012,7 @@
     "sections": [
       {
         "id": 1842,
-        "description": "QPay Sol & Luna Bolivia - Visualizar Información - Datos Transferencia",
+        "description": "Moneygram Sol & Luna Bolivia - Visualizar Información - Datos Transferencia",
         "notes": null,
         "active": true,
         "addOrder": 1,
@@ -11334,7 +11334,7 @@
       },
       {
         "id": 1843,
-        "description": "QPay Sol & Luna Bolivia - Visualizar Información - Datos Remitente - Documento de Identificación",
+        "description": "Moneygram Sol & Luna Bolivia - Visualizar Información - Datos Remitente - Documento de Identificación",
         "notes": null,
         "active": true,
         "addOrder": 2,
@@ -11699,7 +11699,7 @@
       },
       {
         "id": 1844,
-        "description": "QPay Sol & Luna Bolivia - Visualizar Información - Datos Remitente - Datos Personales",
+        "description": "Moneygram Sol & Luna Bolivia - Visualizar Información - Datos Remitente - Datos Personales",
         "notes": null,
         "active": true,
         "addOrder": 3,
@@ -12152,7 +12152,7 @@
       },
       {
         "id": 1845,
-        "description": "QPay Sol & Luna Bolivia - Visualizar Información - Datos Remitente - Datos Dirección",
+        "description": "Moneygram Sol & Luna Bolivia - Visualizar Información - Datos Remitente - Datos Dirección",
         "notes": null,
         "active": true,
         "addOrder": 4,
@@ -12646,7 +12646,7 @@
       },
       {
         "id": 1846,
-        "description": "QPay Sol & Luna Bolivia - Visualizar Información - Datos Beneficiario",
+        "description": "Moneygram Sol & Luna Bolivia - Visualizar Información - Datos Beneficiario",
         "notes": null,
         "active": true,
         "addOrder": 5,
@@ -13832,7 +13832,7 @@
       },
       {
         "id": 1847,
-        "description": "QPay Sol & Luna Bolivia - Visualizar Información - Persona Expuesta Políticamente",
+        "description": "Moneygram Sol & Luna Bolivia - Visualizar Información - Persona Expuesta Políticamente",
         "notes": null,
         "active": true,
         "addOrder": 6,

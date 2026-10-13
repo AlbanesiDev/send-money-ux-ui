@@ -67,7 +67,7 @@ export function ReviewStep({
   payingPartner,
   location,
   wuService,
-  qpayCompany,
+  moneygramCompany,
   terraPayBank,
   terraPayWallet,
   isKnownClient,
@@ -92,7 +92,7 @@ export function ReviewStep({
   payingPartner: string;
   location: string;
   wuService: string;
-  qpayCompany: string;
+  moneygramCompany: string;
   terraPayBank: string;
   terraPayWallet: string;
   isKnownClient: boolean;
@@ -134,11 +134,11 @@ export function ReviewStep({
               <SummaryRow label="Locación" value={location || "—"} />
             </>
           )}
-          {(provider === "WU" || provider === "QPAY") && (
+          {(provider === "WU" || provider === "MONEYGRAM") && (
             <SummaryRow label="Servicio de envío" value={wuService || "—"} />
           )}
-          {provider === "QPAY" && (
-            <SummaryRow label="Compañía" value={qpayCompany || "—"} />
+          {provider === "MONEYGRAM" && (
+            <SummaryRow label="Compañía" value={moneygramCompany || "—"} />
           )}
           {provider === "TERRAPAY" && quote.deliveryType === "BANK" && (
             <SummaryRow label="Banco" value={terraPayBank || "—"} />
@@ -161,7 +161,7 @@ export function ReviewStep({
             onEdit={onEditBeneficiary}
             editLabel="Editar beneficiario"
           >
-            {provider === "QPAY" ? (
+            {provider === "MONEYGRAM" ? (
               <>
                 <SummaryRow
                   label="Compañía"

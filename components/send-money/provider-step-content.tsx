@@ -2,8 +2,8 @@ import type { ReactNode, RefObject } from "react";
 import { RiaAdditionalInfoStep } from "./providers/ria/additional-info-step";
 import { RiaBeneficiaryStep } from "./providers/ria/beneficiary-step";
 import { RiaRemitterStep } from "./providers/ria/remitter-step";
-import { QpayBeneficiaryAccountStep } from "./providers/qpay/beneficiary-account-step";
-import { QpayRemitterStep } from "./providers/qpay/remitter-step";
+import { MoneygramBeneficiaryAccountStep } from "./providers/moneygram/beneficiary-account-step";
+import { MoneygramRemitterStep } from "./providers/moneygram/remitter-step";
 import { TerrapayBeneficiaryStep } from "./providers/terrapay/beneficiary-step";
 import { TerrapayRemitterStep } from "./providers/terrapay/remitter-step";
 import { WuBeneficiaryStep } from "./providers/wu/beneficiary-step";
@@ -40,7 +40,7 @@ export type ProviderStepContentProps = {
   payingPartner: string;
   location: string;
   wuService: string;
-  qpayCompany: string;
+  moneygramCompany: string;
   terraPayBank: string;
   terraPayWallet: string;
   senderName: string;
@@ -86,9 +86,9 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
         />
       );
     }
-    if (props.provider === "QPAY") {
+    if (props.provider === "MONEYGRAM") {
       return (
-        <QpayRemitterStep
+        <MoneygramRemitterStep
           documentNumber={props.documentNumber}
           known={props.known}
         />
@@ -136,8 +136,8 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
         />
       );
     }
-    if (props.provider === "QPAY") {
-      return <QpayBeneficiaryAccountStep known={props.known} />;
+    if (props.provider === "MONEYGRAM") {
+      return <MoneygramBeneficiaryAccountStep known={props.known} />;
     }
     return (
       <TerrapayBeneficiaryStep
@@ -201,7 +201,7 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       payingPartner={props.payingPartner}
       location={props.location}
       wuService={props.wuService}
-      qpayCompany={props.qpayCompany}
+      moneygramCompany={props.moneygramCompany}
       terraPayBank={props.terraPayBank}
       terraPayWallet={props.terraPayWallet}
       isKnownClient={props.isKnownClient}

@@ -22,7 +22,7 @@ import {
   deliveryTypeLabel,
   findStepNumber,
   getStepKey,
-  QPAY_COMPANY_OPTIONS,
+  MONEYGRAM_COMPANY_OPTIONS,
   quoteFieldVisibility,
   TERRAPAY_BANK_OPTIONS,
   TERRAPAY_WALLET_OPTIONS,
@@ -609,14 +609,14 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [payingPartner, setPayingPartner] = useState("");
   const [location, setLocation] = useState("");
   const [wuService, setWuService] = useState("");
-  const [qpayCompany, setQpayCompany] = useState("");
+  const [moneygramCompany, setMoneygramCompany] = useState("");
   const [terraPayBank, setTerraPayBank] = useState("");
   const [terraPayWallet, setTerraPayWallet] = useState("");
   const [sendAmount, setSendAmount] = useState("");
   const [amountExceedsBalance, setAmountExceedsBalance] = useState(false);
   const deliveryTypeRef = useRef<HTMLButtonElement>(null);
   const wuServiceRef = useRef<HTMLButtonElement>(null);
-  const qpayCompanyRef = useRef<HTMLButtonElement>(null);
+  const moneygramCompanyRef = useRef<HTMLButtonElement>(null);
   const terraPayBankRef = useRef<HTMLButtonElement>(null);
   const terraPayWalletRef = useRef<HTMLButtonElement>(null);
   const quoteFields =
@@ -625,23 +625,25 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const showWuService = Boolean(
     quoteFields?.showWuService && deliveryType !== "",
   );
-  const showQpayCompany = Boolean(quoteFields?.showQpayCompany);
+  const showMoneygramCompany = Boolean(quoteFields?.showMoneygramCompany);
   const showTerraPayBank = Boolean(quoteFields?.showTerraPayBank);
   const showTerraPayWallet = Boolean(quoteFields?.showTerraPayWallet);
   const amountUnlocked =
     deliveryType !== "" &&
-    isQuoteAmountUnlocked(deliveryType, {
-      payingPartner,
-      location,
-      wuService,
-      qpayCompany,
-    });
+    (showWuService
+      ? wuService !== ""
+      : isQuoteAmountUnlocked(deliveryType, {
+          payingPartner,
+          location,
+          wuService,
+          moneygramCompany,
+        }));
 
   const clearDeliveryExtras = () => {
     setPayingPartner("");
     setLocation("");
     setWuService("");
-    setQpayCompany("");
+    setMoneygramCompany("");
     setTerraPayBank("");
     setTerraPayWallet("");
   };
@@ -1289,8 +1291,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                               wuServiceRef.current?.focus();
                               return;
                             }
-                            if (nextVisibility.showQpayCompany) {
-                              qpayCompanyRef.current?.focus();
+                            if (nextVisibility.showMoneygramCompany) {
+                              moneygramCompanyRef.current?.focus();
                               return;
                             }
                             sendAmountRef.current?.focus();
@@ -1445,8 +1447,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                             nextRef={
                               showWuService
                                 ? wuServiceRef
-                                : showQpayCompany
-                                  ? qpayCompanyRef
+                                : showMoneygramCompany
+                                  ? moneygramCompanyRef
                                   : sendAmountRef
                             }
                             loading={locationLoading}
@@ -1466,8 +1468,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                           options={WU_SERVICE_OPTIONS[deliveryType]}
                           fieldRef={wuServiceRef}
                           nextRef={
-                            showQpayCompany
-                              ? qpayCompanyRef
+                            showMoneygramCompany
+                              ? moneygramCompanyRef
                               : showTerraPayBank
                                 ? terraPayBankRef
                                 : showTerraPayWallet
@@ -1481,12 +1483,12 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                           }}
                         />
                       )}
-                      {showQpayCompany && (
+                      {/* {showMoneygramCompany && (
                         <SearchableSelect
                           label="Compañía"
-                          value={qpayCompany}
-                          options={QPAY_COMPANY_OPTIONS}
-                          fieldRef={qpayCompanyRef}
+                          value={moneygramCompany}
+                          options={MONEYGRAM_COMPANY_OPTIONS}
+                          fieldRef={moneygramCompanyRef}
                           nextRef={
                             showTerraPayBank
                               ? terraPayBankRef
@@ -1495,12 +1497,12 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                                 : sendAmountRef
                           }
                           onChange={(value) => {
-                            setQpayCompany(value);
+                            setMoneygramCompany(value);
                             resetQuoteSelection();
                             setSendAmount("");
                           }}
                         />
-                      )}
+                      )} */}
                       {showTerraPayBank && (
                         <SearchableSelect
                           label="Banco"
@@ -1584,7 +1586,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     payingPartner={payingPartner}
                     location={location}
                     wuService={wuService}
-                    qpayCompany={qpayCompany}
+                    moneygramCompany={moneygramCompany}
                     terraPayBank={terraPayBank}
                     terraPayWallet={terraPayWallet}
                     senderName={senderName}

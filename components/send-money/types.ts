@@ -1,10 +1,11 @@
-export type ProviderId = "RIA" | "WU" | "QPAY" | "TERRAPAY";
+export type ProviderId = "RIA" | "WU" | "MONEYGRAM" | "TERRAPAY";
 
 /** Maps to CIS presential/WU/TerraPay delivery codes in production. */
 export type DeliveryTypeId = "CASH" | "BANK" | "WALLET";
 
 export type ProviderQuote = {
   provider: ProviderId;
+  label: string;
   amount: number;
   fee: number;
   tax: number;

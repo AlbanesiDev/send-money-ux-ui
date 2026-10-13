@@ -1,6 +1,6 @@
 import { Field } from "../../field";
 
-export function QpayBeneficiaryAccountStep({
+export function MoneygramBeneficiaryAccountStep({
   known,
 }: {
   known: (value?: string) => string | undefined;
@@ -9,7 +9,8 @@ export function QpayBeneficiaryAccountStep({
     <div className="space-y-6">
       <h2 className="font-bold">Datos de cuenta / compañía</h2>
       <p className="text-sm text-[#687790]">
-        QPay utiliza datos de compañía y cuenta en lugar de nombre de persona.
+        Moneygram utiliza datos de compañía y cuenta en lugar de nombre de
+        persona.
       </p>
       <div className="grid gap-3 sm:grid-cols-3">
         <Field label="Compañía" value={known("Sol & Luna Pagos")} required />

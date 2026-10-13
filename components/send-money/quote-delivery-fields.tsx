@@ -10,7 +10,7 @@ export function isQuoteAmountUnlocked(
     payingPartner: string;
     location: string;
     wuService: string;
-    qpayCompany: string;
+    moneygramCompany: string;
   },
 ): boolean {
   const visibility: QuoteFieldVisibility = quoteFieldVisibility(deliveryType);
@@ -18,6 +18,6 @@ export function isQuoteAmountUnlocked(
     if (!values.payingPartner || !values.location) return false;
   }
   if (visibility.showWuService && !values.wuService) return false;
-  if (visibility.showQpayCompany && !values.qpayCompany) return false;
+  if (visibility.showMoneygramCompany && !values.moneygramCompany) return false;
   return true;
 }

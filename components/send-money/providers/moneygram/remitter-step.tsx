@@ -1,13 +1,11 @@
 import { WuRemitterStep } from "../wu/remitter-step";
 
-export function QpayRemitterStep({
+export function MoneygramRemitterStep({
   documentNumber,
   known,
 }: {
   documentNumber: string;
   known: (value?: string) => string | undefined;
 }) {
-  return (
-    <WuRemitterStep documentNumber={documentNumber} known={known} />
-  );
+  return <WuRemitterStep documentNumber={documentNumber} known={known} />;
 }

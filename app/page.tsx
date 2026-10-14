@@ -31,6 +31,11 @@ import {
 import { isQuoteAmountUnlocked } from "@/components/send-money/quote-delivery-fields";
 import { ProviderStepContent } from "@/components/send-money/provider-step-content";
 import { QuoteResults } from "@/components/send-money/quote-results";
+import {
+  KNOWN_CLIENT_TRANSACTIONS,
+  RecentTransactions,
+  type RecentTransaction,
+} from "@/components/send-money/recent-transactions";
 import type {
   DeliveryTypeId,
   PaymentCurrency,
@@ -663,6 +668,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setTerraPayBank("");
     setTerraPayWallet("");
   };
+  const [selectedTransactionId, setSelectedTransactionId] = useState<
+    string | null
+  >(null);
   const [paymentMethod, setPaymentMethod] = useState("");
   const [primaryCurrency, setPrimaryCurrency] =
     useState<PaymentCurrency>("USD");
@@ -675,6 +683,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const nextButtonRef = useRef<HTMLButtonElement>(null);
   const lastStep = activeSteps.length;
   const clearAmount = () => {
+    setSelectedTransactionId(null);
     quoteRequestRef.current += 1;
     setSendAmount("");
     setAmountExceedsBalance(false);
@@ -686,9 +695,16 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setQuoteLoading(false);
     setStep((current) => Math.min(current, 2));
   };
-  const requestQuote = () => {
-    if (!deliveryType) return;
-    const normalizedAmount = normalizeAmount(sendAmount);
+  const requestQuote = (override?: {
+    amount: number;
+    deliveryType: DeliveryTypeId;
+    provider: ProviderId;
+  }) => {
+    const type = override?.deliveryType ?? deliveryType;
+    if (!type) return;
+    const normalizedAmount = override
+      ? usdFormatter.format(override.amount)
+      : normalizeAmount(sendAmount);
     setSendAmount(normalizedAmount);
     const amount = Number(
       normalizedAmount.replace(/\./g, "").replace(",", "."),
@@ -716,17 +732,21 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setStep((current) => Math.min(current, 2));
     window.setTimeout(() => {
       if (requestId !== quoteRequestRef.current) return;
-      const quotes = buildProviderQuotes(amount, deliveryType);
+      const quotes = buildProviderQuotes(amount, type);
       const cheapest = [...quotes].sort(
         (a, b) => a.amount + a.fee + a.tax - (b.amount + b.fee + b.tax),
       )[0];
+      // Al repetir una transacción se mantiene su proveedor.
+      const preferred =
+        quotes.find((item) => item.provider === override?.provider) ??
+        cheapest;
       setProviderQuotes(quotes);
       setQuotesReady(true);
       setQuoteLoading(false);
-      if (cheapest) {
-        setSelectedProvider(cheapest.provider);
-        setQuote(cheapest);
-        setActiveSteps(buildActiveSteps(cheapest.provider));
+      if (preferred) {
+        setSelectedProvider(preferred.provider);
+        setQuote(preferred);
+        setActiveSteps(buildActiveSteps(preferred.provider));
       }
       window.requestAnimationFrame(() => nextButtonRef.current?.focus());
     }, 900);
@@ -738,6 +758,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     window.requestAnimationFrame(() => nextButtonRef.current?.focus());
   };
   const resetQuoteSelection = () => {
+    setSelectedTransactionId(null);
     quoteRequestRef.current += 1;
     setQuote(null);
     setProviderQuotes([]);
@@ -856,6 +877,34 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     },
   ];
   const beneficiary = beneficiaries[selectedBeneficiary];
+  const recentTransactions = isKnownClient ? KNOWN_CLIENT_TRANSACTIONS : [];
+
+  // Autocompleta cotización, beneficiario y pago a partir de una transacción
+  // previa; los datos del remitente y PEP ya vienen del cliente encontrado.
+  function repeatTransaction(transaction: RecentTransaction) {
+    optionsRequestRef.current += 1;
+    setPartnerLoading(false);
+    setLocationLoading(false);
+    setDestinationCountry(transaction.destinationCountry);
+    setDeliveryType(transaction.deliveryType);
+    setPayingPartner(transaction.payingPartner ?? "");
+    setLocation(transaction.location ?? "");
+    setWuService(transaction.wuService);
+    setMoneygramCompany("");
+    setTerraPayBank(transaction.terraPayBank ?? "");
+    setTerraPayWallet(transaction.terraPayWallet ?? "");
+    setSendAmount(usdFormatter.format(transaction.amount));
+    setSelectedBeneficiary(transaction.beneficiaryIndex);
+    setPaymentMethod(transaction.paymentMethod);
+    setPrimaryCurrency("USD");
+    setExtraPayments([]);
+    requestQuote({
+      amount: transaction.amount,
+      deliveryType: transaction.deliveryType,
+      provider: transaction.provider,
+    });
+    setSelectedTransactionId(transaction.id);
+  }
 
   function trapDocumentFocus(event: ReactKeyboardEvent<HTMLInputElement>) {
     if (event.key !== "Tab") return;
@@ -1271,6 +1320,14 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                 )}
                 {step === 2 && (
                   <div className="space-y-4">
+                    <RecentTransactions
+                      transactions={recentTransactions}
+                      beneficiaries={beneficiaries}
+                      selectedId={selectedTransactionId}
+                      disabled={quoteLoading}
+                      formatUsd={formatUsd}
+                      onSelect={repeatTransaction}
+                    />
                     <h2 className="font-bold text-[#17233f]">
                       Datos de la cotización
                     </h2>
@@ -1567,7 +1624,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                       <div className="sm:col-span-2 sm:flex sm:items-end lg:col-span-3">
                         <button
                           type="button"
-                          onClick={requestQuote}
+                          onClick={() => requestQuote()}
                           disabled={
                             !amountUnlocked ||
                             !sendAmount ||

@@ -13,15 +13,15 @@ export function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-sm font-semibold text-[#263653]">
-        {label} {required && <span className="text-[#c73750]">*</span>}
+      <span className="mb-1 block text-sm font-semibold text-foreground">
+        {label} {required && <span className="text-destructive">*</span>}
       </span>
       <input
         defaultValue={value}
         placeholder={placeholder}
         disabled={disabled}
         required={required}
-        className="h-10 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm text-[#263653] outline-none transition placeholder:text-[#a2adbf] focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10 disabled:bg-[#f7f8fb] disabled:text-[#73809a]"
+        className="h-10 w-full rounded-lg border border-input bg-card px-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus:border-brand focus:ring-4 focus:ring-brand/10 disabled:bg-muted disabled:text-muted-foreground"
       />
     </label>
   );

@@ -9,10 +9,14 @@ import {
   ImageIcon,
   LogOut,
   Menu,
+  Moon,
+  Sun,
   User,
   X,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+
+type ColorTheme = "light" | "dark";
 
 const ROUTE_LABELS: Record<string, string> = {
   "/remittences": "Envíos",
@@ -29,12 +33,21 @@ export function AppHeader({
   const { pathname } = useLocation();
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<ColorTheme>("light");
   const notificationsRoot = useRef<HTMLDivElement>(null);
   const userMenuRoot = useRef<HTMLDivElement>(null);
   const routeLabel = ROUTE_LABELS[pathname];
   if (!routeLabel) {
     throw new Error(`Missing route label for pathname: ${pathname}`);
   }
+
+  useEffect(() => {
+    const stored = window.localStorage.getItem("theme");
+    if (stored !== "light" && stored !== "dark") return;
+    setTheme(stored);
+    document.documentElement.classList.toggle("dark", stored === "dark");
+    document.documentElement.classList.toggle("light", stored === "light");
+  }, []);
 
   useEffect(() => {
     if (!notificationsOpen && !userMenuOpen) return;
@@ -124,6 +137,35 @@ export function AppHeader({
             <strong>·</strong>
             Saldo virtual BOB: $6.000,00
           </div>
+
+          <button
+            type="button"
+            className="private-nav-button"
+            aria-label={
+              theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"
+            }
+            aria-pressed={theme === "dark"}
+            onClick={() => {
+              const nextTheme: ColorTheme =
+                theme === "dark" ? "light" : "dark";
+              setTheme(nextTheme);
+              document.documentElement.classList.toggle(
+                "dark",
+                nextTheme === "dark",
+              );
+              document.documentElement.classList.toggle(
+                "light",
+                nextTheme === "light",
+              );
+              window.localStorage.setItem("theme", nextTheme);
+            }}
+          >
+            {theme === "dark" ? (
+              <Sun className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
+            ) : (
+              <Moon className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
+            )}
+          </button>
 
           <div className="relative" ref={notificationsRoot}>
             <button

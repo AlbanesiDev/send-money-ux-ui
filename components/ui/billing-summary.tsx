@@ -18,18 +18,18 @@ export function BillingSummary({
   onReset,
 }: BillingSummaryProps) {
   const inputClass =
-    "h-10 w-full rounded-lg border border-[#cdd5e1] bg-white px-3 text-sm text-[#263653] outline-none transition focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10";
+    "h-10 w-full rounded-lg border border-input bg-card px-3 text-sm text-foreground outline-none transition focus:border-brand focus:ring-4 focus:ring-brand/10";
   return (
-    <section className="rounded-xl border border-[#dce3ee] bg-[#fbfcfe]">
+    <section className="rounded-xl border border-border bg-muted">
       <div className="flex items-center justify-between gap-4 p-4">
         <div className="min-w-0">
-          <p className="text-xs font-bold uppercase tracking-wide text-[#73809a]">
+          <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
             Facturación
           </p>
-          <p className="mt-1 truncate text-sm font-semibold text-[#263653]">
+          <p className="mt-1 truncate text-sm font-semibold text-foreground">
             {name || "Sin nombre"} · NIT/CI {nit || "—"}
           </p>
-          <p className="text-xs text-[#73809a]">
+          <p className="text-xs text-muted-foreground">
             {usingSender
               ? "Datos del remitente"
               : "Datos de facturación modificados"}
@@ -40,7 +40,7 @@ export function BillingSummary({
           onClick={onToggle}
           aria-expanded={open}
           aria-controls="billing-fields"
-          className="shrink-0 rounded-md px-3 py-1.5 text-sm font-semibold text-[#465bc2] hover:bg-[#eef1fc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#465bc2]"
+          className="shrink-0 rounded-md px-3 py-1.5 text-sm font-semibold text-brand-strong hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-strong"
         >
           {open ? "Cerrar" : "Cambiar"}
         </button>
@@ -48,11 +48,11 @@ export function BillingSummary({
       {open && (
         <div
           id="billing-fields"
-          className="flex flex-col gap-4 border-t border-[#e6ebf3] p-4"
+          className="flex flex-col gap-4 border-t border-border p-4"
         >
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block">
-              <span className="mb-1 block text-sm font-semibold text-[#263653]">
+              <span className="mb-1 block text-sm font-semibold text-foreground">
                 Nombre o razón social
               </span>
               <input
@@ -62,7 +62,7 @@ export function BillingSummary({
               />
             </label>
             <label className="block">
-              <span className="mb-1 block text-sm font-semibold text-[#263653]">
+              <span className="mb-1 block text-sm font-semibold text-foreground">
                 NIT / CI
               </span>
               <input
@@ -77,7 +77,7 @@ export function BillingSummary({
             <button
               type="button"
               onClick={onReset}
-              className="self-start text-sm font-semibold text-[#465bc2] hover:underline"
+              className="self-start text-sm font-semibold text-brand-strong hover:underline"
             >
               Usar datos del remitente
             </button>

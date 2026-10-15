@@ -186,7 +186,7 @@ export function QuoteStep({
       )}
 
       <div className="card">
-        <h2 className="font-bold text-[#17233f]">Datos de la cotización</h2>
+        <h2 className="font-bold text-foreground">Datos de la cotización</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <Field label="Moneda de origen" value="USD" disabled />
           <SearchableSelect
@@ -226,13 +226,13 @@ export function QuoteStep({
           />
           <div>
             <label className="block">
-              <span className="mb-1 block text-sm font-semibold text-[#263653]">
+              <span className="mb-1 block text-sm font-semibold text-foreground">
                 Monto a enviar
               </span>
               <span className="relative block">
                 <span
                   aria-hidden="true"
-                  className={`pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm font-bold ${amountUnlocked ? "text-[#465bc2]" : "text-[#a3adbd]"}`}
+                  className={`pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm font-bold ${amountUnlocked ? "text-brand-strong" : "text-muted-foreground"}`}
                 >
                   USD $
                 </span>
@@ -275,7 +275,7 @@ export function QuoteStep({
                   disabled={!amountUnlocked}
                   placeholder="0,00"
                   inputMode="decimal"
-                  className={`h-10 w-full rounded-lg border pl-16 pr-3 text-sm text-[#17233f] outline-none disabled:bg-[#f3f5f9] disabled:text-[#8a96aa] focus:ring-4 ${amountExceedsBalance ? "border-[#e39aa8] focus:border-[#b52e45] focus:ring-[#b52e45]/15" : "border-[#cdd5e1] focus:border-[#5368c8] focus:ring-[#5368c8]/10"}`}
+                  className={`h-10 w-full rounded-lg border bg-card pl-16 pr-3 text-sm text-foreground outline-none disabled:bg-muted disabled:text-muted-foreground focus:ring-4 ${amountExceedsBalance ? "border-destructive focus:border-destructive focus:ring-destructive/15" : "border-input focus:border-brand focus:ring-brand/10"}`}
                 />
                 <span id="send-amount-currency" className="sr-only">
                   Dólares estadounidenses, máximo dos decimales
@@ -286,7 +286,7 @@ export function QuoteStep({
               <p
                 id="send-amount-balance-error"
                 role="alert"
-                className="mt-1 text-sm text-[#a34f60]"
+                className="mt-1 text-sm text-destructive"
               >
                 El monto supera el saldo virtual de la agencia (
                 {formatUsd(agencyUsdBalance)}). No es posible cotizar.
@@ -314,7 +314,7 @@ export function QuoteStep({
                       resetQuoteSelection();
                       sendAmountRef.current?.focus();
                     }}
-                    className={`h-7 rounded-full border px-2.5 text-xs font-bold transition-colors focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20 disabled:cursor-not-allowed disabled:border-[#e2e7ef] disabled:bg-transparent disabled:text-[#a3adbd] ${selected ? "border-[#5a6578] bg-white text-[#17233f]" : "border-[#d5dbe6] bg-white text-[#5a6578] hover:border-[#9aa3b5] hover:text-[#17233f]"}`}
+                    className={`h-7 rounded-full border px-2.5 text-xs font-bold transition-colors focus:outline-none focus:ring-4 focus:ring-brand/20 disabled:cursor-not-allowed disabled:border-border disabled:bg-transparent disabled:text-muted-foreground ${selected ? "border-foreground bg-card text-foreground" : "border-border bg-card text-muted-foreground hover:border-muted-foreground hover:text-foreground"}`}
                   >
                     ${amount}
                   </button>
@@ -374,7 +374,7 @@ export function QuoteStep({
                 quoteLoading ||
                 amountExceedsBalance
               }
-              className="inline-flex h-10 items-center gap-2 rounded-lg border border-[#c5cddb] px-5 text-sm font-bold text-[#3a4558] transition-colors hover:border-[#9aa3b5] hover:bg-[#f5f7fa] disabled:cursor-not-allowed disabled:border-[#e2e7ef] disabled:text-[#a3adbd] disabled:hover:bg-transparent focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20"
+              className="inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-card px-5 text-sm font-bold text-foreground transition-colors hover:border-muted-foreground hover:bg-muted disabled:cursor-not-allowed disabled:border-border disabled:text-muted-foreground disabled:hover:bg-transparent focus:outline-none focus:ring-4 focus:ring-brand/20"
             >
               {quoteLoading && (
                 <span

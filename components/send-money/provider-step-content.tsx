@@ -173,16 +173,16 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
     return (
       <div className="space-y-6">
         <div className="grid gap-4 lg:grid-cols-2 lg:items-start">
-          <section className="rounded-xl border border-[#e1e6ef] bg-white p-5">
+          <section className="rounded-xl border border-border bg-card p-5">
             <h2 className="mb-5 font-bold">Remitente</h2>
             {remitter}
           </section>
-          <section className="rounded-xl border border-[#e1e6ef] bg-white p-5">
+          <section className="rounded-xl border border-border bg-card p-5">
             <h2 className="mb-5 font-bold">Beneficiario</h2>
             {beneficiary}
           </section>
         </div>
-        <div className="border-t border-[#e6ebf3] pt-6">{declarations}</div>
+        <div className="border-t border-border pt-6">{declarations}</div>
       </div>
     );
   }

@@ -42,41 +42,41 @@ export function RemittanceSummary({
   return (
     <div
       aria-busy={loading}
-      className="bg-white rounded-xl border border-[#e1e6ef] p-3"
+      className="rounded-xl border border-border bg-card p-3"
     >
-      <div className=" flex items-center justify-between border-b border-[#e4e8ef] pb-2.5">
-        <h2 className="font-bold text-[#17233f]">Resumen</h2>
+      <div className=" flex items-center justify-between border-b border-border pb-2.5">
+        <h2 className="font-bold text-foreground">Resumen</h2>
         <span
           aria-label="Ticket"
           title="Ticket"
-          className="flex h-6 w-6 items-center justify-center rounded-full border border-[#cfd7e6] bg-white text-xs font-bold text-[#465bc2]"
+          className="flex h-6 w-6 items-center justify-center rounded-full border border-border bg-card text-xs font-bold text-brand"
         >
           ▤
         </span>
       </div>
       <dl className="mt-3 space-y-2 text-sm">
         <div className="flex justify-between gap-4">
-          <dt className="text-[#73809a]">Proveedor</dt>
-          <dd className="text-right font-semibold text-[#263653]">
+          <dt className="text-muted-foreground">Proveedor</dt>
+          <dd className="text-right font-semibold text-foreground">
             {providerLabel}
           </dd>
         </div>
         <div className="flex justify-between gap-4">
-          <dt className="text-[#73809a]">Tipo de envío</dt>
-          <dd className="text-right font-semibold text-[#263653]">
+          <dt className="text-muted-foreground">Tipo de envío</dt>
+          <dd className="text-right font-semibold text-foreground">
             {deliveryLabel}
           </dd>
         </div>
         {rows.map((row) => (
           <div key={row.label} className="flex justify-between">
-            <dt className="text-[#73809a]">{row.label}</dt>
+            <dt className="text-muted-foreground">{row.label}</dt>
             <dd className={valueClass}>{formatUsd(row.value)}</dd>
           </div>
         ))}
-        <div className="mt-2.5 flex justify-between border-t border-[#e4e8ef] pt-2.5 text-base">
+        <div className="mt-2.5 flex justify-between border-t border-border pt-2.5 text-base">
           <dt className="font-bold">Total</dt>
           <dd
-            className={`font-bold tabular-nums text-[#17233f] ${loading ? "animate-pulse opacity-40" : ""}`}
+            className={`font-bold tabular-nums text-foreground ${loading ? "animate-pulse opacity-40" : ""}`}
           >
             {formatUsd(amount + fee + tax)}
           </dd>
@@ -85,7 +85,7 @@ export function RemittanceSummary({
       <p
         role="status"
         aria-live="polite"
-        className="mt-2 min-h-4 text-xs text-[#73809a] select-none"
+        className="mt-2 min-h-4 text-xs text-muted-foreground select-none"
       >
         {loading
           ? "Calculando cotización…"

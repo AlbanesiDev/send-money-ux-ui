@@ -91,13 +91,13 @@ export function IdentifySenderStep({
   return (
     <>
       <div className="mb-4">
-        <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-[#5368c8]">
+        <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-brand">
           Paso {step} de {lastStep}
         </p>
-        <h1 className="text-xl font-bold tracking-[-0.02em] text-[#17233f]">
+        <h1 className="text-xl font-bold tracking-[-0.02em] text-foreground">
           Identifica al remitente
         </h1>
-        <p className="mt-1 text-sm leading-5 text-[#687790]">
+        <p className="mt-1 text-sm leading-5 text-muted-foreground">
           Completa la información necesaria para continuar.
         </p>
       </div>
@@ -109,8 +109,8 @@ export function IdentifySenderStep({
         className="mx-auto max-w-[680px] space-y-3"
       >
         <div className="mt-10 block">
-          <span className="mb-1 block text-sm font-semibold text-[#263653]">
-            Tipo de documento <span className="text-[#c73750]">*</span>
+          <span className="mb-1 block text-sm font-semibold text-foreground">
+            Tipo de documento <span className="text-destructive">*</span>
           </span>
           <SearchableSelect
             fieldRef={documentTypeRef}
@@ -131,8 +131,8 @@ export function IdentifySenderStep({
           />
         </div>
         <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-[#263653]">
-            Número de documento <span className="text-[#c73750]">*</span>
+          <span className="mb-1 block text-sm font-semibold text-foreground">
+            Número de documento <span className="text-destructive">*</span>
           </span>
           <input
             ref={documentNumberInputRef}
@@ -148,40 +148,40 @@ export function IdentifySenderStep({
               onResultChange(null);
             }}
             placeholder="Ingresa el número de documento"
-            className="h-10 w-full rounded-lg border border-[#cdd5e1] px-3 text-sm text-[#263653] outline-none placeholder:text-[#a2adbf] focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10"
+            className="h-10 w-full rounded-lg border border-input bg-card px-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-brand focus:ring-4 focus:ring-brand/10"
           />
 
-          <span className="mt-1 block text-xs text-[#7b879b]">
+          <span className="mt-1 block text-xs text-muted-foreground">
             Solo números, sin espacios.
           </span>
         </label>
         <button
           disabled={!documentNumber || loading}
-          className="mt-1 h-10 w-full rounded-lg bg-[#465bc2] text-sm font-bold text-white disabled:bg-[#b8c1dc]"
+          className="mt-1 h-10 w-full rounded-lg bg-brand-strong text-sm font-bold text-white disabled:bg-secondary disabled:text-muted-foreground"
         >
           {loading ? "Buscando cliente…" : "Buscar"}
         </button>
         <div
           aria-live="polite"
           className={
-            result ? "mt-2 border-t border-[#e9edf5] pt-6" : undefined
+            result ? "mt-2 border-t border-border pt-6" : undefined
           }
         >
           {result === "success" && (
-            <div className="rounded-xl border border-[#cde8db] bg-[#f1faf5] p-5">
-              <p className="text-xs font-bold uppercase text-[#23815d]">
+            <div className="rounded-xl border border-success-border bg-success-soft p-5">
+              <p className="text-xs font-bold uppercase text-success">
                 ✓ Cliente encontrado
               </p>
-              <h2 className="mt-2 text-xl font-bold text-[#1f6d55]">
+              <h2 className="mt-2 text-xl font-bold text-success">
                 Eliana Antezana Ovando
               </h2>
-              <p className="mt-2 text-sm text-[#5d7c72]">
+              <p className="mt-2 text-sm text-muted-foreground">
                 Documento: {documentNumber} · j***@cislatam.com
               </p>
               <div className="mt-4 flex justify-end gap-3">
                 <button
                   type="button"
-                  className="rounded-lg border border-[#b8d8c9] px-4 py-2 text-sm font-bold text-[#28694f]"
+                  className="rounded-lg border border-success-border px-4 py-2 text-sm font-bold text-success"
                 >
                   Ver perfil
                 </button>
@@ -189,7 +189,7 @@ export function IdentifySenderStep({
                   type="button"
                   ref={continueRef}
                   onClick={onContinue}
-                  className="rounded-lg bg-[#465bc2] px-4 py-2 text-sm font-bold text-white"
+                  className="rounded-lg bg-brand-strong px-4 py-2 text-sm font-bold text-white"
                 >
                   Continuar
                 </button>
@@ -197,17 +197,17 @@ export function IdentifySenderStep({
             </div>
           )}
           {result === "empty" && (
-            <div className="rounded-xl border border-[#eadcae] bg-[#fffaf0] p-5">
-              <p className="font-bold text-[#5d4b19]">
+            <div className="rounded-xl border border-[#eadcae] bg-[#fffaf0] p-5 dark:border-amber-700/50 dark:bg-amber-950/40">
+              <p className="font-bold text-[#5d4b19] dark:text-amber-200">
                 No encontramos un cliente asociado a este documento.
               </p>
-              <p className="mt-1 text-sm text-[#8a7740]">
+              <p className="mt-1 text-sm text-[#8a7740] dark:text-amber-200/80">
                 Puedes registrar un nuevo cliente para continuar.
               </p>
               <div className="mt-4 flex justify-end gap-3">
                 <button
                   type="button"
-                  className="rounded-lg bg-[#465bc2] px-4 py-2 text-sm font-bold text-white"
+                  className="rounded-lg bg-brand-strong px-4 py-2 text-sm font-bold text-white"
                 >
                   Registrar cliente
                 </button>
@@ -215,7 +215,7 @@ export function IdentifySenderStep({
                   type="button"
                   ref={continueRef}
                   onClick={onContinue}
-                  className="rounded-lg border border-[#d6c688] px-4 py-2 text-sm font-bold text-[#765d12]"
+                  className="rounded-lg border border-[#d6c688] px-4 py-2 text-sm font-bold text-[#765d12] dark:border-amber-700/50 dark:text-amber-200"
                 >
                   Continuar
                 </button>
@@ -225,19 +225,19 @@ export function IdentifySenderStep({
           {result === "error" && (
             <div
               role="alert"
-              className="rounded-xl border border-[#f0c8cf] bg-[#fff5f6] p-5"
+              className="rounded-xl border border-destructive/30 bg-destructive/10 p-5"
             >
-              <p className="font-bold text-[#7f2638]">
+              <p className="font-bold text-destructive">
                 No pudimos completar la búsqueda
               </p>
-              <p className="mt-1 text-sm text-[#a34f60]">
+              <p className="mt-1 text-sm text-destructive/80">
                 Ocurrió un problema temporal. Verifica tu conexión e inténtalo
                 nuevamente.
               </p>
               <button
                 type="button"
                 onClick={searchClient}
-                className="mt-4 rounded-lg bg-[#b52e45] px-4 py-2 text-sm font-bold text-white"
+                className="mt-4 rounded-lg bg-destructive px-4 py-2 text-sm font-bold text-white"
               >
                 Reintentar
               </button>
@@ -246,10 +246,10 @@ export function IdentifySenderStep({
           {result === "blocked" && (
             <div
               role="alert"
-              className="rounded-xl border border-[#f0c8cf] bg-[#fff5f6] p-5"
+              className="rounded-xl border border-destructive/30 bg-destructive/10 p-5"
             >
-              <p className="font-bold text-[#7f2638]">Cliente bloqueado</p>
-              <p className="mt-1 text-sm text-[#a34f60]">
+              <p className="font-bold text-destructive">Cliente bloqueado</p>
+              <p className="mt-1 text-sm text-destructive/80">
                 Este cliente no puede continuar con la transacción. Contacta a
                 un supervisor si necesitas asistencia.
               </p>

@@ -101,7 +101,7 @@ export function SearchableSelect({
         className={
           hideLabel
             ? "sr-only"
-            : "mb-1 block text-sm font-semibold text-[#263653]"
+            : "mb-1 block text-sm font-semibold text-foreground"
         }
       >
         {label}
@@ -126,22 +126,22 @@ export function SearchableSelect({
           }}
           aria-haspopup="listbox"
           aria-expanded={open}
-          className="flex h-10 w-full items-center justify-between rounded-lg border border-[#cdd5e1] bg-white px-3 text-left text-sm text-[#17233f] outline-none focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10 disabled:bg-[#f3f5f9] disabled:text-[#8a96aa]"
+          className="flex h-10 w-full items-center justify-between rounded-lg border border-input bg-card px-3 text-left text-sm text-foreground outline-none focus:border-brand focus:ring-4 focus:ring-brand/10 disabled:bg-muted disabled:text-muted-foreground"
         >
           {loading ? (
             <span
               role="status"
-              className="flex items-center gap-2 text-[#5368c8]"
+              className="flex items-center gap-2 text-brand"
             >
               <span
                 aria-hidden="true"
-                className="h-4 w-4 animate-spin rounded-full border-2 border-[#c9d1f0] border-t-[#465bc2]"
+                className="h-4 w-4 animate-spin rounded-full border-2 border-brand/30 border-t-brand-strong"
               />
               Cargando {label.toLowerCase()}...
             </span>
           ) : (
             <span
-              className={`flex min-w-0 items-center gap-2 ${value ? "" : "text-[#8a96aa]"}`}
+              className={`flex min-w-0 items-center gap-2 ${value ? "" : "text-muted-foreground"}`}
             >
               {showFlags && value && <CountryFlag country={value} />}
               <span className="truncate">
@@ -154,7 +154,7 @@ export function SearchableSelect({
           </span>
         </button>
         {open && (
-          <div className="absolute inset-x-0 top-full z-50 mt-1 rounded-lg border border-[#cdd5e1] bg-white p-2 shadow-lg">
+          <div className="absolute inset-x-0 top-full z-50 mt-1 rounded-lg border border-border bg-popover p-2 text-popover-foreground shadow-lg">
             <input
               ref={filterRef}
               value={filter}
@@ -196,7 +196,7 @@ export function SearchableSelect({
                   ? `select-option-${highlightedIndex}`
                   : undefined
               }
-              className="h-10 w-full rounded-md border border-[#dce3ee] px-3 text-sm outline-none focus:border-[#5368c8]"
+              className="h-10 w-full rounded-md border border-border bg-card px-3 text-sm text-foreground outline-none focus:border-brand"
             />{" "}
             <div
               role="listbox"
@@ -215,11 +215,11 @@ export function SearchableSelect({
                   aria-selected={value === option}
                   onMouseEnter={() => setHighlightedIndex(index)}
                   onClick={() => choose(option)}
-                  className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm hover:bg-[#f4f6ff] ${
+                  className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm hover:bg-accent ${
                     index === highlightedIndex
-                      ? "bg-[#eef1ff] font-semibold text-[#465bc2]"
+                      ? "bg-accent font-semibold text-brand-strong"
                       : value === option
-                        ? "font-semibold text-[#465bc2]"
+                        ? "font-semibold text-brand-strong"
                         : ""
                   }`}
                 >
@@ -228,7 +228,7 @@ export function SearchableSelect({
                 </button>
               ))}
               {filteredOptions.length === 0 && (
-                <p className="px-3 py-2 text-sm text-[#8a96aa]">
+                <p className="px-3 py-2 text-sm text-muted-foreground">
                   Sin resultados
                 </p>
               )}

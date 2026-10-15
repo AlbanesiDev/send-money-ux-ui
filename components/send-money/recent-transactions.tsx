@@ -67,18 +67,6 @@ export const KNOWN_CLIENT_TRANSACTIONS: RecentTransaction[] = [
     beneficiaryIndex: 2,
     paymentMethod: "Transferencia bancaria",
   },
-  {
-    id: "12030070287",
-    date: "12/08/2026",
-    provider: "MONEYGRAM",
-    destinationCountry: "Argentina",
-    deliveryType: "WALLET",
-    wuService: "Direct to wallet (800)",
-    terraPayWallet: "Tigo Money",
-    amount: 80,
-    beneficiaryIndex: 0,
-    paymentMethod: "Pago QR",
-  },
 ];
 
 const ROW_GRID =
@@ -104,22 +92,22 @@ export function RecentTransactions({
     <section
       aria-labelledby="recent-transactions-title"
     >
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#e6ebf3] px-4 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border  pb-3">
         <div className="flex items-center gap-2">
-          <History aria-hidden="true" className="h-4 w-4 text-[#5368c8]" />
+          <History aria-hidden="true" className="h-4 w-4 text-brand" />
           <h2
             id="recent-transactions-title"
-            className="text-sm font-bold text-[#17233f]"
+            className="text-sm font-bold text-foreground"
           >
             Últimas transacciones del cliente
           </h2>
         </div>
-        <p className="text-xs text-[#73809a]">
+        <p className="text-xs text-muted-foreground">
           Repite una transacción para autocompletar todos los datos.
         </p>
       </div>
       <div
-        className={`hidden gap-3 bg-[#f7f8fb] px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#73809a] sm:grid ${ROW_GRID}`}
+        className={`hidden gap-3 bg-muted px-4 py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground sm:grid ${ROW_GRID}`}
       >
         <span>Fecha</span>
         <span>Beneficiario</span>
@@ -128,7 +116,7 @@ export function RecentTransactions({
         <span className="text-right">Monto</span>
         <span className="sr-only">Acciones</span>
       </div>
-      <ul className="divide-y divide-[#e6ebf3]">
+      <ul className="divide-y divide-border">
         {transactions.map((transaction) => {
           const beneficiary = beneficiaries[transaction.beneficiaryIndex];
           const selected = transaction.id === selectedId;
@@ -136,34 +124,34 @@ export function RecentTransactions({
             <li
               key={transaction.id}
               className={`grid gap-1 px-4 py-3 text-sm sm:items-center sm:gap-3 ${ROW_GRID} ${
-                selected ? "bg-[#f5f7ff]" : ""
+                selected ? "bg-accent" : ""
               }`}
             >
-              <span className="text-[#5d6b85]">{transaction.date}</span>
+              <span className="text-muted-foreground">{transaction.date}</span>
               <span className="min-w-0">
-                <span className="block truncate font-semibold text-[#263653]">
+                <span className="block truncate font-semibold text-foreground">
                   {beneficiary?.name ?? "—"}
                 </span>
-                <span className="block text-xs text-[#73809a]">
+                <span className="block text-xs text-muted-foreground">
                   Op. {transaction.id}
                 </span>
               </span>
-              <span className="text-[#263653]">
+              <span className="text-foreground">
                 {transaction.destinationCountry}
               </span>
               <span className="min-w-0">
-                <span className="block font-semibold text-[#263653]">
+                <span className="block font-semibold text-foreground">
                   {PROVIDER_LABELS[transaction.provider]}
                 </span>
-                <span className="block text-xs text-[#73809a]">
+                <span className="block text-xs text-muted-foreground">
                   {deliveryTypeLabel(transaction.deliveryType)}
                 </span>
               </span>
-              <span className="font-semibold text-[#263653] sm:text-right">
+              <span className="font-semibold text-amount sm:text-right">
                 {formatUsd(transaction.amount)}
               </span>
               {selected ? (
-                <span className="inline-flex h-9 items-center justify-center rounded-lg bg-[#e1f7e9] px-3 text-xs font-bold text-[#218052] sm:justify-self-end">
+                <span className="inline-flex h-9 items-center justify-center rounded-lg bg-success-soft px-3 text-xs font-bold text-success sm:justify-self-end">
                   ✓ Datos cargados
                 </span>
               ) : (
@@ -172,7 +160,7 @@ export function RecentTransactions({
                   disabled={disabled}
                   onClick={() => onSelect(transaction)}
                   aria-label={`Repetir transacción ${transaction.id} a ${beneficiary?.name ?? "beneficiario"} por ${formatUsd(transaction.amount)}`}
-                  className="mt-1 inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-[#c5cddb] px-3 text-xs font-bold text-[#3a4558] transition-colors hover:border-[#9aa3b5] hover:bg-[#f5f7fa] focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20 disabled:cursor-not-allowed disabled:text-[#a3adbd] sm:mt-0 sm:justify-self-end"
+                  className="mt-1 inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-border px-3 text-xs font-bold text-foreground transition-colors hover:border-muted-foreground hover:bg-muted focus:outline-none focus:ring-4 focus:ring-brand/20 disabled:cursor-not-allowed disabled:text-muted-foreground sm:mt-0 sm:justify-self-end"
                 >
                   <RotateCcw aria-hidden="true" className="h-3.5 w-3.5" />
                   Repetir

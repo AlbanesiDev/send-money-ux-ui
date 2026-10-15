@@ -18,7 +18,7 @@ const CURRENCIES: PaymentCurrency[] = ["USD", "BOB"];
 const LINE_GRID =
   "sm:grid-cols-[minmax(0,2fr)_130px_minmax(0,1fr)_minmax(0,1fr)_40px]";
 const cellLabel =
-  "text-xs font-semibold uppercase tracking-wide text-[#73809a] sm:hidden";
+  "text-xs font-semibold uppercase tracking-wide text-muted-foreground sm:hidden";
 
 const toUsdCents = (
   amount: number,
@@ -154,13 +154,13 @@ function ExtraPaymentRow({
             if (amountDraft !== null)
               commit(parseAmount(amountDraft), line.currency);
           }}
-          className="h-10 w-36 rounded-lg border border-[#cdd5e1] bg-white px-3 text-right text-sm font-semibold text-[#263653] outline-none transition focus:border-[#5368c8] focus:ring-4 focus:ring-[#5368c8]/10 sm:w-full"
+          className="h-10 w-36 rounded-lg border border-input bg-card px-3 text-right text-sm font-semibold text-foreground outline-none transition focus:border-brand focus:ring-4 focus:ring-brand/10 sm:w-full"
         />
         {clamped && (
           <p
             id={`payment-${line.id}-clamped`}
             role="status"
-            className="mt-1 text-right text-xs text-[#b5622a]"
+            className="mt-1 text-right text-xs text-[#b5622a] dark:text-amber-200"
           >
             Ajustado al máximo disponible
           </p>
@@ -168,7 +168,7 @@ function ExtraPaymentRow({
       </div>
       <div className="flex items-center justify-between sm:block sm:text-right">
         <span className={cellLabel}>Equivalente USD</span>
-        <span className="text-sm text-[#5d6b85]">
+        <span className="text-sm text-muted-foreground">
           {formatUsd(line.usdCents / 100)}
         </span>
       </div>
@@ -176,7 +176,7 @@ function ExtraPaymentRow({
         type="button"
         onClick={onRemove}
         aria-label={`Quitar ${line.method} ${formatAmount(line.amount)} ${line.currency}`}
-        className="flex h-9 w-9 items-center justify-center justify-self-end rounded-lg text-[#c73750] transition hover:bg-[#fdf0f2] focus:outline-none focus:ring-4 focus:ring-[#c73750]/15"
+        className="flex h-9 w-9 items-center justify-center justify-self-end rounded-lg text-destructive transition hover:bg-destructive/10 focus:outline-none focus:ring-4 focus:ring-destructive/15"
       >
         <Trash2 aria-hidden="true" className="h-4 w-4" />
       </button>
@@ -311,19 +311,19 @@ export function StandardPaymentStep({
 
       <section
         aria-labelledby="payment-lines-title"
-        className="rounded-xl border border-[#dce3ee] bg-white"
+        className="rounded-xl border border-border bg-card"
       >
-        <div className="flex items-center justify-between border-b border-[#e6ebf3] px-4 py-3">
+        <div className="flex items-center justify-between border-b border-border px-4 py-3">
           <h3 id="payment-lines-title" className="text-sm font-bold">
             Formas de pago
           </h3>
-          <span className="rounded-full bg-[#eef1ff] px-2.5 py-0.5 text-xs font-semibold text-[#465bc2]">
+          <span className="rounded-full bg-accent px-2.5 py-0.5 text-xs font-semibold text-brand-strong">
             {extraPayments.length + 1}{" "}
             {extraPayments.length === 0 ? "método" : "métodos"}
           </span>
         </div>
         <div
-          className={`hidden gap-3 bg-[#f7f8fb] px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#73809a] sm:grid ${LINE_GRID}`}
+          className={`hidden gap-3 bg-muted px-4 py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground sm:grid ${LINE_GRID}`}
         >
           <span>Forma de pago</span>
           <span>Moneda</span>
@@ -331,7 +331,7 @@ export function StandardPaymentStep({
           <span className="text-right">Equivalente USD</span>
           <span className="sr-only">Acciones</span>
         </div>
-        <ul className="divide-y divide-[#e6ebf3]">
+        <ul className="divide-y divide-border">
           <li
             className={`grid gap-2 px-4 py-3 sm:items-center sm:gap-3 ${LINE_GRID}`}
           >
@@ -360,13 +360,13 @@ export function StandardPaymentStep({
             </div>
             <div className="flex items-center justify-between sm:block sm:text-right">
               <span className={cellLabel}>Monto</span>
-              <span className="text-sm font-semibold text-[#263653]">
+              <span className="text-sm font-semibold text-foreground">
                 {formatAmount(primaryAmount)}
               </span>
             </div>
             <div className="flex items-center justify-between sm:block sm:text-right">
               <span className={cellLabel}>Equivalente USD</span>
-              <span className="text-sm text-[#5d6b85]" aria-live="polite">
+              <span className="text-sm text-muted-foreground" aria-live="polite">
                 {formatUsd(primaryCents / 100)}
               </span>
             </div>
@@ -391,7 +391,7 @@ export function StandardPaymentStep({
             />
           ))}
         </ul>
-        <div className="flex justify-between rounded-b-xl border-t border-[#e6ebf3] bg-[#f7f8fb] px-4 py-3 text-sm font-semibold">
+        <div className="flex justify-between rounded-b-xl border-t border-border bg-muted px-4 py-3 text-sm font-semibold">
           <span>Total asignado</span>
           <span>{formatUsd(totalToCharge)}</span>
         </div>
@@ -399,12 +399,12 @@ export function StandardPaymentStep({
 
       <section
         aria-labelledby="add-payment-title"
-        className="rounded-xl border border-dashed border-[#cdd5e1] bg-[#fafbfd] p-4"
+        className="rounded-xl border border-dashed border-border bg-muted p-4"
       >
         <h3 id="add-payment-title" className="text-sm font-bold">
           Agregar otra forma de pago
         </h3>
-        <p className="mt-1 text-sm text-[#687790]">
+        <p className="mt-1 text-sm text-muted-foreground">
           El monto se descuenta automáticamente de la forma de pago principal.
         </p>
         <div className="mt-3 grid gap-3 sm:grid-cols-[minmax(0,2fr)_150px_minmax(0,1.4fr)_auto] sm:items-start">
@@ -425,17 +425,17 @@ export function StandardPaymentStep({
             nextRef: draftAmountRef,
           })}
           <label className="block">
-            <span className="mb-1 block text-sm font-semibold text-[#263653]">
-              Monto <span className="text-[#c73750]">*</span>
+            <span className="mb-1 block text-sm font-semibold text-foreground">
+              Monto <span className="text-destructive">*</span>
             </span>
             <div
-              className={`flex h-10 items-center rounded-lg border bg-white transition focus-within:ring-4 ${
+              className={`flex h-10 items-center rounded-lg border bg-card transition focus-within:ring-4 ${
                 draftExceeds
-                  ? "border-[#c73750] focus-within:border-[#c73750] focus-within:ring-[#c73750]/10"
-                  : "border-[#cdd5e1] focus-within:border-[#5368c8] focus-within:ring-[#5368c8]/10"
+                  ? "border-destructive focus-within:border-destructive focus-within:ring-destructive/10"
+                  : "border-input focus-within:border-brand focus-within:ring-brand/10"
               }`}
             >
-              <span className="shrink-0 whitespace-nowrap pl-3 text-sm font-semibold text-[#73809a]">
+              <span className="shrink-0 whitespace-nowrap pl-3 text-sm font-semibold text-muted-foreground">
                 {draftCurrency} $
               </span>
               <input
@@ -463,14 +463,14 @@ export function StandardPaymentStep({
                   if (canAdd) addPayment();
                   else if (draftMethod === "") draftMethodRef.current?.focus();
                 }}
-                className="h-full w-full rounded-lg bg-transparent px-2 text-sm text-[#263653] outline-none placeholder:text-[#a2adbf]"
+                className="h-full w-full rounded-lg bg-transparent px-2 text-sm text-foreground outline-none placeholder:text-muted-foreground"
               />
             </div>
             <p
               id="draft-amount-hint"
               role={draftExceeds ? "alert" : undefined}
               className={`mt-2 text-xs ${
-                draftExceeds ? "font-medium text-[#c73750]" : "text-[#73809a]"
+                draftExceeds ? "font-medium text-destructive" : "text-muted-foreground"
               }`}
             >
               {draftExceeds ? "Supera el saldo disponible. " : ""}
@@ -492,7 +492,7 @@ export function StandardPaymentStep({
               type="button"
               onClick={addPayment}
               disabled={!canAdd}
-              className="flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-[#17233f] px-4 text-sm font-semibold text-white transition hover:bg-[#25345a] focus:outline-none focus:ring-4 focus:ring-[#5368c8]/20 disabled:cursor-not-allowed disabled:bg-[#cdd5e1] disabled:text-[#73809a] sm:w-auto"
+              className="flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-foreground px-4 text-sm font-semibold text-background transition hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-brand/20 disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground sm:w-auto"
             >
               <Plus aria-hidden="true" className="h-4 w-4" />
               Agregar
@@ -500,7 +500,7 @@ export function StandardPaymentStep({
           </div>
         </div>
         {draftDuplicate && (
-          <p role="alert" className="mt-3 text-sm font-medium text-[#c73750]">
+          <p role="alert" className="mt-3 text-sm font-medium text-destructive">
             {draftMethod} en {draftCurrency} ya está registrado. Elige otra forma de pago o moneda.
           </p>
         )}
@@ -533,7 +533,7 @@ export function TerrapayPaymentStep({
         <Field label="Casa de Cambio" value="Casa Central" required />
         <Field label="Moneda USD" value={formatUsd(totalToCharge)} disabled />
       </div>
-      <p className="rounded-lg bg-[#f8faff] p-4 text-sm text-[#687790]">
+      <p className="rounded-lg bg-accent p-4 text-sm text-muted-foreground">
         TerraPay no usa el selector multi-moneda; el cobro se registra contra
         casa de cambio.
       </p>

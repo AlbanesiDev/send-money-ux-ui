@@ -27,7 +27,7 @@ export function PepStep({
           <div key={label} className="space-y-4">
             <label
               className={`flex cursor-pointer items-center gap-3 rounded-lg border p-4 text-sm transition-colors ${
-                checked ? "border-[#aebcf0] bg-[#f5f7ff]" : "border-[#e1e6ef]"
+                checked ? "border-brand/40 bg-accent" : "border-border"
               }`}
             >
               <input
@@ -35,12 +35,12 @@ export function PepStep({
                 data-additional-check
                 checked={checked}
                 onChange={(event) => onChange(label, event.target.checked)}
-                className="h-5 w-5 accent-[#465bc2]"
+                className="h-5 w-5 accent-brand-strong"
               />
               {label}
             </label>
             {checked && (
-              <div className="rounded-xl border border-[#dce3ee] bg-[#fbfcfe] p-5">
+              <div className="rounded-xl border border-border bg-muted p-5">
                 <div className="grid gap-5 sm:grid-cols-2">
                   {label === PEP_CHECK_LABEL && (
                     <>

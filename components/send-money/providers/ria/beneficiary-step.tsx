@@ -28,14 +28,14 @@ export function RiaBeneficiaryStep({
                 onClick={() => onSelectBeneficiary(index)}
                 className={`cursor-pointer rounded-xl border p-4 text-left transition-colors ${
                   selectedBeneficiary === index
-                    ? "border-[#5368c8] bg-[#f4f6ff]"
-                    : "border-[#dce3ee] bg-white hover:border-[#aebcf0]"
+                    ? "border-brand bg-accent"
+                    : "border-border bg-card hover:border-brand/40"
                 }`}
               >
-                <p className="text-sm font-bold text-[#17233f]">
+                <p className="text-sm font-bold text-foreground">
                   {person.name}
                 </p>
-                <p className="mt-1 text-xs text-[#687790]">
+                <p className="mt-1 text-xs text-muted-foreground">
                   {person.city} · ***{person.phone.slice(-3)}
                 </p>
               </button>
@@ -96,7 +96,7 @@ export function RiaBeneficiaryStep({
         <input
           type="checkbox"
           defaultChecked
-          className="h-5 w-5 accent-[#465bc2]"
+          className="h-5 w-5 accent-brand-strong"
         />
         Guardar en mi lista de beneficiarios frecuentes
       </label>

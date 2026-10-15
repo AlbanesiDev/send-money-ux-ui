@@ -550,7 +550,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   }, [step, paymentReady, lastStep, selectedProvider, isPaymentStep]);
 
   return (
-    <section className={`flex h-full min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden rounded-[14px] text-[#17233f] ${step === 2 ? "" : "bg-white shadow-[0_12px_35px_rgba(24,37,73,0.06)]"}`}>
+    <section className={`flex h-full min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden rounded-[14px] text-foreground ${step === 2 ? "" : "bg-card shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none"}`}>
       {processing ? (
         <RemittanceProcessing totalSent={formatUsd(quote ? quote.amount : 0)} />
       ) : sent ? (
@@ -584,15 +584,15 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                             disabled={!clickable}
                             aria-current={active ? "step" : undefined}
                             aria-label={`${name}, paso ${number}${completed ? ", volver a este paso" : active ? ", paso actual" : ", pendiente"}`}
-                            className={`group flex min-w-0 shrink-0 items-center gap-2 rounded-lg text-left outline-none focus-visible:ring-4 focus-visible:ring-[#5368c8]/20 ${clickable ? "cursor-pointer" : "cursor-default"}`}
+                            className={`group flex min-w-0 shrink-0 items-center gap-2 rounded-lg text-left outline-none focus-visible:ring-4 focus-visible:ring-brand/20 ${clickable ? "cursor-pointer" : "cursor-default"}`}
                           >
                             <span
-                              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border text-xs font-bold transition-colors ${completed ? "border-[#b8e8cc] bg-[#e1f7e9] text-[#218052] group-hover:border-[#74cf98] group-hover:bg-[#d4f2df]" : active ? "border-[#17233f] bg-[#17233f] text-white" : "border-[#dce3ee] bg-white text-[#73809a]"}`}
+                              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border text-xs font-bold transition-colors ${completed ? "border-success-border bg-success-soft text-success" : active ? "border-brand-strong bg-brand-strong text-white" : "border-border bg-card text-muted-foreground"}`}
                             >
                               {completed ? "✓" : number}
                             </span>
                             <span
-                              className={`whitespace-nowrap text-sm font-bold ${active ? "text-[#17233f]" : completed ? "text-[#263653]" : "text-[#96a2b8]"}`}
+                              className={`whitespace-nowrap text-sm font-bold ${active ? "text-foreground" : completed ? "text-foreground" : "text-muted-foreground"}`}
                             >
                               {name}
                             </span>
@@ -600,7 +600,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                           {number < lastStep && (
                             <span
                               aria-hidden="true"
-                              className={`h-0.5 min-w-8 flex-1 ${completed ? "bg-[#74cf98]" : "bg-[#dfe5ef]"}`}
+                              className={`h-0.5 min-w-8 flex-1 ${completed ? "bg-success" : "bg-border"}`}
                             />
                           )}
                         </li>
@@ -610,7 +610,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                 </nav>
                 <div
                   aria-hidden="true"
-                  className="mt-2 h-px w-[calc(100%+2rem)] -translate-x-4 bg-[#e9edf5] sm:w-[calc(100%+3rem)] sm:-translate-x-6 lg:w-[calc(100%+4rem)] lg:-translate-x-8"
+                  className="mt-2 h-px w-[calc(100%+2rem)] -translate-x-4 bg-border sm:w-[calc(100%+3rem)] sm:-translate-x-6 lg:w-[calc(100%+4rem)] lg:-translate-x-8"
                 />
               </>
             </header>
@@ -803,19 +803,19 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
             </div>
             {step > 1 && !isReviewStep && (
               <aside className="sticky top-0 flex flex-col gap-3 self-start">
-                <div className="bg-white rounded-xl border border-[#e1e6ef] p-3">
-                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-[#73809a]">
+                <div className="rounded-xl border border-border bg-card p-3">
+                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
                     Remitente
                   </p>
-                  <p className="mt-1.5 text-sm font-bold text-[#17233f]">
+                  <p className="mt-1.5 text-sm font-bold text-foreground">
                     {isKnownClient ? "Eliana Antezana Ovando" : "Nuevo cliente"}
                   </p>
-                  <p className="mt-1 text-xs text-[#687790]">
+                  <p className="mt-1 text-xs text-muted-foreground">
                     Cédula: {documentNumber}
                     {isKnownClient && " · j***@cislatam.com"}
                   </p>
                   {isKnownClient && (
-                    <p className="mt-1 text-sm font-semibold text-[#5368c8]">
+                    <p className="mt-1 text-sm font-semibold text-brand">
                       PEP: Sí
                     </p>
                   )}
@@ -826,20 +826,20 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                   deliveryType={deliveryType}
                   loading={quoteLoading}
                 />
-                <div className="bg-white rounded-xl border border-[#e1e6ef] p-3">
-                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-[#73809a]">Método de pago</p>
+                <div className="rounded-xl border border-border bg-card p-3">
+                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">Método de pago</p>
                 </div>
               </aside>
             )}
           </div>
           {step > 1 && (
-            <div className="flex h-[42px] shrink-0 items-center border-t border-[#e9edf5] bg-white px-4 sm:px-6 lg:px-8">
+            <div className="flex h-[42px] shrink-0 items-center border-t border-border bg-card px-4 sm:px-6 lg:px-8">
               <div className="flex w-full items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={back}
-                    className="rounded-md border border-[#dce3ee] px-4 py-1 text-sm font-bold text-[#687790]"
+                    className="rounded-md border border-border px-4 py-1 text-sm font-bold text-muted-foreground hover:bg-muted"
                   >
                     Volver
                   </button>
@@ -858,7 +858,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     (step === 2 && !selectedProvider) ||
                     (isPaymentStep && !paymentReady)
                   }
-                  className="rounded-md bg-[#465bc2] px-4 py-1 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-[#5368c8]/30 disabled:cursor-not-allowed disabled:bg-[#b9c1e3]"
+                  className="rounded-md bg-brand-strong px-4 py-1 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-brand/30 disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground"
                 >
                   {isReviewStep ? "Confirmar y enviar" : "Siguiente"}
                 </button>

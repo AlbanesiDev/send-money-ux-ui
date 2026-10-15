@@ -17,7 +17,7 @@ export function AppShell() {
       />
       <div className="private-chrome private-h-screen flex w-full min-w-0">
         <AppSidebar expanded={sidebarExpanded} />
-        <main className="private-content-shell relative z-0 flex min-h-0 min-w-0 flex-1 flex-col p-6 text-[#17233f]">
+        <main className="private-content-shell relative z-0 flex min-h-0 min-w-0 flex-1 flex-col p-6 text-foreground">
           <div key={pathname} className="route-fade flex min-h-0 min-w-0 flex-1 flex-col">
             <Outlet />
           </div>

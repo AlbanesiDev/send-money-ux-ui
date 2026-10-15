@@ -164,7 +164,7 @@ export function QuoteStep({
 
   useEffect(() => {
     if (!amountUnlocked || !sendAmount || amountExceedsBalance) return;
-    if (quoteLoading) return;
+    if (quoteLoading || quotesReady) return;
 
     quoteDebounceRef.current = window.setTimeout(() => {
       quoteDebounceRef.current = null;
@@ -184,6 +184,8 @@ export function QuoteStep({
     terraPayBank,
     terraPayWallet,
     deliveryType,
+    quoteLoading,
+    quotesReady,
   ]);
 
   return (

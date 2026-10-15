@@ -559,7 +559,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
         />
       ) : (
         <>
-          {step > 0 && (
+          {step > 1 && (
             <Stepper
               steps={activeSteps}
               currentStep={step}
@@ -568,10 +568,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
             />
           )}
           <div
-            className={`grid min-h-0 flex-1 gap-4 overflow-y-auto ${step > 1 && !sent ? "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]" : ""}`}
+            className={`grid min-h-0 flex-1 gap-4 overflow-y-auto ${step > 1 && !sent && !isReviewStep ? "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]" : ""}`}
           >
             <div
-              className={`min-w-0 ${step === 1 || sent ? "mx-auto w-full max-w-[960px]" : ""}`}
+              className={`min-w-0 ${step === 1 || sent || isReviewStep ? "mx-auto w-full max-w-[1120px] px-4 sm:px-6" : ""}`}
               data-form-fields
               data-enter-advance={
                 selectedProvider &&
@@ -729,7 +729,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                 )}
               </div>
             </div>
-            {step > 1 && (
+            {step > 1 && !isReviewStep && (
               <aside className="sticky top-0 flex flex-col gap-3 self-start">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="rounded-xl border border-border bg-card p-3">
@@ -807,7 +807,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
             )}
           </div>
           {step > 1 && (
-            <div className="flex h-[42px] shrink-0 items-center">
+            <div
+              className={`flex h-[42px] shrink-0 items-center ${isReviewStep ? "mx-auto w-full  px-4 sm:px-6" : ""}`}
+            >
               <div className="flex w-full items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <button

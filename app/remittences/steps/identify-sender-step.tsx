@@ -7,6 +7,7 @@ import {
 import type { Beneficiary } from "@/components/send-money/types";
 import { SearchableSelect } from "@/components/ui/searchable-select";
 import documentTypesCatalog from "@/public/catalogs/catalog-document-types.json";
+import { ArrowRightIcon, UserIcon } from "lucide-react";
 import {
   useEffect,
   useRef,
@@ -15,7 +16,12 @@ import {
   type RefObject,
 } from "react";
 
-export type ClientSearchResult = "success" | "empty" | "error" | "blocked" | null;
+export type ClientSearchResult =
+  | "success"
+  | "empty"
+  | "error"
+  | "blocked"
+  | null;
 
 export type IdentifySenderStepProps = {
   step: number;
@@ -102,9 +108,6 @@ export function IdentifySenderStep({
     }
   }, [result, continueRef]);
 
-
-
-
   return (
     <>
       <div className="mb-4">
@@ -180,35 +183,37 @@ export function IdentifySenderStep({
         </button>
         <div
           aria-live="polite"
-          className={
-            result ? "mt-2 border-t border-border pt-6" : undefined
-          }
+          className={result ? "mt-2 border-t border-border pt-6" : undefined}
         >
           {result === "success" && (
-            <div className="rounded-xl border border-success-border bg-success-soft p-5">
-              <p className="text-xs font-bold uppercase text-success">
-                ✓ Cliente encontrado
-              </p>
-              <h2 className="mt-2 text-xl font-bold text-success">
-                Eliana Antezana Ovando
-              </h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Documento: {documentNumber} · j***@cislatam.com
-              </p>
-              <div className="mt-4 flex justify-end gap-3">
+            <div className="flex rounded-xl justify-between items-center border border-success-border bg-success-soft p-5">
+              <div className="flex flex-col">
+                <p className="text-xs font-bold uppercase text-success">
+                  ✓ Cliente encontrado
+                </p>
+                <h2 className="mt-2 text-xl font-bold text-success">
+                  Eliana Antezana Ovando
+                </h2>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Documento: {documentNumber} · j***@cislatam.com
+                </p>
+              </div>
+              <div className="flex justify-end gap-3">
                 <button
                   type="button"
-                  className="rounded-lg border border-success-border px-4 py-2 text-sm font-bold text-success"
+                  className="flex items-center gap-2 rounded-lg border border-success-border px-6 py-2 h-12 text-sm font-bold text-success"
                 >
+                  <UserIcon className="size-4" />
                   Ver perfil
                 </button>
                 <button
                   type="button"
                   ref={continueRef}
                   onClick={onContinue}
-                  className="rounded-lg bg-brand-strong px-4 py-2 text-sm font-bold text-white"
+                  className="flex items-center gap-2 rounded-lg bg-brand-strong px-6 py-2 h-12 text-sm font-bold text-white"
                 >
                   Continuar
+                  <ArrowRightIcon className="size-4" />
                 </button>
               </div>
             </div>

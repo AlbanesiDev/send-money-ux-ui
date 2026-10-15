@@ -1,0 +1,22 @@
+[
+    {
+        "id": 0,
+        "name": "Carnet de extranjero",
+        "code": "cde"
+    },
+    {
+        "id": 1,
+        "name": "Cédula",
+        "code": "ci"
+    },
+    {
+        "id": 2,
+        "name": "Cédula de mercosur",       
+        "code": "cdm"
+    },
+    {
+        "id": 3,
+        "name": "Pasaporte",
+        "code": "p"
+    }
+]

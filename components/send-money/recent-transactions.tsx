@@ -76,6 +76,7 @@ export function RecentTransactions({
   disabled,
   formatUsd,
   onSelect,
+  onClear,
 }: {
   transactions: RecentTransaction[];
   beneficiaries: Beneficiary[];
@@ -83,6 +84,7 @@ export function RecentTransactions({
   disabled: boolean;
   formatUsd: (value: number) => string;
   onSelect: (transaction: RecentTransaction) => void;
+  onClear: () => void;
 }) {
   if (transactions.length === 0) return null;
   return (
@@ -137,9 +139,16 @@ export function RecentTransactions({
                   {formatUsd(transaction.amount)}
                 </span>
                 {selected ? (
-                  <span className="inline-flex h-9 items-center justify-center rounded-lg bg-success-soft px-3 text-xs font-bold text-success">
+                  <button
+                    type="button"
+                    disabled={disabled}
+                    onClick={onClear}
+                    aria-label={`Quitar datos de la transacción ${transaction.id}`}
+                    aria-pressed="true"
+                    className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-success-border bg-success-soft px-3 text-xs font-bold text-success transition-colors hover:border-destructive/40 hover:bg-destructive/10 hover:text-destructive focus:outline-none focus:ring-4 focus:ring-brand/20 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
                     ✓ Datos cargados
-                  </span>
+                  </button>
                 ) : (
                   <button
                     type="button"

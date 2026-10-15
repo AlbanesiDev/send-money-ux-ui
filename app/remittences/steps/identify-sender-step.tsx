@@ -38,6 +38,7 @@ export type IdentifySenderStepProps = {
   quoteLoading: boolean;
   formatUsd: (value: number) => string;
   onRepeatTransaction: (transaction: RecentTransaction) => void;
+  onClearRepeatedTransaction: () => void;
 };
 
 const DOCUMENT_TYPE_OPTIONS = documentTypesCatalog.map((item) => item.name);
@@ -57,6 +58,7 @@ export function IdentifySenderStep({
   quoteLoading,
   formatUsd,
   onRepeatTransaction,
+  onClearRepeatedTransaction,
 }: IdentifySenderStepProps) {
   const [loading, setLoading] = useState(false);
   const [documentType, setDocumentType] = useState("Cédula");
@@ -302,6 +304,7 @@ export function IdentifySenderStep({
               disabled={quoteLoading}
               formatUsd={formatUsd}
               onSelect={onRepeatTransaction}
+              onClear={onClearRepeatedTransaction}
             />
           </aside>
         )}

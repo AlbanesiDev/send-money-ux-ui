@@ -457,6 +457,21 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setSelectedTransactionId(transaction.id);
   }
 
+  function clearRepeatedTransaction() {
+    optionsRequestRef.current += 1;
+    setPartnerLoading(false);
+    setLocationLoading(false);
+    setDestinationCountry("");
+    setDeliveryType("");
+    clearDeliveryExtras();
+    clearAmount();
+    setSelectedBeneficiary(0);
+    setPaymentMethod("Pago en efectivo");
+    setPrimaryCurrency("USD");
+    setExtraPayments([]);
+    setStep(1);
+  }
+
   useEffect(() => {
     if (result === "success" || result === "empty") {
       setAdditionalChecks(
@@ -609,6 +624,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                       repeatTransaction(transaction);
                       setStep(2);
                     }}
+                    onClearRepeatedTransaction={clearRepeatedTransaction}
                   />
                 )}
                 {step === 2 && (

@@ -225,6 +225,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [selectedTransactionId, setSelectedTransactionId] = useState<
     string | null
   >(null);
+  const [repeatProvider, setRepeatProvider] = useState<ProviderId | null>(null);
   const [paymentMethod, setPaymentMethod] = useState("Pago en efectivo");
   const [primaryCurrency, setPrimaryCurrency] =
     useState<PaymentCurrency>("USD");
@@ -239,6 +240,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const lastStep = activeSteps.length;
   const clearAmount = () => {
     setSelectedTransactionId(null);
+    setRepeatProvider(null);
     quoteRequestRef.current += 1;
     setSendAmount("");
     setAmountExceedsBalance(false);
@@ -292,8 +294,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
         (a, b) => a.amount + a.fee + a.tax - (b.amount + b.fee + b.tax),
       )[0];
       // Al repetir una transacción se mantiene su proveedor.
+      const preferredProviderId = override?.provider ?? repeatProvider;
       const preferred =
-        quotes.find((item) => item.provider === override?.provider) ?? cheapest;
+        quotes.find((item) => item.provider === preferredProviderId) ??
+        cheapest;
       setProviderQuotes(quotes);
       setQuotesReady(true);
       setQuoteLoading(false);
@@ -309,6 +313,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setSelectedProvider(providerQuote.provider);
     setQuote(providerQuote);
     setActiveSteps(buildActiveSteps(providerQuote.provider));
+    if (repeatProvider !== null) {
+      setRepeatProvider(providerQuote.provider);
+    }
     window.requestAnimationFrame(() => nextButtonRef.current?.focus());
   };
   const resetQuoteSelection = () => {
@@ -441,6 +448,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setPaymentMethod(transaction.paymentMethod);
     setPrimaryCurrency("USD");
     setExtraPayments([]);
+    setRepeatProvider(transaction.provider);
     requestQuote({
       amount: transaction.amount,
       deliveryType: transaction.deliveryType,

@@ -1,6 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
-import { AppShell } from "@/components/app-shell";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -42,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="light">
       <body className="bg-[#f4f7fb] text-[#17233f] antialiased">
-        <AppShell>{children}</AppShell>
+        {children}
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>

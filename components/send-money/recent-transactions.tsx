@@ -103,7 +103,6 @@ export function RecentTransactions({
   return (
     <section
       aria-labelledby="recent-transactions-title"
-      className="rounded-xl border border-[#dce3ee] bg-white"
     >
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#e6ebf3] px-4 py-3">
         <div className="flex items-center gap-2">

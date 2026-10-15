@@ -20,7 +20,7 @@ export function RiaBeneficiaryStep({
       {isKnownClient && (
         <div>
           <h2 className="font-bold">Beneficiarios frecuentes</h2>
-          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
             {beneficiaries.map((person, index) => (
               <button
                 key={person.document}
@@ -46,7 +46,7 @@ export function RiaBeneficiaryStep({
       <h2 className="font-bold">Datos personales</h2>
       <div
         key={isKnownClient ? beneficiary.document : "new-beneficiary"}
-        className="grid gap-3 sm:grid-cols-3"
+        className="grid gap-3 sm:grid-cols-2"
       >
         <Field label="Tipo Documento" value="Cédula" disabled required />
         <Field
@@ -81,7 +81,7 @@ export function RiaBeneficiaryStep({
         <Field label="País Residencia" value={known("Bolivia")} required />
       </div>
       <h2 className="pt-4 font-bold">Datos de dirección</h2>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2">
         <Field label="Calle/Numero" value={known("Calle 123")} required />
         <Field label="Dirección" value={known("Calle 123")} required />
         <Field label="Estado" value={known("La Paz")} required />

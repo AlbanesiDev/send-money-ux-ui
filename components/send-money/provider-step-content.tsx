@@ -78,56 +78,19 @@ export type ProviderStepContentProps = {
 export function ProviderStepContent(props: ProviderStepContentProps) {
   const stepKey: ProviderStepKey = getStepKey(props.provider, props.step);
 
-  if (stepKey === "remitter") {
+  if (stepKey === "parties") {
+    let remitter: ReactNode;
+    let beneficiary: ReactNode;
+    let declarations: ReactNode = null;
+
     if (props.provider === "RIA") {
-      return (
+      remitter = (
         <RiaRemitterStep
           documentNumber={props.documentNumber}
           known={props.known}
         />
       );
-    }
-    if (props.provider === "WU") {
-      return (
-        <WuRemitterStep
-          documentNumber={props.documentNumber}
-          known={props.known}
-        />
-      );
-    }
-    if (props.provider === "MONEYGRAM") {
-      return (
-        <MoneygramRemitterStep
-          documentNumber={props.documentNumber}
-          known={props.known}
-        />
-      );
-    }
-    return (
-      <TerrapayRemitterStep
-        documentNumber={props.documentNumber}
-        known={props.known}
-      />
-    );
-  }
-
-  if (stepKey === "beneficiary") {
-    // WU, Moneygram y TerraPay declaran los datos PEP al final del beneficiario.
-    const withPep = (content: ReactNode) => (
-      <div className="space-y-6">
-        {content}
-        <div className="border-t border-[#e6ebf3] pt-6">
-          <PepStep
-            known={props.known}
-            showTerraPayExtras={props.provider === "TERRAPAY"}
-            additionalChecks={props.additionalChecks}
-            onChange={props.onAdditionalCheckChange}
-          />
-        </div>
-      </div>
-    );
-    if (props.provider === "RIA") {
-      return (
+      beneficiary = (
         <RiaBeneficiaryStep
           isKnownClient={props.isKnownClient}
           beneficiaries={props.beneficiaries}
@@ -136,39 +99,91 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
           known={props.known}
         />
       );
-    }
-    if (props.provider === "WU") {
-      return withPep(
+      declarations = (
+        <RiaAdditionalInfoStep
+          additionalChecks={props.additionalChecks}
+          onChange={props.onAdditionalCheckChange}
+          known={props.known}
+        />
+      );
+    } else if (props.provider === "WU") {
+      remitter = (
+        <WuRemitterStep
+          documentNumber={props.documentNumber}
+          known={props.known}
+        />
+      );
+      beneficiary = (
         <WuBeneficiaryStep
           isKnownClient={props.isKnownClient}
           beneficiaries={props.beneficiaries}
           selectedBeneficiary={props.selectedBeneficiary}
           onSelectBeneficiary={props.onSelectBeneficiary}
           known={props.known}
-        />,
+        />
+      );
+      declarations = (
+        <PepStep
+          known={props.known}
+          additionalChecks={props.additionalChecks}
+          onChange={props.onAdditionalCheckChange}
+        />
+      );
+    } else if (props.provider === "MONEYGRAM") {
+      remitter = (
+        <MoneygramRemitterStep
+          documentNumber={props.documentNumber}
+          known={props.known}
+        />
+      );
+      beneficiary = <MoneygramBeneficiaryAccountStep known={props.known} />;
+      declarations = (
+        <PepStep
+          known={props.known}
+          additionalChecks={props.additionalChecks}
+          onChange={props.onAdditionalCheckChange}
+        />
+      );
+    } else {
+      remitter = (
+        <TerrapayRemitterStep
+          documentNumber={props.documentNumber}
+          known={props.known}
+        />
+      );
+      beneficiary = (
+        <TerrapayBeneficiaryStep
+          isKnownClient={props.isKnownClient}
+          beneficiaries={props.beneficiaries}
+          selectedBeneficiary={props.selectedBeneficiary}
+          onSelectBeneficiary={props.onSelectBeneficiary}
+          known={props.known}
+        />
+      );
+      declarations = (
+        <PepStep
+          known={props.known}
+          showTerraPayExtras
+          additionalChecks={props.additionalChecks}
+          onChange={props.onAdditionalCheckChange}
+        />
       );
     }
-    if (props.provider === "MONEYGRAM") {
-      return withPep(<MoneygramBeneficiaryAccountStep known={props.known} />);
-    }
-    return withPep(
-      <TerrapayBeneficiaryStep
-        isKnownClient={props.isKnownClient}
-        beneficiaries={props.beneficiaries}
-        selectedBeneficiary={props.selectedBeneficiary}
-        onSelectBeneficiary={props.onSelectBeneficiary}
-        known={props.known}
-      />,
-    );
-  }
 
-  if (stepKey === "additionalInfo") {
     return (
-      <RiaAdditionalInfoStep
-        additionalChecks={props.additionalChecks}
-        onChange={props.onAdditionalCheckChange}
-        known={props.known}
-      />
+      <div className="space-y-6">
+        <div className="grid gap-4 lg:grid-cols-2 lg:items-start">
+          <section className="rounded-xl border border-[#e1e6ef] bg-white p-5">
+            <h2 className="mb-5 font-bold">Remitente</h2>
+            {remitter}
+          </section>
+          <section className="rounded-xl border border-[#e1e6ef] bg-white p-5">
+            <h2 className="mb-5 font-bold">Beneficiario</h2>
+            {beneficiary}
+          </section>
+        </div>
+        <div className="border-t border-[#e6ebf3] pt-6">{declarations}</div>
+      </div>
     );
   }
 

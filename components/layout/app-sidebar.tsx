@@ -1,18 +1,25 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState, type MouseEvent } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
+  ArrowRightCircle,
+  BadgeDollarSign,
+  BadgePercent,
+  BanknoteArrowDown,
+  BanknoteArrowUp,
   ChevronDown,
   ChevronRight,
+  CreditCardPlus,
+  Database,
+  FileSliders,
   FileText,
   Landmark,
   List,
-  Send,
+  RotateCcw,
+  ShieldCogCorner,
   SlidersHorizontal,
   Wallet,
-  X,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -41,37 +48,38 @@ const menuItems: MenuItem[] = [
   {
     key: "limits",
     label: "Administración de Límites Financieros",
-    icon: List,
+    icon: FileSliders,
   },
-  { key: "admin", label: "Administración", icon: SlidersHorizontal },
-  { key: "voids", label: "Anulaciones", icon: X },
-  { key: "quotas", label: "Cupos", icon: List },
-  { key: "masters", label: "Datos Maestros", icon: SlidersHorizontal },
+  { key: "admin", label: "Administración", icon: ShieldCogCorner },
+  { key: "voids", label: "Anulaciones", icon: RotateCcw },
+  { key: "quotas", label: "Cupos", icon: CreditCardPlus },
+  { key: "masters", label: "Datos Maestros", icon: Database },
   { key: "finance", label: "Finanzas", icon: Landmark },
   { key: "reports", label: "Informes", icon: FileText },
   {
     key: "settlements",
     label: "Liquidaciones / Comisiones",
-    icon: SlidersHorizontal,
+    icon: BadgePercent,
   },
-  { key: "pricing", label: "Precios", icon: Wallet },
+  { key: "pricing", label: "Precios", icon: BadgeDollarSign },
   {
     key: "sl",
-    label: "S&L",
+    label: "Operaciones",
     icon: SlidersHorizontal,
     children: [
-      { key: "transfers", label: "Envíos", icon: Send, href: "/" },
-      { key: "payments", label: "Pagos", icon: Wallet },
+      { key: "transfers", label: "Envíos", icon: BanknoteArrowUp, href: "/remittences" },
+      { key: "payments", label: "Pagos", icon: BanknoteArrowDown, href: "/payments" },
       { key: "release", label: "Release", icon: List },
       { key: "sp", label: "S&P", icon: List },
     ],
   },
-  { key: "queue", label: "Turnero", icon: Wallet },
+  { key: "queue", label: "Turnero", icon: ArrowRightCircle },
   { key: "wallets", label: "Wallets", icon: Wallet },
 ];
 
 export function AppSidebar({ expanded }: { expanded: boolean }) {
-  const pathname = usePathname();
+  const { pathname } = useLocation();
+
   const [openGroups, setOpenGroups] = useState<Set<string>>(
     () => new Set(["sl"]),
   );
@@ -194,7 +202,7 @@ export function AppSidebar({ expanded }: { expanded: boolean }) {
                       return (
                         <Link
                           key={child.key}
-                          href={child.href}
+                          to={child.href}
                           aria-current={active ? "page" : undefined}
                           onClick={
                             active
@@ -230,7 +238,7 @@ export function AppSidebar({ expanded }: { expanded: boolean }) {
                         <TooltipTrigger
                           render={
                             <Link
-                              href={child.href}
+                              to={child.href}
                               aria-label={child.label}
                               aria-current={active ? "page" : undefined}
                               className={`sidebar-link sidebar-link-collapsed ${

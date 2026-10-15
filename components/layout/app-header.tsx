@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
+  ArrowLeftToLine,
   Bell,
   Ellipsis,
   Home,
@@ -11,7 +12,12 @@ import {
   User,
   X,
 } from "lucide-react";
-import Link from "next/link";
+import { Link, useLocation } from "react-router-dom";
+
+const ROUTE_LABELS: Record<string, string> = {
+  "/remittences": "Envíos",
+  "/payments": "Pagos",
+};
 
 export function AppHeader({
   sidebarExpanded,
@@ -20,10 +26,15 @@ export function AppHeader({
   sidebarExpanded: boolean;
   onToggleSidebar: () => void;
 }) {
+  const { pathname } = useLocation();
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const notificationsRoot = useRef<HTMLDivElement>(null);
   const userMenuRoot = useRef<HTMLDivElement>(null);
+  const routeLabel = ROUTE_LABELS[pathname];
+  if (!routeLabel) {
+    throw new Error(`Missing route label for pathname: ${pathname}`);
+  }
 
   useEffect(() => {
     if (!notificationsOpen && !userMenuOpen) return;
@@ -65,7 +76,7 @@ export function AppHeader({
           onClick={onToggleSidebar}
         >
           {sidebarExpanded ? (
-            <X className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
+            <ArrowLeftToLine className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
           ) : (
             <Menu className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
           )}
@@ -80,7 +91,7 @@ export function AppHeader({
             aria-label="Miga de pan"
           >
             <Link
-              href="/"
+              to="/remittences"
               className="inline-flex size-8 items-center justify-center rounded-md text-slate-400 hover:text-slate-50"
               aria-label="Inicio"
             >
@@ -93,7 +104,7 @@ export function AppHeader({
               className="truncate font-medium text-slate-50"
               aria-current="page"
             >
-              Envíos
+              {routeLabel}
             </span>
           </nav>
         </div>

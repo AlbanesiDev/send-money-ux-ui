@@ -20,7 +20,7 @@ export function WuBeneficiaryStep({
       {isKnownClient && (
         <div>
           <h2 className="font-bold">Beneficiarios frecuentes</h2>
-          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
             {beneficiaries.map((person, index) => (
               <button
                 key={person.document}
@@ -46,7 +46,7 @@ export function WuBeneficiaryStep({
       <h2 className="font-bold">Datos del beneficiario</h2>
       <div
         key={isKnownClient ? beneficiary.document : "new-beneficiary"}
-        className="grid gap-3 sm:grid-cols-3"
+        className="grid gap-3 sm:grid-cols-2"
       >
         <Field
           label="Nombre"

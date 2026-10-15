@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
-import { AppHeader } from "@/components/app-header";
-import { AppSidebar } from "@/components/app-sidebar";
+import { useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import { AppHeader } from "@/components/layout/app-header";
+import { AppSidebar } from "@/components/layout/app-sidebar";
 
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell() {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
+  const { pathname } = useLocation();
 
   return (
     <div className="flex min-h-screen flex-col bg-muted">
@@ -16,7 +18,9 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="private-chrome private-h-screen flex w-full min-w-0">
         <AppSidebar expanded={sidebarExpanded} />
         <main className="private-content-shell relative z-0 flex min-h-0 min-w-0 flex-1 flex-col p-6 text-[#17233f]">
-          {children}
+          <div key={pathname} className="route-fade flex min-h-0 min-w-0 flex-1 flex-col">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>

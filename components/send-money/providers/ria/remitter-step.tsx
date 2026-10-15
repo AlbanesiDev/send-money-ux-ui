@@ -10,7 +10,7 @@ export function RiaRemitterStep({
   return (
     <div className="space-y-6">
       <h2 className="font-bold">Datos personales</h2>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2">
         <Field label="Nombre" value={known("Eliana")} required />
         <Field label="Segundo nombre" />
         <Field label="Primer apellido" value={known("Antezana")} required />
@@ -27,7 +27,7 @@ export function RiaRemitterStep({
         />
       </div>
       <h2 className="pt-4 font-bold">Datos de dirección</h2>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2">
         <Field label="País de residencia" value="Bolivia" disabled required />
         <Field label="Estado" value={known("La Paz")} required />
         <Field label="Ciudad" value={known("Acarapiri")} required />

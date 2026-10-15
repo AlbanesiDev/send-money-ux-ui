@@ -18,7 +18,8 @@ export const DELIVERY_TYPE_OPTIONS: {
   id: DeliveryTypeId;
   label: string;
 }[] = [
-  { id: "CASH", label: "Envío" },
+  { id: "CASH", label: "Envío - Dinero en minutos" },
+  { id: "CASH24", label: "Envío - 24 horas" },
   { id: "BANK", label: "Direct to bank" },
   { id: "WALLET", label: "Direct to wallet" },
 ];
@@ -30,10 +31,10 @@ export const DELIVERY_TYPE_OPTIONS: {
  * - TerraPay: BANK_AC, WALLET, CARD (cash-style)
  */
 export const providerDeliverySupport: Record<ProviderId, DeliveryTypeId[]> = {
-  RIA: ["CASH"],
-  WU: ["CASH", "BANK", "WALLET"],
-  MONEYGRAM: ["CASH", "BANK", "WALLET"],
-  TERRAPAY: ["CASH", "BANK", "WALLET"],
+  RIA: ["CASH", "CASH24"],
+  WU: ["CASH", "CASH24", "BANK", "WALLET"],
+  MONEYGRAM: ["CASH", "CASH24", "BANK", "WALLET"],
+  TERRAPAY: ["CASH", "CASH24", "BANK", "WALLET"],
 };
 
 export function providersForDeliveryType(
@@ -79,12 +80,6 @@ export function quoteFieldVisibility(
   };
 }
 
-export const WU_SERVICE_OPTIONS: Record<DeliveryTypeId, string[]> = {
-  CASH: ["Dinero en minutos (000)", "24 horas"],
-  BANK: ["Direct to bank (500)"],
-  WALLET: ["Direct to wallet (800)", "Wallet (50A)"],
-};
-
 export const MONEYGRAM_COMPANY_OPTIONS = [
   "Sol & Luna Pagos",
   "Quick Pay Bolivia",
@@ -101,32 +96,20 @@ export const TERRAPAY_WALLET_OPTIONS = ["Tigo Money", "Yape", "Mercado Pago"];
 
 export const providerFlows: Record<ProviderId, ProviderFlow> = {
   RIA: {
-    stepLabels: [
-      "Remitente",
-      "Beneficiario",
-      "Información adicional",
-      "Método de pago",
-      "Revisión",
-    ],
-    stepKeys: [
-      "remitter",
-      "beneficiary",
-      "additionalInfo",
-      "payment",
-      "review",
-    ],
+    stepLabels: ["Remitente y beneficiario", "Método de pago", "Revisión"],
+    stepKeys: ["parties", "payment", "review"],
   },
   WU: {
-    stepLabels: ["Remitente", "Beneficiario", "Método de pago", "Revisión"],
-    stepKeys: ["remitter", "beneficiary", "payment", "review"],
+    stepLabels: ["Remitente y beneficiario", "Método de pago", "Revisión"],
+    stepKeys: ["parties", "payment", "review"],
   },
   MONEYGRAM: {
-    stepLabels: ["Remitente", "Beneficiario", "Método de pago", "Revisión"],
-    stepKeys: ["remitter", "beneficiary", "payment", "review"],
+    stepLabels: ["Remitente y beneficiario", "Método de pago", "Revisión"],
+    stepKeys: ["parties", "payment", "review"],
   },
   TERRAPAY: {
-    stepLabels: ["Remitente", "Beneficiario", "Método de pago", "Revisión"],
-    stepKeys: ["remitter", "beneficiary", "payment", "review"],
+    stepLabels: ["Remitente y beneficiario", "Método de pago", "Revisión"],
+    stepKeys: ["parties", "payment", "review"],
   },
 };
 

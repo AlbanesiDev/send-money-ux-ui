@@ -10,7 +10,7 @@ export function WuRemitterStep({
   return (
     <div className="space-y-6">
       <h2 className="font-bold">Documento de identidad</h2>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2">
         <Field label="Tipo de documento" value="Cédula" disabled required />
         <Field
           label="Número de documento"
@@ -27,7 +27,7 @@ export function WuRemitterStep({
         />
       </div>
       <h2 className="pt-4 font-bold">Datos personales</h2>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2">
         <Field label="Nombre" value={known("Eliana")} required />
         <Field label="Segundo nombre" />
         <Field label="Primer apellido" value={known("Antezana")} required />
@@ -48,7 +48,7 @@ export function WuRemitterStep({
         <Field label="Comentarios" />
       </div>
       <h2 className="pt-4 font-bold">Domicilio y teléfono</h2>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2">
         <Field label="Calle" value={known("Fabian Vaca")} required />
         <Field label="Dirección" value={known("Fabian Vaca 3712")} required />
         <Field label="País" value="Bolivia" disabled required />

@@ -53,7 +53,7 @@
 
 :root {
   color-scheme: light;
-  --background: #f4f7fb;
+  --background: #dce5f1;
   --foreground: #17233f;
   --card: #ffffff;
   --card-foreground: #17233f;
@@ -448,6 +448,16 @@
   border: 1px solid var(--border);
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   padding-block: 1rem;
+  color: var(--card-foreground);
+}
+
+.card-sm {
+  @apply px-4 sm:px-6 lg:px-8;
+  padding-block: 0.5rem;
+  background-color: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   color: var(--card-foreground);
 }
 

@@ -1,17 +1,15 @@
 "use client";
 
-import {
-  useEffect,
-  useRef,
-  useState,
-  type RefObject,
-} from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import { flushSync } from "react-dom";
 import {
   RemittanceProcessing,
   RemittanceSuccess,
 } from "@/components/remittance-success";
-import { CancelOperationDialog } from "@/app/remittences/dialogs";
+import {
+  AddPaymentMethodDialog,
+  CancelOperationDialog,
+} from "@/app/remittences/dialogs";
 import {
   BASE_STEPS,
   buildActiveSteps,
@@ -24,6 +22,7 @@ import {
   KNOWN_CLIENT_TRANSACTIONS,
   type RecentTransaction,
 } from "@/components/send-money/recent-transactions";
+import { PaymentMethodPanel } from "@/components/send-money/shared/payment-method-panel";
 import type {
   DeliveryTypeId,
   PaymentCurrency,
@@ -32,12 +31,14 @@ import type {
   ProviderQuote,
 } from "@/components/send-money/types";
 import { RemittanceSummary } from "@/components/ui/remittance-summary";
+import { Stepper } from "@/components/ui/stepper";
 import {
   IdentifySenderStep,
   ProviderFlowStep,
   QuoteStep,
   type ClientSearchResult,
 } from "@/app/remittences/steps";
+import { ArrowLeftIcon, ArrowRightIcon, SendIcon } from "lucide-react";
 
 function useAltFieldNavigation() {
   useEffect(() => {
@@ -224,10 +225,11 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [selectedTransactionId, setSelectedTransactionId] = useState<
     string | null
   >(null);
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("Pago en efectivo");
   const [primaryCurrency, setPrimaryCurrency] =
     useState<PaymentCurrency>("USD");
   const [extraPayments, setExtraPayments] = useState<PaymentLine[]>([]);
+  const [addPaymentOpen, setAddPaymentOpen] = useState(false);
   const paymentIdRef = useRef(0);
   const [quote, setQuote] = useState<ProviderQuote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
@@ -291,8 +293,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       )[0];
       // Al repetir una transacción se mantiene su proveedor.
       const preferred =
-        quotes.find((item) => item.provider === override?.provider) ??
-        cheapest;
+        quotes.find((item) => item.provider === override?.provider) ?? cheapest;
       setProviderQuotes(quotes);
       setQuotesReady(true);
       setQuoteLoading(false);
@@ -364,18 +365,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   useEffect(() => {
     setExtraPayments([]);
   }, [totalToCharge]);
-  const isPaymentStep =
-    selectedProvider !== null &&
-    step >= 3 &&
-    getStepKey(selectedProvider, step) === "payment";
   const isReviewStep =
     selectedProvider !== null &&
     step >= 3 &&
     getStepKey(selectedProvider, step) === "review";
-  const paymentReady =
-    selectedProvider === "TERRAPAY"
-      ? true
-      : primaryCents === 0 || paymentMethod !== "";
   const [partnerLoading, setPartnerLoading] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
   const optionsRequestRef = useRef(0);
@@ -467,9 +460,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   }, [result]);
 
   useEffect(() => {
-    if (isPaymentStep && selectedProvider !== "TERRAPAY") {
-      window.requestAnimationFrame(() => paymentMethodRef.current?.focus());
-    }
     if (
       selectedProvider &&
       step >= 3 &&
@@ -494,18 +484,22 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     if (isReviewStep) {
       window.requestAnimationFrame(() => nextButtonRef.current?.blur());
     }
-  }, [step, isPaymentStep, isReviewStep, selectedProvider]);
+  }, [step, isReviewStep, selectedProvider]);
 
   function next() {
     if (step === 2 && !selectedProvider) return;
-    if (isPaymentStep && !paymentReady) return;
+    if (step === 2 && selectedTransactionId !== null) {
+      setStep(findStepNumber(activeSteps, "Revisión"));
+      return;
+    }
     setStep((current) => Math.min(lastStep, current + 1));
   }
   function back() {
     setStep((current) => Math.max(1, current - 1));
   }
   function goToStep(target: number) {
-    if (target < step) setStep(target);
+    if (target < 1 || target > lastStep) return;
+    setStep(target);
   }
   function handleContinue() {
     if (!isReviewStep) return next();
@@ -518,7 +512,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   }
   function startAnotherQuote() {
     clearAmount();
-    setPaymentMethod("");
+    setPaymentMethod("Pago en efectivo");
     setPrimaryCurrency("USD");
     setExtraPayments([]);
     window.clearTimeout(processingTimeoutRef.current);
@@ -547,10 +541,12 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     }
     window.addEventListener("keydown", handleStepperShortcut);
     return () => window.removeEventListener("keydown", handleStepperShortcut);
-  }, [step, paymentReady, lastStep, selectedProvider, isPaymentStep]);
+  }, [step, lastStep, selectedProvider]);
 
   return (
-    <section className={`flex h-full min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden rounded-[14px] text-foreground ${step === 2 ? "" : "bg-card shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none"}`}>
+    <section
+      className={`flex h-full min-h-0 w-full min-w-0 flex-1 flex-col gap-4 overflow-hidden rounded-[14px] text-foreground ${step === 2 || step === 3 ? "" : "bg-card shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none"}`}
+    >
       {processing ? (
         <RemittanceProcessing totalSent={formatUsd(quote ? quote.amount : 0)} />
       ) : sent ? (
@@ -564,62 +560,18 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       ) : (
         <>
           {step > 0 && (
-            <header className="shrink-0 px-4 py-3 sm:px-6 lg:px-8">
-              <>
-                <nav aria-label="Progreso de la transacción">
-                  <ol className="flex w-full flex-wrap items-center gap-x-2 gap-y-2 overflow-hidden">
-                    {activeSteps.map((name, index) => {
-                      const number = index + 1;
-                      const completed = number < step;
-                      const active = number === step;
-                      const clickable = number < step;
-                      return (
-                        <li
-                          key={name}
-                          className={`flex min-w-0 flex-1 items-center gap-2 ${number === lastStep ? "last:flex-none" : ""}`}
-                        >
-                          <button
-                            type="button"
-                            onClick={() => goToStep(number)}
-                            disabled={!clickable}
-                            aria-current={active ? "step" : undefined}
-                            aria-label={`${name}, paso ${number}${completed ? ", volver a este paso" : active ? ", paso actual" : ", pendiente"}`}
-                            className={`group flex min-w-0 shrink-0 items-center gap-2 rounded-lg text-left outline-none focus-visible:ring-4 focus-visible:ring-brand/20 ${clickable ? "cursor-pointer" : "cursor-default"}`}
-                          >
-                            <span
-                              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border text-xs font-bold transition-colors ${completed ? "border-success-border bg-success-soft text-success" : active ? "border-brand-strong bg-brand-strong text-white" : "border-border bg-card text-muted-foreground"}`}
-                            >
-                              {completed ? "✓" : number}
-                            </span>
-                            <span
-                              className={`whitespace-nowrap text-sm font-bold ${active ? "text-foreground" : completed ? "text-foreground" : "text-muted-foreground"}`}
-                            >
-                              {name}
-                            </span>
-                          </button>
-                          {number < lastStep && (
-                            <span
-                              aria-hidden="true"
-                              className={`h-0.5 min-w-8 flex-1 ${completed ? "bg-success" : "bg-border"}`}
-                            />
-                          )}
-                        </li>
-                      );
-                    })}
-                  </ol>
-                </nav>
-                <div
-                  aria-hidden="true"
-                  className="mt-2 h-px w-[calc(100%+2rem)] -translate-x-4 bg-border sm:w-[calc(100%+3rem)] sm:-translate-x-6 lg:w-[calc(100%+4rem)] lg:-translate-x-8"
-                />
-              </>
-            </header>
+            <Stepper
+              steps={activeSteps}
+              currentStep={step}
+              onStepClick={goToStep}
+              ariaLabel="Progreso de la transacción"
+            />
           )}
           <div
-            className={`grid min-h-0 flex-1 gap-5 overflow-y-auto ${step > 1 && !isReviewStep && !sent ? "lg:grid-cols-[minmax(0,1fr)_18rem]" : ""}`}
+            className={`grid min-h-0 flex-1 gap-4 overflow-y-auto ${step > 1 && !sent ? "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]" : ""}`}
           >
             <div
-              className={`min-w-0 ${step === 1 || sent ? "mx-auto w-full max-w-[820px]" : ""}`}
+              className={`min-w-0 ${step === 1 || sent ? "mx-auto w-full max-w-[960px]" : ""}`}
               data-form-fields
               data-enter-advance={
                 selectedProvider &&
@@ -640,16 +592,21 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     onResultChange={setResult}
                     onContinue={next}
                     continueRef={continueRef}
-                  />
-                )}
-                {step === 2 && (
-                  <QuoteStep
                     recentTransactions={recentTransactions}
                     beneficiaries={beneficiaries}
                     selectedTransactionId={selectedTransactionId}
                     quoteLoading={quoteLoading}
                     formatUsd={formatUsd}
-                    onRepeatTransaction={repeatTransaction}
+                    onRepeatTransaction={(transaction) => {
+                      repeatTransaction(transaction);
+                      setStep(2);
+                    }}
+                  />
+                )}
+                {step === 2 && (
+                  <QuoteStep
+                    quoteLoading={quoteLoading}
+                    formatUsd={formatUsd}
                     destinationCountry={destinationCountry}
                     onDestinationCountryChange={setDestinationCountry}
                     deliveryType={deliveryType}
@@ -763,62 +720,51 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                       )
                     }
                     onEditPayment={() =>
-                      setStep(findStepNumber(activeSteps, "Método de pago"))
+                      window.requestAnimationFrame(() =>
+                        paymentMethodRef.current?.focus(),
+                      )
                     }
                     formatAmount={formatAmount}
-                    bobPerUsd={BOB_PER_USD}
-                    primaryMethod={paymentMethod}
-                    onPrimaryMethodChange={setPaymentMethod}
-                    primaryMethodRef={paymentMethodRef}
-                    primaryCurrency={primaryCurrency}
-                    onPrimaryCurrencyChange={setPrimaryCurrency}
-                    primaryCents={primaryCents}
-                    extraPayments={extraPayments}
-                    onAddPayment={(line) =>
-                      setExtraPayments((current) => [
-                        ...current,
-                        { ...line, id: ++paymentIdRef.current },
-                      ])
-                    }
-                    onUpdatePayment={(id, line) =>
-                      setExtraPayments((current) =>
-                        current.map((item) =>
-                          item.id === id ? { ...line, id } : item,
-                        ),
-                      )
-                    }
-                    onRemovePayment={(id) =>
-                      setExtraPayments((current) =>
-                        current.filter((line) => line.id !== id),
-                      )
-                    }
-                    paymentMethodOptions={paymentMethodOptions}
-                    nextButtonRef={nextButtonRef}
-                    sanitizeAmount={sanitizeAmount}
-                    parseAmount={parseAmount}
-                    toCents={toCents}
                   />
                 )}
               </div>
             </div>
-            {step > 1 && !isReviewStep && (
+            {step > 1 && (
               <aside className="sticky top-0 flex flex-col gap-3 self-start">
-                <div className="rounded-xl border border-border bg-card p-3">
-                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-                    Remitente
-                  </p>
-                  <p className="mt-1.5 text-sm font-bold text-foreground">
-                    {isKnownClient ? "Eliana Antezana Ovando" : "Nuevo cliente"}
-                  </p>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    Cédula: {documentNumber}
-                    {isKnownClient && " · j***@cislatam.com"}
-                  </p>
-                  {isKnownClient && (
-                    <p className="mt-1 text-sm font-semibold text-brand">
-                      PEP: Sí
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded-xl border border-border bg-card p-3">
+                    <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                      Remitente
                     </p>
-                  )}
+                    <p className="mt-1.5 text-sm font-bold text-foreground">
+                      {isKnownClient
+                        ? "Eliana Antezana Ovando"
+                        : "Nuevo cliente"}
+                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Cédula: {documentNumber}
+                      {isKnownClient && " · j***@cislatam.com"}
+                    </p>
+                    {isKnownClient && (
+                      <p className="mt-1 text-sm font-semibold text-brand">
+                        PEP: Sí
+                      </p>
+                    )}
+                  </div>
+                  <div className="rounded-xl border border-border bg-card p-3">
+                    <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                      Beneficiario
+                    </p>
+                    <p className="mt-1.5 text-sm font-bold text-foreground">
+                      {beneficiary.name}
+                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Doc: {beneficiary.document} · {beneficiary.city}
+                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {beneficiary.phone} · {beneficiary.email}
+                    </p>
+                  </div>
                 </div>
                 <RemittanceSummary
                   provider={selectedProvider}
@@ -826,21 +772,50 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                   deliveryType={deliveryType}
                   loading={quoteLoading}
                 />
-                <div className="rounded-xl border border-border bg-card p-3">
-                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">Método de pago</p>
-                </div>
+                <PaymentMethodPanel
+                  provider={selectedProvider}
+                  totalToCharge={totalToCharge}
+                  formatUsd={formatUsd}
+                  formatAmount={formatAmount}
+                  bobPerUsd={BOB_PER_USD}
+                  primaryMethod={paymentMethod}
+                  onPrimaryMethodChange={setPaymentMethod}
+                  primaryMethodRef={paymentMethodRef}
+                  primaryCurrency={primaryCurrency}
+                  onPrimaryCurrencyChange={setPrimaryCurrency}
+                  primaryCents={primaryCents}
+                  extraPayments={extraPayments}
+                  onUpdatePayment={(id, line) =>
+                    setExtraPayments((current) =>
+                      current.map((item) =>
+                        item.id === id ? { ...line, id } : item,
+                      ),
+                    )
+                  }
+                  onRemovePayment={(id) =>
+                    setExtraPayments((current) =>
+                      current.filter((line) => line.id !== id),
+                    )
+                  }
+                  onAddPaymentOpen={() => setAddPaymentOpen(true)}
+                  paymentMethodOptions={paymentMethodOptions}
+                  sanitizeAmount={sanitizeAmount}
+                  parseAmount={parseAmount}
+                  toCents={toCents}
+                />
               </aside>
             )}
           </div>
           {step > 1 && (
-            <div className="flex h-[42px] shrink-0 items-center border-t border-border bg-card px-4 sm:px-6 lg:px-8">
+            <div className="flex h-[42px] shrink-0 items-center">
               <div className="flex w-full items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={back}
-                    className="rounded-md border border-border px-4 py-1 text-sm font-bold text-muted-foreground hover:bg-muted"
+                    className=" rounded-md border flex items-center gap-2 border-border px-4 py-1 text-sm font-bold text-muted-foreground hover:bg-white bg-muted"
                   >
+                    <ArrowLeftIcon className="size-4" />
                     Volver
                   </button>
                   <CancelOperationDialog
@@ -854,22 +829,42 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                   ref={nextButtonRef}
                   data-next-button
                   onClick={handleContinue}
-                  disabled={
-                    (step === 2 && !selectedProvider) ||
-                    (isPaymentStep && !paymentReady)
-                  }
-                  className="rounded-md bg-brand-strong px-4 py-1 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-brand/30 disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground"
+                  disabled={step === 2 && !selectedProvider}
+                  className="flex items-center gap-2 rounded-md bg-brand-strong px-4 py-1 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-brand/30 disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground"
                 >
                   {isReviewStep ? "Confirmar y enviar" : "Siguiente"}
+                  {isReviewStep !== true && (
+                    <ArrowRightIcon className="size-4" />
+                  )}
                 </button>
               </div>
             </div>
           )}
+          <AddPaymentMethodDialog
+            open={addPaymentOpen}
+            onOpenChange={setAddPaymentOpen}
+            paymentMethodOptions={paymentMethodOptions}
+            primaryMethod={paymentMethod}
+            primaryCurrency={primaryCurrency}
+            primaryCents={primaryCents}
+            extraPayments={extraPayments}
+            bobPerUsd={BOB_PER_USD}
+            formatUsd={formatUsd}
+            formatAmount={formatAmount}
+            sanitizeAmount={sanitizeAmount}
+            parseAmount={parseAmount}
+            toCents={toCents}
+            onAddPayment={(line) =>
+              setExtraPayments((current) => [
+                ...current,
+                { ...line, id: ++paymentIdRef.current },
+              ])
+            }
+          />
         </>
       )}
     </section>
   );
 }
-
 
 export default PageRemittences;

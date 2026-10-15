@@ -1,17 +1,14 @@
 "use client";
 
-import type { ReactNode, RefObject } from "react";
+import type { ReactNode } from "react";
 import { ProviderStepContent } from "@/components/send-money/provider-step-content";
-import type { SelectRenderer } from "@/components/send-money/shared/payment-step";
 import type {
   Beneficiary,
-  PaymentCurrency,
   PaymentLine,
   ProviderId,
   ProviderQuote,
 } from "@/components/send-money/types";
 import { BillingSummary } from "@/components/ui/billing-summary";
-import { SearchableSelect } from "@/components/ui/searchable-select";
 
 export type ProviderFlowStepProps = {
   provider: ProviderId;
@@ -48,22 +45,6 @@ export type ProviderFlowStepProps = {
   onEditBeneficiary: () => void;
   onEditPayment: () => void;
   formatAmount: (value: number) => string;
-  bobPerUsd: number;
-  primaryMethod: string;
-  onPrimaryMethodChange: (value: string) => void;
-  primaryMethodRef: RefObject<HTMLButtonElement | null>;
-  primaryCurrency: PaymentCurrency;
-  onPrimaryCurrencyChange: (value: PaymentCurrency) => void;
-  primaryCents: number;
-  extraPayments: PaymentLine[];
-  onAddPayment: (line: Omit<PaymentLine, "id">) => void;
-  onUpdatePayment: (id: number, line: Omit<PaymentLine, "id">) => void;
-  onRemovePayment: (id: number) => void;
-  paymentMethodOptions: string[];
-  nextButtonRef: RefObject<HTMLButtonElement | null>;
-  sanitizeAmount: (value: string) => string;
-  parseAmount: (value: string) => number;
-  toCents: (value: number) => number;
 };
 
 export function ProviderFlowStep({
@@ -74,13 +55,8 @@ export function ProviderFlowStep({
   onBillingOpenToggle,
   onBillingChange,
   onBillingReset,
-  paymentMethodOptions,
   ...props
 }: ProviderFlowStepProps) {
-  const renderSelect: SelectRenderer = (selectProps) => (
-    <SearchableSelect {...selectProps} />
-  );
-
   const billingSlot: ReactNode = (
     <BillingSummary
       open={billingOpen}
@@ -98,8 +74,6 @@ export function ProviderFlowStep({
       {...props}
       billingName={billingName}
       billingNit={billingNit}
-      renderSelect={renderSelect}
-      paymentMethodOptions={paymentMethodOptions}
       billingSlot={billingSlot}
     />
   );

@@ -87,6 +87,7 @@ export function ReviewStep({
   onEditRemitter,
   onEditBeneficiary,
   onEditPayment,
+  billingSlot,
 }: {
   provider: ProviderId;
   quote: ProviderQuote;
@@ -111,6 +112,7 @@ export function ReviewStep({
   onEditRemitter: () => void;
   onEditBeneficiary: () => void;
   onEditPayment: () => void;
+  billingSlot: ReactNode;
 }) {
   return (
     <div className="flex flex-col gap-3">
@@ -241,6 +243,7 @@ export function ReviewStep({
           </SummarySection>
         </div>
       </div>
+      {billingSlot}
     </div>
   );
 }

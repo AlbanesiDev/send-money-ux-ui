@@ -35,7 +35,7 @@ export function QuoteResults({
           tipo.
         </p>
       ) : (
-        <div className="flex gap-2 pt-2">
+        <div className="flex flex-row gap-2 pt-2">
           {sortedQuotes.map((quote) => {
             const selected = selectedProvider === quote.provider;
             const total = quote.amount + quote.fee + quote.tax;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, type RefObject } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import { Field } from "@/components/send-money/field";
 import {
   DELIVERY_TYPE_OPTIONS,
@@ -9,10 +9,6 @@ import {
   TERRAPAY_WALLET_OPTIONS,
 } from "@/components/send-money/provider-flows";
 import { QuoteResults } from "@/components/send-money/quote-results";
-import {
-  RecentTransactions,
-  type RecentTransaction,
-} from "@/components/send-money/recent-transactions";
 import type {
   DeliveryTypeId,
   ProviderId,
@@ -43,12 +39,8 @@ const payoutLocationOptions = uniqueSorted(
 );
 
 export type QuoteStepProps = {
-  recentTransactions: RecentTransaction[];
-  beneficiaries: { name: string }[];
-  selectedTransactionId: string | null;
   quoteLoading: boolean;
   formatUsd: (value: number) => string;
-  onRepeatTransaction: (transaction: RecentTransaction) => void;
   destinationCountry: string;
   onDestinationCountryChange: (value: string) => void;
   deliveryType: DeliveryTypeId | "";
@@ -107,12 +99,8 @@ export type QuoteStepProps = {
 };
 
 export function QuoteStep({
-  recentTransactions,
-  beneficiaries,
-  selectedTransactionId,
   quoteLoading,
   formatUsd,
-  onRepeatTransaction,
   destinationCountry,
   onDestinationCountryChange,
   deliveryType,
@@ -166,28 +154,43 @@ export function QuoteStep({
   showTerraPayBank,
   showTerraPayWallet,
 }: QuoteStepProps) {
+  const requestQuoteRef = useRef(requestQuote);
+  requestQuoteRef.current = requestQuote;
+  const quoteDebounceRef = useRef<number | null>(null);
+
   useEffect(() => {
     window.requestAnimationFrame(() => destinationCountryRef.current?.focus());
   }, [destinationCountryRef]);
 
-  return (
-    <div className="space-y-4">
-      {recentTransactions.length > 0 && (
-        <div className="card">
-          <RecentTransactions
-            transactions={recentTransactions}
-            beneficiaries={beneficiaries}
-            selectedId={selectedTransactionId}
-            disabled={quoteLoading}
-            formatUsd={formatUsd}
-            onSelect={onRepeatTransaction}
-          />
-        </div>
-      )}
+  useEffect(() => {
+    if (!amountUnlocked || !sendAmount || amountExceedsBalance) return;
+    if (quoteLoading) return;
 
+    quoteDebounceRef.current = window.setTimeout(() => {
+      quoteDebounceRef.current = null;
+      requestQuoteRef.current();
+    }, 400);
+
+    return () => {
+      if (quoteDebounceRef.current !== null) {
+        window.clearTimeout(quoteDebounceRef.current);
+        quoteDebounceRef.current = null;
+      }
+    };
+  }, [
+    sendAmount,
+    amountUnlocked,
+    amountExceedsBalance,
+    terraPayBank,
+    terraPayWallet,
+    deliveryType,
+  ]);
+
+  return (
+    <div className="space-y-3">
       <div className="card">
         <h2 className="font-bold text-foreground">Datos de la cotización</h2>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2">
           <Field label="Moneda de origen" value="USD" disabled />
           <SearchableSelect
             label="País de destino"
@@ -270,6 +273,10 @@ export function QuoteStep({
                     )
                       return;
                     event.preventDefault();
+                    if (quoteDebounceRef.current !== null) {
+                      window.clearTimeout(quoteDebounceRef.current);
+                      quoteDebounceRef.current = null;
+                    }
                     requestQuote();
                   }}
                   disabled={!amountUnlocked}
@@ -363,40 +370,18 @@ export function QuoteStep({
               }}
             />
           )}
-
-          <div className="sm:col-span-2 sm:flex sm:items-end lg:col-span-3">
-            <button
-              type="button"
-              onClick={() => requestQuote()}
-              disabled={
-                !amountUnlocked ||
-                !sendAmount ||
-                quoteLoading ||
-                amountExceedsBalance
-              }
-              className="inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-card px-5 text-sm font-bold text-foreground transition-colors hover:border-muted-foreground hover:bg-muted disabled:cursor-not-allowed disabled:border-border disabled:text-muted-foreground disabled:hover:bg-transparent focus:outline-none focus:ring-4 focus:ring-brand/20"
-            >
-              {quoteLoading && (
-                <span
-                  aria-hidden="true"
-                  className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
-                />
-              )}
-              {quoteLoading ? "Cotizando..." : "Cotizar"}
-            </button>
-          </div>
         </div>
       </div>
-      <div className="card">
-        {quotesReady && deliveryType && (
+      {quotesReady && deliveryType && (
+        <div className="card">
           <QuoteResults
             quotes={providerQuotes}
             selectedProvider={selectedProvider}
             deliveryType={deliveryType}
             onSelect={onSelectProviderQuote}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

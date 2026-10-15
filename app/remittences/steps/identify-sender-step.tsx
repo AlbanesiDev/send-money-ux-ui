@@ -1,5 +1,10 @@
 "use client";
 
+import {
+  RecentTransactions,
+  type RecentTransaction,
+} from "@/components/send-money/recent-transactions";
+import type { Beneficiary } from "@/components/send-money/types";
 import { SearchableSelect } from "@/components/ui/searchable-select";
 import documentTypesCatalog from "@/public/catalogs/catalog-document-types.json";
 import {
@@ -21,6 +26,12 @@ export type IdentifySenderStepProps = {
   onResultChange: (result: ClientSearchResult) => void;
   onContinue: () => void;
   continueRef: RefObject<HTMLButtonElement | null>;
+  recentTransactions: RecentTransaction[];
+  beneficiaries: Beneficiary[];
+  selectedTransactionId: string | null;
+  quoteLoading: boolean;
+  formatUsd: (value: number) => string;
+  onRepeatTransaction: (transaction: RecentTransaction) => void;
 };
 
 const DOCUMENT_TYPE_OPTIONS = documentTypesCatalog.map((item) => item.name);
@@ -34,6 +45,12 @@ export function IdentifySenderStep({
   onResultChange,
   onContinue,
   continueRef,
+  recentTransactions,
+  beneficiaries,
+  selectedTransactionId,
+  quoteLoading,
+  formatUsd,
+  onRepeatTransaction,
 }: IdentifySenderStepProps) {
   const [loading, setLoading] = useState(false);
   const [documentType, setDocumentType] = useState("Cédula");
@@ -257,6 +274,18 @@ export function IdentifySenderStep({
           )}
         </div>
       </form>
+      {result === "success" && recentTransactions.length > 0 && (
+        <div className="card mt-4">
+          <RecentTransactions
+            transactions={recentTransactions}
+            beneficiaries={beneficiaries}
+            selectedId={selectedTransactionId}
+            disabled={quoteLoading}
+            formatUsd={formatUsd}
+            onSelect={onRepeatTransaction}
+          />
+        </div>
+      )}
     </>
   );
 }

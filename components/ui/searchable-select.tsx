@@ -20,6 +20,7 @@ export type SearchableSelectProps = {
   nextRef?: RefObject<HTMLElement | null>;
   showFlags?: boolean;
   hideLabel?: boolean;
+  dropdownSide?: "top" | "bottom";
 };
 
 export function SearchableSelect({
@@ -33,6 +34,7 @@ export function SearchableSelect({
   nextRef,
   showFlags = false,
   hideLabel = false,
+  dropdownSide = "bottom",
 }: SearchableSelectProps) {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
@@ -95,7 +97,7 @@ export function SearchableSelect({
   return (
     <div
       ref={rootRef}
-      className={`block self-start ${open ? "relative z-50" : "relative z-0"}`}
+      className={`block w-full min-w-0 self-start ${open ? "relative z-50" : "relative z-0"}`}
     >
       <span
         className={
@@ -154,7 +156,13 @@ export function SearchableSelect({
           </span>
         </button>
         {open && (
-          <div className="absolute inset-x-0 top-full z-50 mt-1 rounded-lg border border-border bg-popover p-2 text-popover-foreground shadow-lg">
+          <div
+            className={`absolute inset-x-0 z-50 rounded-lg border border-border bg-popover p-2 text-popover-foreground shadow-lg ${
+              dropdownSide === "top"
+                ? "bottom-full mb-1"
+                : "top-full mt-1"
+            }`}
+          >
             <input
               ref={filterRef}
               value={filter}
@@ -197,7 +205,7 @@ export function SearchableSelect({
                   : undefined
               }
               className="h-10 w-full rounded-md border border-border bg-card px-3 text-sm text-foreground outline-none focus:border-brand"
-            />{" "}
+            />
             <div
               role="listbox"
               aria-label={label}

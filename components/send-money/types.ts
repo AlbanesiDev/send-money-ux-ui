@@ -13,10 +13,7 @@ export type ProviderQuote = {
   deliveryType: DeliveryTypeId;
 };
 
-export type ProviderStepKey =
-  | "parties"
-  | "payment"
-  | "review";
+export type ProviderStepKey = "parties" | "review";
 
 export type ProviderFlow = {
   stepLabels: string[];

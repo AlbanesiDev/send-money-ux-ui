@@ -96,20 +96,20 @@ export const TERRAPAY_WALLET_OPTIONS = ["Tigo Money", "Yape", "Mercado Pago"];
 
 export const providerFlows: Record<ProviderId, ProviderFlow> = {
   RIA: {
-    stepLabels: ["Remitente y beneficiario", "Método de pago", "Revisión"],
-    stepKeys: ["parties", "payment", "review"],
+    stepLabels: ["Remitente y beneficiario", "Revisión"],
+    stepKeys: ["parties", "review"],
   },
   WU: {
-    stepLabels: ["Remitente y beneficiario", "Método de pago", "Revisión"],
-    stepKeys: ["parties", "payment", "review"],
+    stepLabels: ["Remitente y beneficiario", "Revisión"],
+    stepKeys: ["parties", "review"],
   },
   MONEYGRAM: {
-    stepLabels: ["Remitente y beneficiario", "Método de pago", "Revisión"],
-    stepKeys: ["parties", "payment", "review"],
+    stepLabels: ["Remitente y beneficiario", "Revisión"],
+    stepKeys: ["parties", "review"],
   },
   TERRAPAY: {
-    stepLabels: ["Remitente y beneficiario", "Método de pago", "Revisión"],
-    stepKeys: ["parties", "payment", "review"],
+    stepLabels: ["Remitente y beneficiario", "Revisión"],
+    stepKeys: ["parties", "review"],
   },
 };
 

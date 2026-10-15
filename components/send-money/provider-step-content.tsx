@@ -1,4 +1,4 @@
-import type { ReactNode, RefObject } from "react";
+import type { ReactNode } from "react";
 import { RiaAdditionalInfoStep } from "./providers/ria/additional-info-step";
 import { RiaBeneficiaryStep } from "./providers/ria/beneficiary-step";
 import { RiaRemitterStep } from "./providers/ria/remitter-step";
@@ -9,16 +9,10 @@ import { TerrapayRemitterStep } from "./providers/terrapay/remitter-step";
 import { WuBeneficiaryStep } from "./providers/wu/beneficiary-step";
 import { WuRemitterStep } from "./providers/wu/remitter-step";
 import { PepStep } from "./shared/pep-step";
-import {
-  StandardPaymentStep,
-  TerrapayPaymentStep,
-  type SelectRenderer,
-} from "./shared/payment-step";
 import { ReviewStep } from "./shared/review-step";
 import { getStepKey } from "./provider-flows";
 import type {
   Beneficiary,
-  PaymentCurrency,
   PaymentLine,
   ProviderId,
   ProviderQuote,
@@ -55,23 +49,6 @@ export type ProviderStepContentProps = {
   onEditBeneficiary: () => void;
   onEditPayment: () => void;
   formatAmount: (value: number) => string;
-  bobPerUsd: number;
-  primaryMethod: string;
-  onPrimaryMethodChange: (value: string) => void;
-  primaryMethodRef: RefObject<HTMLButtonElement | null>;
-  primaryCurrency: PaymentCurrency;
-  onPrimaryCurrencyChange: (value: PaymentCurrency) => void;
-  primaryCents: number;
-  extraPayments: PaymentLine[];
-  onAddPayment: (line: Omit<PaymentLine, "id">) => void;
-  onUpdatePayment: (id: number, line: Omit<PaymentLine, "id">) => void;
-  onRemovePayment: (id: number) => void;
-  renderSelect: SelectRenderer;
-  paymentMethodOptions: string[];
-  nextButtonRef: RefObject<HTMLButtonElement | null>;
-  sanitizeAmount: (value: string) => string;
-  parseAmount: (value: string) => number;
-  toCents: (value: number) => number;
   billingSlot: ReactNode;
 };
 
@@ -171,56 +148,21 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
     }
 
     return (
-      <div className="space-y-6">
-        <div className="grid gap-4 lg:grid-cols-2 lg:items-start">
-          <section className="rounded-xl border border-border bg-card p-5">
-            <h2 className="mb-5 font-bold">Remitente</h2>
-            {remitter}
-          </section>
+      <div className="grid gap-4 lg:grid-cols-2 lg:items-start">
+        <section className="rounded-xl border border-border bg-card p-5">
+          <h2 className="mb-5 font-bold">Remitente</h2>
+          {remitter}
+        </section>
+        <div className="space-y-4">
           <section className="rounded-xl border border-border bg-card p-5">
             <h2 className="mb-5 font-bold">Beneficiario</h2>
             {beneficiary}
           </section>
+          <section className="rounded-xl border border-border bg-card p-5">
+            {declarations}
+          </section>
         </div>
-        <div className="border-t border-border pt-6">{declarations}</div>
       </div>
-    );
-  }
-
-  if (stepKey === "payment") {
-    if (props.provider === "TERRAPAY") {
-      return (
-        <TerrapayPaymentStep
-          totalToCharge={props.totalToCharge}
-          formatUsd={props.formatUsd}
-          billingSlot={props.billingSlot}
-        />
-      );
-    }
-    return (
-      <StandardPaymentStep
-        totalToCharge={props.totalToCharge}
-        formatUsd={props.formatUsd}
-        formatAmount={props.formatAmount}
-        bobPerUsd={props.bobPerUsd}
-        primaryMethod={props.primaryMethod}
-        onPrimaryMethodChange={props.onPrimaryMethodChange}
-        primaryMethodRef={props.primaryMethodRef}
-        primaryCurrency={props.primaryCurrency}
-        onPrimaryCurrencyChange={props.onPrimaryCurrencyChange}
-        primaryCents={props.primaryCents}
-        extraPayments={props.extraPayments}
-        onAddPayment={props.onAddPayment}
-        onUpdatePayment={props.onUpdatePayment}
-        onRemovePayment={props.onRemovePayment}
-        renderSelect={props.renderSelect}
-        paymentMethodOptions={props.paymentMethodOptions}
-        nextButtonRef={props.nextButtonRef}
-        sanitizeAmount={props.sanitizeAmount}
-        parseAmount={props.parseAmount}
-        toCents={props.toCents}
-        billingSlot={props.billingSlot}
-      />
     );
   }
 
@@ -249,6 +191,7 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       onEditRemitter={props.onEditRemitter}
       onEditBeneficiary={props.onEditBeneficiary}
       onEditPayment={props.onEditPayment}
+      billingSlot={props.billingSlot}
     />
   );
 }

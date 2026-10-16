@@ -196,8 +196,8 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
           </div>
         </Stepper.Step>
         {operation && profile && (
-          <>
-            <Stepper.Step index={2}>
+          [
+            <Stepper.Step key={2} index={2}>
               <StepLayout
                 aside={
                   <PaymentSummaryAside
@@ -226,8 +226,8 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
                   onRestart={onReset}
                 />
               </StepLayout>
-            </Stepper.Step>
-            <Stepper.Step index={3}>
+            </Stepper.Step>,
+            <Stepper.Step key={3} index={3}>
               <StepLayout
                 aside={
                   <PaymentSummaryAside
@@ -263,8 +263,8 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
                   }
                 />
               </StepLayout>
-            </Stepper.Step>
-            <Stepper.Step index={4}>
+            </Stepper.Step>,
+            <Stepper.Step key={4} index={4}>
               <StepLayout
                 aside={
                   <PaymentSummaryAside
@@ -288,7 +288,7 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
                 />
               </StepLayout>
             </Stepper.Step>
-          </>
+          ]
         )}
       </Stepper>
       {step > 1 && !blocked && (

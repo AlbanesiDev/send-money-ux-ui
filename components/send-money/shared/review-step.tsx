@@ -118,7 +118,7 @@ export function ReviewStep({
     <div className="flex flex-col gap-3">
       <p className="rounded-md border border-[#eadcae] bg-[#fffaf0] px-3 py-2 text-xs text-[#765d12] dark:border-amber-700/50 dark:bg-amber-950/40 dark:text-amber-200">
         Confirma con el cliente el monto, el beneficiario y el lugar de pago
-        antes de enviar. Proveedor: {provider}.
+        antes de enviar.
       </p>
       <div className="grid gap-3 lg:grid-cols-2">
         <SummarySection

@@ -566,6 +566,77 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     return () => window.removeEventListener("keydown", handleStepperShortcut);
   }, [step, lastStep, selectedProvider]);
 
+  const summaryAside = (
+    <aside className="sticky top-0 flex flex-col gap-3 self-start">
+      <div className="grid grid-cols-2 gap-3">
+        <div className="rounded-xl border border-border bg-card p-3">
+          <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+            Remitente
+          </p>
+          <p className="mt-1.5 text-sm font-bold text-foreground">
+            {isKnownClient ? "Eliana Antezana Ovando" : "Nuevo cliente"}
+          </p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Cédula: {documentNumber}
+            {isKnownClient && " · j***@cislatam.com"}
+          </p>
+          {isKnownClient && (
+            <p className="mt-1 text-sm font-semibold text-brand">PEP: Sí</p>
+          )}
+        </div>
+        <div className="rounded-xl border border-border bg-card p-3">
+          <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+            Beneficiario
+          </p>
+          <p className="mt-1.5 text-sm font-bold text-foreground">
+            {beneficiary.name}
+          </p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Doc: {beneficiary.document} · {beneficiary.city}
+          </p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            {beneficiary.phone} · {beneficiary.email}
+          </p>
+        </div>
+      </div>
+      <RemittanceSummary
+        provider={selectedProvider}
+        quote={quote}
+        deliveryType={deliveryType}
+        loading={quoteLoading}
+      />
+      <PaymentMethodPanel
+        provider={selectedProvider}
+        totalToCharge={totalToCharge}
+        formatUsd={formatUsd}
+        formatAmount={formatAmount}
+        bobPerUsd={BOB_PER_USD}
+        primaryMethod={paymentMethod}
+        onPrimaryMethodChange={setPaymentMethod}
+        primaryMethodRef={paymentMethodRef}
+        primaryCurrency={primaryCurrency}
+        onPrimaryCurrencyChange={setPrimaryCurrency}
+        primaryCents={primaryCents}
+        extraPayments={extraPayments}
+        onUpdatePayment={(id, line) =>
+          setExtraPayments((current) =>
+            current.map((item) => (item.id === id ? { ...line, id } : item)),
+          )
+        }
+        onRemovePayment={(id) =>
+          setExtraPayments((current) =>
+            current.filter((line) => line.id !== id),
+          )
+        }
+        onAddPaymentOpen={() => setAddPaymentOpen(true)}
+        paymentMethodOptions={paymentMethodOptions}
+        sanitizeAmount={sanitizeAmount}
+        parseAmount={parseAmount}
+        toCents={toCents}
+      />
+    </aside>
+  );
+
   return (
     <section
       className={`flex h-full min-h-0 w-full min-w-0 flex-1 flex-col gap-4 overflow-hidden rounded-[14px] text-foreground ${step === 2 || step === 3 ? "" : "bg-card shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none"}`}
@@ -582,30 +653,19 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
         />
       ) : (
         <>
-          {step > 1 && (
-            <Stepper
-              steps={activeSteps}
-              currentStep={step}
-              onStepClick={goToStep}
-              ariaLabel="Progreso de la transacción"
-            />
-          )}
-          <div
-            className={`grid min-h-0 flex-1 gap-4 overflow-y-auto ${step > 1 && !sent && !isReviewStep ? "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]" : ""}`}
+          <Stepper
+            steps={activeSteps}
+            currentStep={step}
+            onStepClick={goToStep}
+            showProgress={step > 1}
+            ariaLabel="Progreso de la transacción"
           >
-            <div
-              className={`min-w-0 ${step === 1 || sent || isReviewStep ? "mx-auto w-full max-w-[1120px] px-4 sm:px-6" : ""}`}
-              data-form-fields
-              data-enter-advance={
-                selectedProvider &&
-                step >= 3 &&
-                getStepKey(selectedProvider, step) === "parties"
-                  ? ""
-                  : undefined
-              }
-            >
-              <div>
-                {step === 1 && (
+            <Stepper.Step index={1}>
+              <div className="grid min-h-0 flex-1 gap-4 overflow-y-auto">
+                <div
+                  className="mx-auto w-full min-w-0 max-w-[1120px] px-4 sm:px-6"
+                  data-form-fields
+                >
                   <IdentifySenderStep
                     step={step}
                     lastStep={lastStep}
@@ -626,8 +686,12 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     }}
                     onClearRepeatedTransaction={clearRepeatedTransaction}
                   />
-                )}
-                {step === 2 && (
+                </div>
+              </div>
+            </Stepper.Step>
+            <Stepper.Step index={2}>
+              <div className="grid min-h-0 flex-1 gap-4 overflow-y-auto lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]">
+                <div className="min-w-0" data-form-fields>
                   <QuoteStep
                     quoteLoading={quoteLoading}
                     formatUsd={formatUsd}
@@ -684,152 +748,107 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     showTerraPayBank={showTerraPayBank}
                     showTerraPayWallet={showTerraPayWallet}
                   />
-                )}
-                {step >= 3 && selectedProvider && quote && (
-                  <ProviderFlowStep
-                    provider={selectedProvider}
-                    step={step}
-                    documentNumber={documentNumber}
-                    known={known}
-                    isKnownClient={isKnownClient}
-                    beneficiaries={beneficiaries}
-                    selectedBeneficiary={selectedBeneficiary}
-                    onSelectBeneficiary={setSelectedBeneficiary}
-                    additionalChecks={additionalChecks}
-                    onAdditionalCheckChange={(label, checked) =>
-                      setAdditionalChecks((current) => ({
-                        ...current,
-                        [label]: checked,
-                      }))
-                    }
-                    quote={quote}
-                    totalToCharge={totalToCharge}
-                    formatUsd={formatUsd}
-                    destinationCountry={destinationCountry}
-                    payingPartner={payingPartner}
-                    location={location}
-                    wuService={wuService}
-                    moneygramCompany={moneygramCompany}
-                    terraPayBank={terraPayBank}
-                    terraPayWallet={terraPayWallet}
-                    senderName={senderName}
-                    paymentLines={paymentLines}
-                    billingName={billingName}
-                    billingNit={billingNit}
-                    billingOpen={billingOpen}
-                    billingOverride={billingOverride}
-                    onBillingOpenToggle={() =>
-                      setBillingOpen((current) => !current)
-                    }
-                    onBillingChange={(field, value) =>
-                      setBillingOverride({
-                        name: billingName,
-                        nit: billingNit,
-                        [field]: value,
-                      })
-                    }
-                    onBillingReset={() => {
-                      setBillingOverride(null);
-                      setBillingOpen(false);
-                    }}
-                    onEditQuote={() => setStep(2)}
-                    onEditRemitter={() =>
-                      setStep(
-                        findStepNumber(activeSteps, "Remitente y beneficiario"),
-                      )
-                    }
-                    onEditBeneficiary={() =>
-                      setStep(
-                        findStepNumber(activeSteps, "Remitente y beneficiario"),
-                      )
-                    }
-                    onEditPayment={() =>
-                      window.requestAnimationFrame(() =>
-                        paymentMethodRef.current?.focus(),
-                      )
-                    }
-                    formatAmount={formatAmount}
-                  />
-                )}
-              </div>
-            </div>
-            {step > 1 && !isReviewStep && (
-              <aside className="sticky top-0 flex flex-col gap-3 self-start">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-xl border border-border bg-card p-3">
-                    <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-                      Remitente
-                    </p>
-                    <p className="mt-1.5 text-sm font-bold text-foreground">
-                      {isKnownClient
-                        ? "Eliana Antezana Ovando"
-                        : "Nuevo cliente"}
-                    </p>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      Cédula: {documentNumber}
-                      {isKnownClient && " · j***@cislatam.com"}
-                    </p>
-                    {isKnownClient && (
-                      <p className="mt-1 text-sm font-semibold text-brand">
-                        PEP: Sí
-                      </p>
-                    )}
-                  </div>
-                  <div className="rounded-xl border border-border bg-card p-3">
-                    <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-                      Beneficiario
-                    </p>
-                    <p className="mt-1.5 text-sm font-bold text-foreground">
-                      {beneficiary.name}
-                    </p>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      Doc: {beneficiary.document} · {beneficiary.city}
-                    </p>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {beneficiary.phone} · {beneficiary.email}
-                    </p>
-                  </div>
                 </div>
-                <RemittanceSummary
-                  provider={selectedProvider}
-                  quote={quote}
-                  deliveryType={deliveryType}
-                  loading={quoteLoading}
-                />
-                <PaymentMethodPanel
-                  provider={selectedProvider}
-                  totalToCharge={totalToCharge}
-                  formatUsd={formatUsd}
-                  formatAmount={formatAmount}
-                  bobPerUsd={BOB_PER_USD}
-                  primaryMethod={paymentMethod}
-                  onPrimaryMethodChange={setPaymentMethod}
-                  primaryMethodRef={paymentMethodRef}
-                  primaryCurrency={primaryCurrency}
-                  onPrimaryCurrencyChange={setPrimaryCurrency}
-                  primaryCents={primaryCents}
-                  extraPayments={extraPayments}
-                  onUpdatePayment={(id, line) =>
-                    setExtraPayments((current) =>
-                      current.map((item) =>
-                        item.id === id ? { ...line, id } : item,
-                      ),
-                    )
-                  }
-                  onRemovePayment={(id) =>
-                    setExtraPayments((current) =>
-                      current.filter((line) => line.id !== id),
-                    )
-                  }
-                  onAddPaymentOpen={() => setAddPaymentOpen(true)}
-                  paymentMethodOptions={paymentMethodOptions}
-                  sanitizeAmount={sanitizeAmount}
-                  parseAmount={parseAmount}
-                  toCents={toCents}
-                />
-              </aside>
-            )}
-          </div>
+                {summaryAside}
+              </div>
+            </Stepper.Step>
+            {activeSteps.slice(2).map((stepLabel, offset) => {
+              const stepIndex = offset + 3;
+              const stepIsReview = stepIndex === lastStep;
+              return (
+                <Stepper.Step key={stepLabel} index={stepIndex}>
+                  <div
+                    className={`grid min-h-0 flex-1 gap-4 overflow-y-auto ${stepIsReview ? "" : "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]"}`}
+                  >
+                    <div
+                      className={`min-w-0 ${stepIsReview ? "mx-auto w-full max-w-[1120px] px-4 sm:px-6" : ""}`}
+                      data-form-fields
+                      data-enter-advance={
+                        selectedProvider &&
+                        getStepKey(selectedProvider, stepIndex) === "parties"
+                          ? ""
+                          : undefined
+                      }
+                    >
+                      {selectedProvider && quote && (
+                        <ProviderFlowStep
+                          provider={selectedProvider}
+                          step={step}
+                          documentNumber={documentNumber}
+                          known={known}
+                          isKnownClient={isKnownClient}
+                          beneficiaries={beneficiaries}
+                          selectedBeneficiary={selectedBeneficiary}
+                          onSelectBeneficiary={setSelectedBeneficiary}
+                          additionalChecks={additionalChecks}
+                          onAdditionalCheckChange={(checkLabel, checked) =>
+                            setAdditionalChecks((current) => ({
+                              ...current,
+                              [checkLabel]: checked,
+                            }))
+                          }
+                          quote={quote}
+                          totalToCharge={totalToCharge}
+                          formatUsd={formatUsd}
+                          destinationCountry={destinationCountry}
+                          payingPartner={payingPartner}
+                          location={location}
+                          wuService={wuService}
+                          moneygramCompany={moneygramCompany}
+                          terraPayBank={terraPayBank}
+                          terraPayWallet={terraPayWallet}
+                          senderName={senderName}
+                          paymentLines={paymentLines}
+                          billingName={billingName}
+                          billingNit={billingNit}
+                          billingOpen={billingOpen}
+                          billingOverride={billingOverride}
+                          onBillingOpenToggle={() =>
+                            setBillingOpen((current) => !current)
+                          }
+                          onBillingChange={(field, value) =>
+                            setBillingOverride({
+                              name: billingName,
+                              nit: billingNit,
+                              [field]: value,
+                            })
+                          }
+                          onBillingReset={() => {
+                            setBillingOverride(null);
+                            setBillingOpen(false);
+                          }}
+                          onEditQuote={() => setStep(2)}
+                          onEditRemitter={() =>
+                            setStep(
+                              findStepNumber(
+                                activeSteps,
+                                "Remitente y beneficiario",
+                              ),
+                            )
+                          }
+                          onEditBeneficiary={() =>
+                            setStep(
+                              findStepNumber(
+                                activeSteps,
+                                "Remitente y beneficiario",
+                              ),
+                            )
+                          }
+                          onEditPayment={() =>
+                            window.requestAnimationFrame(() =>
+                              paymentMethodRef.current?.focus(),
+                            )
+                          }
+                          formatAmount={formatAmount}
+                        />
+                      )}
+                    </div>
+                    {!stepIsReview && summaryAside}
+                  </div>
+                </Stepper.Step>
+              );
+            })}
+          </Stepper>
           {step > 1 && (
             <div
               className={`flex h-[42px] shrink-0 items-center ${isReviewStep ? "mx-auto w-full  px-4 sm:px-6" : ""}`}

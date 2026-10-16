@@ -89,7 +89,10 @@ export function AppHeader({
           onClick={onToggleSidebar}
         >
           {sidebarExpanded ? (
-            <ArrowLeftToLine className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
+            <ArrowLeftToLine
+              className="h-[1.05rem] w-[1.05rem]"
+              aria-hidden="true"
+            />
           ) : (
             <Menu className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
           )}
@@ -98,7 +101,14 @@ export function AppHeader({
 
       <div className="flex min-w-0 flex-1 items-center justify-between gap-3 pr-3">
         <div className="flex min-w-0 items-center gap-3">
-          <img className="h-7 w-7 shrink-0" src="/icon.svg" alt="" />
+          <img
+            className="h-7 w-7 shrink-0 cursor-pointer"
+            src="/icon.svg"
+            alt="Logo CIS"
+            onClick={() => {
+              window.location.href = "/";
+            }}
+          />
           <nav
             className="hidden min-w-0 items-center gap-1 text-sm md:flex"
             aria-label="Miga de pan"
@@ -142,12 +152,13 @@ export function AppHeader({
             type="button"
             className="private-nav-button"
             aria-label={
-              theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"
+              theme === "dark"
+                ? "Cambiar a modo claro"
+                : "Cambiar a modo oscuro"
             }
             aria-pressed={theme === "dark"}
             onClick={() => {
-              const nextTheme: ColorTheme =
-                theme === "dark" ? "light" : "dark";
+              const nextTheme: ColorTheme = theme === "dark" ? "light" : "dark";
               setTheme(nextTheme);
               document.documentElement.classList.toggle(
                 "dark",

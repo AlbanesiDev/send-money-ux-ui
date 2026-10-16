@@ -1,0 +1,42 @@
+{
+  "agencyCountry": "BO",
+  "agencyName": "Cis Ariana Mejia",
+  "agencyCod": 616,
+  "agencyAddress": "Calle 123, Ciudad, Pais",
+  "boxId": 1,
+  "boxName": "Caja 1",
+  "agencySchedule": [
+    {
+      "day": "Lunes",
+      "time": ["08:00", "17:00"]
+    },
+    {
+      "day": "Martes",
+      "time": ["08:00", "17:00"]
+    },
+    {
+      "day": "Miercoles",
+      "time": ["08:00", "17:00"]
+    },
+    {
+      "day": "Jueves",
+      "time": ["08:00", "17:00"]
+    },
+    {
+      "day": "Viernes",
+      "time": ["08:00 - 13:00", "17:00 - 21:00"]
+    }
+  ],
+  "boxVirtualCash": [
+    {
+      "id": 0,
+      "currency": "USD",
+      "balance": 700
+    },
+    {
+      "id": 1,
+      "currency": "BOB",
+      "balance": 6000
+    }
+  ]
+}

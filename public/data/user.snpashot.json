@@ -1,0 +1,13 @@
+{
+  "id": 0,
+  "name": "Jhon Doe",
+  "email": "jhon.doe@cis.com",
+  "profileUrl": null,
+  "role": [
+    {
+      "id": 0,
+      "code": "agent",
+      "description": "Agente"
+    }
+  ]
+}

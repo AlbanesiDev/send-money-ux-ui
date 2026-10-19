@@ -20,3 +20,106 @@
         "code": "p"
     }
 ]
+
+{
+    "result": {
+        "totalCount": 5,
+        "items": [
+            {
+                "documentType": {
+                    "code": "B",
+                    "description": "Cédula",
+                    "fromWU": true,
+                    "enabled": true,
+                    "isUpdated": false,
+                    "isDefault": false,
+                    "typeId_Fe": 1,
+                    "erpCodeId": null,
+                    "equivalenceCode": "B",
+                    "cisCountryId": 4,
+                    "providerId": 1,
+                    "id": 17
+                },
+                "cisCountryName": "Bolivia",
+                "providerDescription": "WU"
+            },
+            {
+                "documentType": {
+                    "code": "D",
+                    "description": "Cédula De Extranjera",
+                    "fromWU": true,
+                    "enabled": true,
+                    "isUpdated": false,
+                    "isDefault": false,
+                    "typeId_Fe": 2,
+                    "erpCodeId": null,
+                    "equivalenceCode": "D",
+                    "cisCountryId": 4,
+                    "providerId": 1,
+                    "id": 18
+                },
+                "cisCountryName": "Bolivia",
+                "providerDescription": "WU"
+            },
+            {
+                "documentType": {
+                    "code": "R",
+                    "description": "Cédula De Mercosur",
+                    "fromWU": true,
+                    "enabled": true,
+                    "isUpdated": false,
+                    "isDefault": false,
+                    "typeId_Fe": 2,
+                    "erpCodeId": null,
+                    "equivalenceCode": "R",
+                    "cisCountryId": 4,
+                    "providerId": 1,
+                    "id": 19
+                },
+                "cisCountryName": "Bolivia",
+                "providerDescription": "WU"
+            },
+            {
+                "documentType": {
+                    "code": "NIT",
+                    "description": "NIT",
+                    "fromWU": false,
+                    "enabled": true,
+                    "isUpdated": false,
+                    "isDefault": false,
+                    "typeId_Fe": null,
+                    "erpCodeId": null,
+                    "equivalenceCode": null,
+                    "cisCountryId": 4,
+                    "providerId": 1,
+                    "id": 91
+                },
+                "cisCountryName": "Bolivia",
+                "providerDescription": "WU"
+            },
+            {
+                "documentType": {
+                    "code": "A",
+                    "description": "Pasaporte",
+                    "fromWU": true,
+                    "enabled": true,
+                    "isUpdated": false,
+                    "isDefault": false,
+                    "typeId_Fe": 3,
+                    "erpCodeId": null,
+                    "equivalenceCode": "A",
+                    "cisCountryId": 4,
+                    "providerId": 1,
+                    "id": 16
+                },
+                "cisCountryName": "Bolivia",
+                "providerDescription": "WU"
+            }
+        ]
+    },
+    "targetUrl": null,
+    "success": true,
+    "error": null,
+    "unAuthorizedRequest": false,
+    "__abp": true
+}

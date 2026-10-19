@@ -1,0 +1,92 @@
+{
+    "result": {
+        "totalCount": 5,
+        "items": [
+            {
+                "maritalStatus": {
+                    "code": "Married",
+                    "description": "Casado",
+                    "fromWu": true,
+                    "enabled": true,
+                    "isDefault": false,
+                    "erpCodeId": null,
+                    "equivalenceCode": "Married",
+                    "cisCountryId": 4,
+                    "providerId": null,
+                    "id": 18
+                },
+                "cisCountryIsoCode": "BO",
+                "providerDescription": "WU"
+            },
+            {
+                "maritalStatus": {
+                    "code": "Divorced",
+                    "description": "Divorciado",
+                    "fromWu": true,
+                    "enabled": true,
+                    "isDefault": false,
+                    "erpCodeId": null,
+                    "equivalenceCode": "Divorced",
+                    "cisCountryId": 4,
+                    "providerId": null,
+                    "id": 65
+                },
+                "cisCountryIsoCode": "BO",
+                "providerDescription": "WU"
+            },
+            {
+                "maritalStatus": {
+                    "code": "Separated",
+                    "description": "Separado",
+                    "fromWu": true,
+                    "enabled": true,
+                    "isDefault": false,
+                    "erpCodeId": null,
+                    "equivalenceCode": "Separated",
+                    "cisCountryId": 4,
+                    "providerId": null,
+                    "id": 21
+                },
+                "cisCountryIsoCode": "BO",
+                "providerDescription": "WU"
+            },
+            {
+                "maritalStatus": {
+                    "code": "Single",
+                    "description": "Soltero",
+                    "fromWu": true,
+                    "enabled": true,
+                    "isDefault": false,
+                    "erpCodeId": null,
+                    "equivalenceCode": "Single",
+                    "cisCountryId": 4,
+                    "providerId": null,
+                    "id": 19
+                },
+                "cisCountryIsoCode": "BO",
+                "providerDescription": "WU"
+            },
+            {
+                "maritalStatus": {
+                    "code": "Widowed",
+                    "description": "Viudo",
+                    "fromWu": true,
+                    "enabled": true,
+                    "isDefault": false,
+                    "erpCodeId": null,
+                    "equivalenceCode": "Widowed",
+                    "cisCountryId": 4,
+                    "providerId": null,
+                    "id": 20
+                },
+                "cisCountryIsoCode": "BO",
+                "providerDescription": "WU"
+            }
+        ]
+    },
+    "targetUrl": null,
+    "success": true,
+    "error": null,
+    "unAuthorizedRequest": false,
+    "__abp": true
+}

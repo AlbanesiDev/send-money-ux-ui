@@ -1,0 +1,174 @@
+{
+  "result": {
+    "totalCount": 9,
+    "items": [
+      {
+        "province": {
+          "code": "BN",
+          "description": "Beni",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 252,
+          "providerId": null,
+          "id": 205
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "BOLIVIA",
+        "countryCtyIsoCode": "BO",
+        "providerDescription": "WU"
+      },
+      {
+        "province": {
+          "code": "CH",
+          "description": "Chuquisaca",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 252,
+          "providerId": null,
+          "id": 206
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "BOLIVIA",
+        "countryCtyIsoCode": "BO",
+        "providerDescription": "WU"
+      },
+      {
+        "province": {
+          "code": "CB",
+          "description": "Cochabamba",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 252,
+          "providerId": null,
+          "id": 207
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "BOLIVIA",
+        "countryCtyIsoCode": "BO",
+        "providerDescription": "WU"
+      },
+      {
+        "province": {
+          "code": "LP",
+          "description": "La Paz",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 252,
+          "providerId": null,
+          "id": 208
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "BOLIVIA",
+        "countryCtyIsoCode": "BO",
+        "providerDescription": "WU"
+      },
+      {
+        "province": {
+          "code": "OR",
+          "description": "Oruro",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 252,
+          "providerId": null,
+          "id": 209
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "BOLIVIA",
+        "countryCtyIsoCode": "BO",
+        "providerDescription": "WU"
+      },
+      {
+        "province": {
+          "code": "PN",
+          "description": "Pando",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 252,
+          "providerId": null,
+          "id": 211
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "BOLIVIA",
+        "countryCtyIsoCode": "BO",
+        "providerDescription": "WU"
+      },
+      {
+        "province": {
+          "code": "PT",
+          "description": "Potosi",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 252,
+          "providerId": null,
+          "id": 212
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "BOLIVIA",
+        "countryCtyIsoCode": "BO",
+        "providerDescription": "WU"
+      },
+      {
+        "province": {
+          "code": "SC",
+          "description": "Santa Cruz",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 252,
+          "providerId": null,
+          "id": 213
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "BOLIVIA",
+        "countryCtyIsoCode": "BO",
+        "providerDescription": "WU"
+      },
+      {
+        "province": {
+          "code": "TJ",
+          "description": "Tarija",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 252,
+          "providerId": null,
+          "id": 214
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "BOLIVIA",
+        "countryCtyIsoCode": "BO",
+        "providerDescription": "WU"
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

@@ -1,0 +1,163 @@
+{
+    "result": [
+        {
+            "code": "C",
+            "description": "CHEQUE / CHECK                   ",
+            "addOrder": 0,
+            "code_ExternalSystem": null,
+            "externalSystem": null,
+            "active": false,
+            "cisCountryId": null,
+            "cisSystemId": null,
+            "id": 1
+        },
+        {
+            "code": "DP",
+            "description": "DEPOSITO / DEPOSIT      ",
+            "addOrder": 0,
+            "code_ExternalSystem": null,
+            "externalSystem": null,
+            "active": false,
+            "cisCountryId": null,
+            "cisSystemId": null,
+            "id": 2
+        },
+        {
+            "code": "DT",
+            "description": "PAGOS DTP                 ",
+            "addOrder": 0,
+            "code_ExternalSystem": null,
+            "externalSystem": null,
+            "active": false,
+            "cisCountryId": null,
+            "cisSystemId": null,
+            "id": 3
+        },
+        {
+            "code": "E",
+            "description": "PAGO EN EFECTIVO / CASH                ",
+            "addOrder": 0,
+            "code_ExternalSystem": null,
+            "externalSystem": null,
+            "active": false,
+            "cisCountryId": null,
+            "cisSystemId": null,
+            "id": 4
+        },
+        {
+            "code": "MP",
+            "description": "MERCADO PAGO /PAYMENT MARKET     ",
+            "addOrder": 0,
+            "code_ExternalSystem": null,
+            "externalSystem": null,
+            "active": false,
+            "cisCountryId": null,
+            "cisSystemId": null,
+            "id": 5
+        },
+        {
+            "code": "R",
+            "description": "RETENCION EN LA FUENTE / WITHHOLDING         ",
+            "addOrder": 0,
+            "code_ExternalSystem": null,
+            "externalSystem": null,
+            "active": false,
+            "cisCountryId": null,
+            "cisSystemId": null,
+            "id": 6
+        },
+        {
+            "code": "T",
+            "description": "TARJETA DE CREDITO / CREDIT CARD                  ",
+            "addOrder": 0,
+            "code_ExternalSystem": null,
+            "externalSystem": null,
+            "active": false,
+            "cisCountryId": null,
+            "cisSystemId": null,
+            "id": 7
+        },
+        {
+            "code": "TCD",
+            "description": "TARJETA DE CREDITO - DEBITO / CREDIT - DEBIT CARD ",
+            "addOrder": 0,
+            "code_ExternalSystem": null,
+            "externalSystem": null,
+            "active": false,
+            "cisCountryId": null,
+            "cisSystemId": null,
+            "id": 8
+        },
+        {
+            "code": "TD",
+            "description": "TARJETA DE DÉBITO / DEBIT CARD                ",
+            "addOrder": 0,
+            "code_ExternalSystem": null,
+            "externalSystem": null,
+            "active": false,
+            "cisCountryId": null,
+            "cisSystemId": null,
+            "id": 9
+        },
+        {
+            "code": "TR",
+            "description": "TRANSFERENCIA / TRANSFER         ",
+            "addOrder": 0,
+            "code_ExternalSystem": null,
+            "externalSystem": null,
+            "active": false,
+            "cisCountryId": null,
+            "cisSystemId": null,
+            "id": 10
+        },
+        {
+            "code": "AC",
+            "description": "ACCOUNT",
+            "addOrder": 0,
+            "code_ExternalSystem": null,
+            "externalSystem": null,
+            "active": false,
+            "cisCountryId": null,
+            "cisSystemId": null,
+            "id": 51
+        },
+        {
+            "code": "TC",
+            "description": "CREDIT",
+            "addOrder": 0,
+            "code_ExternalSystem": null,
+            "externalSystem": null,
+            "active": false,
+            "cisCountryId": null,
+            "cisSystemId": null,
+            "id": 53
+        },
+        {
+            "code": "Test2",
+            "description": "Metodo de pago",
+            "addOrder": 0,
+            "code_ExternalSystem": null,
+            "externalSystem": null,
+            "active": false,
+            "cisCountryId": null,
+            "cisSystemId": null,
+            "id": 55
+        },
+        {
+            "code": "W",
+            "description": "SALDO EN CUENTA",
+            "addOrder": 0,
+            "code_ExternalSystem": null,
+            "externalSystem": null,
+            "active": false,
+            "cisCountryId": null,
+            "cisSystemId": null,
+            "id": 56
+        }
+    ],
+    "targetUrl": null,
+    "success": true,
+    "error": null,
+    "unAuthorizedRequest": false,
+    "__abp": true
+}

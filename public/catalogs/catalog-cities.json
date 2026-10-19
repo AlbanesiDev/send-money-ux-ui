@@ -1,0 +1,1228 @@
+{
+  "result": {
+    "totalCount": 76,
+    "items": [
+      {
+        "city": {
+          "code": "241",
+          "description": "Achacachi",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1438
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "212",
+          "description": "Achocalla",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1439
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "4",
+          "description": "Ancoraimes",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1440
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "243",
+          "description": "Apolo",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1441
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "8",
+          "description": "Arapata",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1442
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "208",
+          "description": "Aroma",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1443
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "11",
+          "description": "Aucapata",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1444
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "12",
+          "description": "Ayata",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1445
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "13",
+          "description": "Ayo Ayo",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1446
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "15",
+          "description": "Batallas",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1447
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "22",
+          "description": "Cairoma",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1448
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "24",
+          "description": "Cajuata",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1449
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "25",
+          "description": "Calamarca (Pizacaviña)",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1450
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "29",
+          "description": "Caquiaviri",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1451
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "249",
+          "description": "Caranavi",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1452
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "210",
+          "description": "Charaña",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1453
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "36",
+          "description": "Charazani",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1454
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "240",
+          "description": "Chulumani",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1455
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "38",
+          "description": "Chuma (Muñecas)",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1456
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "39",
+          "description": "Chuma (Sud Yungas)",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1457
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "40",
+          "description": "Churubamba Pacajes",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1458
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "42",
+          "description": "Collana",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1459
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "176",
+          "description": "Colquencha",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1460
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "177",
+          "description": "Comanche",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1461
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "182",
+          "description": "Comunidad San Jose De Tiahuanacu",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1462
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "214",
+          "description": "Copacabana",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1463
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "215",
+          "description": "Coripata",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1464
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "185",
+          "description": "Coro Coro",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1465
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "216",
+          "description": "Coroico",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1466
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "189",
+          "description": "Curva",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1467
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "218",
+          "description": "Desaguadero",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1468
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "261",
+          "description": "El Alto",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1469
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "50",
+          "description": "El Choro",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1470
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "54",
+          "description": "Escoma",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1471
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "59",
+          "description": "Guanay",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1472
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "60",
+          "description": "Guaqui",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1473
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "66",
+          "description": "Huajchilla",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1474
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "67",
+          "description": "Humanata",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1475
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "72",
+          "description": "Inquisivi",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1476
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "75",
+          "description": "Irupana",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1477
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "76",
+          "description": "Ixiamas",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1478
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "79",
+          "description": "Keraya",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1479
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "266",
+          "description": "La Asunta",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1480
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "268",
+          "description": "La Paz",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1481
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "83",
+          "description": "Lahuachaca",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1482
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "269",
+          "description": "Laja",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1483
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "85",
+          "description": "Licoma",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1484
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "89",
+          "description": "Luribay",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1485
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "90",
+          "description": "Machacamarca",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1486
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "221",
+          "description": "Mallasa",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1487
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "95",
+          "description": "Mecapaca",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1488
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "96",
+          "description": "Mocomoco",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1489
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "224",
+          "description": "Palca",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1490
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "277",
+          "description": "Palos Blancos",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1491
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "278",
+          "description": "Patacamaya",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1492
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "105",
+          "description": "Pelechuco",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1493
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "281",
+          "description": "Pucarani",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1494
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "112",
+          "description": "Puerto Acosta",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1495
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "113",
+          "description": "Puerto Carabuco",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1496
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "115",
+          "description": "Puerto Perez",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1497
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "119",
+          "description": "Quime",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1498
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "130",
+          "description": "San Buena Ventura",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1499
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "132",
+          "description": "San Isidro",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1500
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "140",
+          "description": "San Pedro De Curahuara",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1501
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "141",
+          "description": "San Pedro De Tiquina",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1502
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "197",
+          "description": "Sapahaqui",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1503
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "302",
+          "description": "Sica Sica",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1504
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "198",
+          "description": "Siglo Xx",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1505
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "304",
+          "description": "Sorata",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1506
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "149",
+          "description": "Tiawanacu",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1507
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "150",
+          "description": "Tipuani",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1508
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "152",
+          "description": "Tito Yupanqui",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1509
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "162",
+          "description": "Umala",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1510
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "315",
+          "description": "Viacha",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1511
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "200",
+          "description": "Yaco",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1512
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "city": {
+          "code": "202",
+          "description": "Yanacachi",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "provinceId": 208,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1513
+        },
+        "provinceDescription": "La Paz",
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

@@ -1,0 +1,3868 @@
+{
+  "result": {
+    "totalCount": 241,
+    "items": [
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 230,
+          "documentTypeId": 16,
+          "id": 1244
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AF",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "AFGANISTÁN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 231,
+          "documentTypeId": 16,
+          "id": 1245
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AL",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ALBANIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 232,
+          "documentTypeId": 16,
+          "id": 1246
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "DE",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ALEMANIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 963,
+          "documentTypeId": 16,
+          "id": 1448
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AD",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ANDORRA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 233,
+          "documentTypeId": 16,
+          "id": 1247
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AO",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ANGOLA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 234,
+          "documentTypeId": 16,
+          "id": 1248
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AI",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ANGUILA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 235,
+          "documentTypeId": 16,
+          "id": 1249
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AG",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ANTIGUA Y BARBUDA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 236,
+          "documentTypeId": 16,
+          "id": 1250
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SA",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ARABIA SAUDI"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 237,
+          "documentTypeId": 16,
+          "id": 1251
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "DZ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ARGELIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 450,
+          "documentTypeId": 16,
+          "id": 2021
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ARGENTINA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "G",
+          "cisCountryId": 4,
+          "countryId": 238,
+          "documentTypeId": 19,
+          "id": 1235
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AR",
+        "documentTypeCode": "R",
+        "documentTypeDescription": "Cédula De Mercosur",
+        "countryCtyName": "ARGENTINA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 239,
+          "documentTypeId": 16,
+          "id": 1252
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AW",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ARUBA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 240,
+          "documentTypeId": 16,
+          "id": 1253
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AU",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "AUSTRALIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 241,
+          "documentTypeId": 16,
+          "id": 1254
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AT",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "AUSTRIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 964,
+          "documentTypeId": 16,
+          "id": 1449
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "PS",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "AUTORIDAD PALESTINA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 242,
+          "documentTypeId": 16,
+          "id": 1255
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AZ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "AZERBAIYÁN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 243,
+          "documentTypeId": 16,
+          "id": 1256
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BS",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BAHAMAS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 244,
+          "documentTypeId": 16,
+          "id": 1257
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BD",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BANGLADESH"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 245,
+          "documentTypeId": 16,
+          "id": 1258
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BB",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BARBADOS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 246,
+          "documentTypeId": 16,
+          "id": 1259
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BH",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BARÉIN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 247,
+          "documentTypeId": 16,
+          "id": 1260
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BE",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BÉLGICA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 248,
+          "documentTypeId": 16,
+          "id": 1261
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BZ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BÉLICE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 249,
+          "documentTypeId": 16,
+          "id": 1262
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BJ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BENIN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 250,
+          "documentTypeId": 16,
+          "id": 1263
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BM",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BERMUDAS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 967,
+          "documentTypeId": 16,
+          "id": 1452
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BY",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BIELORRUSIA"
+      },
+      {
+        "countryIssuer": {
+          "active": false,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 251,
+          "documentTypeId": 16,
+          "id": 1264
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BY",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BIELORRUSIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "E",
+          "cisCountryId": 4,
+          "countryId": 252,
+          "documentTypeId": 18,
+          "id": 2010
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BO",
+        "documentTypeCode": "D",
+        "documentTypeDescription": "Cédula De Extranjera",
+        "countryCtyName": "BOLIVIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 464,
+          "documentTypeId": 16,
+          "id": 2022
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BO",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BOLIVIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": true,
+          "docType": "C",
+          "cisCountryId": 4,
+          "countryId": 252,
+          "documentTypeId": 17,
+          "id": 1234
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BO",
+        "documentTypeCode": "B",
+        "documentTypeDescription": "Cédula",
+        "countryCtyName": "BOLIVIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 253,
+          "documentTypeId": 16,
+          "id": 1265
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "B1",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BONAIRE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 254,
+          "documentTypeId": 16,
+          "id": 1266
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BA",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BOSNIA-HERZEGOVINA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 255,
+          "documentTypeId": 16,
+          "id": 1267
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BW",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BOTSUANA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 468,
+          "documentTypeId": 16,
+          "id": 2023
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BRASIL"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "G",
+          "cisCountryId": 4,
+          "countryId": 256,
+          "documentTypeId": 19,
+          "id": 1236
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BR",
+        "documentTypeCode": "R",
+        "documentTypeDescription": "Cédula De Mercosur",
+        "countryCtyName": "BRASIL"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 257,
+          "documentTypeId": 16,
+          "id": 1268
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BN",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BRUNEI DARUSSALAM"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 258,
+          "documentTypeId": 16,
+          "id": 1269
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BG",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BULGARIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 259,
+          "documentTypeId": 16,
+          "id": 1270
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BF",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BURKINA FASO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 260,
+          "documentTypeId": 16,
+          "id": 1271
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BI",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BURUNDI"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 261,
+          "documentTypeId": 16,
+          "id": 1272
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BT",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "BUTÁN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 262,
+          "documentTypeId": 16,
+          "id": 1273
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CV",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "CABO VERDE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 263,
+          "documentTypeId": 16,
+          "id": 1274
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "KH",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "CAMBOYA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 264,
+          "documentTypeId": 16,
+          "id": 1275
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CM",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "CAMERÚN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 265,
+          "documentTypeId": 16,
+          "id": 1276
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CA",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "CANADÁ"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 266,
+          "documentTypeId": 16,
+          "id": 1277
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "TD",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "CHAD"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 479,
+          "documentTypeId": 16,
+          "id": 2024
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CL",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "CHILE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "G",
+          "cisCountryId": 4,
+          "countryId": 267,
+          "documentTypeId": 19,
+          "id": 1237
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CL",
+        "documentTypeCode": "R",
+        "documentTypeDescription": "Cédula De Mercosur",
+        "countryCtyName": "CHILE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 268,
+          "documentTypeId": 16,
+          "id": 1278
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CN",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "CHINA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 269,
+          "documentTypeId": 16,
+          "id": 1279
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CY",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "CHIPRE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 482,
+          "documentTypeId": 16,
+          "id": 2025
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CO",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "COLOMBIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "G",
+          "cisCountryId": 4,
+          "countryId": 270,
+          "documentTypeId": 19,
+          "id": 1238
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CO",
+        "documentTypeCode": "R",
+        "documentTypeDescription": "Cédula De Mercosur",
+        "countryCtyName": "COLOMBIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 271,
+          "documentTypeId": 16,
+          "id": 1280
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "KM",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "COMORAS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 273,
+          "documentTypeId": 16,
+          "id": 1282
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CG",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "CONGO-BRAZZAVILLE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 272,
+          "documentTypeId": 16,
+          "id": 1281
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CD",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "CONGO, REPUBLICA DEMOCRÁTICA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 274,
+          "documentTypeId": 16,
+          "id": 1283
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CI",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "COSTA DE MARFIL"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 275,
+          "documentTypeId": 16,
+          "id": 1284
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "COSTA RICA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 276,
+          "documentTypeId": 16,
+          "id": 1285
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "HR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "CROACIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 277,
+          "documentTypeId": 16,
+          "id": 1286
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CU",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "CUBA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 970,
+          "documentTypeId": 16,
+          "id": 1455
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AN",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "CURACAO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 278,
+          "documentTypeId": 16,
+          "id": 1287
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "DK",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "DINAMARCA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 279,
+          "documentTypeId": 16,
+          "id": 1288
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "DM",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "DOMINICA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 492,
+          "documentTypeId": 16,
+          "id": 2026
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "EC",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ECUADOR"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "G",
+          "cisCountryId": 4,
+          "countryId": 280,
+          "documentTypeId": 19,
+          "id": 1239
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "EC",
+        "documentTypeCode": "R",
+        "documentTypeDescription": "Cédula De Mercosur",
+        "countryCtyName": "ECUADOR"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 281,
+          "documentTypeId": 16,
+          "id": 1289
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "EG",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "EGIPTO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 282,
+          "documentTypeId": 16,
+          "id": 1290
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SV",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "EL SALVADOR"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 283,
+          "documentTypeId": 16,
+          "id": 1291
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AE",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "EMIRATOS ÁRABES UNIDOS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 284,
+          "documentTypeId": 16,
+          "id": 1292
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "ER",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ERITREA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 972,
+          "documentTypeId": 16,
+          "id": 1457
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "XS",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ESCOCIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 285,
+          "documentTypeId": 16,
+          "id": 1293
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SK",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ESLOVAQUIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 286,
+          "documentTypeId": 16,
+          "id": 1294
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SI",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ESLOVENIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 287,
+          "documentTypeId": 16,
+          "id": 1295
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "ES",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ESPAÑA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 288,
+          "documentTypeId": 16,
+          "id": 1296
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "US",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ESTADOS UNIDOS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 289,
+          "documentTypeId": 16,
+          "id": 1297
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "EE",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ESTONIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 290,
+          "documentTypeId": 16,
+          "id": 1298
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "ET",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ETIOPÍA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 291,
+          "documentTypeId": 16,
+          "id": 1299
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "RU",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "FEDERACIÓN RUSA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 292,
+          "documentTypeId": 16,
+          "id": 1300
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "FJ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "FIJI"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 293,
+          "documentTypeId": 16,
+          "id": 1301
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "PH",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "FILIPINAS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 294,
+          "documentTypeId": 16,
+          "id": 1302
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "FI",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "FINLANDIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 295,
+          "documentTypeId": 16,
+          "id": 1303
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "FR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "FRANCIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 296,
+          "documentTypeId": 16,
+          "id": 1304
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GA",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GABÓN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 974,
+          "documentTypeId": 16,
+          "id": 1459
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "XR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GALES"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 297,
+          "documentTypeId": 16,
+          "id": 1305
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GM",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GAMBIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 298,
+          "documentTypeId": 16,
+          "id": 1306
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GE",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GEORGIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 299,
+          "documentTypeId": 16,
+          "id": 1307
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GH",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GHANA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 300,
+          "documentTypeId": 16,
+          "id": 1308
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GI",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GIBRALTAR"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 301,
+          "documentTypeId": 16,
+          "id": 1309
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GD",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GRANADA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 302,
+          "documentTypeId": 16,
+          "id": 1310
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GRECIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 303,
+          "documentTypeId": 16,
+          "id": 1311
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GP",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GUADALUPE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 304,
+          "documentTypeId": 16,
+          "id": 1312
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GU",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GUAM"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 305,
+          "documentTypeId": 16,
+          "id": 1313
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GT",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GUATEMALA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 306,
+          "documentTypeId": 16,
+          "id": 1314
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GF",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GUAYANA FRANCESA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 307,
+          "documentTypeId": 16,
+          "id": 1315
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GN",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GUINEA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 308,
+          "documentTypeId": 16,
+          "id": 1316
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GQ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GUINEA ECUATORIAL"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 309,
+          "documentTypeId": 16,
+          "id": 1317
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GW",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GUINEA-BISSAU"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 522,
+          "documentTypeId": 16,
+          "id": 2027
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GY",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GUYANA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 310,
+          "documentTypeId": 16,
+          "id": 1318
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GY",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "GUYANA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 311,
+          "documentTypeId": 16,
+          "id": 1319
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "HT",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "HAITÍ"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 312,
+          "documentTypeId": 16,
+          "id": 1320
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "HN",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "HONDURAS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 313,
+          "documentTypeId": 16,
+          "id": 1321
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "HK",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "HONG KONG"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 314,
+          "documentTypeId": 16,
+          "id": 1322
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "HU",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "HUNGRÍA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 315,
+          "documentTypeId": 16,
+          "id": 1323
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "IN",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "INDIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 316,
+          "documentTypeId": 16,
+          "id": 1324
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "ID",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "INDONESIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 978,
+          "documentTypeId": 16,
+          "id": 1463
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "XQ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "INGLATERRA"
+      },
+      {
+        "countryIssuer": {
+          "active": false,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 979,
+          "documentTypeId": 16,
+          "id": 1464
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "X0",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "INTERNATIONAL TEST COUNTRY"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 317,
+          "documentTypeId": 16,
+          "id": 1325
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "IQ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "IRAK"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 318,
+          "documentTypeId": 16,
+          "id": 1326
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "IE",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "IRLANDA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 981,
+          "documentTypeId": 16,
+          "id": 1466
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "XZ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "IRLANDA DEL NORTE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 319,
+          "documentTypeId": 16,
+          "id": 1327
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "RE",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ISLA REUNIÓN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 320,
+          "documentTypeId": 16,
+          "id": 1328
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "IS",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ISLANDIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 321,
+          "documentTypeId": 16,
+          "id": 1329
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "KY",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ISLAS CAIMÁN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 322,
+          "documentTypeId": 16,
+          "id": 1330
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CK",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ISLAS COOK"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 323,
+          "documentTypeId": 16,
+          "id": 1331
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "FK",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ISLAS MALVINAS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 324,
+          "documentTypeId": 16,
+          "id": 1332
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MP",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ISLAS MARIANAS DEL NORTE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 325,
+          "documentTypeId": 16,
+          "id": 1333
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MH",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ISLAS MARSHALL"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 326,
+          "documentTypeId": 16,
+          "id": 1334
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SB",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ISLAS SALOMÓN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 327,
+          "documentTypeId": 16,
+          "id": 1335
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "TC",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ISLAS TURCAS Y CAICOS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 328,
+          "documentTypeId": 16,
+          "id": 1336
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "VG",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ISLAS VÍRGENES (BRITÁNICAS)"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 983,
+          "documentTypeId": 16,
+          "id": 1468
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "VI",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ISLAS VÍRGENES (EE.UU.)"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 329,
+          "documentTypeId": 16,
+          "id": 1337
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "IL",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ISRAEL"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 330,
+          "documentTypeId": 16,
+          "id": 1338
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "IT",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ITALIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 331,
+          "documentTypeId": 16,
+          "id": 1339
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "JM",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "JAMAICA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 332,
+          "documentTypeId": 16,
+          "id": 1340
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "JP",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "JAPÓN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 333,
+          "documentTypeId": 16,
+          "id": 1341
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "JO",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "JORDANIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 334,
+          "documentTypeId": 16,
+          "id": 1342
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "KZ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "KAZAJSTÁN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 335,
+          "documentTypeId": 16,
+          "id": 1343
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "KE",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "KENIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 336,
+          "documentTypeId": 16,
+          "id": 1344
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "KG",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "KIRGUISTÁN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 337,
+          "documentTypeId": 16,
+          "id": 1345
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "KI",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "KIRIBATI"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 338,
+          "documentTypeId": 16,
+          "id": 1346
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "K1",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "KOSOVO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 339,
+          "documentTypeId": 16,
+          "id": 1347
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "KW",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "KUWAIT"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 340,
+          "documentTypeId": 16,
+          "id": 1348
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "LA",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "LAOS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 341,
+          "documentTypeId": 16,
+          "id": 1349
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "LS",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "LESOTHO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 342,
+          "documentTypeId": 16,
+          "id": 1350
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "LV",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "LETONIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 343,
+          "documentTypeId": 16,
+          "id": 1351
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "LB",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "LÍBANO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 344,
+          "documentTypeId": 16,
+          "id": 1352
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "LR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "LIBERIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 345,
+          "documentTypeId": 16,
+          "id": 1353
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "LY",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "LIBIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 346,
+          "documentTypeId": 16,
+          "id": 1354
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "LI",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "LIECHTENSTEIN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 347,
+          "documentTypeId": 16,
+          "id": 1355
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "LT",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "LITUANIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 348,
+          "documentTypeId": 16,
+          "id": 1356
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "LU",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "LUXEMBURGO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 349,
+          "documentTypeId": 16,
+          "id": 1357
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MO",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MACAO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 350,
+          "documentTypeId": 16,
+          "id": 1358
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MK",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MACEDONIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 351,
+          "documentTypeId": 16,
+          "id": 1359
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MG",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MADAGASCAR"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 352,
+          "documentTypeId": 16,
+          "id": 1360
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MY",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MALASIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 353,
+          "documentTypeId": 16,
+          "id": 1361
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MW",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MALAWI"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 354,
+          "documentTypeId": 16,
+          "id": 1362
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MV",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MALDIVAS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 355,
+          "documentTypeId": 16,
+          "id": 1363
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "ML",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MALI"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 356,
+          "documentTypeId": 16,
+          "id": 1364
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MT",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MALTA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 357,
+          "documentTypeId": 16,
+          "id": 1365
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MA",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MARRUECOS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 358,
+          "documentTypeId": 16,
+          "id": 1366
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MQ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MARTINICA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 359,
+          "documentTypeId": 16,
+          "id": 1367
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MU",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MAURICIO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 360,
+          "documentTypeId": 16,
+          "id": 1368
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MAURITANIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 989,
+          "documentTypeId": 16,
+          "id": 1474
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "YT",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MAYOTTE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 361,
+          "documentTypeId": 16,
+          "id": 1369
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MX",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MÉXICO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 362,
+          "documentTypeId": 16,
+          "id": 1370
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "FM",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MICRONESIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 990,
+          "documentTypeId": 16,
+          "id": 1475
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MC",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MÓNACO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 363,
+          "documentTypeId": 16,
+          "id": 1371
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MN",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MONGOLIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 364,
+          "documentTypeId": 16,
+          "id": 1372
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "ME",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MONTENEGRO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 365,
+          "documentTypeId": 16,
+          "id": 1373
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MS",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MONTSERRAT"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 366,
+          "documentTypeId": 16,
+          "id": 1374
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MZ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MOZAMBIQUE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 991,
+          "documentTypeId": 16,
+          "id": 1476
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MM",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "MYANMAR"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 367,
+          "documentTypeId": 16,
+          "id": 1375
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "NA",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "NAMIBIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 368,
+          "documentTypeId": 16,
+          "id": 1376
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "NR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "NAURU"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 369,
+          "documentTypeId": 16,
+          "id": 1377
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "NP",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "NEPAL"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 370,
+          "documentTypeId": 16,
+          "id": 1378
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "NI",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "NICARAGUA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 371,
+          "documentTypeId": 16,
+          "id": 1379
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "NE",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "NÍGER"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 372,
+          "documentTypeId": 16,
+          "id": 1380
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "NG",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "NIGERIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 373,
+          "documentTypeId": 16,
+          "id": 1381
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "NU",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "NIUE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 374,
+          "documentTypeId": 16,
+          "id": 1382
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "NO",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "NORUEGA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 375,
+          "documentTypeId": 16,
+          "id": 1383
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "NC",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "NUEVA CALEDONIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 376,
+          "documentTypeId": 16,
+          "id": 1384
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "NZ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "NUEVA ZELANDA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 377,
+          "documentTypeId": 16,
+          "id": 1385
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "OM",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "OMÁN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 378,
+          "documentTypeId": 16,
+          "id": 1386
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "NL",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "PAÍSES BAJOS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 379,
+          "documentTypeId": 16,
+          "id": 1387
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "PK",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "PAKISTÁN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 380,
+          "documentTypeId": 16,
+          "id": 1388
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "PW",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "PALAU"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 381,
+          "documentTypeId": 16,
+          "id": 1389
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "PA",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "PANAMÁ"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 382,
+          "documentTypeId": 16,
+          "id": 1390
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "PG",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "PAPUA NUEVA GUINEA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "G",
+          "cisCountryId": 4,
+          "countryId": 383,
+          "documentTypeId": 19,
+          "id": 1240
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "PY",
+        "documentTypeCode": "R",
+        "documentTypeDescription": "Cédula De Mercosur",
+        "countryCtyName": "PARAGUAY"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 596,
+          "documentTypeId": 16,
+          "id": 2028
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "PE",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "PERÚ"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "G",
+          "cisCountryId": 4,
+          "countryId": 384,
+          "documentTypeId": 19,
+          "id": 1241
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "PE",
+        "documentTypeCode": "R",
+        "documentTypeDescription": "Cédula De Mercosur",
+        "countryCtyName": "PERÚ"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 385,
+          "documentTypeId": 16,
+          "id": 1391
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "PF",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "POLINESIA FRANCESA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 386,
+          "documentTypeId": 16,
+          "id": 1392
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "PL",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "POLONIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 387,
+          "documentTypeId": 16,
+          "id": 1393
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "PT",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "PORTUGAL"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 994,
+          "documentTypeId": 16,
+          "id": 1479
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "PR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "PUERTO RICO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 388,
+          "documentTypeId": 16,
+          "id": 1394
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "QA",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "QATAR"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 389,
+          "documentTypeId": 16,
+          "id": 1395
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "GB",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "REINO UNIDO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 390,
+          "documentTypeId": 16,
+          "id": 1396
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CF",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "REPÚBLICA CENTROAFRICANA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 391,
+          "documentTypeId": 16,
+          "id": 1397
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CZ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "REPÚBLICA CHECA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 392,
+          "documentTypeId": 16,
+          "id": 1398
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "KR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "REPÚBLICA DE COREA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 393,
+          "documentTypeId": 16,
+          "id": 1399
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MD",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "REPÚBLICA DE MOLDAVIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 394,
+          "documentTypeId": 16,
+          "id": 1400
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "C2",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "REPÚBLICA DEL NORTE DE CHIPRE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 395,
+          "documentTypeId": 16,
+          "id": 1401
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "DO",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "REPÚBLICA DOMINICANA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 396,
+          "documentTypeId": 16,
+          "id": 1402
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "TZ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "REPÚBLICA UNIDA DE TANZANIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 997,
+          "documentTypeId": 16,
+          "id": 1482
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "XW",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ROTA, CIMN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 397,
+          "documentTypeId": 16,
+          "id": 1403
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "RW",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "RUANDA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 398,
+          "documentTypeId": 16,
+          "id": 1404
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "RO",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "RUMANIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 998,
+          "documentTypeId": 16,
+          "id": 1483
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "XU",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SAIPAN, CIMN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 399,
+          "documentTypeId": 16,
+          "id": 1405
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "WS",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SAMOA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 400,
+          "documentTypeId": 16,
+          "id": 1406
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "AS",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SAMOA NORTEAMERICANA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 999,
+          "documentTypeId": 16,
+          "id": 1484
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "BL",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SAN BARTOLOMÉ"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 401,
+          "documentTypeId": 16,
+          "id": 1407
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "KN",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SAN CRISTÓBAL Y NIEVES"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 1000,
+          "documentTypeId": 16,
+          "id": 1485
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "MF",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SAN MARTIN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 403,
+          "documentTypeId": 16,
+          "id": 1409
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "VC",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SAN VICENTE Y LAS GRANADINAS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 404,
+          "documentTypeId": 16,
+          "id": 1410
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "LC",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SANTA LUCÍA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 1001,
+          "documentTypeId": 16,
+          "id": 1486
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "XD",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SANTO TOMAS"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 405,
+          "documentTypeId": 16,
+          "id": 1411
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "ST",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SANTO TOMÉ Y PRÍNCIPE"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 406,
+          "documentTypeId": 16,
+          "id": 1412
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SN",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SENEGAL"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 408,
+          "documentTypeId": 16,
+          "id": 1414
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SC",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SEYCHELLES"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 409,
+          "documentTypeId": 16,
+          "id": 1415
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SL",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SIERRA LEONA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 410,
+          "documentTypeId": 16,
+          "id": 1416
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SG",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SINGAPUR"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 411,
+          "documentTypeId": 16,
+          "id": 1417
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SY",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SIRIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 412,
+          "documentTypeId": 16,
+          "id": 1418
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SO",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SOMALIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 413,
+          "documentTypeId": 16,
+          "id": 1419
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "LK",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SRI LANKA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 414,
+          "documentTypeId": 16,
+          "id": 1420
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "ZA",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SUDÁFRICA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 415,
+          "documentTypeId": 16,
+          "id": 1421
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SD",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SUDÁN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 1003,
+          "documentTypeId": 16,
+          "id": 1488
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SS",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SUDÁN DEL SUR"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 416,
+          "documentTypeId": 16,
+          "id": 1422
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SE",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SUECIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 417,
+          "documentTypeId": 16,
+          "id": 1423
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "CH",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SUIZA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 630,
+          "documentTypeId": 16,
+          "id": 2029
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SURINÁME"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 418,
+          "documentTypeId": 16,
+          "id": 1424
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SURINÁME"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 419,
+          "documentTypeId": 16,
+          "id": 1425
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "SZ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "SWAZILANDIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 420,
+          "documentTypeId": 16,
+          "id": 1426
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "TH",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "TAILANDIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 421,
+          "documentTypeId": 16,
+          "id": 1427
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "TW",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "TAIWÁN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 422,
+          "documentTypeId": 16,
+          "id": 1428
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "TJ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "TAYIKISTÁN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 1004,
+          "documentTypeId": 16,
+          "id": 1489
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "XV",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "TINIAN, CIMN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 424,
+          "documentTypeId": 16,
+          "id": 1430
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "TG",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "TOGO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 425,
+          "documentTypeId": 16,
+          "id": 1431
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "TO",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "TONGA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 426,
+          "documentTypeId": 16,
+          "id": 1432
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "TT",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "TRINIDAD Y TOBAGO"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 427,
+          "documentTypeId": 16,
+          "id": 1433
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "TN",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "TÚNEZ"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 428,
+          "documentTypeId": 16,
+          "id": 1434
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "TM",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "TURKMENISTAN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 429,
+          "documentTypeId": 16,
+          "id": 1435
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "TR",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "TURQUÍA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 430,
+          "documentTypeId": 16,
+          "id": 1436
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "TV",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "TUVALU"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 431,
+          "documentTypeId": 16,
+          "id": 1437
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "UA",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "UCRANIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 432,
+          "documentTypeId": 16,
+          "id": 1438
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "UG",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "UGANDA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 645,
+          "documentTypeId": 16,
+          "id": 2030
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "UY",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "URUGUAY"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "G",
+          "cisCountryId": 4,
+          "countryId": 433,
+          "documentTypeId": 19,
+          "id": 1242
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "UY",
+        "documentTypeCode": "R",
+        "documentTypeDescription": "Cédula De Mercosur",
+        "countryCtyName": "URUGUAY"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 434,
+          "documentTypeId": 16,
+          "id": 1439
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "UZ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "UZBEQUISTÁN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 435,
+          "documentTypeId": 16,
+          "id": 1440
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "VU",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "VANUATU"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "G",
+          "cisCountryId": 4,
+          "countryId": 436,
+          "documentTypeId": 19,
+          "id": 1243
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "VE",
+        "documentTypeCode": "R",
+        "documentTypeDescription": "Cédula De Mercosur",
+        "countryCtyName": "VENEZUELA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 437,
+          "documentTypeId": 16,
+          "id": 1441
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "VN",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "VIETNAM"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 438,
+          "documentTypeId": 16,
+          "id": 1442
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "YE",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "YEMEN"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 439,
+          "documentTypeId": 16,
+          "id": 1443
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "DJ",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "YIBUTI"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 440,
+          "documentTypeId": 16,
+          "id": 1444
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "ZM",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ZAMBIA"
+      },
+      {
+        "countryIssuer": {
+          "active": true,
+          "isDefault": false,
+          "docType": "P",
+          "cisCountryId": 4,
+          "countryId": 441,
+          "documentTypeId": 16,
+          "id": 1445
+        },
+        "cisCountryIsoCode": "BO",
+        "countryCtyIsoCode": "ZW",
+        "documentTypeCode": "A",
+        "documentTypeDescription": "Pasaporte",
+        "countryCtyName": "ZIMBABWE"
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

@@ -1,0 +1,76 @@
+{
+  "totalCount": 5,
+  "items": [
+    {
+      "documentType": {
+        "code": "B",
+        "description": "Cédula",
+        "enabled": true,
+        "isUpdated": false,
+        "isDefault": false,
+        "typeId_Fe": 1,
+        "erpCodeId": null,
+        "equivalenceCode": "B",
+        "id": 17
+      },
+      "cisCountryName": "Bolivia"
+    },
+    {
+      "documentType": {
+        "code": "D",
+        "description": "Cédula De Extranjera",
+        "enabled": true,
+        "isUpdated": false,
+        "isDefault": false,
+        "typeId_Fe": 2,
+        "erpCodeId": null,
+        "equivalenceCode": "D",
+        "id": 18
+      },
+      "cisCountryName": "Bolivia"
+    },
+    {
+      "documentType": {
+        "code": "R",
+        "description": "Cédula De Mercosur",
+        "enabled": true,
+        "isUpdated": false,
+        "isDefault": false,
+        "typeId_Fe": 2,
+        "erpCodeId": null,
+        "equivalenceCode": "R",
+        "id": 19
+      },
+      "cisCountryName": "Bolivia"
+    },
+    {
+      "documentType": {
+        "code": "NIT",
+        "description": "NIT",
+        "fromWU": false,
+        "enabled": true,
+        "isUpdated": false,
+        "isDefault": false,
+        "typeId_Fe": null,
+        "erpCodeId": null,
+        "equivalenceCode": null,
+        "id": 91
+      },
+      "cisCountryName": "Bolivia"
+    },
+    {
+      "documentType": {
+        "code": "A",
+        "description": "Pasaporte",
+        "enabled": true,
+        "isUpdated": false,
+        "isDefault": false,
+        "typeId_Fe": 3,
+        "erpCodeId": null,
+        "equivalenceCode": "A",
+        "id": 16
+      },
+      "cisCountryName": "Bolivia"
+    }
+  ]
+}

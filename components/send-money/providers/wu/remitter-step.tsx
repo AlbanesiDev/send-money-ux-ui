@@ -1,11 +1,12 @@
+import type { Customer } from "../../types";
 import { Field } from "../../field";
 
 export function WuRemitterStep({
   documentNumber,
-  known,
+  customer,
 }: {
   documentNumber: string;
-  known: (value?: string) => string | undefined;
+  customer: Customer | null;
 }) {
   return (
     <div className="space-y-6">
@@ -18,44 +19,101 @@ export function WuRemitterStep({
           disabled
           required
         />
-        <Field label="País de emisión" value={known("Bolivia")} required />
-        <Field label="Fecha de emisión" value={known("01/01/2018")} required />
+        <Field
+          label="País de emisión"
+          value={customer === null ? undefined : customer.documentIssueCountry}
+          required
+        />
+        <Field
+          label="Fecha de emisión"
+          value={customer === null ? undefined : customer.documentIssueDate}
+          required
+        />
         <Field
           label="Fecha de vencimiento"
-          value={known("01/01/2028")}
+          value={customer === null ? undefined : customer.documentExpiryDate}
           required
         />
       </div>
       <h2 className="pt-4 font-bold">Datos personales</h2>
       <div className="grid gap-3 sm:grid-cols-2">
-        <Field label="Nombre" value={known("Eliana")} required />
-        <Field label="Segundo nombre" />
-        <Field label="Primer apellido" value={known("Antezana")} required />
-        <Field label="Segundo apellido" value={known("Ovando")} />
         <Field
-          label="Fecha de nacimiento"
-          value={known("15/03/1985")}
+          label="Nombre"
+          value={customer === null ? undefined : customer.firstName}
           required
         />
-        <Field label="País de nacimiento" value={known("Bolivia")} required />
-        <Field label="Nacionalidad" value={known("Boliviana")} required />
-        <Field label="Género" value={known("Femenino")} required />
+        <Field
+          label="Segundo nombre"
+          value={customer === null ? undefined : customer.middleName}
+        />
+        <Field
+          label="Primer apellido"
+          value={customer === null ? undefined : customer.lastName}
+          required
+        />
+        <Field
+          label="Segundo apellido"
+          value={customer === null ? undefined : customer.secondLastName}
+        />
+        <Field
+          label="Fecha de nacimiento"
+          value={customer === null ? undefined : customer.birthDate}
+          required
+        />
+        <Field
+          label="País de nacimiento"
+          value={customer === null ? undefined : customer.birthCountry}
+          required
+        />
+        <Field
+          label="Nacionalidad"
+          value={customer === null ? undefined : customer.nationality}
+          required
+        />
+        <Field
+          label="Género"
+          value={customer === null ? undefined : customer.gender}
+          required
+        />
         <Field
           label="Correo electrónico"
-          value={known("jorge.gimenez@cislatam.com")}
+          value={customer === null ? undefined : customer.email}
           required
         />
         <Field label="Comentarios" />
       </div>
       <h2 className="pt-4 font-bold">Domicilio y teléfono</h2>
       <div className="grid gap-3 sm:grid-cols-2">
-        <Field label="Calle" value={known("Fabian Vaca")} required />
-        <Field label="Dirección" value={known("Fabian Vaca 3712")} required />
+        <Field
+          label="Calle"
+          value={customer === null ? undefined : customer.street}
+          required
+        />
+        <Field
+          label="Dirección"
+          value={customer === null ? undefined : customer.address}
+          required
+        />
         <Field label="País" value="Bolivia" disabled required />
-        <Field label="Departamento / Estado" value={known("La Paz")} required />
-        <Field label="Ciudad" value={known("Acarapiri")} required />
-        <Field label="Teléfono" value={known("45545454")} />
-        <Field label="Móvil" value={known("71234567")} required />
+        <Field
+          label="Departamento / Estado"
+          value={customer === null ? undefined : customer.state}
+          required
+        />
+        <Field
+          label="Ciudad"
+          value={customer === null ? undefined : customer.city}
+          required
+        />
+        <Field
+          label="Teléfono"
+          value={customer === null ? undefined : customer.phone}
+        />
+        <Field
+          label="Móvil"
+          value={customer === null ? undefined : customer.mobile}
+          required
+        />
       </div>
     </div>
   );

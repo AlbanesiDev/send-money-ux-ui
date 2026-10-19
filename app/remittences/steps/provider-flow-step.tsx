@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { ProviderStepContent } from "@/components/send-money/provider-step-content";
 import type {
   Beneficiary,
+  Customer,
   PaymentLine,
   ProviderId,
   ProviderQuote,
@@ -15,6 +16,7 @@ export type ProviderFlowStepProps = {
   step: number;
   activeSteps: readonly string[];
   documentNumber: string;
+  customer: Customer | null;
   known: (value?: string) => string | undefined;
   isKnownClient: boolean;
   beneficiaries: Beneficiary[];

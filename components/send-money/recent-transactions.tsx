@@ -105,59 +105,6 @@ const STATUS_DOT: Record<TransactionStatus, string> = {
   Cancelada: "bg-[#dc6262]",
 };
 
-const RIA_LOCATION = "Av.Beni edif TorreEmpresarial Cubo Santa ";
-
-/** Mock del historial del cliente conocido hasta integrar el servicio real. */
-export const KNOWN_CLIENT_TRANSACTIONS: RecentTransaction[] = [
-  {
-    id: "12030070712",
-    date: "08 oct 2026",
-    time: "11:42",
-    status: "Completada",
-    provider: "WU",
-    destinationCountry: "Argentina",
-    deliveryType: "CASH",
-    wuService: "Dinero en minutos (000)",
-    service: "Dinero en minutos",
-    payingPartner: "Banco Ganadero",
-    location: RIA_LOCATION,
-    amount: 300,
-    beneficiaryIndex: 0,
-    paymentMethod: "Pago en efectivo",
-  },
-  {
-    id: "12030070598",
-    date: "21 sep 2026",
-    time: "16:08",
-    status: "Completada",
-    provider: "TERRAPAY",
-    destinationCountry: "Peru",
-    deliveryType: "BANK",
-    wuService: "Direct to bank (500)",
-    service: "Direct to bank",
-    terraPayBank: "Banco Nacional",
-    amount: 150,
-    beneficiaryIndex: 1,
-    paymentMethod: "Tarjeta de débito",
-  },
-  {
-    id: "12030070431",
-    date: "30 ago 2026",
-    time: "09:35",
-    status: "En revisión",
-    provider: "RIA",
-    destinationCountry: "Chile",
-    deliveryType: "CASH",
-    wuService: "24 horas",
-    service: "Dinero en minutos",
-    payingPartner: "Banco Economico",
-    location: RIA_LOCATION,
-    amount: 500,
-    beneficiaryIndex: 2,
-    paymentMethod: "Transferencia bancaria",
-  },
-];
-
 export function RecentTransactions({
   transactions,
   beneficiaries,
@@ -195,6 +142,14 @@ export function RecentTransactions({
     if (!filtersOpen) return;
     setDraftFilters(appliedFilters);
   }, [filtersOpen, appliedFilters]);
+
+  useEffect(() => {
+    if (status !== STATUS.IDLE) return;
+    setQuery("");
+    setAppliedFilters(EMPTY_ADVANCED_FILTERS);
+    setDraftFilters(EMPTY_ADVANCED_FILTERS);
+    setFiltersOpen(false);
+  }, [status]);
 
   const activeAdvancedFilterCount = [
     appliedFilters.dateFrom !== "",
@@ -313,7 +268,7 @@ export function RecentTransactions({
       );
     }
 
-    return visibleTransactions.map((transaction, index) => {
+    return visibleTransactions.slice(0, 3).map((transaction, index) => {
       const beneficiary = beneficiaries[transaction.beneficiaryIndex];
       const selected = transaction.id === selectedId;
 
@@ -409,7 +364,7 @@ export function RecentTransactions({
                     disabled={disabled}
                     onClick={() => onSelect(transaction)}
                     aria-label={`Repetir envío ${transaction.id} a ${beneficiary.name} por ${formatUsd(transaction.amount)}`}
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-amber-400  bg-amber-300/80 px-2.5 py-2 text-[11px] font-bold whitespace-nowrap text-[#33425f] transition-colors hover:border-amber-300 hover:bg-amber-300 focus:outline-none focus:ring-4 focus:ring-[#3064d1]/20 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-amber-400  bg-amber-300/75 px-2.5 py-2 text-[11px] font-bold whitespace-nowrap text-[#33425f] transition-colors hover:border-amber-300 hover:bg-amber-300 focus:outline-none focus:ring-4 focus:ring-[#3064d1]/20 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <RefreshCw size={16} />
                     Repetir envío

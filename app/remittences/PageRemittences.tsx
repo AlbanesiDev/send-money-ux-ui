@@ -11,19 +11,18 @@ import {
   CancelOperationDialog,
 } from "@/app/remittences/dialogs";
 import {
-  BASE_STEPS,
   buildActiveSteps,
   buildProviderQuotes,
+  buildQuoteLoadingSteps,
   findStepNumber,
   getStepKey,
   quoteFieldVisibility,
 } from "@/components/send-money/provider-flows";
-import {
-  KNOWN_CLIENT_TRANSACTIONS,
-  type RecentTransaction,
-} from "@/components/send-money/recent-transactions";
+import { type RecentTransaction } from "@/components/send-money/recent-transactions";
 import { PaymentMethodPanel } from "@/components/send-money/shared/payment-method-panel";
 import type {
+  Beneficiary,
+  Customer,
   DeliveryTypeId,
   PaymentCurrency,
   PaymentLine,
@@ -38,7 +37,16 @@ import {
   QuoteStep,
   type ClientSearchResult,
 } from "@/app/remittences/steps";
+import beneficiariesSnapshot from "@/public/data/beneficiaries.snapshot.json";
+import customersSnapshot from "@/public/data/customers.snapshot.json";
+import transactionsHistorySnapshot from "@/public/data/transactions-history.snapshot.json";
 import { ArrowLeftIcon, ArrowRightIcon, SendIcon } from "lucide-react";
+
+const CUSTOMERS = customersSnapshot as Customer[];
+const BENEFICIARIES = beneficiariesSnapshot as Beneficiary[];
+const TRANSACTIONS_HISTORY = transactionsHistorySnapshot as Array<
+  RecentTransaction & { customerId: string }
+>;
 
 function useAltFieldNavigation() {
   useEffect(() => {
@@ -182,7 +190,9 @@ function PageRemittences() {
 function TransactionFlow({ onReset }: { onReset: () => void }) {
   useAltFieldNavigation();
   const [step, setStep] = useState(1);
-  const [activeSteps, setActiveSteps] = useState<string[]>([...BASE_STEPS]);
+  const [activeSteps, setActiveSteps] = useState<string[]>(() =>
+    buildQuoteLoadingSteps(false),
+  );
   const [documentNumber, setDocumentNumber] = useState("");
   const [selectedProvider, setSelectedProvider] = useState<ProviderId | null>(
     null,
@@ -248,7 +258,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setProviderQuotes([]);
     setQuotesReady(false);
     setSelectedProvider(null);
-    setActiveSteps([...BASE_STEPS]);
+    setActiveSteps(buildQuoteLoadingSteps(false));
     setQuoteLoading(false);
     setStep((current) => Math.min(current, 2));
   };
@@ -259,6 +269,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   }) => {
     const type = override?.deliveryType ?? deliveryType;
     if (!type) return;
+    const skipParties =
+      selectedTransactionId !== null ||
+      override !== undefined ||
+      repeatProvider !== null;
     const normalizedAmount = override
       ? usdFormatter.format(override.amount)
       : normalizeAmount(sendAmount);
@@ -273,7 +287,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       setProviderQuotes([]);
       setQuotesReady(false);
       setSelectedProvider(null);
-      setActiveSteps([...BASE_STEPS]);
+      setActiveSteps(buildQuoteLoadingSteps(skipParties));
       setQuoteLoading(false);
       setStep((current) => Math.min(current, 2));
       return;
@@ -285,7 +299,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setSelectedProvider(null);
     setProviderQuotes([]);
     setQuotesReady(false);
-    setActiveSteps([...BASE_STEPS]);
+    setActiveSteps(buildQuoteLoadingSteps(skipParties));
     setStep((current) => Math.min(current, 2));
     window.setTimeout(() => {
       if (requestId !== quoteRequestRef.current) return;
@@ -306,8 +320,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
         setQuote(preferred);
         setActiveSteps(
           buildActiveSteps(preferred.provider, {
-            skipParties:
-              selectedTransactionId !== null || override !== undefined,
+            skipParties,
           }),
         );
       }
@@ -334,14 +347,24 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setProviderQuotes([]);
     setQuotesReady(false);
     setSelectedProvider(null);
-    setActiveSteps([...BASE_STEPS]);
+    setActiveSteps(buildQuoteLoadingSteps(false));
     setStep((current) => Math.min(current, 2));
     setQuoteLoading(false);
   };
   const [result, setResult] = useState<ClientSearchResult>(null);
   const isKnownClient = result === "success";
+  let customer: Customer | null = null;
+  if (result === "success") {
+    const found = CUSTOMERS.find((item) =>
+      item.documentNumbers.includes(documentNumber.trim()),
+    );
+    if (found === undefined) {
+      throw new Error(`Customer not found for document ${documentNumber}`);
+    }
+    customer = found;
+  }
   const known = (value?: string) => (isKnownClient ? value : undefined);
-  const senderName = isKnownClient ? "Eliana Antezana Ovando" : "";
+  const senderName = customer === null ? "" : customer.fullName;
   const [billingOpen, setBillingOpen] = useState(false);
   const [billingOverride, setBillingOverride] = useState<{
     name: string;
@@ -412,31 +435,15 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     Record<string, boolean>
   >({ "¿Es una Persona Expuesta Políticamente (PEP)?": true });
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(0);
-  const beneficiaries = [
-    {
-      name: "Joaco Test",
-      document: "78073652",
-      city: "Acerani",
-      phone: "4554545454",
-      email: "beneficiario@example.com",
-    },
-    {
-      name: "María Fernanda López",
-      document: "6543210",
-      city: "La Paz",
-      phone: "712345678",
-      email: "m***@example.com",
-    },
-    {
-      name: "Carlos Alberto Rojas",
-      document: "9876543",
-      city: "Cochabamba",
-      phone: "765432109",
-      email: "c***@example.com",
-    },
-  ];
+  const beneficiaries =
+    customer === null
+      ? BENEFICIARIES
+      : BENEFICIARIES.filter((item) => item.customerId === customer.id);
   const beneficiary = beneficiaries[selectedBeneficiary];
-  const recentTransactions = isKnownClient ? KNOWN_CLIENT_TRANSACTIONS : [];
+  const recentTransactions =
+    customer === null
+      ? []
+      : TRANSACTIONS_HISTORY.filter((item) => item.customerId === customer.id);
 
   // Autocompleta cotización, beneficiario y pago a partir de una transacción
   // previa; los datos del remitente y PEP ya vienen del cliente encontrado.
@@ -484,12 +491,12 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   useEffect(() => {
     if (result === "success" || result === "empty") {
       setAdditionalChecks(
-        result === "success"
+        result === "success" && customer !== null && customer.isPep
           ? { "¿Es una Persona Expuesta Políticamente (PEP)?": true }
           : {},
       );
     }
-  }, [result]);
+  }, [result, customer]);
 
   useEffect(() => {
     if (
@@ -573,36 +580,38 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
 
   const summaryAside = (
     <aside className="sticky top-0 flex flex-col gap-3 self-start">
-      <div className="grid grid-cols-2 gap-3">
-        <div className="rounded-xl border border-border bg-card p-3">
+      <div className="flex gap-3">
+        <div className="rounded-xl border border-border bg-card p-3 flex-1">
           <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
             Remitente
           </p>
           <p className="mt-1.5 text-sm font-bold text-foreground">
-            {isKnownClient ? "Eliana Antezana Ovando" : "Nuevo cliente"}
+            {customer === null ? "Nuevo cliente" : customer.fullName}
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
             Cédula: {documentNumber}
-            {isKnownClient && " · j***@cislatam.com"}
+            {customer !== null && ` · ${customer.emailMasked}`}
           </p>
-          {isKnownClient && (
+          {customer !== null && customer.isPep && (
             <p className="mt-1 text-sm font-semibold text-brand">PEP: Sí</p>
           )}
         </div>
-        <div className="rounded-xl border border-border bg-card p-3">
-          <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-            Beneficiario
-          </p>
-          <p className="mt-1.5 text-sm font-bold text-foreground">
-            {beneficiary.name}
-          </p>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Doc: {beneficiary.document} · {beneficiary.city}
-          </p>
-          <p className="mt-1 text-xs text-muted-foreground">
-            {beneficiary.phone} · {beneficiary.email}
-          </p>
-        </div>
+        {selectedBeneficiary !== 0 && (
+          <div className="rounded-xl border border-border bg-card p-3 w-1/2">
+            <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+              Beneficiario
+            </p>
+            <p className="mt-1.5 text-sm font-bold text-foreground">
+              {beneficiary.name}
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Doc: {beneficiary.document} · {beneficiary.city}
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {beneficiary.phone} · {beneficiary.email}
+            </p>
+          </div>
+        )}
       </div>
       <RemittanceSummary
         provider={selectedProvider}
@@ -678,6 +687,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     onResultChange={setResult}
                     onContinue={next}
                     continueRef={continueRef}
+                    customer={customer}
                     recentTransactions={recentTransactions}
                     beneficiaries={beneficiaries}
                     selectedTransactionId={selectedTransactionId}
@@ -693,7 +703,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
               </div>
             </Stepper.Step>
             <Stepper.Step index={2}>
-              <div className="grid min-h-0 flex-1 gap-4 overflow-y-auto lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]">
+              <div className="grid min-h-0 flex-1 gap-4 overflow-y-auto lg:grid-cols-[minmax(0,1fr)_minmax(10rem,34rem)]">
                 <div className="min-w-0" data-form-fields>
                   <QuoteStep
                     quoteLoading={quoteLoading}
@@ -780,6 +790,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                           step={step}
                           activeSteps={activeSteps}
                           documentNumber={documentNumber}
+                          customer={customer}
                           known={known}
                           isKnownClient={isKnownClient}
                           beneficiaries={beneficiaries}

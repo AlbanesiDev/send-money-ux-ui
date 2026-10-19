@@ -29,9 +29,9 @@ export function ClientProfileDialog({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 z-50 bg-foreground/45" />
+        <Dialog.Backdrop className="fixed inset-0 z-50 bg-foreground/45 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0" />
         <Dialog.Viewport className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <Dialog.Popup className="w-full max-w-lg rounded-xl border border-border bg-card p-6 text-card-foreground shadow-[0_16px_40px_rgba(23,35,63,0.18)] outline-none dark:shadow-none">
+          <Dialog.Popup className="w-full max-w-lg rounded-xl border border-border bg-card p-6 text-card-foreground shadow-[0_16px_40px_rgba(23,35,63,0.18)] outline-none transition-opacity duration-150 ease-out data-ending-style:opacity-0 data-starting-style:opacity-0 dark:shadow-none">
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-center justify-start gap-3">
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">

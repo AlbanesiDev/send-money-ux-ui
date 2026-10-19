@@ -20,7 +20,64 @@ export type ProviderFlow = {
   stepKeys: ProviderStepKey[];
 };
 
+export type CustomerStatus = "active" | "blocked";
+
+export type CustomerPepData = {
+  position: string;
+  occupation: string;
+  economicActivity: string;
+  employmentLevel: string;
+  employer: string;
+  jobTitle: string;
+  workAddress: string;
+  monthlyIncome: string;
+  fundsOrigin: string;
+  resourceDestination: string;
+  transactionPurpose: string;
+  sendType: string;
+  senderRelation: string;
+  relationType: string;
+  publicPositions: string;
+  suspiciousReason: string;
+};
+
+export type Customer = {
+  id: string;
+  documentNumbers: string[];
+  status: CustomerStatus;
+  documentType: string;
+  documentIssueCountry: string;
+  documentIssueDate: string;
+  documentExpiryDate: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  secondLastName: string;
+  fullName: string;
+  birthDate: string;
+  birthCountry: string;
+  nationality: string;
+  gender: string;
+  civilStatus: string;
+  email: string;
+  emailMasked: string;
+  phone: string;
+  mobile: string;
+  country: string;
+  state: string;
+  city: string;
+  street: string;
+  houseNumber: string;
+  address: string;
+  address2: string;
+  zone: string;
+  postalCode: string;
+  isPep: boolean;
+  pep: CustomerPepData;
+};
+
 export type Beneficiary = {
+  customerId: string;
   name: string;
   document: string;
   city: string;

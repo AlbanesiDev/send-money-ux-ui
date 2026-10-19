@@ -7,6 +7,20 @@ import type {
 
 export const BASE_STEPS = ["Identificación", "Cotización"] as const;
 
+/** Shared provider step labels — every provider uses the same sequence. */
+export const PARTIES_STEP_LABEL = "Remitente y beneficiario";
+export const REVIEW_STEP_LABEL = "Revisión";
+
+/**
+ * Stable stepper labels before a provider is chosen.
+ * New flow: 4 steps. Repeat flow (skip parties): 3 steps.
+ */
+export function buildQuoteLoadingSteps(skipParties: boolean): string[] {
+  return skipParties
+    ? [...BASE_STEPS, REVIEW_STEP_LABEL]
+    : [...BASE_STEPS, PARTIES_STEP_LABEL, REVIEW_STEP_LABEL];
+}
+
 export const PROVIDER_IDS: ProviderId[] = [
   "RIA",
   "WU",
@@ -94,21 +108,23 @@ export const TERRAPAY_BANK_OPTIONS = [
 
 export const TERRAPAY_WALLET_OPTIONS = ["Tigo Money", "Yape", "Mercado Pago"];
 
+const SHARED_PROVIDER_STEP_LABELS = [PARTIES_STEP_LABEL, REVIEW_STEP_LABEL];
+
 export const providerFlows: Record<ProviderId, ProviderFlow> = {
   RIA: {
-    stepLabels: ["Remitente y beneficiario", "Revisión"],
+    stepLabels: SHARED_PROVIDER_STEP_LABELS,
     stepKeys: ["parties", "review"],
   },
   WU: {
-    stepLabels: ["Remitente y beneficiario", "Revisión"],
+    stepLabels: SHARED_PROVIDER_STEP_LABELS,
     stepKeys: ["parties", "review"],
   },
   MONEYGRAM: {
-    stepLabels: ["Remitente y beneficiario", "Revisión"],
+    stepLabels: SHARED_PROVIDER_STEP_LABELS,
     stepKeys: ["parties", "review"],
   },
   TERRAPAY: {
-    stepLabels: ["Remitente y beneficiario", "Revisión"],
+    stepLabels: SHARED_PROVIDER_STEP_LABELS,
     stepKeys: ["parties", "review"],
   },
 };

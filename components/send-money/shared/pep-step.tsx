@@ -1,3 +1,4 @@
+import type { Customer } from "../types";
 import { Field } from "../field";
 
 const PEP_CHECK_LABEL = "¿Es una Persona Expuesta Políticamente (PEP)?";
@@ -7,13 +8,13 @@ const CHECK_LABELS = [PEP_CHECK_LABEL, RELATED_CHECK_LABEL] as const;
 
 export function PepStep({
   title = "Datos PEP",
-  known,
+  customer,
   showTerraPayExtras = false,
   additionalChecks,
   onChange,
 }: {
   title?: string;
-  known: (value?: string) => string | undefined;
+  customer: Customer | null;
   showTerraPayExtras?: boolean;
   additionalChecks: Record<string, boolean>;
   onChange: (label: string, checked: boolean) => void;
@@ -46,64 +47,104 @@ export function PepStep({
                     <>
                       <Field
                         label="Nombre de PEP"
-                        value={known("Eliana Antezana Ovando")}
+                        value={
+                          customer === null ? undefined : customer.fullName
+                        }
                         required
                       />
                       <Field
                         label="Cargo de PEP"
-                        value={known("Propietaria")}
+                        value={
+                          customer === null ? undefined : customer.pep.position
+                        }
                         required
                       />
                       <Field
                         label="Ocupación"
-                        value={known("Comerciante")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.occupation
+                        }
                         required
                       />
                       <Field
                         label="Nivel de Posición de Empleo"
-                        value={known("Empleado")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.employmentLevel
+                        }
                         required
                       />
                       <Field
                         label="Nombre Institución/Empresa Trabajo"
-                        value={known("Comercio Sol & Luna")}
+                        value={
+                          customer === null ? undefined : customer.pep.employer
+                        }
                         required
                       />
                       <Field
                         label="Cargo"
-                        value={known("Propietaria")}
+                        value={
+                          customer === null ? undefined : customer.pep.jobTitle
+                        }
                         required
                       />
                       <Field
                         label="Dirección Trabajo"
-                        value={known("Av. Principal 123")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.workAddress
+                        }
                         required
                       />
                       <Field
                         label="Ingreso Mensual"
-                        value={known("5.000 USD")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.monthlyIncome
+                        }
                         required
                       />
                       <Field
                         label="Origen de los Fondos"
-                        value={known("Salario")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.fundsOrigin
+                        }
                         required
                       />
                       <Field
                         label="Propósito Transacción"
-                        value={known("Manutención")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.transactionPurpose
+                        }
                         required
                       />
                       {showTerraPayExtras && (
                         <>
                           <Field
                             label="Tipo de envío"
-                            value={known("Remesa")}
+                            value={
+                              customer === null
+                                ? undefined
+                                : customer.pep.sendType
+                            }
                             required
                           />
                           <Field
                             label="Relación Remitente"
-                            value={known("Familiar")}
+                            value={
+                              customer === null
+                                ? undefined
+                                : customer.pep.senderRelation
+                            }
                             required
                           />
                         </>
@@ -114,17 +155,25 @@ export function PepStep({
                     <>
                       <Field
                         label="Tipo de Relación con PEP"
-                        value={known("Titular")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.relationType
+                        }
                         required
                       />
                       <Field
                         label="Nombre de PEP"
-                        value={known("Eliana Antezana Ovando")}
+                        value={
+                          customer === null ? undefined : customer.fullName
+                        }
                         required
                       />
                       <Field
                         label="Cargo de PEP"
-                        value={known("Propietaria")}
+                        value={
+                          customer === null ? undefined : customer.pep.position
+                        }
                         required
                       />
                     </>

@@ -1,11 +1,12 @@
+import type { Customer } from "../../types";
 import { WuRemitterStep } from "../wu/remitter-step";
 
 export function MoneygramRemitterStep({
   documentNumber,
-  known,
+  customer,
 }: {
   documentNumber: string;
-  known: (value?: string) => string | undefined;
+  customer: Customer | null;
 }) {
-  return <WuRemitterStep documentNumber={documentNumber} known={known} />;
+  return <WuRemitterStep documentNumber={documentNumber} customer={customer} />;
 }

@@ -5,9 +5,10 @@ import {
   RecentTransactions,
   type RecentTransaction,
 } from "@/components/send-money/recent-transactions";
-import type { Beneficiary } from "@/components/send-money/types";
+import type { Beneficiary, Customer } from "@/components/send-money/types";
 import { SearchableSelect } from "@/components/ui/searchable-select";
 import documentTypesCatalog from "@/public/catalogs/catalog-document-types.json";
+import customersSnapshot from "@/public/data/customers.snapshot.json";
 import {
   ArrowRightIcon,
   Loader2Icon,
@@ -37,6 +38,7 @@ export type IdentifySenderStepProps = {
   onResultChange: (result: ClientSearchResult) => void;
   onContinue: () => void;
   continueRef: RefObject<HTMLButtonElement | null>;
+  customer: Customer | null;
   recentTransactions: RecentTransaction[];
   beneficiaries: Beneficiary[];
   selectedTransactionId: string | null;
@@ -47,6 +49,9 @@ export type IdentifySenderStepProps = {
 };
 
 const DOCUMENT_TYPE_OPTIONS = documentTypesCatalog.map((item) => item.name);
+const CUSTOMERS = customersSnapshot as Customer[];
+const SEARCH_ERROR_DOCUMENT = "0000000";
+const DEMO_NEW_CLIENT_DOCUMENT = "1234567";
 
 export function IdentifySenderStep({
   documentNumber,
@@ -55,6 +60,7 @@ export function IdentifySenderStep({
   onResultChange,
   onContinue,
   continueRef,
+  customer,
   recentTransactions,
   beneficiaries,
   selectedTransactionId,
@@ -111,14 +117,21 @@ export function IdentifySenderStep({
     setTransactionsStatus(STATUS.LOADING);
     onResultChange(null);
     searchTimeoutRef.current = window.setTimeout(() => {
-      const nextResult =
-        value === "0000000"
-          ? "error"
-          : value === "2222222"
-            ? "blocked"
-            : value === "7807365" || value === "1111111"
-              ? "success"
-              : "empty";
+      let nextResult: ClientSearchResult;
+      if (value === SEARCH_ERROR_DOCUMENT) {
+        nextResult = "error";
+      } else {
+        const found = CUSTOMERS.find((item) =>
+          item.documentNumbers.includes(value),
+        );
+        if (found === undefined) {
+          nextResult = "empty";
+        } else if (found.status === "blocked") {
+          nextResult = "blocked";
+        } else {
+          nextResult = "success";
+        }
+      }
       onResultChange(nextResult);
       setLoading(false);
       if (nextResult === "success") {
@@ -252,17 +265,17 @@ export function IdentifySenderStep({
                 result ? "mt-2 border-t border-border pt-6" : undefined
               }
             >
-              {result === "success" && (
+              {result === "success" && customer !== null && (
                 <div className="flex flex-col gap-4 rounded-xl border border-brand p-5 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex flex-col">
                     <p className="text-xs font-bold uppercase text-success">
                       ✓ Cliente encontrado
                     </p>
                     <h2 className="mt-2 text-xl font-bold">
-                      Eliana Antezana Ovando
+                      {customer.fullName}
                     </h2>
                     <p className="mt-2 text-sm text-muted-foreground">
-                      Documento: {documentNumber} · j***@cislatam.com
+                      Documento: {documentNumber} · {customer.emailMasked}
                     </p>
                   </div>
                   <div className="flex flex-wrap justify-end gap-3">
@@ -356,43 +369,45 @@ export function IdentifySenderStep({
 
       <div className="absolute right-4 bottom-4 flex gap-2 text-xs text-muted-foreground">
         <span className="select-none">Demo:</span>
+        {CUSTOMERS.flatMap((item) =>
+          item.documentNumbers.map((number) => (
+            <div key={number} className="flex gap-0.5">
+              {number}
+              <span className="select-none">
+                {item.status === "blocked"
+                  ? "(cliente bloqueado)"
+                  : "(cliente existente)"}
+              </span>
+            </div>
+          )),
+        )}
         <div className="flex gap-0.5">
-          7807365
-          <span className="select-none">(cliente existente)</span>
-        </div>
-        <div className="flex gap-0.5">
-          1111111
-          <span className="select-none">(cliente existente)</span>
-        </div>
-        <div className="flex gap-0.5">
-          1234567
+          {DEMO_NEW_CLIENT_DOCUMENT}
           <span className="select-none">(cliente nuevo)</span>
         </div>
         <div className="flex gap-0.5">
-          0000000
+          {SEARCH_ERROR_DOCUMENT}
           <span className="select-none">(error de búsqueda)</span>
-        </div>
-        <div className="flex gap-0.5">
-          2222222
-          <span className="select-none">(cliente bloqueado)</span>
         </div>
       </div>
 
-      <ClientProfileDialog
-        open={profileOpen}
-        onOpenChange={setProfileOpen}
-        profile={{
-          fullName: "Eliana Antezana Ovando",
-          documentType,
-          documentNumber,
-          email: "jorge.gimenez@cislatam.com",
-          phone: "45545454",
-          country: "Bolivia",
-          state: "La Paz",
-          city: "Acarapiri",
-          address: "Fabian Vaca 3712",
-        }}
-      />
+      {customer !== null && (
+        <ClientProfileDialog
+          open={profileOpen}
+          onOpenChange={setProfileOpen}
+          profile={{
+            fullName: customer.fullName,
+            documentType,
+            documentNumber,
+            email: customer.email,
+            phone: customer.phone,
+            country: customer.country,
+            state: customer.state,
+            city: customer.city,
+            address: customer.address,
+          }}
+        />
+      )}
     </>
   );
 }

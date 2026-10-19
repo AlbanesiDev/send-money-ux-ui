@@ -1,5 +1,6 @@
 [
   {
+    "customerId": "eliana-antezana",
     "name": "Joaco Test",
     "document": "78073652",
     "city": "Acerani",
@@ -7,6 +8,7 @@
     "email": "beneficiario@example.com"
   },
   {
+    "customerId": "eliana-antezana",
     "name": "María Fernanda López",
     "document": "6543210",
     "city": "La Paz",
@@ -14,6 +16,7 @@
     "email": "m***@example.com"
   },
   {
+    "customerId": "eliana-antezana",
     "name": "Carlos Alberto Rojas",
     "document": "9876543",
     "city": "Cochabamba",

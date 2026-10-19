@@ -13,6 +13,7 @@ import { ReviewStep } from "./shared/review-step";
 import { getStepKey } from "./provider-flows";
 import type {
   Beneficiary,
+  Customer,
   PaymentLine,
   ProviderId,
   ProviderQuote,
@@ -24,6 +25,7 @@ export type ProviderStepContentProps = {
   step: number;
   activeSteps: readonly string[];
   documentNumber: string;
+  customer: Customer | null;
   known: (value?: string) => string | undefined;
   isKnownClient: boolean;
   beneficiaries: Beneficiary[];
@@ -69,7 +71,7 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       remitter = (
         <RiaRemitterStep
           documentNumber={props.documentNumber}
-          known={props.known}
+          customer={props.customer}
         />
       );
       beneficiary = (
@@ -85,14 +87,14 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
         <RiaAdditionalInfoStep
           additionalChecks={props.additionalChecks}
           onChange={props.onAdditionalCheckChange}
-          known={props.known}
+          customer={props.customer}
         />
       );
     } else if (props.provider === "WU") {
       remitter = (
         <WuRemitterStep
           documentNumber={props.documentNumber}
-          known={props.known}
+          customer={props.customer}
         />
       );
       beneficiary = (
@@ -106,7 +108,7 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       );
       declarations = (
         <PepStep
-          known={props.known}
+          customer={props.customer}
           additionalChecks={props.additionalChecks}
           onChange={props.onAdditionalCheckChange}
         />
@@ -115,13 +117,13 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       remitter = (
         <MoneygramRemitterStep
           documentNumber={props.documentNumber}
-          known={props.known}
+          customer={props.customer}
         />
       );
       beneficiary = <MoneygramBeneficiaryAccountStep known={props.known} />;
       declarations = (
         <PepStep
-          known={props.known}
+          customer={props.customer}
           additionalChecks={props.additionalChecks}
           onChange={props.onAdditionalCheckChange}
         />
@@ -130,7 +132,7 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       remitter = (
         <TerrapayRemitterStep
           documentNumber={props.documentNumber}
-          known={props.known}
+          customer={props.customer}
         />
       );
       beneficiary = (
@@ -144,7 +146,7 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       );
       declarations = (
         <PepStep
-          known={props.known}
+          customer={props.customer}
           showTerraPayExtras
           additionalChecks={props.additionalChecks}
           onChange={props.onAdditionalCheckChange}

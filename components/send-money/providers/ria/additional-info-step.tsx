@@ -1,3 +1,4 @@
+import type { Customer } from "../../types";
 import { Field } from "../../field";
 
 const CHECK_LABELS = [
@@ -10,11 +11,11 @@ const CHECK_LABELS = [
 export function RiaAdditionalInfoStep({
   additionalChecks,
   onChange,
-  known,
+  customer,
 }: {
   additionalChecks: Record<string, boolean>;
   onChange: (label: string, checked: boolean) => void;
-  known: (value?: string) => string | undefined;
+  customer: Customer | null;
 }) {
   return (
     <div className="space-y-5">
@@ -25,9 +26,7 @@ export function RiaAdditionalInfoStep({
           <div key={label} className="space-y-4">
             <label
               className={`flex cursor-pointer items-center gap-3 rounded-lg border p-4 text-sm transition-colors ${
-                checked
-                  ? "border-brand/40 bg-accent"
-                  : "border-border"
+                checked ? "border-brand/40 bg-accent" : "border-border"
               }`}
             >
               <input
@@ -46,38 +45,64 @@ export function RiaAdditionalInfoStep({
                     <>
                       <Field
                         label="Ocupación"
-                        value={known("Comerciante")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.occupation
+                        }
                         required
                       />
                       <Field
                         label="Actividad Económica"
-                        value={known("Comercio")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.economicActivity
+                        }
                         required
                       />
                       <Field
                         label="Origen de los Fondos"
-                        value={known("Salario")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.fundsOrigin
+                        }
                         required
                       />
                       <Field
                         label="Destino recursos"
-                        value={known("Gastos personales")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.resourceDestination
+                        }
                         required
                       />
                       <Field
                         label="Propósito Transacción"
-                        value={known("Manutención")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.transactionPurpose
+                        }
                         required
                       />
                       <Field
                         label="Estado Civil"
-                        value={known("Soltera")}
+                        value={
+                          customer === null ? undefined : customer.civilStatus
+                        }
                         required
                       />
                       <Field label="Nombre(s) y Apellidos del cónyugue" />
                       <Field
                         label="Ingreso Mensual"
-                        value={known("5.000 USD")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.monthlyIncome
+                        }
                         required
                       />
                     </>
@@ -87,17 +112,25 @@ export function RiaAdditionalInfoStep({
                     <>
                       <Field
                         label="Nombre de PEP"
-                        value={known("Eliana Antezana Ovando")}
+                        value={
+                          customer === null ? undefined : customer.fullName
+                        }
                         required
                       />
                       <Field
                         label="Cargo de PEP"
-                        value={known("Propietaria")}
+                        value={
+                          customer === null ? undefined : customer.pep.position
+                        }
                         required
                       />
                       <Field
                         label="Ocupación"
-                        value={known("Comerciante")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.occupation
+                        }
                         required
                       />
                       <Field label="Cargos Públicos" required />
@@ -107,17 +140,25 @@ export function RiaAdditionalInfoStep({
                     <>
                       <Field
                         label="Tipo de Relación con PEP"
-                        value={known("Familiar")}
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.senderRelation
+                        }
                         required
                       />
                       <Field
                         label="Nombre de PEP"
-                        value={known("Eliana Antezana Ovando")}
+                        value={
+                          customer === null ? undefined : customer.fullName
+                        }
                         required
                       />
                       <Field
                         label="Cargo de PEP"
-                        value={known("Propietaria")}
+                        value={
+                          customer === null ? undefined : customer.pep.position
+                        }
                         required
                       />
                     </>

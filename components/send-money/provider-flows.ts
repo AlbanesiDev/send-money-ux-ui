@@ -113,8 +113,15 @@ export const providerFlows: Record<ProviderId, ProviderFlow> = {
   },
 };
 
-export function buildActiveSteps(provider: ProviderId): string[] {
-  return [...BASE_STEPS, ...providerFlows[provider].stepLabels];
+export function buildActiveSteps(
+  provider: ProviderId,
+  options?: { skipParties?: boolean },
+): string[] {
+  const flow = providerFlows[provider];
+  const providerLabels = options?.skipParties
+    ? flow.stepLabels.filter((_, index) => flow.stepKeys[index] !== "parties")
+    : flow.stepLabels;
+  return [...BASE_STEPS, ...providerLabels];
 }
 
 const QUOTE_BASE: Record<
@@ -159,12 +166,18 @@ export function buildProviderQuotes(
 export function getStepKey(
   provider: ProviderId,
   step: number,
+  activeSteps: readonly string[],
 ): ProviderFlow["stepKeys"][number] {
-  const key = providerFlows[provider].stepKeys[step - 3];
-  if (!key) {
-    throw new Error(`No step key for ${provider} at step ${step}`);
+  const label = activeSteps[step - 1];
+  if (!label) {
+    throw new Error(`No step label for ${provider} at step ${step}`);
   }
-  return key;
+  const flow = providerFlows[provider];
+  const index = flow.stepLabels.indexOf(label);
+  if (index < 0) {
+    throw new Error(`No step key for ${provider} at label ${label}`);
+  }
+  return flow.stepKeys[index];
 }
 
 export function findStepNumber(activeSteps: string[], label: string): number {

@@ -157,6 +157,8 @@ export function QuoteStep({
   const requestQuoteRef = useRef(requestQuote);
   requestQuoteRef.current = requestQuote;
   const quoteDebounceRef = useRef<number | null>(null);
+  const cbuRef = useRef<HTMLInputElement | null>(null);
+  const aliasRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     window.requestAnimationFrame(() => destinationCountryRef.current?.focus());
@@ -191,7 +193,7 @@ export function QuoteStep({
   return (
     <div className="space-y-3">
       <div className="card">
-        <h2 className="font-bold text-foreground">Datos de la cotización</h2>
+        <h2 className="font-bold text-foreground">Datos del envío</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           <Field label="Moneda de origen" value="USD" disabled />
           <SearchableSelect
@@ -225,6 +227,14 @@ export function QuoteStep({
               clearDeliveryExtras();
               clearAmount();
               window.requestAnimationFrame(() => {
+                if (option.id === "BANK") {
+                  terraPayBankRef.current?.focus();
+                  return;
+                }
+                if (option.id === "WALLET") {
+                  terraPayWalletRef.current?.focus();
+                  return;
+                }
                 sendAmountRef.current?.focus();
               });
             }}
@@ -347,30 +357,44 @@ export function QuoteStep({
             disabled
           />
           {showTerraPayBank && (
-            <SearchableSelect
-              label="Banco"
-              value={terraPayBank}
-              options={TERRAPAY_BANK_OPTIONS}
-              fieldRef={terraPayBankRef}
-              nextRef={sendAmountRef}
-              onChange={(value) => {
-                onTerraPayBankChange(value);
-                resetQuoteSelection();
-              }}
-            />
+            <>
+              <SearchableSelect
+                label="Banco"
+                value={terraPayBank}
+                options={TERRAPAY_BANK_OPTIONS}
+                fieldRef={terraPayBankRef}
+                nextRef={cbuRef}
+                onChange={(value) => {
+                  onTerraPayBankChange(value);
+                  resetQuoteSelection();
+                }}
+              />
+              <Field
+                inputRef={cbuRef}
+                nextRef={sendAmountRef}
+                label="CBU/CVU"
+              />
+            </>
           )}
           {showTerraPayWallet && (
-            <SearchableSelect
-              label="Wallet"
-              value={terraPayWallet}
-              options={TERRAPAY_WALLET_OPTIONS}
-              fieldRef={terraPayWalletRef}
-              nextRef={sendAmountRef}
-              onChange={(value) => {
-                onTerraPayWalletChange(value);
-                resetQuoteSelection();
-              }}
-            />
+            <>
+              <SearchableSelect
+                label="Wallet"
+                value={terraPayWallet}
+                options={TERRAPAY_WALLET_OPTIONS}
+                fieldRef={terraPayWalletRef}
+                nextRef={aliasRef}
+                onChange={(value) => {
+                  onTerraPayWalletChange(value);
+                  resetQuoteSelection();
+                }}
+              />
+              <Field
+                inputRef={aliasRef}
+                nextRef={sendAmountRef}
+                label="Alias"
+              />
+            </>
           )}
         </div>
       </div>

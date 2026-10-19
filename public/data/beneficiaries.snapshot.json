@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Joaco Test",
+    "document": "78073652",
+    "city": "Acerani",
+    "phone": "4554545454",
+    "email": "beneficiario@example.com"
+  },
+  {
+    "name": "María Fernanda López",
+    "document": "6543210",
+    "city": "La Paz",
+    "phone": "712345678",
+    "email": "m***@example.com"
+  },
+  {
+    "name": "Carlos Alberto Rojas",
+    "document": "9876543",
+    "city": "Cochabamba",
+    "phone": "765432109",
+    "email": "c***@example.com"
+  }
+]

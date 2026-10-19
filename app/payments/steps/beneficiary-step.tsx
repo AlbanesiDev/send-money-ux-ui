@@ -187,24 +187,12 @@ export function BeneficiaryStep({
   return (
     <div className="flex flex-col gap-4">
       <div
-        className={
-          showProfileSummary ? "grid gap-4 lg:grid-cols-2" : undefined
-        }
+        className={showProfileSummary ? "grid gap-4 lg:grid-cols-2" : undefined}
       >
         <FormSection
           className={showProfileSummary ? "h-full" : undefined}
-          title=""
-          description={
-            <>
-              <h1 className="text-lg font-bold text-foreground">
-                Identifica al beneficiario
-              </h1>
-              <p className="mt-0.5 text-sm text-muted-foreground">
-                Pide la cédula física. Los datos se completan desde la operación
-                y la ficha del cliente.
-              </p>
-            </>
-          }
+          title="Identifica al beneficiario"
+          description="Pide la cédula física. Los datos se completan desde la operación y la ficha del cliente."
         >
           <form
             onSubmit={(event) => {

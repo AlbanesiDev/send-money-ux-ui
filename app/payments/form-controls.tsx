@@ -178,9 +178,9 @@ export function FormSection({
         <div>
           <h2 className="font-bold text-foreground">{title}</h2>
           {description && (
-            <p className="mt-0.5 text-xs text-muted-foreground">
+            <div className="mt-0.5 text-xs text-muted-foreground">
               {description}
-            </p>
+            </div>
           )}
         </div>
         {action}

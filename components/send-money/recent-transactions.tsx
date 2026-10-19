@@ -280,7 +280,7 @@ export function RecentTransactions({
             </div>
 
             <div className="mt-3 flex items-center justify-between gap-3">
-              <strong className="text-[17px] font-extrabold tracking-[-0.035em] whitespace-nowrap text-[#244da7]">
+              <strong className="text-[17px] font-bold tracking-[-0.035em] whitespace-nowrap text-[#244da7]">
                 {formatUsd(transaction.amount)}
               </strong>
 
@@ -309,13 +309,6 @@ export function RecentTransactions({
                     Repetir envío
                   </button>
                 )}
-                <button
-                  type="button"
-                  className="grid place-items-center px-1 py-1.5 text-[#8090a4] transition-colors hover:text-[#3064d1]"
-                  aria-label={`Más opciones para ${beneficiary.name}`}
-                >
-                  <MoreHorizontal size={19} />
-                </button>
               </div>
             </div>
           </div>

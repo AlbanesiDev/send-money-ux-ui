@@ -91,7 +91,10 @@ export function ConfirmStep({
                 : formatDate(profile.documentExpiryDate)
             }
           />
-          <Row label="Teléfono" value={`${profile.phoneCode} ${profile.phone}`} />
+          <Row
+            label="Teléfono"
+            value={`${profile.phoneCode} ${profile.phone}`}
+          />
           <Row
             label="Dirección"
             value={[
@@ -107,12 +110,10 @@ export function ConfirmStep({
           <Row label="PEP" value={flags.pep ? "Sí" : "No"} />
           <Row label="Allegado a PEP" value={flags.pepRelated ? "Sí" : "No"} />
           <Row
-            label="Formulario UIF"
+            label="Formulario"
             value={uifRequired ? "Completo" : "No requerido"}
           />
-          {uifForm.purpose && (
-            <Row label="Propósito" value={uifForm.purpose} />
-          )}
+          {uifForm.purpose && <Row label="Propósito" value={uifForm.purpose} />}
           {uifForm.fundsOrigin && (
             <Row label="Origen de los fondos" value={uifForm.fundsOrigin} />
           )}

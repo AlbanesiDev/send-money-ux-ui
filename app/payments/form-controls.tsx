@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import { useRef, type ReactNode, type RefObject } from "react";
 import { SearchableSelect } from "@/components/ui/searchable-select";
 
 const inputClass =
@@ -40,6 +40,8 @@ export function TextInput({
   placeholder,
   hint,
   missing = false,
+  fieldRef,
+  autoFocus = false,
 }: {
   label: string;
   value: string;
@@ -53,17 +55,21 @@ export function TextInput({
   hint?: string;
   /** Resalta el campo cuando es obligatorio y está vacío. */
   missing?: boolean;
+  fieldRef?: RefObject<HTMLInputElement | null>;
+  autoFocus?: boolean;
 }) {
   return (
     <label className="block min-w-0">
       <FieldLabel label={label} required={required} hint={hint} />
       <input
+        ref={fieldRef}
         type={type}
         inputMode={inputMode}
         value={value}
         required={required}
         disabled={disabled}
         placeholder={placeholder}
+        autoFocus={autoFocus}
         aria-invalid={missing && required && !value.trim() ? true : undefined}
         onChange={(event) => onChange(event.target.value)}
         className={inputClass}
@@ -81,6 +87,7 @@ export function SelectInput({
   disabled = false,
   showFlags = false,
   hint,
+  nextRef,
 }: {
   label: string;
   value: string;
@@ -90,6 +97,7 @@ export function SelectInput({
   disabled?: boolean;
   showFlags?: boolean;
   hint?: string;
+  nextRef?: RefObject<HTMLElement | null>;
 }) {
   const ref = useRef<HTMLButtonElement>(null);
   return (
@@ -103,6 +111,7 @@ export function SelectInput({
         onChange={onChange}
         disabled={disabled}
         fieldRef={ref}
+        nextRef={nextRef}
         showFlags={showFlags}
       />
     </div>

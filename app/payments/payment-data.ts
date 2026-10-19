@@ -56,7 +56,7 @@ export type PaymentOperation = {
   transactionData: Partial<CustomerProfile>;
   /** Ficha del cliente en CIS si ya cobró o envió antes. */
   existingCustomer: CustomerProfile | null;
-  /** Información UIF que ya declaró el cliente en operaciones anteriores. */
+  /** Información  que ya declaró el cliente en operaciones anteriores. */
   knownUifData?: Record<string, string>;
 };
 
@@ -179,7 +179,7 @@ export const AGENCY_COUNTRY = "Bolivia";
 export const AGENCY_PHONE_CODE = "+591";
 export const AGENCY_CASH_BOB = 20000;
 
-/** Umbral UIF (Valor envío / Monto a pagar >= 13.720 BOB, ~2.000 USD). */
+/** Umbral  (Valor envío / Monto a pagar >= 13.720 BOB, ~2.000 USD). */
 export const UIF_AMOUNT_THRESHOLD = 13720;
 /** Umbral para exigir origen de los fondos (>= 6.860 BOB, ~1.000 USD). */
 export const FUNDS_ORIGIN_THRESHOLD = 6860;
@@ -314,8 +314,10 @@ const bobFormatter = new Intl.NumberFormat("es-ES", {
   useGrouping: true,
 });
 
+export const formatAmount = (value: number) => bobFormatter.format(value);
+
 export const formatMoney = (value: number, currency = "BOB") =>
-  `${bobFormatter.format(value)} ${currency}`;
+  `${formatAmount(value)} ${currency}`;
 
 /** Agrupa el número de operación para dictarlo: 1209 0991 105. */
 export const formatOperationNumber = (value: string) =>
@@ -325,7 +327,9 @@ export function maskName(name: string) {
   return name
     .split(" ")
     .map((part) =>
-      part.length <= 3 ? part : `${part.slice(0, 3)}${"•".repeat(part.length - 3)}`,
+      part.length <= 3
+        ? part
+        : `${part.slice(0, 3)}${"•".repeat(part.length - 3)}`,
     )
     .join(" ");
 }
@@ -335,11 +339,7 @@ export function maskDocument(value: string) {
 }
 
 export function normalizeText(value: string) {
-  return value
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase()
-    .trim();
+  return value.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
 }
 
 /** Separa "59176543210" en código +591 y número local. */

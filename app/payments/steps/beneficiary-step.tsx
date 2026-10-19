@@ -89,7 +89,8 @@ export function BeneficiaryStep({
     }, 900);
   }
 
-  const set = <K extends keyof ProfileForm>(field: K) =>
+  const set =
+    <K extends keyof ProfileForm>(field: K) =>
     (value: ProfileForm[K]) => {
       const next = { ...profile, [field]: value };
       // Las ciudades dependen del departamento elegido.
@@ -177,22 +178,17 @@ export function BeneficiaryStep({
 
   return (
     <div className="flex flex-col gap-4">
-      <div>
-        <h1 className="text-lg font-bold text-foreground">
-          Identifica al beneficiario
-        </h1>
-        <p className="mt-0.5 text-sm text-muted-foreground">
-          Pide la cédula física. Los datos se completan desde la operación y la
-          ficha del cliente.
-        </p>
-      </div>
-
       <FormSection
-        title="Documento de identidad"
+        title=""
         description={
           <>
-            Declarado por el remitente: {declared.type} · {declared.country} ·{" "}
-            <span className="font-mono">{maskDocument(declared.number)}</span>
+            <h1 className="text-lg font-bold text-foreground">
+              Identifica al beneficiario
+            </h1>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              Pide la cédula física. Los datos se completan desde la operación y
+              la ficha del cliente.
+            </p>
           </>
         }
       >
@@ -203,7 +199,7 @@ export function BeneficiaryStep({
           }}
           className="flex flex-col gap-2 sm:flex-row sm:items-end"
         >
-          <label className="block flex-1">
+          <label className="block flex-1 mt-4">
             <span className="mb-1 block text-sm font-semibold text-foreground">
               Número que figura en el documento físico{" "}
               <span className="text-destructive">*</span>
@@ -319,15 +315,6 @@ export function BeneficiaryStep({
                 <ProfileRow label="Correo" value={profile.email || "—"} />
               </dl>
             </div>
-            {missing.length > 0 && (
-              <div className="mt-4 rounded-lg border border-[#eadcae] bg-[#fffaf0] p-3 dark:border-amber-700/50 dark:bg-amber-950/40">
-                <p className="mb-3 text-sm font-bold text-[#765d12] dark:text-amber-200">
-                  Completa {missing.length === 1 ? "el dato faltante" : `los ${missing.length} datos faltantes`}
-                  {isExpired(profile) && " (el documento está vencido)"}
-                </p>
-                <FieldGrid>{missing.map(renderField)}</FieldGrid>
-              </div>
-            )}
           </FormSection>
         ) : (
           <>
@@ -358,11 +345,7 @@ export function BeneficiaryStep({
             <FormSection title="Documento">
               <FieldGrid>
                 {(
-                  [
-                    "documentType",
-                    "documentNumber",
-                    "documentCountry",
-                  ] as const
+                  ["documentType", "documentNumber", "documentCountry"] as const
                 ).map(renderField)}
                 <div />
                 <div className="space-y-2">

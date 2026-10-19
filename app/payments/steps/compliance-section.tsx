@@ -1,6 +1,6 @@
 "use client";
 
-import { FlagIcon, ShieldCheckIcon } from "lucide-react";
+import { ShieldCheckIcon } from "lucide-react";
 import {
   CheckOption,
   FieldGrid,
@@ -75,10 +75,15 @@ const UIF_FIELDS: Record<
   },
 };
 
-const GROUPS: { title: string; fields: UifField[] }[] = [
+const ADDITIONAL_GROUPS: { title: string; fields: UifField[] }[] = [
   {
     title: "Sobre esta operación",
-    fields: ["fundsOrigin", "purpose", "resourcesDestination", "senderRelation"],
+    fields: [
+      "fundsOrigin",
+      "purpose",
+      "resourcesDestination",
+      "senderRelation",
+    ],
   },
   {
     title: "Actividad y trabajo",
@@ -98,10 +103,11 @@ const GROUPS: { title: string; fields: UifField[] }[] = [
     fields: ["civilStatus", "spouseName", "idExtensionPlace"],
   },
   { title: "Referencia personal", fields: ["referenceName", "referencePhone"] },
-  { title: "Datos PEP", fields: ["publicOffice", "nit"] },
-  { title: "PEP relacionada", fields: ["pepRelation", "pepName", "pepPosition"] },
-  { title: "Operación inusual", fields: ["unusualReason"] },
 ];
+
+const PEP_FIELDS: UifField[] = ["publicOffice", "nit"];
+const PEP_RELATED_FIELDS: UifField[] = ["pepRelation", "pepName", "pepPosition"];
+const UNUSUAL_FIELDS: UifField[] = ["unusualReason"];
 
 export function ComplianceSection({
   operation,
@@ -159,16 +165,23 @@ export function ComplianceSection({
     );
   };
 
-  const visibleGroups = GROUPS.map((group) => ({
-    ...group,
-    fields: group.fields.filter(
+  const visibleFields = (fields: UifField[]) =>
+    fields.filter(
       (field) => requiredFields.has(field) || (field === "nit" && flags.pep),
-    ),
+    );
+
+  const additionalGroups = ADDITIONAL_GROUPS.map((group) => ({
+    ...group,
+    fields: visibleFields(group.fields),
   })).filter((group) => group.fields.length > 0);
+
+  const pepFields = visibleFields(PEP_FIELDS);
+  const pepRelatedFields = visibleFields(PEP_RELATED_FIELDS);
+  const unusualFields = visibleFields(UNUSUAL_FIELDS);
 
   return (
     <FormSection
-      title="Declaraciones y cumplimiento (UIF)"
+      title="Declaraciones y cumplimiento"
       description={
         profile
           ? `Según la ficha: ${profile.isPep ? "es PEP" : "no es PEP"} y ${profile.isPepRelated ? "es allegado a una PEP" : "no es allegado a una PEP"}. Confírmalo con el beneficiario.`
@@ -179,7 +192,9 @@ export function ComplianceSection({
         <div className="mb-3 flex items-start gap-3 rounded-lg border border-brand/30 bg-accent px-4 py-3 text-brand-strong">
           <ShieldCheckIcon className="mt-0.5 size-5 shrink-0" />
           <div className="text-sm">
-            <p className="font-bold">La UIF exige información adicional</p>
+            <p className="font-bold">
+              La operación exige información adicional
+            </p>
             <ul className="mt-0.5 list-disc pl-4 text-xs">
               {reasons.map((reason) => (
                 <li key={reason}>{reason}</li>
@@ -188,74 +203,87 @@ export function ComplianceSection({
           </div>
         </div>
       )}
-      <div className="grid gap-2 sm:grid-cols-3">
-        <CheckOption
-          label="Es PEP"
-          description="Persona expuesta políticamente"
-          checked={flags.pep}
-          onChange={(checked) =>
-            onFlagsChange({
-              ...flags,
-              pep: checked,
-              pepRelated: checked ? false : flags.pepRelated,
-            })
-          }
-        />
-        <CheckOption
-          label="Es allegado a una PEP"
-          description="Familiar o colaborador cercano"
-          checked={flags.pepRelated}
-          onChange={(checked) =>
-            onFlagsChange({
-              ...flags,
-              pepRelated: checked,
-              pep: checked ? false : flags.pep,
-            })
-          }
-        />
-        <CheckOption
-          label="Información adicional"
-          description={
-            forced ? "Obligatoria para esta operación" : "Formulario UIF completo"
-          }
-          checked={flags.additionalInfo || forced}
-          locked={forced}
-          onChange={toggle("additionalInfo")}
-        />
-      </div>
-
-      {visibleGroups.length > 0 && (
-        <div className="mt-4 flex flex-col gap-4">
-          {visibleGroups.map((group) => (
-            <fieldset
-              key={group.title}
-              className="rounded-lg border border-border bg-muted p-3"
-            >
-              <legend className="px-1 text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground">
-                {group.title}
-              </legend>
-              <FieldGrid>{group.fields.map(renderField)}</FieldGrid>
-            </fieldset>
-          ))}
+      <div className="flex flex-col gap-4">
+        <div className="space-y-3">
+          <CheckOption
+            label="Es PEP"
+            description="Persona expuesta políticamente"
+            checked={flags.pep}
+            onChange={(checked) =>
+              onFlagsChange({
+                ...flags,
+                pep: checked,
+                pepRelated: checked ? false : flags.pepRelated,
+              })
+            }
+          />
+          {flags.pep && pepFields.length > 0 && (
+            <div className="rounded-xl border border-border bg-muted p-4">
+              <FieldGrid>{pepFields.map(renderField)}</FieldGrid>
+            </div>
+          )}
         </div>
-      )}
 
-      <div className="mt-4 border-t border-border pt-3">
-        <button
-          type="button"
-          onClick={() => toggle("unusual")(!flags.unusual)}
-          aria-pressed={flags.unusual}
-          className={`flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-semibold ${
-            flags.unusual
-              ? "bg-destructive/10 text-destructive"
-              : "text-muted-foreground hover:bg-muted hover:text-foreground"
-          }`}
-        >
-          <FlagIcon className="size-3.5" />
-          {flags.unusual
-            ? "Operación marcada como inusual · Quitar marca"
-            : "Marcar operación como inusual"}
-        </button>
+        <div className="space-y-3">
+          <CheckOption
+            label="Es allegado a una PEP"
+            description="Familiar o colaborador cercano"
+            checked={flags.pepRelated}
+            onChange={(checked) =>
+              onFlagsChange({
+                ...flags,
+                pepRelated: checked,
+                pep: checked ? false : flags.pep,
+              })
+            }
+          />
+          {flags.pepRelated && pepRelatedFields.length > 0 && (
+            <div className="rounded-xl border border-border bg-muted p-4">
+              <FieldGrid>{pepRelatedFields.map(renderField)}</FieldGrid>
+            </div>
+          )}
+        </div>
+
+        <div className="space-y-3">
+          <CheckOption
+            label="Información adicional"
+            description={
+              forced ? "Obligatoria para esta operación" : "Formulario completo"
+            }
+            checked={flags.additionalInfo || forced}
+            locked={forced}
+            onChange={toggle("additionalInfo")}
+          />
+          {additionalGroups.length > 0 && (
+            <div className="flex flex-col gap-3">
+              {additionalGroups.map((group) => (
+                <fieldset
+                  key={group.title}
+                  className="rounded-xl border border-border bg-muted p-4"
+                >
+                  <legend className="px-1 text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                    {group.title}
+                  </legend>
+                  <FieldGrid>{group.fields.map(renderField)}</FieldGrid>
+                </fieldset>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="space-y-3">
+          <CheckOption
+            label="Operación inusual"
+            description="Indicios de sospecha"
+            checked={flags.unusual}
+            onChange={toggle("unusual")}
+          />
+          {flags.unusual && unusualFields.length > 0 && (
+            <div className="rounded-xl border border-border bg-muted p-4">
+              <FieldGrid>{unusualFields.map(renderField)}</FieldGrid>
+            </div>
+          )}
+        </div>
       </div>
     </FormSection>
   );

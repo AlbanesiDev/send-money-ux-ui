@@ -231,22 +231,25 @@ const ADDITIONAL_INFO_FIELDS: UifField[] = [
   "referencePhone",
 ];
 
-/** Motivos por los que el sistema exige el formulario UIF. */
-export function uifTriggers(operation: PaymentOperation, flags: ComplianceFlags) {
+/** Motivos por los que el sistema exige el formulario . */
+export function uifTriggers(
+  operation: PaymentOperation,
+  flags: ComplianceFlags,
+) {
   const reasons: string[] = [];
   if (operation.amount >= UIF_AMOUNT_THRESHOLD)
-    reasons.push(
-      `El monto supera ${formatMoney(UIF_AMOUNT_THRESHOLD)} (umbral UIF).`,
-    );
+    reasons.push(`El monto supera ${formatMoney(UIF_AMOUNT_THRESHOLD)}.`);
   if (HIGH_RISK_ORIGIN_COUNTRIES.includes(operation.originCountry))
-    reasons.push(`${operation.originCountry} es un país de origen de alto riesgo.`);
+    reasons.push(
+      `${operation.originCountry} es un país de origen de alto riesgo.`,
+    );
   if (flags.pep) reasons.push("El beneficiario es PEP.");
   if (flags.pepRelated) reasons.push("El beneficiario es allegado a una PEP.");
   if (flags.unusual) reasons.push("La operación se marcó como inusual.");
   return reasons;
 }
 
-/** Campos UIF obligatorios según las reglas del snapshot. */
+/** Campos  obligatorios según las reglas del snapshot. */
 export function requiredUifFields(
   operation: PaymentOperation,
   flags: ComplianceFlags,

@@ -3,6 +3,19 @@ export type ProviderId = "RIA" | "WU" | "MONEYGRAM" | "TERRAPAY";
 /** Maps to CIS presential/WU/TerraPay delivery codes in production. */
 export type DeliveryTypeId = "CASH" | "CASH24" | "BANK" | "WALLET";
 
+export type CatalogProvider = {
+  id: number;
+  code: ProviderId;
+  name: string;
+  logo: string;
+  charges: number;
+  tax: number;
+  iva: number;
+  amountSent: boolean;
+  amountReceived: boolean;
+  sendingTypes: DeliveryTypeId[];
+};
+
 export type ProviderQuote = {
   provider: ProviderId;
   label: string;
@@ -11,6 +24,7 @@ export type ProviderQuote = {
   tax: number;
   rate: number;
   deliveryType: DeliveryTypeId;
+  logo: string;
 };
 
 export type ProviderStepKey = "parties" | "review";

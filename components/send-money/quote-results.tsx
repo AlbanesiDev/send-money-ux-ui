@@ -52,15 +52,12 @@ export function QuoteResults({
                     : "border-border bg-card hover:border-muted-foreground"
                 }`}
               >
-                {isBestPrice && (
+                {/* {isBestPrice && (
                   <span className="absolute -top-2.5 left-3 rounded-full bg-success-soft px-2.5 py-0.5 text-[0.6875rem] font-bold text-success">
                     Mejor precio
                   </span>
-                )}
-                <div className="flex items-start justify-between gap-3">
-                  <p className="text-sm font-bold text-foreground">
-                    {quote.label}
-                  </p>
+                )} */}
+                <div className="absolute top-2 right-3">
                   <span
                     aria-hidden="true"
                     className={`relative mt-0.5 block h-4 w-4 shrink-0 rounded-full border-2 ${
@@ -71,6 +68,19 @@ export function QuoteResults({
                       <span className="absolute top-1/2 left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-strong" />
                     )}
                   </span>
+                </div>
+
+                <div className="flex items-center justify-start gap-3">
+                  <div className="rounded-full overflow-hidden border size-16">
+                    <img
+                      className="w-full object-contain object-left"
+                      src={quote.logo}
+                      alt={quote.label}
+                    />
+                  </div>
+                  <p className="text-sm font-bold text-foreground">
+                    {quote.label}
+                  </p>
                 </div>
                 <dl className="mt-2 space-y-1 text-sm">
                   <div className="flex justify-between gap-3">

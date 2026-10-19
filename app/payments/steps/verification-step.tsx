@@ -156,89 +156,95 @@ export function VerificationStep({
               Preguntas de seguridad
             </h1>
             <p className="mt-0.5 text-sm text-muted-foreground">
-              Haz las preguntas de palabra, sin girar la pantalla, y carga lo
-              que responda.
+              Haz las preguntas de palabra, sin girar la pantalla, y seleccioná
+              la respuesta correcta.
             </p>
           </div>
-          <Question number={1} text="¿Quién le envió el dinero?">
-            <TextInput
-              label="Nombre del remitente"
-              value={answers.senderName}
-              onChange={set("senderName")}
-              placeholder="Nombre y/o apellido"
-              required
-              disabled={verified}
-              autoFocus={!verified}
-            />
-          </Question>
-          <Question number={2} text="¿Desde qué país se lo enviaron?">
-            <SelectInput
-              label="País de origen"
-              value={answers.originCountry}
-              options={COUNTRY_OPTIONS}
-              onChange={set("originCountry")}
-              nextRef={amountRef}
-              showFlags
-              disabled={verified}
-              required
-            />
-          </Question>
-          <Question number={3} text="¿Cuánto espera recibir, aproximadamente?">
-            <label className="block min-w-0">
-              <span className="mb-1 flex items-baseline justify-between gap-2 text-sm font-semibold text-foreground">
-                <span>
-                  Monto aproximado <span className="text-destructive">*</span>
+          <div className="grid grid-cols-3 gap-4">
+            <Question number={1} text="¿Quién le envió el dinero?">
+              <TextInput
+                label="Nombre del remitente"
+                value={answers.senderName}
+                onChange={set("senderName")}
+                placeholder="Nombre y/o apellido"
+                required
+                disabled={verified}
+                autoFocus={!verified}
+              />
+            </Question>
+            <Question number={2} text="¿Desde qué país se lo enviaron?">
+              <SelectInput
+                label="País de origen"
+                value={answers.originCountry}
+                options={COUNTRY_OPTIONS}
+                onChange={set("originCountry")}
+                nextRef={amountRef}
+                showFlags
+                disabled={verified}
+                required
+              />
+            </Question>
+            <Question
+              number={3}
+              text="¿Cuánto espera recibir, aproximadamente?"
+            >
+              <label className="block min-w-0">
+                <span className="mb-1 flex items-baseline justify-between gap-2 text-sm font-semibold text-foreground">
+                  <span>
+                    Monto aproximado <span className="text-destructive">*</span>
+                  </span>
                 </span>
-              </span>
-              <div
-                className={`flex h-10 items-center rounded-lg border bg-card transition focus-within:ring-4 ${
-                  verified
-                    ? "border-input bg-muted"
-                    : "border-input focus-within:border-brand focus-within:ring-brand/10"
-                }`}
-              >
-                <span
-                  className={`shrink-0 whitespace-nowrap pl-3 text-sm font-bold ${
-                    verified ? "text-muted-foreground" : "text-brand-strong"
+                <div
+                  className={`flex h-10 items-center rounded-lg border bg-card transition focus-within:ring-4 ${
+                    verified
+                      ? "border-input bg-muted"
+                      : "border-input focus-within:border-brand focus-within:ring-brand/10"
                   }`}
                 >
-                  {operation.currency} $
-                </span>
-                <input
-                  ref={amountRef}
-                  value={answers.amount}
-                  inputMode="decimal"
-                  autoComplete="off"
-                  placeholder="0,00"
-                  disabled={verified}
-                  required
-                  onChange={(event) => {
-                    const cleaned = event.target.value
-                      .replace(/\./g, "")
-                      .replace(/[^0-9,]/g, "");
-                    const [integerPart, ...decimalParts] = cleaned.split(",");
-                    set("amount")(
-                      decimalParts.length === 0
-                        ? integerPart
-                        : `${integerPart || "0"},${decimalParts.join("").slice(0, 2)}`,
-                    );
-                  }}
-                  onBlur={() => {
-                    if (!answers.amount) return;
-                    const amount = Number(
-                      answers.amount.replace(/\./g, "").replace(",", "."),
-                    );
-                    if (!Number.isFinite(amount)) {
-                      set("amount")("");
-                      return;
-                    }
-                    set("amount")(formatAmount(amount));
-                  }}
-                  className="h-full w-full rounded-lg bg-transparent px-2 text-sm text-foreground outline-none placeholder:text-muted-foreground disabled:text-muted-foreground"
-                />
-              </div>
-            </label>
-          </Question>
+                  <span
+                    className={`shrink-0 whitespace-nowrap pl-3 text-sm font-bold ${
+                      verified ? "text-muted-foreground" : "text-brand-strong"
+                    }`}
+                  >
+                    {operation.currency} $
+                  </span>
+                  <input
+                    ref={amountRef}
+                    value={answers.amount}
+                    inputMode="decimal"
+                    autoComplete="off"
+                    placeholder="0,00"
+                    disabled={verified}
+                    required
+                    onChange={(event) => {
+                      const cleaned = event.target.value
+                        .replace(/\./g, "")
+                        .replace(/[^0-9,]/g, "");
+                      const [integerPart, ...decimalParts] = cleaned.split(",");
+                      set("amount")(
+                        decimalParts.length === 0
+                          ? integerPart
+                          : `${integerPart || "0"},${decimalParts.join("").slice(0, 2)}`,
+                      );
+                    }}
+                    onBlur={() => {
+                      if (!answers.amount) return;
+                      const amount = Number(
+                        answers.amount.replace(/\./g, "").replace(",", "."),
+                      );
+                      if (!Number.isFinite(amount)) {
+                        set("amount")("");
+                        return;
+                      }
+                      set("amount")(formatAmount(amount));
+                    }}
+                    className="h-full w-full rounded-lg bg-transparent px-2 text-sm text-foreground outline-none placeholder:text-muted-foreground disabled:text-muted-foreground"
+                  />
+                </div>
+              </label>
+            </Question>
+          </div>
+
           {verified ? (
             <div className="mb-2 mt-6">
               <Notice

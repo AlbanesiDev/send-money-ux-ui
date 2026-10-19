@@ -18,6 +18,8 @@ import { SearchableSelect } from "@/components/ui/searchable-select";
 import countriesCatalog from "@/public/catalogs/catalog-countries.json";
 import payoutPartnersCatalog from "@/public/catalogs/catalog-payout-partners.json";
 import payoutPartnerLocationsCatalog from "@/public/catalogs/catalog-payout-partner-locations.json";
+import { AsyncDataHandler, STATUS } from "@/components/async-data-handler";
+import AsyncResult from "@/components/ui/async-result";
 
 const uniqueSorted = (values: string[]) =>
   Array.from(new Set(values.map((value) => value.trim()).filter(Boolean))).sort(
@@ -189,6 +191,13 @@ export function QuoteStep({
     quoteLoading,
     quotesReady,
   ]);
+
+  let quotesStatus = STATUS.IDLE;
+  if (quoteLoading) {
+    quotesStatus = STATUS.LOADING;
+  } else if (quotesReady) {
+    quotesStatus = STATUS.SUCCESS;
+  }
 
   return (
     <div className="space-y-3">
@@ -398,16 +407,52 @@ export function QuoteStep({
           )}
         </div>
       </div>
-      {quotesReady && deliveryType && (
-        <div className="card">
-          <QuoteResults
-            quotes={providerQuotes}
-            selectedProvider={selectedProvider}
-            deliveryType={deliveryType}
-            onSelect={onSelectProviderQuote}
-          />
-        </div>
-      )}
+      <div className="card">
+        <h2 className="font-bold text-foreground">
+          Cotizaciones por proveedor
+        </h2>
+
+        <AsyncDataHandler
+          status={quotesStatus}
+          data={providerQuotes}
+          idleComponent={
+            <AsyncResult
+              status={STATUS.IDLE}
+              description="Ingresá un monto para ver las cotizaciones disponibles."
+            />
+          }
+          loadingComponent={
+            <div className="flex flex-row gap-2 pt-2">
+              {[...Array(4)].map((_, index) => (
+                <div
+                  key={index}
+                  className="skeleton h-44 min-w-0 flex-1 rounded-lg"
+                />
+              ))}
+            </div>
+          }
+          errorComponent={
+            <AsyncResult
+              status={STATUS.ERROR}
+              description="Error al cargar cotizaciones"
+            />
+          }
+          emptyComponent={
+            <AsyncResult
+              status={STATUS.EMPTY}
+              title="Cotizaciones"
+              description="Ningún proveedor disponible para este tipo de envío. Probá con otro tipo."
+            />
+          }
+          successComponent={(quotes) => (
+            <QuoteResults
+              quotes={quotes}
+              selectedProvider={selectedProvider}
+              onSelect={onSelectProviderQuote}
+            />
+          )}
+        />
+      </div>
     </div>
   );
 }

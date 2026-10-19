@@ -14,7 +14,7 @@
   {
     "id": 1,
     "code": "TERRAPAY",
-    "name": "TerraPay",
+    "name": "Terrapay",
     "logo": "/logos/providers/terrapay.png",
     "charges": 6.0,
     "tax": 6.92,

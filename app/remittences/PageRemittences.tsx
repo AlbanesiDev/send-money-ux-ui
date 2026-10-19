@@ -236,6 +236,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     string | null
   >(null);
   const [repeatProvider, setRepeatProvider] = useState<ProviderId | null>(null);
+  // Sticky for the whole "Repetir envío" path: field edits must not add steps.
+  const isRepeatFlowRef = useRef(false);
   const [paymentMethod, setPaymentMethod] = useState("Pago en efectivo");
   const [primaryCurrency, setPrimaryCurrency] =
     useState<PaymentCurrency>("USD");
@@ -250,7 +252,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const lastStep = activeSteps.length;
   const clearAmount = () => {
     setSelectedTransactionId(null);
-    setRepeatProvider(null);
     quoteRequestRef.current += 1;
     setSendAmount("");
     setAmountExceedsBalance(false);
@@ -258,7 +259,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setProviderQuotes([]);
     setQuotesReady(false);
     setSelectedProvider(null);
-    setActiveSteps(buildQuoteLoadingSteps(false));
+    setActiveSteps(buildQuoteLoadingSteps(isRepeatFlowRef.current));
     setQuoteLoading(false);
     setStep((current) => Math.min(current, 2));
   };
@@ -269,10 +270,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   }) => {
     const type = override?.deliveryType ?? deliveryType;
     if (!type) return;
-    const skipParties =
-      selectedTransactionId !== null ||
-      override !== undefined ||
-      repeatProvider !== null;
+    const skipParties = isRepeatFlowRef.current;
     const normalizedAmount = override
       ? usdFormatter.format(override.amount)
       : normalizeAmount(sendAmount);
@@ -328,14 +326,15 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     }, 900);
   };
   const selectProviderQuote = (providerQuote: ProviderQuote) => {
+    const skipParties = isRepeatFlowRef.current;
     setSelectedProvider(providerQuote.provider);
     setQuote(providerQuote);
     setActiveSteps(
       buildActiveSteps(providerQuote.provider, {
-        skipParties: selectedTransactionId !== null,
+        skipParties,
       }),
     );
-    if (repeatProvider !== null) {
+    if (skipParties) {
       setRepeatProvider(providerQuote.provider);
     }
     window.requestAnimationFrame(() => nextButtonRef.current?.focus());
@@ -347,7 +346,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setProviderQuotes([]);
     setQuotesReady(false);
     setSelectedProvider(null);
-    setActiveSteps(buildQuoteLoadingSteps(false));
+    setActiveSteps(buildQuoteLoadingSteps(isRepeatFlowRef.current));
     setStep((current) => Math.min(current, 2));
     setQuoteLoading(false);
   };
@@ -451,6 +450,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     optionsRequestRef.current += 1;
     setPartnerLoading(false);
     setLocationLoading(false);
+    isRepeatFlowRef.current = true;
     setDestinationCountry(transaction.destinationCountry);
     setDeliveryType(transaction.deliveryType);
     setPayingPartner(transaction.payingPartner ?? "");
@@ -477,6 +477,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     optionsRequestRef.current += 1;
     setPartnerLoading(false);
     setLocationLoading(false);
+    isRepeatFlowRef.current = false;
+    setRepeatProvider(null);
     setDestinationCountry("");
     setDeliveryType("");
     clearDeliveryExtras();
@@ -546,6 +548,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     }, 2500);
   }
   function startAnotherQuote() {
+    isRepeatFlowRef.current = false;
+    setRepeatProvider(null);
     clearAmount();
     setPaymentMethod("Pago en efectivo");
     setPrimaryCurrency("USD");

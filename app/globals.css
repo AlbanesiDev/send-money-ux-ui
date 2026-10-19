@@ -232,9 +232,31 @@
   animation: route-fade-in 220ms ease-out;
 }
 
+@keyframes recent-tx-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.recent-tx-enter {
+  opacity: 0;
+  animation: recent-tx-enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .route-fade {
     animation: none;
+  }
+
+  .recent-tx-enter {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -444,6 +466,15 @@
 .card {
   @apply px-4 sm:px-6 lg:px-8;
   background-color: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  padding-block: 1rem;
+  color: var(--card-foreground);
+}
+
+.card-no-bg {
+  @apply px-4 sm:px-6 lg:px-8;
   border-radius: var(--radius);
   border: 1px solid var(--border);
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);

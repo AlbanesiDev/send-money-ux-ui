@@ -24,8 +24,6 @@ export type ClientSearchResult =
   | null;
 
 export type IdentifySenderStepProps = {
-  step: number;
-  lastStep: number;
   documentNumber: string;
   onDocumentNumberChange: (value: string) => void;
   result: ClientSearchResult;
@@ -44,8 +42,6 @@ export type IdentifySenderStepProps = {
 const DOCUMENT_TYPE_OPTIONS = documentTypesCatalog.map((item) => item.name);
 
 export function IdentifySenderStep({
-  step,
-  lastStep,
   documentNumber,
   onDocumentNumberChange,
   result,
@@ -115,36 +111,33 @@ export function IdentifySenderStep({
 
   return (
     <>
-      <div className="mb-4">
-        <p className="mb-0.5 pt-16 text-xs font-bold uppercase tracking-[0.14em] text-brand">
-          Paso {step} de {lastStep}
-        </p>
-        <h1 className="text-xl font-bold tracking-[-0.02em] text-foreground">
-          Identifica al remitente
-        </h1>
-        <p className="mt-1 text-sm leading-5 text-muted-foreground">
-          Completa la información necesaria para continuar.
-        </p>
-      </div>
       <div
         className={
           showTransactions
             ? "grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,26rem)]"
-            : undefined
+            : "mx-auto w-full max-w-[680px]"
         }
       >
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            searchClient();
-          }}
-          className={
-            showTransactions
-              ? "min-w-0 space-y-3"
-              : "mx-auto max-w-[680px] space-y-3"
-          }
-        >
-          <div className="mt-10 block">
+        <div className={showTransactions ? "min-w-0" : undefined}>
+          <div className="mb-6 pt-12">
+            <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-brand">
+              Envío de remesas
+            </p>
+            <h1 className="text-xl font-bold tracking-[-0.02em] text-foreground">
+              Identifica al remitente
+            </h1>
+            <p className="mt-1 text-sm leading-5 text-muted-foreground">
+              Completa la información necesaria para continuar.
+            </p>
+          </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              searchClient();
+            }}
+            className="space-y-3"
+          >
+          <div className="block">
             <span className="mb-1 block text-sm font-semibold text-foreground">
               Tipo de documento <span className="text-destructive">*</span>
             </span>
@@ -295,6 +288,7 @@ export function IdentifySenderStep({
             )}
           </div>
         </form>
+        </div>
         {showTransactions && (
           <aside className="card ml-16 sticky top-4 self-start shadow-[0_12px_35px_rgba(24,37,73,0.08)] dark:shadow-none">
             <RecentTransactions
@@ -309,6 +303,11 @@ export function IdentifySenderStep({
           </aside>
         )}
       </div>
+      <p className="absolute bottom-4 right-4 text-xs text-muted-foreground">
+        Demo: 7807365 (cliente existente) · 1111111 (cliente existente) ·
+        1234567 (cliente nuevo) · 0000000 (error de búsqueda) · 2222222
+        (cliente bloqueado)
+      </p>
     </>
   );
 }

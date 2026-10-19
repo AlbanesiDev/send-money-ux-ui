@@ -639,7 +639,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
 
   return (
     <section
-      className={`flex h-full min-h-0 w-full min-w-0 flex-1 flex-col gap-4 overflow-hidden rounded-[14px] text-foreground ${step === 2 || step === 3 ? "" : "bg-card shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none"}`}
+      className={`relative flex h-full min-h-0 w-full min-w-0 flex-1 flex-col gap-4 overflow-hidden rounded-[14px] text-foreground ${step === 2 || step === 3 ? "" : "bg-card shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none"}`}
     >
       {processing ? (
         <RemittanceProcessing totalSent={formatUsd(quote ? quote.amount : 0)} />
@@ -667,8 +667,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                   data-form-fields
                 >
                   <IdentifySenderStep
-                    step={step}
-                    lastStep={lastStep}
                     documentNumber={documentNumber}
                     onDocumentNumberChange={setDocumentNumber}
                     result={result}

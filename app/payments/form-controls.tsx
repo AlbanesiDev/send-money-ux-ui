@@ -162,14 +162,18 @@ export function FormSection({
   description,
   action,
   children,
+  className = "",
 }: {
   title: string;
   description?: ReactNode;
   action?: ReactNode;
   children: ReactNode;
+  className?: string;
 }) {
   return (
-    <section className="rounded-xl border border-border bg-card p-4">
+    <section
+      className={`rounded-xl border border-border bg-card p-4 ${className}`}
+    >
       <div className="mb-3 flex items-start justify-between gap-3">
         <div>
           <h2 className="font-bold text-foreground">{title}</h2>

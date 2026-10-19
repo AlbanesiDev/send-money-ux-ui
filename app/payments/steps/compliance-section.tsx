@@ -129,7 +129,7 @@ export function ComplianceSection({
   knownFields: Set<string>;
   showErrors: boolean;
 }) {
-  const reasons = uifTriggers(operation, flags);
+  const reasons = uifTriggers(operation);
   const forced = reasons.length > 0;
   const profile = operation.existingCustomer;
   const set = (field: UifField) => (value: string) =>

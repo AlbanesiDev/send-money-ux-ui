@@ -97,7 +97,10 @@ export function PaymentProcessing({ amount }: { amount: string }) {
     >
       <div className="flex w-full max-w-[620px] flex-col items-center text-center">
         <div className="flex h-20 w-20 items-center justify-center rounded-full bg-accent text-brand-strong">
-          <Loader2Icon className="h-9 w-9 motion-safe:animate-spin" strokeWidth={2.5} />
+          <Loader2Icon
+            className="h-9 w-9 motion-safe:animate-spin"
+            strokeWidth={2.5}
+          />
         </div>
         <p className="mt-6 text-xs font-bold uppercase tracking-[0.14em] text-brand-strong">
           Procesando pago
@@ -109,7 +112,9 @@ export function PaymentProcessing({ amount }: { amount: string }) {
           No entregues el efectivo todavía. Esto puede tardar unos segundos.
         </p>
         <div className="mt-8 flex w-full max-w-md items-center justify-between rounded-xl border border-border bg-muted p-5">
-          <span className="text-sm text-muted-foreground">Monto a entregar</span>
+          <span className="text-sm text-muted-foreground">
+            Monto a entregar
+          </span>
           <span className="text-lg font-bold tabular-nums text-brand-strong">
             {amount}
           </span>
@@ -155,44 +160,47 @@ export function PaymentSuccess({
           Operación {formatOperationNumber(operation.number)}
         </p>
 
-        <ol className="mt-6 grid w-full gap-2 text-left sm:grid-cols-3">
-          {[
-            "Imprime el comprobante",
-            "El beneficiario lo firma",
-            "Cuenta el efectivo frente a él",
-          ].map((text, index) => (
-            <li
-              key={text}
-              className="flex items-center gap-2 rounded-lg border border-border bg-muted p-3 text-sm font-semibold text-foreground"
-            >
-              <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-strong text-xs font-bold text-white">
-                {index + 1}
-              </span>
-              {text}
-            </li>
-          ))}
-        </ol>
-
-        <section className="mt-4 w-full rounded-xl border border-border bg-card p-4 text-left">
-          <h2 className="flex items-center gap-2 text-sm font-bold text-foreground">
-            <BanknoteIcon className="size-4 text-brand-strong" />
-            Desglose sugerido
-          </h2>
-          <ul className="mt-2 grid grid-cols-2 gap-x-6 gap-y-1 text-sm sm:grid-cols-3">
-            {breakdown.map((line) => (
-              <li key={line.value} className="flex justify-between tabular-nums">
-                <span className="text-muted-foreground">
-                  {line.count} ×
+        <div className="mt-6 grid w-full items-stretch gap-4 text-left ">
+          <ol className="flex flex-col gap-2">
+            {[
+              "Imprime el comprobante",
+              "El beneficiario lo firma",
+              "Cuenta el efectivo frente a él",
+            ].map((text, index) => (
+              <li
+                key={text}
+                className="flex items-center gap-2 rounded-lg border border-border bg-muted p-3 text-sm font-semibold text-foreground"
+              >
+                <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-strong text-xs font-bold text-white">
+                  {index + 1}
                 </span>
-                <span className="font-semibold text-foreground">
-                  {formatMoney(line.value)}
-                </span>
+                {text}
               </li>
             ))}
-          </ul>
-        </section>
+          </ol>
 
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <section className="rounded-xl border border-border bg-card p-4">
+            <h2 className="flex items-center gap-2 text-sm font-bold text-foreground">
+              <BanknoteIcon className="size-4 text-brand-strong" />
+              Desglose sugerido
+            </h2>
+            <ul className="mt-2 flex flex-col gap-1 text-sm">
+              {breakdown.map((line) => (
+                <li
+                  key={line.value}
+                  className="flex justify-between tabular-nums"
+                >
+                  <span className="text-muted-foreground">{line.count} ×</span>
+                  <span className="font-semibold text-foreground">
+                    {formatMoney(line.value)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+
+        <div className="mt-12 flex flex-wrap justify-center gap-3">
           <button
             ref={printRef}
             type="button"
@@ -202,7 +210,11 @@ export function PaymentSuccess({
             <PrinterIcon className="size-4" />
             Imprimir comprobante
           </button>
-          <button type="button" onClick={onNewPayment} className={secondaryButton}>
+          <button
+            type="button"
+            onClick={onNewPayment}
+            className={secondaryButton}
+          >
             <RotateCcwIcon className="size-4" />
             Nuevo pago
           </button>

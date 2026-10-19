@@ -232,10 +232,7 @@ const ADDITIONAL_INFO_FIELDS: UifField[] = [
 ];
 
 /** Motivos por los que el sistema exige el formulario . */
-export function uifTriggers(
-  operation: PaymentOperation,
-  flags: ComplianceFlags,
-) {
+export function uifTriggers(operation: PaymentOperation) {
   const reasons: string[] = [];
   if (operation.amount >= UIF_AMOUNT_THRESHOLD)
     reasons.push(`El monto supera ${formatMoney(UIF_AMOUNT_THRESHOLD)}.`);
@@ -243,9 +240,6 @@ export function uifTriggers(
     reasons.push(
       `${operation.originCountry} es un país de origen de alto riesgo.`,
     );
-  if (flags.pep) reasons.push("El beneficiario es PEP.");
-  if (flags.pepRelated) reasons.push("El beneficiario es allegado a una PEP.");
-  if (flags.unusual) reasons.push("La operación se marcó como inusual.");
   return reasons;
 }
 
@@ -256,7 +250,7 @@ export function requiredUifFields(
   form: UifForm,
   documentType: string,
 ) {
-  const forced = uifTriggers(operation, flags).length > 0;
+  const forced = uifTriggers(operation).length > 0;
   const fields = new Set<UifField>();
   if (flags.additionalInfo || forced)
     ADDITIONAL_INFO_FIELDS.forEach((field) => fields.add(field));

@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import {
+  CheckIcon,
   CircleAlertIcon,
   IdCardIcon,
   PencilIcon,
@@ -52,7 +53,7 @@ export function BeneficiaryStep({
   profile,
   onProfileChange,
   showAllFields,
-  onShowAllFields,
+  onShowAllFieldsChange,
   showErrors,
   complianceSlot,
 }: {
@@ -64,15 +65,17 @@ export function BeneficiaryStep({
   profile: ProfileForm;
   onProfileChange: (form: ProfileForm) => void;
   showAllFields: boolean;
-  onShowAllFields: () => void;
+  onShowAllFieldsChange: (show: boolean) => void;
   showErrors: boolean;
   complianceSlot: ReactNode;
 }) {
   const [scanning, setScanning] = useState(false);
+  const [editErrors, setEditErrors] = useState(false);
   const declared = operation.declaredDocument;
   const existing = operation.existingCustomer !== null;
   const missing = missingProfileFields(profile);
   const fromTransaction = fieldsFromTransaction(operation);
+  const highlightMissing = showErrors || editErrors;
 
   function validateDocument(value = documentInput) {
     if (!value.trim()) return;
@@ -120,7 +123,7 @@ export function BeneficiaryStep({
       type={options.type}
       inputMode={options.inputMode}
       hint={hintFor(field)}
-      missing={showErrors}
+      missing={highlightMissing}
     />
   );
 
@@ -176,97 +179,113 @@ export function BeneficiaryStep({
     }
   };
 
+  const showProfileSummary =
+    documentCheck === "matched" && existing && !showAllFields;
+  const showProfileForm =
+    documentCheck === "matched" && (!existing || showAllFields);
+
   return (
     <div className="flex flex-col gap-4">
-      <FormSection
-        title=""
-        description={
-          <>
-            <h1 className="text-lg font-bold text-foreground">
-              Identifica al beneficiario
-            </h1>
-            <p className="mt-0.5 text-sm text-muted-foreground">
-              Pide la cédula física. Los datos se completan desde la operación y
-              la ficha del cliente.
-            </p>
-          </>
+      <div
+        className={
+          showProfileSummary ? "grid gap-4 lg:grid-cols-2" : undefined
         }
       >
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
-            validateDocument();
-          }}
-          className="flex flex-col gap-2 sm:flex-row sm:items-end"
+        <FormSection
+          className={showProfileSummary ? "h-full" : undefined}
+          title=""
+          description={
+            <>
+              <h1 className="text-lg font-bold text-foreground">
+                Identifica al beneficiario
+              </h1>
+              <p className="mt-0.5 text-sm text-muted-foreground">
+                Pide la cédula física. Los datos se completan desde la operación
+                y la ficha del cliente.
+              </p>
+            </>
+          }
         >
-          <label className="block flex-1 mt-4">
-            <span className="mb-1 block text-sm font-semibold text-foreground">
-              Número que figura en el documento físico{" "}
-              <span className="text-destructive">*</span>
-            </span>
-            <input
-              autoFocus={documentCheck !== "matched"}
-              inputMode="numeric"
-              value={documentInput}
-              onChange={(event) => {
-                onDocumentInputChange(
-                  event.target.value.replace(/[^\dA-Za-z-]/g, "").slice(0, 15),
-                );
-                if (documentCheck !== "pending") onDocumentCheck("pending");
-              }}
-              placeholder="Escribe o escanea el documento"
-              className="h-10 w-full rounded-lg border border-input bg-card px-3 font-mono text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-brand focus:ring-4 focus:ring-brand/10"
-            />
-          </label>
-          <button
-            type="button"
-            onClick={scanDocument}
-            disabled={scanning}
-            className="flex h-10 items-center justify-center gap-2 rounded-lg border border-border bg-muted px-4 text-sm font-bold text-foreground hover:bg-card disabled:opacity-60"
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              validateDocument();
+            }}
+            className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-end"
           >
-            <ScanLineIcon className="size-4" />
-            {scanning ? "Leyendo…" : "Escanear"}
-          </button>
-          <button
-            disabled={!documentInput || documentCheck === "matched"}
-            className="h-10 rounded-lg bg-brand-strong px-5 text-sm font-bold text-white disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground"
-          >
-            Validar
-          </button>
-        </form>
-        <div aria-live="polite" className="mt-3 empty:hidden">
-          {documentCheck === "mismatch" && (
-            <Notice
-              tone="error"
-              icon={<CircleAlertIcon className="size-5" />}
-              title="El documento no coincide con la operación"
-              text="Revisa que la cédula sea del beneficiario. Si es correcta, el remitente debe corregir los datos antes del pago."
-            />
-          )}
-          {documentCheck === "matched" && (
-            <Notice
-              tone="success"
-              icon={<IdCardIcon className="size-5" />}
-              title="Documento validado contra la operación"
-              text={
-                existing
-                  ? "Encontramos la ficha del cliente en CIS."
-                  : "Cliente nuevo: completamos lo que trae la operación."
-              }
-            />
-          )}
-        </div>
-      </FormSection>
+            <label className="block min-w-0 flex-1">
+              <span className="mb-1 block text-sm font-semibold text-foreground">
+                Número que figura en el documento físico{" "}
+                <span className="text-destructive">*</span>
+              </span>
+              <input
+                autoFocus={documentCheck !== "matched"}
+                inputMode="numeric"
+                value={documentInput}
+                onChange={(event) => {
+                  onDocumentInputChange(
+                    event.target.value
+                      .replace(/[^\dA-Za-z-]/g, "")
+                      .slice(0, 15),
+                  );
+                  if (documentCheck !== "pending") onDocumentCheck("pending");
+                }}
+                placeholder="Escribe o escanea el documento"
+                className="h-10 w-full rounded-lg border border-input bg-card px-3 font-mono text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-brand focus:ring-4 focus:ring-brand/10"
+              />
+            </label>
+            <button
+              type="button"
+              onClick={scanDocument}
+              disabled={scanning}
+              className="flex h-10 shrink-0 items-center justify-center gap-2 rounded-lg border border-border bg-muted px-4 text-sm font-bold text-foreground hover:bg-card disabled:opacity-60"
+            >
+              <ScanLineIcon className="size-4" />
+              {scanning ? "Leyendo…" : "Escanear"}
+            </button>
+            <button
+              disabled={!documentInput || documentCheck === "matched"}
+              className="h-10 shrink-0 rounded-lg bg-brand-strong px-5 text-sm font-bold text-white disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground"
+            >
+              Validar
+            </button>
+          </form>
+          <div aria-live="polite" className="mt-3 empty:hidden">
+            {documentCheck === "mismatch" && (
+              <Notice
+                tone="error"
+                icon={<CircleAlertIcon className="size-5" />}
+                title="El documento no coincide con la operación"
+                text="Revisa que la cédula sea del beneficiario. Si es correcta, el remitente debe corregir los datos antes del pago."
+              />
+            )}
+            {documentCheck === "matched" && (
+              <Notice
+                tone="success"
+                icon={<IdCardIcon className="size-5" />}
+                title="Documento validado contra la operación"
+                text={
+                  existing
+                    ? "Encontramos la ficha del cliente en CIS."
+                    : "Cliente nuevo: completamos lo que trae la operación."
+                }
+              />
+            )}
+          </div>
+        </FormSection>
 
-      {documentCheck === "matched" &&
-        (existing && !showAllFields ? (
+        {showProfileSummary && (
           <FormSection
+            className="h-full"
             title="Ficha del cliente"
             description="Revisa con el beneficiario que sigan vigentes."
             action={
               <button
                 type="button"
-                onClick={onShowAllFields}
+                onClick={() => {
+                  setEditErrors(false);
+                  onShowAllFieldsChange(true);
+                }}
                 className="flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-bold text-brand-strong hover:bg-accent"
               >
                 <PencilIcon className="size-3.5" />
@@ -316,92 +335,129 @@ export function BeneficiaryStep({
               </dl>
             </div>
           </FormSection>
-        ) : (
-          <>
-            {!existing && (
-              <Notice
-                tone="info"
-                icon={<UserPlusIcon className="size-5" />}
-                title="Alta de cliente"
-                text="Los campos marcados «De la operación» ya vienen cargados; confírmalos con el beneficiario."
-              />
-            )}
-            <FormSection title="Datos personales">
-              <FieldGrid>
-                {(
-                  [
-                    "firstName",
-                    "middleName",
-                    "lastName",
-                    "secondLastName",
-                    "birthDate",
-                    "gender",
-                    "birthCountry",
-                    "nationality",
-                  ] as const
-                ).map(renderField)}
-              </FieldGrid>
-            </FormSection>
-            <FormSection title="Documento">
-              <FieldGrid>
-                {(
-                  ["documentType", "documentNumber", "documentCountry"] as const
-                ).map(renderField)}
-                <div />
-                <div className="space-y-2">
-                  {renderField("documentIssueDate")}
-                  <CheckOption
-                    label="El documento no tiene fecha de emisión"
-                    checked={profile.noIssueDate}
-                    onChange={(checked) =>
-                      onProfileChange({
-                        ...profile,
-                        noIssueDate: checked,
-                        noExpiryDate: checked ? false : profile.noExpiryDate,
-                      })
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  {renderField("documentExpiryDate")}
-                  <CheckOption
-                    label="El documento no tiene fecha de vigencia"
-                    checked={profile.noExpiryDate}
-                    onChange={(checked) =>
-                      onProfileChange({
-                        ...profile,
-                        noExpiryDate: checked,
-                        noIssueDate: checked ? false : profile.noIssueDate,
-                      })
-                    }
-                  />
-                </div>
-              </FieldGrid>
-              {isExpired(profile) && (
-                <p className="mt-2 text-xs font-semibold text-destructive">
-                  El documento está vencido. Pide un documento vigente.
+        )}
+      </div>
+
+      {showProfileForm && (
+        <>
+          {!existing && (
+            <Notice
+              tone="info"
+              icon={<UserPlusIcon className="size-5" />}
+              title="Alta de cliente"
+              text="Los campos marcados «De la operación» ya vienen cargados; confírmalos con el beneficiario."
+            />
+          )}
+          {existing && (
+            <div className="sticky top-0 z-20 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 shadow-[0_8px_24px_rgba(24,37,73,0.08)]">
+              <div>
+                <p className="text-sm font-bold text-foreground">
+                  Editando ficha del cliente
                 </p>
-              )}
-            </FormSection>
-            <FormSection title="Contacto y dirección">
-              <FieldGrid>
-                <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-2">
-                  {renderField("phoneCode")}
-                  {renderField("phone")}
-                </div>
-                {renderField("email")}
-                {renderField("residenceCountry")}
-                {renderField("department")}
-                {renderField("city")}
-                {renderField("zone")}
-                {renderField("street")}
-                {renderField("houseNumber")}
-                {renderField("address2")}
-                {renderField("postalCode")}
-              </FieldGrid>
-            </FormSection>
-          </>
-        ))}
+                <p className="text-xs text-muted-foreground">
+                  Guarda para volver al resumen.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  if (missing.length > 0) {
+                    setEditErrors(true);
+                    return;
+                  }
+                  setEditErrors(false);
+                  onShowAllFieldsChange(false);
+                }}
+                className="flex items-center gap-1.5 rounded-lg bg-brand-strong px-4 py-2 text-sm font-bold text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/30"
+              >
+                <CheckIcon className="size-4" />
+                Guardar ficha
+              </button>
+            </div>
+          )}
+          {existing && editErrors && missing.length > 0 && (
+            <p role="alert" className="text-xs font-semibold text-destructive">
+              {missing.length === 1
+                ? "Falta completar 1 dato obligatorio."
+                : `Faltan completar ${missing.length} datos obligatorios.`}
+            </p>
+          )}
+          <FormSection title="Datos personales">
+            <FieldGrid>
+              {(
+                [
+                  "firstName",
+                  "middleName",
+                  "lastName",
+                  "secondLastName",
+                  "birthDate",
+                  "gender",
+                  "birthCountry",
+                  "nationality",
+                ] as const
+              ).map(renderField)}
+            </FieldGrid>
+          </FormSection>
+          <FormSection title="Documento">
+            <FieldGrid>
+              {(
+                ["documentType", "documentNumber", "documentCountry"] as const
+              ).map(renderField)}
+              <div />
+              <div className="space-y-2">
+                {renderField("documentIssueDate")}
+                <CheckOption
+                  label="El documento no tiene fecha de emisión"
+                  checked={profile.noIssueDate}
+                  onChange={(checked) =>
+                    onProfileChange({
+                      ...profile,
+                      noIssueDate: checked,
+                      noExpiryDate: checked ? false : profile.noExpiryDate,
+                    })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                {renderField("documentExpiryDate")}
+                <CheckOption
+                  label="El documento no tiene fecha de vigencia"
+                  checked={profile.noExpiryDate}
+                  onChange={(checked) =>
+                    onProfileChange({
+                      ...profile,
+                      noExpiryDate: checked,
+                      noIssueDate: checked ? false : profile.noIssueDate,
+                    })
+                  }
+                />
+              </div>
+            </FieldGrid>
+            {isExpired(profile) && (
+              <p className="mt-2 text-xs font-semibold text-destructive">
+                El documento está vencido. Pide un documento vigente.
+              </p>
+            )}
+          </FormSection>
+          <FormSection title="Contacto y dirección">
+            <FieldGrid>
+              <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-2">
+                {renderField("phoneCode")}
+                {renderField("phone")}
+              </div>
+              {renderField("email")}
+              {renderField("residenceCountry")}
+              {renderField("department")}
+              {renderField("city")}
+              {renderField("zone")}
+              {renderField("street")}
+              {renderField("houseNumber")}
+              {renderField("address2")}
+              {renderField("postalCode")}
+            </FieldGrid>
+          </FormSection>
+        </>
+      )}
 
       {documentCheck === "matched" && complianceSlot}
     </div>

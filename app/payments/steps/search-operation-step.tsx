@@ -192,7 +192,8 @@ export function SearchOperationStep({
       </div>
       <p className="absolute bottom-4 right-4 text-xs text-muted-foreground">
         Demo: 12090991105 (cliente existente) · 12090991200 (monto alto, cliente
-        nuevo) · 12090990000 (en revisión) · 12090991111 (ya pagada)
+        nuevo) · 12090991300 (monto alto, cliente existente) · 12090990000 (en
+        revisión) · 12090991111 (ya pagada)
       </p>
     </div>
   );

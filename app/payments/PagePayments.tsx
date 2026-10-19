@@ -247,7 +247,7 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
                   profile={profile}
                   onProfileChange={setProfile}
                   showAllFields={showAllFields}
-                  onShowAllFields={() => setShowAllFields(true)}
+                  onShowAllFieldsChange={setShowAllFields}
                   showErrors={showErrors}
                   complianceSlot={
                     <ComplianceSection
@@ -282,7 +282,7 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
                   uifForm={uifForm}
                   uifRequired={
                     flags.additionalInfo ||
-                    uifTriggers(operation, flags).length > 0
+                    uifTriggers(operation).length > 0
                   }
                   onEditBeneficiary={() => setStep(3)}
                 />

@@ -22,6 +22,7 @@ import type {
 export type ProviderStepContentProps = {
   provider: ProviderId;
   step: number;
+  activeSteps: readonly string[];
   documentNumber: string;
   known: (value?: string) => string | undefined;
   isKnownClient: boolean;
@@ -45,15 +46,19 @@ export type ProviderStepContentProps = {
   billingName: string;
   billingNit: string;
   onEditQuote: () => void;
-  onEditRemitter: () => void;
-  onEditBeneficiary: () => void;
+  onEditRemitter?: () => void;
+  onEditBeneficiary?: () => void;
   onEditPayment: () => void;
   formatAmount: (value: number) => string;
   billingSlot: ReactNode;
 };
 
 export function ProviderStepContent(props: ProviderStepContentProps) {
-  const stepKey: ProviderStepKey = getStepKey(props.provider, props.step);
+  const stepKey: ProviderStepKey = getStepKey(
+    props.provider,
+    props.step,
+    props.activeSteps,
+  );
 
   if (stepKey === "parties") {
     let remitter: ReactNode;

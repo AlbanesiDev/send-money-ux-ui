@@ -13,6 +13,7 @@ import { BillingSummary } from "@/components/ui/billing-summary";
 export type ProviderFlowStepProps = {
   provider: ProviderId;
   step: number;
+  activeSteps: readonly string[];
   documentNumber: string;
   known: (value?: string) => string | undefined;
   isKnownClient: boolean;
@@ -41,8 +42,8 @@ export type ProviderFlowStepProps = {
   onBillingChange: (field: "name" | "nit", value: string) => void;
   onBillingReset: () => void;
   onEditQuote: () => void;
-  onEditRemitter: () => void;
-  onEditBeneficiary: () => void;
+  onEditRemitter?: () => void;
+  onEditBeneficiary?: () => void;
   onEditPayment: () => void;
   formatAmount: (value: number) => string;
 };

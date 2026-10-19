@@ -1,13 +1,8 @@
 "use client";
 
-import {
-  useEffect,
-  useRef,
-  useState,
-  type RefObject,
-} from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import { CountryFlag } from "@/components/ui/country-flag";
-import { ChevronDownIcon } from "lucide-react";
+import { ChevronDownIcon, XIcon } from "lucide-react";
 
 export type SearchableSelectProps = {
   label: string;
@@ -21,6 +16,7 @@ export type SearchableSelectProps = {
   showFlags?: boolean;
   hideLabel?: boolean;
   dropdownSide?: "top" | "bottom";
+  clearable?: boolean;
 };
 
 export function SearchableSelect({
@@ -35,6 +31,7 @@ export function SearchableSelect({
   showFlags = false,
   hideLabel = false,
   dropdownSide = "bottom",
+  clearable = false,
 }: SearchableSelectProps) {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
@@ -111,7 +108,9 @@ export function SearchableSelect({
       <div className="relative">
         <button
           ref={fieldRef}
-          aria-label={hideLabel ? `${label}: ${value || "sin seleccionar"}` : undefined}
+          aria-label={
+            hideLabel ? `${label}: ${value || "sin seleccionar"}` : undefined
+          }
           type="button"
           disabled={disabled}
           aria-disabled={loading || undefined}
@@ -128,13 +127,12 @@ export function SearchableSelect({
           }}
           aria-haspopup="listbox"
           aria-expanded={open}
-          className="flex h-10 w-full items-center justify-between rounded-lg border border-input bg-card px-3 text-left text-sm text-foreground outline-none focus:border-brand focus:ring-4 focus:ring-brand/10 disabled:bg-muted disabled:text-muted-foreground"
+          className={`flex h-10 w-full items-center rounded-lg border border-input bg-card py-0 pl-3 text-left text-sm text-foreground outline-none focus:border-brand focus:ring-4 focus:ring-brand/10 disabled:bg-muted disabled:text-muted-foreground ${
+            clearable && value ? "pr-14" : "pr-9"
+          }`}
         >
           {loading ? (
-            <span
-              role="status"
-              className="flex items-center gap-2 text-brand"
-            >
+            <span role="status" className="flex items-center gap-2 text-brand">
               <span
                 aria-hidden="true"
                 className="h-4 w-4 animate-spin rounded-full border-2 border-brand/30 border-t-brand-strong"
@@ -151,16 +149,32 @@ export function SearchableSelect({
               </span>
             </span>
           )}
-          <span aria-hidden="true">
-            <ChevronDownIcon className="h-4 w-4" />
-          </span>
         </button>
+        {clearable && value && !disabled && !loading && (
+          <button
+            type="button"
+            aria-label={`Limpiar ${label.toLowerCase()}`}
+            onClick={() => {
+              onChange("");
+              setOpen(false);
+              setFilter("");
+              window.requestAnimationFrame(() => fieldRef.current?.focus());
+            }}
+            className="absolute top-1/2 right-8 grid size-5 -translate-y-1/2 place-items-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-brand/20"
+          >
+            <XIcon className="h-3.5 w-3.5" />
+          </button>
+        )}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-foreground"
+        >
+          <ChevronDownIcon className="h-4 w-4" />
+        </span>
         {open && (
           <div
             className={`absolute inset-x-0 z-50 rounded-lg border border-border bg-popover p-2 text-popover-foreground shadow-lg ${
-              dropdownSide === "top"
-                ? "bottom-full mb-1"
-                : "top-full mt-1"
+              dropdownSide === "top" ? "bottom-full mb-1" : "top-full mt-1"
             }`}
           >
             <input

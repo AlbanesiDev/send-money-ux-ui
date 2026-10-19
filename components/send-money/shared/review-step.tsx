@@ -15,8 +15,8 @@ function SummarySection({
   children,
 }: {
   title: string;
-  editLabel: string;
-  onEdit: () => void;
+  editLabel?: string;
+  onEdit?: () => void;
   highlight?: boolean;
   children: ReactNode;
 }) {
@@ -26,14 +26,16 @@ function SummarySection({
     >
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-sm font-bold text-foreground">{title}</h2>
-        <button
-          type="button"
-          onClick={onEdit}
-          aria-label={editLabel}
-          className="rounded-md px-1.5 py-0.5 text-xs font-semibold text-brand-strong hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-strong"
-        >
-          Editar
-        </button>
+        {onEdit && editLabel && (
+          <button
+            type="button"
+            onClick={onEdit}
+            aria-label={editLabel}
+            className="rounded-md px-1.5 py-0.5 text-xs font-semibold text-brand-strong hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-strong"
+          >
+            Editar
+          </button>
+        )}
       </div>
       <dl className="mt-1.5 flex flex-col divide-y divide-border">
         {children}
@@ -109,8 +111,8 @@ export function ReviewStep({
   billingName: string;
   billingNit: string;
   onEditQuote: () => void;
-  onEditRemitter: () => void;
-  onEditBeneficiary: () => void;
+  onEditRemitter?: () => void;
+  onEditBeneficiary?: () => void;
   onEditPayment: () => void;
   billingSlot: ReactNode;
 }) {
@@ -164,7 +166,7 @@ export function ReviewStep({
           <SummarySection
             title="Beneficiario"
             onEdit={onEditBeneficiary}
-            editLabel="Editar beneficiario"
+            editLabel={onEditBeneficiary ? "Editar beneficiario" : undefined}
           >
             {provider === "MONEYGRAM" ? (
               <>
@@ -199,7 +201,7 @@ export function ReviewStep({
           <SummarySection
             title="Remitente"
             onEdit={onEditRemitter}
-            editLabel="Editar remitente"
+            editLabel={onEditRemitter ? "Editar remitente" : undefined}
           >
             <SummaryRow
               label="Nombre"

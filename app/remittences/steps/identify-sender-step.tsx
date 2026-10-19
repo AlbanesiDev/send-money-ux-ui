@@ -65,9 +65,13 @@ export function IdentifySenderStep({
 }: IdentifySenderStepProps) {
   const [loading, setLoading] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [transactionsStatus, setTransactionsStatus] = useState<STATUS>(
-    STATUS.IDLE,
-  );
+  const [transactionsStatus, setTransactionsStatus] = useState<STATUS>(() => {
+    if (result === "success") return STATUS.SUCCESS;
+    if (result === "empty" || result === "error" || result === "blocked") {
+      return STATUS.EMPTY;
+    }
+    return STATUS.IDLE;
+  });
   const [documentType, setDocumentType] = useState("Cédula");
   const documentTypeRef = useRef<HTMLButtonElement>(null);
   const documentNumberInputRef = useRef<HTMLInputElement>(null);
@@ -210,6 +214,7 @@ export function IdentifySenderStep({
                     .replace(/\D/g, "")
                     .slice(0, 7);
                   onDocumentNumberChange(nextValue);
+                  onClearRepeatedTransaction();
                   if (searchTimeoutRef.current !== null) {
                     window.clearTimeout(searchTimeoutRef.current);
                     searchTimeoutRef.current = null;
@@ -349,7 +354,7 @@ export function IdentifySenderStep({
         </aside>
       </div>
 
-      <p className="absolute flex gap-2 bottom-4 right-4 text-xs text-muted-foreground">
+      <div className="absolute right-4 bottom-4 flex gap-2 text-xs text-muted-foreground">
         <span className="select-none">Demo:</span>
         <div className="flex gap-0.5">
           7807365
@@ -371,7 +376,7 @@ export function IdentifySenderStep({
           2222222
           <span className="select-none">(cliente bloqueado)</span>
         </div>
-      </p>
+      </div>
 
       <ClientProfileDialog
         open={profileOpen}

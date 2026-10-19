@@ -304,7 +304,12 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       if (preferred) {
         setSelectedProvider(preferred.provider);
         setQuote(preferred);
-        setActiveSteps(buildActiveSteps(preferred.provider));
+        setActiveSteps(
+          buildActiveSteps(preferred.provider, {
+            skipParties:
+              selectedTransactionId !== null || override !== undefined,
+          }),
+        );
       }
       window.requestAnimationFrame(() => nextButtonRef.current?.focus());
     }, 900);
@@ -312,7 +317,11 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const selectProviderQuote = (providerQuote: ProviderQuote) => {
     setSelectedProvider(providerQuote.provider);
     setQuote(providerQuote);
-    setActiveSteps(buildActiveSteps(providerQuote.provider));
+    setActiveSteps(
+      buildActiveSteps(providerQuote.provider, {
+        skipParties: selectedTransactionId !== null,
+      }),
+    );
     if (repeatProvider !== null) {
       setRepeatProvider(providerQuote.provider);
     }
@@ -375,7 +384,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const isReviewStep =
     selectedProvider !== null &&
     step >= 3 &&
-    getStepKey(selectedProvider, step) === "review";
+    getStepKey(selectedProvider, step, activeSteps) === "review";
   const [partnerLoading, setPartnerLoading] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
   const optionsRequestRef = useRef(0);
@@ -405,7 +414,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(0);
   const beneficiaries = [
     {
-      name: "Joaco Test Devv Test",
+      name: "Joaco Test",
       document: "78073652",
       city: "Acerani",
       phone: "4554545454",
@@ -486,7 +495,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     if (
       selectedProvider &&
       step >= 3 &&
-      getStepKey(selectedProvider, step) === "parties"
+      getStepKey(selectedProvider, step, activeSteps) === "parties"
     ) {
       window.requestAnimationFrame(() => {
         const fields = Array.from(
@@ -507,14 +516,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     if (isReviewStep) {
       window.requestAnimationFrame(() => nextButtonRef.current?.blur());
     }
-  }, [step, isReviewStep, selectedProvider]);
+  }, [step, isReviewStep, selectedProvider, activeSteps]);
 
   function next() {
     if (step === 2 && !selectedProvider) return;
-    if (step === 2 && selectedTransactionId !== null) {
-      setStep(findStepNumber(activeSteps, "Revisión"));
-      return;
-    }
     setStep((current) => Math.min(lastStep, current + 1));
   }
   function back() {
@@ -763,7 +768,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                       data-form-fields
                       data-enter-advance={
                         selectedProvider &&
-                        getStepKey(selectedProvider, stepIndex) === "parties"
+                        getStepKey(selectedProvider, stepIndex, activeSteps) ===
+                          "parties"
                           ? ""
                           : undefined
                       }
@@ -772,6 +778,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                         <ProviderFlowStep
                           provider={selectedProvider}
                           step={step}
+                          activeSteps={activeSteps}
                           documentNumber={documentNumber}
                           known={known}
                           isKnownClient={isKnownClient}
@@ -816,21 +823,27 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                             setBillingOpen(false);
                           }}
                           onEditQuote={() => setStep(2)}
-                          onEditRemitter={() =>
-                            setStep(
-                              findStepNumber(
-                                activeSteps,
-                                "Remitente y beneficiario",
-                              ),
-                            )
+                          onEditRemitter={
+                            activeSteps.includes("Remitente y beneficiario")
+                              ? () =>
+                                  setStep(
+                                    findStepNumber(
+                                      activeSteps,
+                                      "Remitente y beneficiario",
+                                    ),
+                                  )
+                              : undefined
                           }
-                          onEditBeneficiary={() =>
-                            setStep(
-                              findStepNumber(
-                                activeSteps,
-                                "Remitente y beneficiario",
-                              ),
-                            )
+                          onEditBeneficiary={
+                            activeSteps.includes("Remitente y beneficiario")
+                              ? () =>
+                                  setStep(
+                                    findStepNumber(
+                                      activeSteps,
+                                      "Remitente y beneficiario",
+                                    ),
+                                  )
+                              : undefined
                           }
                           onEditPayment={() =>
                             window.requestAnimationFrame(() =>

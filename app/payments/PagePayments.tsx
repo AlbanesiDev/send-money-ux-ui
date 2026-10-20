@@ -33,9 +33,11 @@ import {
   type OperationSearchResult,
 } from "./steps/search-operation-step";
 import {
+  EMPTY_VERIFICATION_ANSWERS,
   MAX_VERIFICATION_ATTEMPTS,
   VerificationStep,
   checkAnswers,
+  type VerificationAnswers,
 } from "./steps/verification-step";
 
 const STEPS = [
@@ -60,6 +62,8 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
   const [operation, setOperation] = useState<PaymentOperation | null>(null);
   const [attemptsLeft, setAttemptsLeft] = useState(MAX_VERIFICATION_ATTEMPTS);
   const [verified, setVerified] = useState(false);
+  const [verificationAnswers, setVerificationAnswers] =
+    useState<VerificationAnswers>(EMPTY_VERIFICATION_ANSWERS);
   const [documentInput, setDocumentInput] = useState("");
   const [documentCheck, setDocumentCheck] = useState<DocumentCheck>("pending");
   const [profile, setProfile] = useState<ProfileForm | null>(null);
@@ -95,6 +99,7 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
     setKnownUifFields(new Set(Object.keys(known)));
     setAttemptsLeft(MAX_VERIFICATION_ATTEMPTS);
     setVerified(false);
+    setVerificationAnswers(EMPTY_VERIFICATION_ANSWERS);
     setDocumentInput("");
     setDocumentCheck("pending");
     setShowAllFields(false);
@@ -195,8 +200,8 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
             />
           </div>
         </Stepper.Step>
-        {operation && profile && (
-          [
+        {operation &&
+          profile && [
             <Stepper.Step key={2} index={2}>
               <StepLayout
                 aside={
@@ -210,6 +215,8 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
               >
                 <VerificationStep
                   operation={operation}
+                  answers={verificationAnswers}
+                  onAnswersChange={setVerificationAnswers}
                   attemptsLeft={attemptsLeft}
                   verified={verified}
                   onVerify={(answers) => {
@@ -281,15 +288,13 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
                   flags={flags}
                   uifForm={uifForm}
                   uifRequired={
-                    flags.additionalInfo ||
-                    uifTriggers(operation).length > 0
+                    flags.additionalInfo || uifTriggers(operation).length > 0
                   }
                   onEditBeneficiary={() => setStep(3)}
                 />
               </StepLayout>
-            </Stepper.Step>
-          ]
-        )}
+            </Stepper.Step>,
+          ]}
       </Stepper>
       {step > 1 && !blocked && (
         <div className="flex h-[42px] shrink-0 items-center justify-between gap-3">

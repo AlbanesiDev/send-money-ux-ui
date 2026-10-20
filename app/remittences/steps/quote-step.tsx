@@ -192,12 +192,26 @@ export function QuoteStep({
     quotesReady,
   ]);
 
+  const hasProviderQuotes = providerQuotes.length > 0;
+  const isQuoteRefreshing =
+    hasProviderQuotes &&
+    !amountExceedsBalance &&
+    (quoteLoading || !quotesReady);
+  const isQuotePending =
+    !amountExceedsBalance &&
+    Boolean(sendAmount) &&
+    Boolean(deliveryType) &&
+    !quotesReady;
   let quotesStatus = STATUS.IDLE;
-  if (quoteLoading) {
+  if (amountExceedsBalance) {
+    quotesStatus = STATUS.IDLE;
+  } else if (quoteLoading || isQuoteRefreshing || isQuotePending) {
     quotesStatus = STATUS.LOADING;
   } else if (quotesReady) {
     quotesStatus = STATUS.SUCCESS;
   }
+  const quoteSkeletonCount =
+    deliveryType === "BANK" || deliveryType === "WALLET" ? 3 : 4;
 
   return (
     <div className="space-y-3">
@@ -234,7 +248,6 @@ export function QuoteStep({
               }
               onDeliveryTypeChange(option.id);
               clearDeliveryExtras();
-              clearAmount();
               window.requestAnimationFrame(() => {
                 if (option.id === "BANK") {
                   terraPayBankRef.current?.focus();
@@ -270,8 +283,13 @@ export function QuoteStep({
                   }
                   aria-invalid={amountExceedsBalance}
                   onChange={(event) => {
-                    onSendAmountChange(sanitizeAmount(event.target.value));
+                    const nextAmount = sanitizeAmount(event.target.value);
+                    onSendAmountChange(nextAmount);
                     onAmountExceedsBalanceChange(false);
+                    if (nextAmount === "") {
+                      clearAmount();
+                      return;
+                    }
                     resetQuoteSelection();
                   }}
                   onBlur={() => {
@@ -422,14 +440,23 @@ export function QuoteStep({
             />
           }
           loadingComponent={
-            <div className="flex flex-row gap-2 pt-2">
-              {[...Array(4)].map((_, index) => (
-                <div
-                  key={index}
-                  className="skeleton h-44 min-w-0 flex-1 rounded-lg"
-                />
-              ))}
-            </div>
+            hasProviderQuotes ? (
+              <QuoteResults
+                quotes={providerQuotes}
+                selectedProvider={selectedProvider}
+                onSelect={onSelectProviderQuote}
+                loading
+              />
+            ) : (
+              <div className="flex flex-row gap-2 pt-2">
+                {[...Array(quoteSkeletonCount)].map((_, index) => (
+                  <div
+                    key={index}
+                    className="skeleton h-44 min-w-0 flex-1 rounded-lg"
+                  />
+                ))}
+              </div>
+            )
           }
           errorComponent={
             <AsyncResult
@@ -449,6 +476,7 @@ export function QuoteStep({
               quotes={quotes}
               selectedProvider={selectedProvider}
               onSelect={onSelectProviderQuote}
+              loading={false}
             />
           )}
         />

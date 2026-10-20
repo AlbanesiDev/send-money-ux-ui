@@ -295,7 +295,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setQuoteLoading(true);
     setQuote(null);
     setSelectedProvider(null);
-    setProviderQuotes([]);
     setQuotesReady(false);
     setActiveSteps(buildQuoteLoadingSteps(skipParties));
     setStep((current) => Math.min(current, 2));
@@ -343,7 +342,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setSelectedTransactionId(null);
     quoteRequestRef.current += 1;
     setQuote(null);
-    setProviderQuotes([]);
     setQuotesReady(false);
     setSelectedProvider(null);
     setActiveSteps(buildQuoteLoadingSteps(isRepeatFlowRef.current));
@@ -715,7 +713,20 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     destinationCountry={destinationCountry}
                     onDestinationCountryChange={setDestinationCountry}
                     deliveryType={deliveryType}
-                    onDeliveryTypeChange={setDeliveryType}
+                    onDeliveryTypeChange={(value) => {
+                      setDeliveryType(value);
+                      setSelectedTransactionId(null);
+                      quoteRequestRef.current += 1;
+                      setQuote(null);
+                      setProviderQuotes([]);
+                      setQuotesReady(false);
+                      setSelectedProvider(null);
+                      setActiveSteps(
+                        buildQuoteLoadingSteps(isRepeatFlowRef.current),
+                      );
+                      setQuoteLoading(false);
+                      setStep((current) => Math.min(current, 2));
+                    }}
                     clearDeliveryExtras={clearDeliveryExtras}
                     clearAmount={clearAmount}
                     sendAmount={sendAmount}

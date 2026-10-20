@@ -353,7 +353,7 @@ export function RecentTransactions({
                     onClick={onClear}
                     aria-label={`Deseleccionar transacción ${transaction.id}`}
                     aria-pressed="true"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-[#b8e1d1] bg-[#effaf5] px-2.5 py-2 text-[11px] font-bold whitespace-nowrap text-[#167152] transition-colors hover:bg-[#e8f7f0] focus:outline-none focus:ring-4 focus:ring-[#3064d1]/20 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-[#b8e1d1] bg-[#effaf5] px-2.5 py-2 text-[11px] font-bold whitespace-nowrap text-[#167152] transition-colors hover:bg-[#e8f7f0] dark:border-border dark:bg-success-soft dark:text-success hover:dark:bg-success-border focus:outline-none focus:ring-4 focus:ring-[#3064d1]/20 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <Check size={16} />
                     Deseleccionar
@@ -381,21 +381,21 @@ export function RecentTransactions({
   return (
     <section
       aria-labelledby="recent-transactions-title"
-      className="overflow-hidden rounded-[14px] border border-[#e0e6ef] bg-white/95 shadow-[0_16px_46px_rgba(28,48,84,0.08)]"
+      className="overflow-hidden rounded-[14px] border border-[#e0e6ef] bg-white/95 shadow-[0_16px_46px_rgba(28,48,84,0.08)] dark:bg-card dark:border-border dark:shadow-none"
     >
-      <div className="flex flex-col gap-5 border-b border-[#edf0f5] px-[26px] pt-[23px] pb-[19px]">
+      <div className="flex flex-col gap-5 border-b border-[#edf0f5] px-[26px] pt-[23px] pb-[19px] dark:border-border">
         <div className="flex items-center gap-3">
-          <div className="grid size-[37px] shrink-0 place-items-center rounded-[10px] bg-[#edf3ff] text-[#3064d1]">
+          <div className="grid size-[37px] shrink-0 place-items-center rounded-[10px] bg-[#edf3ff] text-[#3064d1] dark:bg-brand dark:text-white">
             <History size={19} />
           </div>
           <div className="select-none">
             <h2
               id="recent-transactions-title"
-              className="text-base font-bold tracking-[-0.025em] text-[#17243d]"
+              className="text-base font-bold tracking-[-0.025em] text-[#17243d] dark:text-foreground"
             >
               Actividad reciente
             </h2>
-            <span className="mt-1 block text-xs text-[#8691a5]">
+            <span className="mt-1 block text-xs text-[#8691a5] dark:text-muted-foreground">
               {visibleTransactions.length} operaciones encontradas
             </span>
           </div>
@@ -420,8 +420,8 @@ export function RecentTransactions({
               aria-expanded={filtersOpen}
               className={`inline-flex shrink-0 items-center gap-2 rounded-[9px] border px-2.5 py-1.5 text-[11px] font-bold transition-colors ${
                 activeAdvancedFilterCount > 0
-                  ? "border-[#9fb5df] bg-[#edf3ff] text-[#244da7]"
-                  : "border-transparent text-[#40506d] hover:border-[#9fb5df] hover:bg-[#f7faff]"
+                  ? "border-[#9fb5df] bg-[#edf3ff] text-[#244da7] dark:border-border dark:bg-brand dark:text-white"
+                  : "border-transparent text-[#40506d] hover:border-[#9fb5df] hover:bg-[#f7faff] dark:text-muted-foreground dark:hover:border-border dark:hover:bg-card"
               }`}
             >
               <Filter size={15} />

@@ -8,9 +8,6 @@ export type CatalogProvider = {
   code: ProviderId;
   name: string;
   logo: string;
-  charges: number;
-  tax: number;
-  iva: number;
   amountSent: boolean;
   amountReceived: boolean;
   sendingTypes: DeliveryTypeId[];

@@ -137,18 +137,59 @@ export function buildProviderQuotes(
   amount: number,
   deliveryType: DeliveryTypeId,
 ): ProviderQuote[] {
-  return providersCatalog
-    .filter((item) => item.sendingTypes.includes(deliveryType))
-    .map((item) => ({
+  let feeMultiplier = 1;
+  let ivaMultiplier = 1;
+  let rateMultiplier = 1;
+  if (deliveryType === "CASH") {
+    feeMultiplier = 1.1;
+    ivaMultiplier = 1.08;
+    rateMultiplier = 0.982;
+  } else if (deliveryType === "CASH24") {
+    feeMultiplier = 1.04;
+    ivaMultiplier = 1.03;
+    rateMultiplier = 0.991;
+  } else if (deliveryType === "BANK") {
+    feeMultiplier = 0.82;
+    ivaMultiplier = 0.88;
+    rateMultiplier = 1.018;
+  } else if (deliveryType === "WALLET") {
+    feeMultiplier = 0.9;
+    ivaMultiplier = 0.94;
+    rateMultiplier = 1.01;
+  }
+
+  const amountFeeShare = amount * 0.0025;
+  const candidates = providersCatalog.filter((item) =>
+    item.sendingTypes.includes(deliveryType),
+  );
+  const feeWeights = candidates.map(() => Math.random());
+  const minWeight = Math.min(...feeWeights);
+  const maxWeight = Math.max(...feeWeights);
+  const weightSpan = maxWeight - minWeight;
+
+  return candidates.map((item, index) => {
+    const feeJitter = 1 + (Math.random() * 0.07 - 0.035);
+    const ivaJitter = 1 + (Math.random() * 0.07 - 0.035);
+    const rateJitter = 1 + (Math.random() * 0.07 - 0.035);
+    const feeSpread = ((feeWeights[index] - minWeight) / weightSpan) * 10;
+    const fee =
+      Math.round(
+        (5 * feeMultiplier + amountFeeShare + feeSpread) * feeJitter * 100,
+      ) / 100;
+    const tax = Math.round(0.91 * ivaMultiplier * ivaJitter * 100) / 100;
+    const rate = Math.round(6.9 * rateMultiplier * rateJitter * 10000) / 10000;
+
+    return {
       provider: item.code,
       label: item.name,
-      fee: item.charges,
-      tax: item.iva,
-      rate: item.tax,
+      fee,
+      tax,
+      rate,
       logo: item.logo,
       amount,
       deliveryType,
-    }));
+    };
+  });
 }
 
 export function getStepKey(

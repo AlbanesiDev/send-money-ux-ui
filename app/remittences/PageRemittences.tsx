@@ -654,298 +654,304 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   );
 
   return (
-    <section
-      className={`relative flex h-full min-h-0 w-full min-w-0 flex-1 flex-col gap-4 overflow-hidden rounded-[14px] text-foreground ${step === 2 || step === 3 ? "" : "bg-card shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none"}`}
-    >
-      {processing ? (
-        <RemittanceProcessing totalSent={formatUsd(quote ? quote.amount : 0)} />
-      ) : sent ? (
-        <RemittanceSuccess
-          operationNumber="12030070733"
-          totalSent={formatUsd(quote ? quote.amount : 0)}
-          onNewTransaction={onReset}
-          onRepeatClient={startAnotherQuote}
-          onSameBeneficiary={startAnotherQuote}
-        />
-      ) : (
-        <>
-          <Stepper
-            steps={activeSteps}
-            currentStep={step}
-            onStepClick={goToStep}
-            showProgress={step > 1}
-            ariaLabel="Progreso de la transacción"
-          >
-            <Stepper.Step index={1}>
-              <div className="grid min-h-0 flex-1 gap-4 overflow-y-auto">
-                <div
-                  className="mx-auto w-full min-w-0 max-w-[1120px] px-4 sm:px-6"
-                  data-form-fields
-                >
-                  <IdentifySenderStep
-                    documentNumber={documentNumber}
-                    onDocumentNumberChange={setDocumentNumber}
-                    result={result}
-                    onResultChange={setResult}
-                    onContinue={next}
-                    continueRef={continueRef}
-                    customer={customer}
-                    recentTransactions={recentTransactions}
-                    beneficiaries={beneficiaries}
-                    selectedTransactionId={selectedTransactionId}
-                    quoteLoading={quoteLoading}
-                    formatUsd={formatUsd}
-                    onRepeatTransaction={(transaction) => {
-                      repeatTransaction(transaction);
-                      setStep(2);
-                    }}
-                    onClearRepeatedTransaction={clearRepeatedTransaction}
-                  />
-                </div>
-              </div>
-            </Stepper.Step>
-            <Stepper.Step index={2}>
-              <div className="grid min-h-0 flex-1 gap-4 overflow-y-auto lg:grid-cols-[minmax(0,1fr)_minmax(10rem,34rem)]">
-                <div className="min-w-0" data-form-fields>
-                  <QuoteStep
-                    quoteLoading={quoteLoading}
-                    formatUsd={formatUsd}
-                    destinationCountry={destinationCountry}
-                    onDestinationCountryChange={setDestinationCountry}
-                    deliveryType={deliveryType}
-                    onDeliveryTypeChange={(value) => {
-                      setDeliveryType(value);
-                      setSelectedTransactionId(null);
-                      quoteRequestRef.current += 1;
-                      setQuote(null);
-                      setProviderQuotes([]);
-                      setQuotesReady(false);
-                      setSelectedProvider(null);
-                      setActiveSteps(
-                        buildQuoteLoadingSteps(isRepeatFlowRef.current),
-                      );
-                      setQuoteLoading(false);
-                      setStep((current) => Math.min(current, 2));
-                    }}
-                    clearDeliveryExtras={clearDeliveryExtras}
-                    clearAmount={clearAmount}
-                    sendAmount={sendAmount}
-                    onSendAmountChange={setSendAmount}
-                    amountExceedsBalance={amountExceedsBalance}
-                    onAmountExceedsBalanceChange={setAmountExceedsBalance}
-                    amountUnlocked={amountUnlocked}
-                    sanitizeAmount={sanitizeAmount}
-                    normalizeAmount={normalizeAmount}
-                    toCents={toCents}
-                    agencyUsdBalance={AGENCY_USD_BALANCE}
-                    quickAmounts={QUICK_AMOUNTS}
-                    usdFormatter={usdFormatter}
-                    resetQuoteSelection={resetQuoteSelection}
-                    requestQuote={() => requestQuote()}
-                    payingPartner={payingPartner}
-                    onPayingPartnerChange={setPayingPartner}
-                    location={location}
-                    onLocationChange={setLocation}
-                    wuService={wuService}
-                    onWuServiceChange={setWuService}
-                    terraPayBank={terraPayBank}
-                    onTerraPayBankChange={setTerraPayBank}
-                    terraPayWallet={terraPayWallet}
-                    onTerraPayWalletChange={setTerraPayWallet}
-                    partnerLoading={partnerLoading}
-                    locationLoading={locationLoading}
-                    simulateOptionsLoad={simulateOptionsLoad}
-                    setPartnerLoading={setPartnerLoading}
-                    setLocationLoading={setLocationLoading}
-                    quotesReady={quotesReady}
-                    providerQuotes={providerQuotes}
-                    selectedProvider={selectedProvider}
-                    onSelectProviderQuote={selectProviderQuote}
-                    destinationCountryRef={destinationCountryRef}
-                    deliveryTypeRef={deliveryTypeRef}
-                    payingPartnerRef={payingPartnerRef}
-                    locationRef={locationRef}
-                    wuServiceRef={wuServiceRef}
-                    moneygramCompanyRef={moneygramCompanyRef}
-                    terraPayBankRef={terraPayBankRef}
-                    terraPayWalletRef={terraPayWalletRef}
-                    sendAmountRef={sendAmountRef}
-                    showPartnerLocation={showPartnerLocation}
-                    showWuService={showWuService}
-                    showMoneygramCompany={showMoneygramCompany}
-                    showTerraPayBank={showTerraPayBank}
-                    showTerraPayWallet={showTerraPayWallet}
-                  />
-                </div>
-                {summaryAside}
-              </div>
-            </Stepper.Step>
-            {activeSteps.slice(2).map((stepLabel, offset) => {
-              const stepIndex = offset + 3;
-              const stepIsReview = stepIndex === lastStep;
-              return (
-                <Stepper.Step key={stepLabel} index={stepIndex}>
-                  <div
-                    className={`grid min-h-0 flex-1 gap-4 overflow-y-auto ${stepIsReview ? "" : "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]"}`}
-                  >
-                    <div
-                      className={`min-w-0 ${stepIsReview ? "mx-auto w-full max-w-[1120px] px-4 sm:px-6" : ""}`}
-                      data-form-fields
-                      data-enter-advance={
-                        selectedProvider &&
-                        getStepKey(selectedProvider, stepIndex, activeSteps) ===
-                          "parties"
-                          ? ""
-                          : undefined
-                      }
-                    >
-                      {selectedProvider && quote && (
-                        <ProviderFlowStep
-                          provider={selectedProvider}
-                          step={step}
-                          activeSteps={activeSteps}
-                          documentNumber={documentNumber}
-                          customer={customer}
-                          known={known}
-                          isKnownClient={isKnownClient}
-                          beneficiaries={beneficiaries}
-                          selectedBeneficiary={selectedBeneficiary}
-                          onSelectBeneficiary={setSelectedBeneficiary}
-                          additionalChecks={additionalChecks}
-                          onAdditionalCheckChange={(checkLabel, checked) =>
-                            setAdditionalChecks((current) => ({
-                              ...current,
-                              [checkLabel]: checked,
-                            }))
-                          }
-                          quote={quote}
-                          totalToCharge={totalToCharge}
-                          formatUsd={formatUsd}
-                          destinationCountry={destinationCountry}
-                          payingPartner={payingPartner}
-                          location={location}
-                          wuService={wuService}
-                          moneygramCompany={moneygramCompany}
-                          terraPayBank={terraPayBank}
-                          terraPayWallet={terraPayWallet}
-                          senderName={senderName}
-                          paymentLines={paymentLines}
-                          billingName={billingName}
-                          billingNit={billingNit}
-                          billingOpen={billingOpen}
-                          billingOverride={billingOverride}
-                          onBillingOpenToggle={() =>
-                            setBillingOpen((current) => !current)
-                          }
-                          onBillingChange={(field, value) =>
-                            setBillingOverride({
-                              name: billingName,
-                              nit: billingNit,
-                              [field]: value,
-                            })
-                          }
-                          onBillingReset={() => {
-                            setBillingOverride(null);
-                            setBillingOpen(false);
-                          }}
-                          onEditQuote={() => setStep(2)}
-                          onEditRemitter={
-                            activeSteps.includes("Remitente y beneficiario")
-                              ? () =>
-                                  setStep(
-                                    findStepNumber(
-                                      activeSteps,
-                                      "Remitente y beneficiario",
-                                    ),
-                                  )
-                              : undefined
-                          }
-                          onEditBeneficiary={
-                            activeSteps.includes("Remitente y beneficiario")
-                              ? () =>
-                                  setStep(
-                                    findStepNumber(
-                                      activeSteps,
-                                      "Remitente y beneficiario",
-                                    ),
-                                  )
-                              : undefined
-                          }
-                          onEditPayment={() =>
-                            window.requestAnimationFrame(() =>
-                              paymentMethodRef.current?.focus(),
-                            )
-                          }
-                          formatAmount={formatAmount}
-                        />
-                      )}
-                    </div>
-                    {!stepIsReview && summaryAside}
-                  </div>
-                </Stepper.Step>
-              );
-            })}
-          </Stepper>
-          {step > 1 && (
-            <div
-              className={`flex h-[42px] shrink-0 items-center ${isReviewStep ? "mx-auto w-full  px-4 sm:px-6" : ""}`}
-            >
-              <div className="flex w-full items-center justify-between gap-3">
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={back}
-                    className=" rounded-md border flex items-center gap-2 border-border px-4 py-1 text-sm font-bold text-muted-foreground hover:bg-white bg-muted"
-                  >
-                    <ArrowLeftIcon className="size-4" />
-                    Volver
-                  </button>
-                  <CancelOperationDialog
-                    open={cancelConfirmOpen}
-                    onOpenChange={setCancelConfirmOpen}
-                    onConfirm={onReset}
-                  />
-                </div>
-                <button
-                  type="button"
-                  ref={nextButtonRef}
-                  data-next-button
-                  onClick={handleContinue}
-                  disabled={step === 2 && !selectedProvider}
-                  className="flex items-center gap-2 rounded-md bg-brand-strong px-4 py-1 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-brand/30 disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground"
-                >
-                  {isReviewStep ? "Confirmar y enviar" : "Siguiente"}
-                  {isReviewStep !== true && (
-                    <ArrowRightIcon className="size-4" />
-                  )}
-                </button>
-              </div>
-            </div>
-          )}
-          <AddPaymentMethodDialog
-            open={addPaymentOpen}
-            onOpenChange={setAddPaymentOpen}
-            paymentMethodOptions={paymentMethodOptions}
-            primaryMethod={paymentMethod}
-            primaryCurrency={primaryCurrency}
-            primaryCents={primaryCents}
-            extraPayments={extraPayments}
-            bobPerUsd={BOB_PER_USD}
-            formatUsd={formatUsd}
-            formatAmount={formatAmount}
-            sanitizeAmount={sanitizeAmount}
-            parseAmount={parseAmount}
-            toCents={toCents}
-            onAddPayment={(line) =>
-              setExtraPayments((current) => [
-                ...current,
-                { ...line, id: ++paymentIdRef.current },
-              ])
-            }
+    <>
+      <section
+        className={`relative flex h-full min-h-0 w-full min-w-0 flex-1 flex-col gap-4 overflow-hidden rounded-[14px] text-foreground ${step === 2 || step === 3 ? "" : "bg-card shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none"}`}
+      >
+        {processing ? (
+          <RemittanceProcessing
+            totalSent={formatUsd(quote ? quote.amount : 0)}
           />
-        </>
+        ) : sent ? (
+          <RemittanceSuccess
+            operationNumber="12030070733"
+            totalSent={formatUsd(quote ? quote.amount : 0)}
+            onNewTransaction={onReset}
+            onRepeatClient={startAnotherQuote}
+            onSameBeneficiary={startAnotherQuote}
+          />
+        ) : (
+          <>
+            <Stepper
+              steps={activeSteps}
+              currentStep={step}
+              onStepClick={goToStep}
+              showProgress={step > 1}
+              ariaLabel="Progreso de la transacción"
+            >
+              <Stepper.Step index={1}>
+                <div className="grid min-h-0 flex-1 gap-4 overflow-y-auto">
+                  <div
+                    className="mx-auto w-full min-w-0 max-w-[1120px] px-4 sm:px-6"
+                    data-form-fields
+                  >
+                    <IdentifySenderStep
+                      documentNumber={documentNumber}
+                      onDocumentNumberChange={setDocumentNumber}
+                      result={result}
+                      onResultChange={setResult}
+                      onContinue={next}
+                      continueRef={continueRef}
+                      customer={customer}
+                      recentTransactions={recentTransactions}
+                      beneficiaries={beneficiaries}
+                      selectedTransactionId={selectedTransactionId}
+                      quoteLoading={quoteLoading}
+                      formatUsd={formatUsd}
+                      onRepeatTransaction={(transaction) => {
+                        repeatTransaction(transaction);
+                        setStep(2);
+                      }}
+                      onClearRepeatedTransaction={clearRepeatedTransaction}
+                    />
+                  </div>
+                </div>
+              </Stepper.Step>
+              <Stepper.Step index={2}>
+                <div className="grid min-h-0 flex-1 gap-4 overflow-y-auto lg:grid-cols-[minmax(0,1fr)_minmax(10rem,34rem)]">
+                  <div className="min-w-0" data-form-fields>
+                    <QuoteStep
+                      quoteLoading={quoteLoading}
+                      formatUsd={formatUsd}
+                      destinationCountry={destinationCountry}
+                      onDestinationCountryChange={setDestinationCountry}
+                      deliveryType={deliveryType}
+                      onDeliveryTypeChange={(value) => {
+                        setDeliveryType(value);
+                        setSelectedTransactionId(null);
+                        quoteRequestRef.current += 1;
+                        setQuote(null);
+                        setProviderQuotes([]);
+                        setQuotesReady(false);
+                        setSelectedProvider(null);
+                        setActiveSteps(
+                          buildQuoteLoadingSteps(isRepeatFlowRef.current),
+                        );
+                        setQuoteLoading(false);
+                        setStep((current) => Math.min(current, 2));
+                      }}
+                      clearDeliveryExtras={clearDeliveryExtras}
+                      clearAmount={clearAmount}
+                      sendAmount={sendAmount}
+                      onSendAmountChange={setSendAmount}
+                      amountExceedsBalance={amountExceedsBalance}
+                      onAmountExceedsBalanceChange={setAmountExceedsBalance}
+                      amountUnlocked={amountUnlocked}
+                      sanitizeAmount={sanitizeAmount}
+                      normalizeAmount={normalizeAmount}
+                      toCents={toCents}
+                      agencyUsdBalance={AGENCY_USD_BALANCE}
+                      quickAmounts={QUICK_AMOUNTS}
+                      usdFormatter={usdFormatter}
+                      resetQuoteSelection={resetQuoteSelection}
+                      requestQuote={() => requestQuote()}
+                      payingPartner={payingPartner}
+                      onPayingPartnerChange={setPayingPartner}
+                      location={location}
+                      onLocationChange={setLocation}
+                      wuService={wuService}
+                      onWuServiceChange={setWuService}
+                      terraPayBank={terraPayBank}
+                      onTerraPayBankChange={setTerraPayBank}
+                      terraPayWallet={terraPayWallet}
+                      onTerraPayWalletChange={setTerraPayWallet}
+                      partnerLoading={partnerLoading}
+                      locationLoading={locationLoading}
+                      simulateOptionsLoad={simulateOptionsLoad}
+                      setPartnerLoading={setPartnerLoading}
+                      setLocationLoading={setLocationLoading}
+                      quotesReady={quotesReady}
+                      providerQuotes={providerQuotes}
+                      selectedProvider={selectedProvider}
+                      onSelectProviderQuote={selectProviderQuote}
+                      destinationCountryRef={destinationCountryRef}
+                      deliveryTypeRef={deliveryTypeRef}
+                      payingPartnerRef={payingPartnerRef}
+                      locationRef={locationRef}
+                      wuServiceRef={wuServiceRef}
+                      moneygramCompanyRef={moneygramCompanyRef}
+                      terraPayBankRef={terraPayBankRef}
+                      terraPayWalletRef={terraPayWalletRef}
+                      sendAmountRef={sendAmountRef}
+                      showPartnerLocation={showPartnerLocation}
+                      showWuService={showWuService}
+                      showMoneygramCompany={showMoneygramCompany}
+                      showTerraPayBank={showTerraPayBank}
+                      showTerraPayWallet={showTerraPayWallet}
+                    />
+                  </div>
+                  {summaryAside}
+                </div>
+              </Stepper.Step>
+              {activeSteps.slice(2).map((stepLabel, offset) => {
+                const stepIndex = offset + 3;
+                const stepIsReview = stepIndex === lastStep;
+                return (
+                  <Stepper.Step key={stepLabel} index={stepIndex}>
+                    <div
+                      className={`grid min-h-0 flex-1 gap-4 overflow-y-auto ${stepIsReview ? "" : "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]"}`}
+                    >
+                      <div
+                        className={`min-w-0 ${stepIsReview ? "mx-auto w-full max-w-[1120px] px-4 sm:px-6" : ""}`}
+                        data-form-fields
+                        data-enter-advance={
+                          selectedProvider &&
+                          getStepKey(
+                            selectedProvider,
+                            stepIndex,
+                            activeSteps,
+                          ) === "parties"
+                            ? ""
+                            : undefined
+                        }
+                      >
+                        {selectedProvider && quote && (
+                          <ProviderFlowStep
+                            provider={selectedProvider}
+                            step={step}
+                            activeSteps={activeSteps}
+                            documentNumber={documentNumber}
+                            customer={customer}
+                            known={known}
+                            isKnownClient={isKnownClient}
+                            beneficiaries={beneficiaries}
+                            selectedBeneficiary={selectedBeneficiary}
+                            onSelectBeneficiary={setSelectedBeneficiary}
+                            additionalChecks={additionalChecks}
+                            onAdditionalCheckChange={(checkLabel, checked) =>
+                              setAdditionalChecks((current) => ({
+                                ...current,
+                                [checkLabel]: checked,
+                              }))
+                            }
+                            quote={quote}
+                            totalToCharge={totalToCharge}
+                            formatUsd={formatUsd}
+                            destinationCountry={destinationCountry}
+                            payingPartner={payingPartner}
+                            location={location}
+                            wuService={wuService}
+                            moneygramCompany={moneygramCompany}
+                            terraPayBank={terraPayBank}
+                            terraPayWallet={terraPayWallet}
+                            senderName={senderName}
+                            paymentLines={paymentLines}
+                            billingName={billingName}
+                            billingNit={billingNit}
+                            billingOpen={billingOpen}
+                            billingOverride={billingOverride}
+                            onBillingOpenToggle={() =>
+                              setBillingOpen((current) => !current)
+                            }
+                            onBillingChange={(field, value) =>
+                              setBillingOverride({
+                                name: billingName,
+                                nit: billingNit,
+                                [field]: value,
+                              })
+                            }
+                            onBillingReset={() => {
+                              setBillingOverride(null);
+                              setBillingOpen(false);
+                            }}
+                            onEditQuote={() => setStep(2)}
+                            onEditRemitter={
+                              activeSteps.includes("Remitente y beneficiario")
+                                ? () =>
+                                    setStep(
+                                      findStepNumber(
+                                        activeSteps,
+                                        "Remitente y beneficiario",
+                                      ),
+                                    )
+                                : undefined
+                            }
+                            onEditBeneficiary={
+                              activeSteps.includes("Remitente y beneficiario")
+                                ? () =>
+                                    setStep(
+                                      findStepNumber(
+                                        activeSteps,
+                                        "Remitente y beneficiario",
+                                      ),
+                                    )
+                                : undefined
+                            }
+                            onEditPayment={() =>
+                              window.requestAnimationFrame(() =>
+                                paymentMethodRef.current?.focus(),
+                              )
+                            }
+                            formatAmount={formatAmount}
+                          />
+                        )}
+                      </div>
+                      {!stepIsReview && summaryAside}
+                    </div>
+                  </Stepper.Step>
+                );
+              })}
+            </Stepper>
+
+            <AddPaymentMethodDialog
+              open={addPaymentOpen}
+              onOpenChange={setAddPaymentOpen}
+              paymentMethodOptions={paymentMethodOptions}
+              primaryMethod={paymentMethod}
+              primaryCurrency={primaryCurrency}
+              primaryCents={primaryCents}
+              extraPayments={extraPayments}
+              bobPerUsd={BOB_PER_USD}
+              formatUsd={formatUsd}
+              formatAmount={formatAmount}
+              sanitizeAmount={sanitizeAmount}
+              parseAmount={parseAmount}
+              toCents={toCents}
+              onAddPayment={(line) =>
+                setExtraPayments((current) => [
+                  ...current,
+                  { ...line, id: ++paymentIdRef.current },
+                ])
+              }
+            />
+          </>
+        )}
+      </section>
+      {step > 1 && (
+        <div
+          className={`flex h-[42px] shrink-0 items-center ${isReviewStep ? "mx-auto w-full  px-4 sm:px-6" : ""}`}
+        >
+          <div className="flex w-full items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={back}
+                className=" rounded-md border flex items-center gap-2 border-border px-4 py-1 text-sm font-bold text-muted-foreground hover:bg-white bg-muted"
+              >
+                <ArrowLeftIcon className="size-4" />
+                Volver
+              </button>
+              <CancelOperationDialog
+                open={cancelConfirmOpen}
+                onOpenChange={setCancelConfirmOpen}
+                onConfirm={onReset}
+              />
+            </div>
+            <button
+              type="button"
+              ref={nextButtonRef}
+              data-next-button
+              onClick={handleContinue}
+              disabled={step === 2 && !selectedProvider}
+              className="flex items-center gap-2 rounded-md bg-brand-strong px-4 py-1 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-brand/30 disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground"
+            >
+              {isReviewStep ? "Confirmar y enviar" : "Siguiente"}
+              {isReviewStep !== true && <ArrowRightIcon className="size-4" />}
+            </button>
+          </div>
+        </div>
       )}
-    </section>
+    </>
   );
 }
 

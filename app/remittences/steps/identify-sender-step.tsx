@@ -14,6 +14,7 @@ import {
   Loader2Icon,
   SearchIcon,
   UserIcon,
+  XIcon,
 } from "lucide-react";
 import {
   useEffect,
@@ -102,6 +103,23 @@ export function IdentifySenderStep({
       event.preventDefault();
       first?.focus();
     }
+  }
+
+  function fillDemoDocument(number: string) {
+    if (searchTimeoutRef.current !== null) {
+      window.clearTimeout(searchTimeoutRef.current);
+      searchTimeoutRef.current = null;
+    }
+    if (transactionsTimeoutRef.current !== null) {
+      window.clearTimeout(transactionsTimeoutRef.current);
+      transactionsTimeoutRef.current = null;
+    }
+    onDocumentNumberChange(number);
+    onClearRepeatedTransaction();
+    onResultChange(null);
+    setLoading(false);
+    setTransactionsStatus(STATUS.IDLE);
+    documentNumberInputRef.current?.focus();
   }
 
   function searchClient() {
@@ -215,34 +233,46 @@ export function IdentifySenderStep({
               <span className="mb-1 block text-sm font-semibold text-foreground select-none">
                 Número de documento <span className="text-destructive">*</span>
               </span>
-              <input
-                ref={documentNumberInputRef}
-                autoFocus
-                onKeyDown={trapDocumentFocus}
-                inputMode="numeric"
-                maxLength={7}
-                value={documentNumber}
-                onChange={(e) => {
-                  const nextValue = e.target.value
-                    .replace(/\D/g, "")
-                    .slice(0, 7);
-                  onDocumentNumberChange(nextValue);
-                  onClearRepeatedTransaction();
-                  if (searchTimeoutRef.current !== null) {
-                    window.clearTimeout(searchTimeoutRef.current);
-                    searchTimeoutRef.current = null;
-                  }
-                  if (transactionsTimeoutRef.current !== null) {
-                    window.clearTimeout(transactionsTimeoutRef.current);
-                    transactionsTimeoutRef.current = null;
-                  }
-                  setLoading(false);
-                  setTransactionsStatus(STATUS.IDLE);
-                  onResultChange(null);
-                }}
-                placeholder="Ingresa el número de documento"
-                className="h-10 w-full rounded-lg border border-input bg-card px-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-brand focus:ring-4 focus:ring-brand/10"
-              />
+              <div className="relative">
+                <input
+                  ref={documentNumberInputRef}
+                  autoFocus
+                  onKeyDown={trapDocumentFocus}
+                  inputMode="numeric"
+                  maxLength={7}
+                  value={documentNumber}
+                  onChange={(e) => {
+                    const nextValue = e.target.value
+                      .replace(/\D/g, "")
+                      .slice(0, 7);
+                    onDocumentNumberChange(nextValue);
+                    onClearRepeatedTransaction();
+                    if (searchTimeoutRef.current !== null) {
+                      window.clearTimeout(searchTimeoutRef.current);
+                      searchTimeoutRef.current = null;
+                    }
+                    if (transactionsTimeoutRef.current !== null) {
+                      window.clearTimeout(transactionsTimeoutRef.current);
+                      transactionsTimeoutRef.current = null;
+                    }
+                    setLoading(false);
+                    setTransactionsStatus(STATUS.IDLE);
+                    onResultChange(null);
+                  }}
+                  placeholder="Ingresa el número de documento"
+                  className={`h-10 w-full rounded-lg border border-input bg-card px-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-brand focus:ring-4 focus:ring-brand/10 ${documentNumber ? "pr-9" : ""}`}
+                />
+                {documentNumber && (
+                  <button
+                    type="button"
+                    aria-label="Limpiar número de documento"
+                    onClick={() => fillDemoDocument("")}
+                    className="absolute top-1/2 right-3 grid size-5 -translate-y-1/2 place-items-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-brand/20"
+                  >
+                    <XIcon className="h-3.5 w-3.5" />
+                  </button>
+                )}
+              </div>
 
               <span className="mt-1 block text-xs text-muted-foreground select-none">
                 Solo números, sin espacios.
@@ -282,7 +312,7 @@ export function IdentifySenderStep({
                     <button
                       type="button"
                       onClick={() => setProfileOpen(true)}
-                      className="flex h-12 items-center gap-2 rounded-lg border border-brand px-6 py-2 text-sm font-bold text-brand hover:bg-brand/10"
+                      className="flex h-10 items-center gap-2 rounded-lg border border-brand px-4 py-2 text-sm font-bold text-brand hover:bg-brand/10"
                     >
                       <UserIcon className="size-4" />
                       Ver perfil
@@ -367,12 +397,18 @@ export function IdentifySenderStep({
         </aside>
       </div>
 
-      <div className="absolute right-4 bottom-4 flex gap-2 text-xs text-muted-foreground">
+      <div className="absolute right-4 bottom-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
         <span className="select-none">Demo:</span>
         {CUSTOMERS.flatMap((item) =>
           item.documentNumbers.map((number) => (
             <div key={number} className="flex gap-0.5">
-              {number}
+              <button
+                type="button"
+                onClick={() => fillDemoDocument(number)}
+                className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
+              >
+                {number}
+              </button>
               <span className="select-none">
                 {item.status === "blocked"
                   ? "(cliente bloqueado)"
@@ -382,11 +418,23 @@ export function IdentifySenderStep({
           )),
         )}
         <div className="flex gap-0.5">
-          {DEMO_NEW_CLIENT_DOCUMENT}
+          <button
+            type="button"
+            onClick={() => fillDemoDocument(DEMO_NEW_CLIENT_DOCUMENT)}
+            className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
+          >
+            {DEMO_NEW_CLIENT_DOCUMENT}
+          </button>
           <span className="select-none">(cliente nuevo)</span>
         </div>
         <div className="flex gap-0.5">
-          {SEARCH_ERROR_DOCUMENT}
+          <button
+            type="button"
+            onClick={() => fillDemoDocument(SEARCH_ERROR_DOCUMENT)}
+            className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
+          >
+            {SEARCH_ERROR_DOCUMENT}
+          </button>
           <span className="select-none">(error de búsqueda)</span>
         </div>
       </div>

@@ -50,7 +50,7 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 }
-
+/*#0f172a*/
 :root {
   color-scheme: light;
   --background: #ecf0f8;
@@ -71,7 +71,7 @@
   --border: #dce3ee;
   --input: #cdd5e1;
   --ring: #5368c8;
-  --brand: #5368c8;
+  --brand: #0f172a;
   --brand-strong: #465bc2;
   --amount: #465bc2;
   --success: #218052;

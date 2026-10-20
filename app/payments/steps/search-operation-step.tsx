@@ -5,7 +5,10 @@ import {
   ArrowRightIcon,
   CircleAlertIcon,
   CircleCheckIcon,
+  Loader2Icon,
+  SearchIcon,
   ShieldAlertIcon,
+  XIcon,
 } from "lucide-react";
 import { CountryFlag } from "@/components/ui/country-flag";
 import {
@@ -20,6 +23,13 @@ export type OperationSearchResult =
   | { kind: "found"; operation: PaymentOperation }
   | { kind: "notFound" }
   | null;
+
+const DEMO_OPERATIONS = [
+  { number: "12090991105", label: "monto normal" },
+  { number: "12090991300", label: "monto alto" },
+  { number: "12090990000", label: "en revisión" },
+  { number: "12090991111", label: "ya pagada" },
+] as const;
 
 export function SearchOperationStep({
   operationNumber,
@@ -36,7 +46,15 @@ export function SearchOperationStep({
 }) {
   const [loading, setLoading] = useState(false);
   const startRef = useRef<HTMLButtonElement>(null);
+  const operationNumberInputRef = useRef<HTMLInputElement>(null);
   const operation = result?.kind === "found" ? result.operation : null;
+
+  function fillDemoOperation(number: string) {
+    onOperationNumberChange(number);
+    onResultChange(null);
+    setLoading(false);
+    operationNumberInputRef.current?.focus();
+  }
 
   function search() {
     if (operationNumber.length < 8 || loading) return;
@@ -81,29 +99,47 @@ export function SearchOperationStep({
           <span className="mb-1 block text-sm font-semibold text-foreground">
             Número de operación <span className="text-destructive">*</span>
           </span>
-          <input
-            autoFocus
-            inputMode="numeric"
-            value={formatOperationNumber(operationNumber)}
-            onChange={(event) => {
-              onOperationNumberChange(
-                event.target.value.replace(/\D/g, "").slice(0, 12),
-              );
-              onResultChange(null);
-            }}
-            placeholder="0000 0000 000"
-            className="h-11 w-full rounded-lg border border-input bg-card px-3 font-mono text-base tracking-wider text-foreground outline-none placeholder:text-muted-foreground focus:border-brand focus:ring-4 focus:ring-brand/10"
-          />
+          <div className="relative">
+            <input
+              ref={operationNumberInputRef}
+              autoFocus
+              inputMode="numeric"
+              value={formatOperationNumber(operationNumber)}
+              onChange={(event) => {
+                onOperationNumberChange(
+                  event.target.value.replace(/\D/g, "").slice(0, 12),
+                );
+                onResultChange(null);
+              }}
+              placeholder="0000 0000 000"
+              className={`h-11 w-full rounded-lg border border-input bg-card px-3 font-mono text-base tracking-wider text-foreground outline-none placeholder:text-muted-foreground focus:border-brand focus:ring-4 focus:ring-brand/10 ${operationNumber ? "pr-9" : ""}`}
+            />
+            {operationNumber && (
+              <button
+                type="button"
+                aria-label="Limpiar número de operación"
+                onClick={() => fillDemoOperation("")}
+                className="absolute top-1/2 right-3 grid size-5 -translate-y-1/2 place-items-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-brand/20"
+              >
+                <XIcon className="h-3.5 w-3.5" />
+              </button>
+            )}
+          </div>
         </label>
         <button
           disabled={operationNumber.length < 8 || loading}
-          className="h-11 rounded-lg bg-brand-strong px-6 text-sm font-bold text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/30 disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground"
+          className="h-11 flex items-center gap-2 rounded-lg bg-brand-strong px-6 text-sm font-bold text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/30 disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground"
         >
+          {loading ? (
+            <Loader2Icon className="size-4 animate-spin" />
+          ) : (
+            <SearchIcon className="size-4" />
+          )}
           {loading ? "Buscando…" : "Buscar"}
         </button>
       </form>
       <p className="mt-1.5 text-xs text-muted-foreground">
-        Se paga en bolivianos (BOB). Presiona Enter para buscar.
+        Presiona Enter para buscar.
       </p>
 
       <div aria-live="polite" className="mt-6">
@@ -190,11 +226,21 @@ export function SearchOperationStep({
           </article>
         )}
       </div>
-      <p className="absolute bottom-4 right-4 text-xs text-muted-foreground">
-        Demo: 12090991105 (cliente existente) · 12090991200 (monto alto, cliente
-        nuevo) · 12090991300 (monto alto, cliente existente) · 12090990000 (en
-        revisión) · 12090991111 (ya pagada)
-      </p>
+      <div className="absolute right-4 bottom-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
+        <span className="select-none">Demo:</span>
+        {DEMO_OPERATIONS.map((item) => (
+          <div key={item.number} className="flex gap-0.5">
+            <button
+              type="button"
+              onClick={() => fillDemoOperation(item.number)}
+              className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
+            >
+              {item.number}
+            </button>
+            <span className="select-none">({item.label})</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

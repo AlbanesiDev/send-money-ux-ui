@@ -149,7 +149,7 @@ export function VerificationStep({
           }}
           className="flex flex-col gap-5 rounded-2xl border border-border bg-card p-6 shadow-sm"
         >
-          <div className="flex flex-col gap-3 border-b border-border pb-5">
+          <div className="flex flex-col gap-2 border-b border-border pb-5">
             <p className="flex items-center gap-1.5 text-[0.6875rem] font-bold uppercase tracking-[0.12em] text-brand-strong">
               <LockIcon className="size-3.5" aria-hidden="true" />
               Verificación de identidad
@@ -269,7 +269,7 @@ function Question({
 }) {
   return (
     <fieldset className="flex min-w-0 flex-col gap-3">
-      <legend className="mb-1 flex w-full items-start gap-2.5 text-sm font-semibold text-foreground select-none">
+      <legend className="mb-4 flex w-full items-start gap-2.5 text-sm font-semibold text-foreground select-none">
         <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-strong text-xs font-bold text-white">
           {number}
         </span>

@@ -67,7 +67,6 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
   const [documentInput, setDocumentInput] = useState("");
   const [documentCheck, setDocumentCheck] = useState<DocumentCheck>("pending");
   const [profile, setProfile] = useState<ProfileForm | null>(null);
-  const [showAllFields, setShowAllFields] = useState(false);
   const [flags, setFlags] = useState<ComplianceFlags>({
     additionalInfo: false,
     pep: false,
@@ -102,7 +101,6 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
     setVerificationAnswers(EMPTY_VERIFICATION_ANSWERS);
     setDocumentInput("");
     setDocumentCheck("pending");
-    setShowAllFields(false);
     setShowErrors(false);
     goTo(2);
   }
@@ -253,8 +251,6 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
                   onDocumentCheck={setDocumentCheck}
                   profile={profile}
                   onProfileChange={setProfile}
-                  showAllFields={showAllFields}
-                  onShowAllFieldsChange={setShowAllFields}
                   showErrors={showErrors}
                   complianceSlot={
                     <ComplianceSection

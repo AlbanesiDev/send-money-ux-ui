@@ -4,6 +4,7 @@ import type {
   ProviderId,
   ProviderQuote,
 } from "@/components/send-money/types";
+import { ReceiptText, ReceiptTextIcon, TicketIcon } from "lucide-react";
 
 const usdFormatter = new Intl.NumberFormat("es-ES", {
   minimumFractionDigits: 2,
@@ -51,7 +52,7 @@ export function RemittanceSummary({
           title="Ticket"
           className="flex h-6 w-6 items-center justify-center rounded-full border border-border bg-card text-xs font-bold text-brand"
         >
-          ▤
+          <ReceiptTextIcon className="size-4" />
         </span>
       </div>
       <dl className="mt-3 space-y-2 text-sm">

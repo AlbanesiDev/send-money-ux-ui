@@ -63,7 +63,7 @@ function Stepper({
                     onClick={() => onStepClick(number)}
                     aria-current={active ? "step" : undefined}
                     aria-label={`${name}, paso ${number}${completed ? ", completado" : active ? ", paso actual" : ", pendiente"}`}
-                    className="group flex min-w-0 shrink-0 cursor-pointer items-center gap-2 rounded-lg text-left outline-none focus-visible:ring-4 focus-visible:ring-brand/20"
+                    className="group flex flex-col min-w-0 shrink-0 cursor-pointer items-center rounded-lg text-left outline-none focus-visible:ring-4 focus-visible:ring-brand/20"
                   >
                     <span
                       className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border text-xs font-bold transition-colors ${completed ? "border-success-border bg-success-soft text-success" : active ? "border-brand-strong bg-brand-strong text-white" : "border-border bg-card text-muted-foreground"}`}

@@ -67,8 +67,18 @@ const menuItems: MenuItem[] = [
     label: "Operaciones",
     icon: SlidersHorizontal,
     children: [
-      { key: "transfers", label: "Envíos", icon: BanknoteArrowUp, href: "/remittences" },
-      { key: "payments", label: "Pagos", icon: BanknoteArrowDown, href: "/payments" },
+      {
+        key: "transfers",
+        label: "Envíos",
+        icon: BanknoteArrowUp,
+        href: "/remittences",
+      },
+      {
+        key: "payments",
+        label: "Pagos",
+        icon: BanknoteArrowDown,
+        href: "/payments",
+      },
       { key: "release", label: "Release", icon: List },
       { key: "sp", label: "S&P", icon: List },
     ],

@@ -50,6 +50,19 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 }
+
+/* --color-50: #ECF0F8;
+--color-100: #CBD5EC;
+--color-200: #A9B9E0;
+--color-300: #879ED4;
+--color-400: #6583C8;
+--color-500: #4468BB;
+--color-600: #37559A;
+--color-700: #2B4278;
+--color-800: #1F3056;
+--color-900: #131D34;
+--color-950: #070A13; */
+
 /*#0f172a*/
 :root {
   color-scheme: light;
@@ -72,7 +85,7 @@
   --input: #cdd5e1;
   --ring: #5368c8;
   --brand: #0f172a;
-  --brand-strong: #465bc2;
+  --brand-strong: #1f3056;
   --amount: #465bc2;
   --success: #218052;
   --success-soft: #e1f7e9;
@@ -517,4 +530,8 @@
     var(--_default-color) 70%
   );
   background-size: 200% 100%;
+}
+
+.text-brand-light {
+  color: #4468bb;
 }

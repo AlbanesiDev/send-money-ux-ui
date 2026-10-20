@@ -366,7 +366,10 @@ export function StandardPaymentStep({
             </div>
             <div className="flex items-center justify-between sm:block sm:text-right">
               <span className={cellLabel}>Equivalente USD</span>
-              <span className="text-sm text-muted-foreground" aria-live="polite">
+              <span
+                className="text-sm text-muted-foreground"
+                aria-live="polite"
+              >
                 {formatUsd(primaryCents / 100)}
               </span>
             </div>
@@ -470,7 +473,9 @@ export function StandardPaymentStep({
               id="draft-amount-hint"
               role={draftExceeds ? "alert" : undefined}
               className={`mt-2 text-xs ${
-                draftExceeds ? "font-medium text-destructive" : "text-muted-foreground"
+                draftExceeds
+                  ? "font-medium text-destructive"
+                  : "text-muted-foreground"
               }`}
             >
               {draftExceeds ? "Supera el saldo disponible. " : ""}
@@ -501,7 +506,8 @@ export function StandardPaymentStep({
         </div>
         {draftDuplicate && (
           <p role="alert" className="mt-3 text-sm font-medium text-destructive">
-            {draftMethod} en {draftCurrency} ya está registrado. Elige otra forma de pago o moneda.
+            {draftMethod} en {draftCurrency} ya está registrado. Elige otra
+            forma de pago o moneda.
           </p>
         )}
       </section>

@@ -42,7 +42,7 @@ function SummarySection({
   }
   return (
     <section
-      className={`rounded-lg border border-l-4 px-3.5 py-2.5 ${toneClass}`}
+      className={`rounded-lg border border-l-4 px-3.5 py-2.5 min-h-full ${toneClass}`}
     >
       <div className="flex items-center justify-between gap-3">
         <h2 className={`text-sm font-bold ${titleClass}`}>{title}</h2>
@@ -151,24 +151,12 @@ export function ReviewStep({
           editLabel="Editar cotización"
           highlight
         >
-          <SummaryRow label="Proveedor" value={provider} />
           <SummaryRow
             label="Tipo de envío"
             value={deliveryTypeLabel(quote.deliveryType)}
           />
+          <SummaryRow label="Proveedor" value={provider} />
           <SummaryRow label="Destino" value={destinationCountry || "—"} />
-          {provider === "RIA" && (
-            <>
-              <SummaryRow label="Socio pagador" value={payingPartner || "—"} />
-              <SummaryRow label="Locación" value={location || "—"} />
-            </>
-          )}
-          {(provider === "WU" || provider === "MONEYGRAM") && (
-            <SummaryRow label="Servicio de envío" value={wuService || "—"} />
-          )}
-          {provider === "MONEYGRAM" && (
-            <SummaryRow label="Compañía" value={moneygramCompany || "—"} />
-          )}
           {provider === "TERRAPAY" && quote.deliveryType === "BANK" && (
             <SummaryRow label="Banco" value={terraPayBank || "—"} />
           )}
@@ -219,7 +207,6 @@ export function ReviewStep({
               value={`${billingName || "—"} · ${billingNit || "—"}`}
             />
           </SummarySection>
-          {billingSlot}
         </div>
         <SummarySection
           title="Remitente"

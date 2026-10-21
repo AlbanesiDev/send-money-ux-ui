@@ -9,13 +9,15 @@ import {
 import {
   AddPaymentMethodDialog,
   CancelOperationDialog,
+  EditBeneficiaryDialog,
+  EditPaymentBillingDialog,
+  EditRemitterDialog,
 } from "@/app/remittences/dialogs";
 import {
   buildActiveSteps,
   buildProviderQuotes,
   buildQuoteLoadingSteps,
   deliveryTypeLabel,
-  findStepNumber,
   getStepKey,
   PARTIES_STEP_LABEL,
   quoteFieldVisibility,
@@ -289,6 +291,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     useState<PaymentCurrency>("USD");
   const [extraPayments, setExtraPayments] = useState<PaymentLine[]>([]);
   const [addPaymentOpen, setAddPaymentOpen] = useState(false);
+  const [editRemitterOpen, setEditRemitterOpen] = useState(false);
+  const [editBeneficiaryOpen, setEditBeneficiaryOpen] = useState(false);
+  const [editPaymentOpen, setEditPaymentOpen] = useState(false);
   const paymentIdRef = useRef(0);
   const [quote, setQuote] = useState<ProviderQuote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
@@ -1557,33 +1562,11 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                               setBillingOpen(false);
                             }}
                             onEditQuote={() => setStep(2)}
-                            onEditRemitter={
-                              activeSteps.includes("Remitente y beneficiario")
-                                ? () =>
-                                    setStep(
-                                      findStepNumber(
-                                        activeSteps,
-                                        "Remitente y beneficiario",
-                                      ),
-                                    )
-                                : undefined
+                            onEditRemitter={() => setEditRemitterOpen(true)}
+                            onEditBeneficiary={() =>
+                              setEditBeneficiaryOpen(true)
                             }
-                            onEditBeneficiary={
-                              activeSteps.includes("Remitente y beneficiario")
-                                ? () =>
-                                    setStep(
-                                      findStepNumber(
-                                        activeSteps,
-                                        "Remitente y beneficiario",
-                                      ),
-                                    )
-                                : undefined
-                            }
-                            onEditPayment={() =>
-                              window.requestAnimationFrame(() =>
-                                paymentMethodRef.current?.focus(),
-                              )
-                            }
+                            onEditPayment={() => setEditPaymentOpen(true)}
                             formatAmount={formatAmount}
                             isGuestFlow={isGuestFlow}
                             onDocumentNumberChange={
@@ -1637,6 +1620,83 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                 ])
               }
             />
+            {selectedProvider && (
+              <>
+                <EditRemitterDialog
+                  open={editRemitterOpen}
+                  onOpenChange={setEditRemitterOpen}
+                  provider={selectedProvider}
+                  documentNumber={documentNumber}
+                  form={remitterForm}
+                  onFormChange={handleRemitterFormChange}
+                  onDocumentNumberChange={handleGuestDocumentNumberChange}
+                />
+                <EditBeneficiaryDialog
+                  open={editBeneficiaryOpen}
+                  onOpenChange={setEditBeneficiaryOpen}
+                  provider={selectedProvider}
+                  form={beneficiaryForm}
+                  onFormChange={handleBeneficiaryFormChange}
+                  known={known}
+                  fillBeneficiaryFields={fillBeneficiaryFields}
+                />
+                <EditPaymentBillingDialog
+                  open={editPaymentOpen}
+                  onOpenChange={setEditPaymentOpen}
+                  provider={selectedProvider}
+                  totalToCharge={totalToCharge}
+                  formatUsd={formatUsd}
+                  formatAmount={formatAmount}
+                  bobPerUsd={BOB_PER_USD}
+                  primaryMethod={paymentMethod}
+                  onPrimaryMethodChange={setPaymentMethod}
+                  primaryCurrency={primaryCurrency}
+                  onPrimaryCurrencyChange={setPrimaryCurrency}
+                  primaryCents={primaryCents}
+                  extraPayments={extraPayments}
+                  onUpdatePayment={(id, line) =>
+                    setExtraPayments((current) =>
+                      current.map((item) =>
+                        item.id === id ? { ...line, id } : item,
+                      ),
+                    )
+                  }
+                  onRemovePayment={(id) =>
+                    setExtraPayments((current) =>
+                      current.filter((line) => line.id !== id),
+                    )
+                  }
+                  onAddPayment={(line) =>
+                    setExtraPayments((current) => [
+                      ...current,
+                      { ...line, id: ++paymentIdRef.current },
+                    ])
+                  }
+                  paymentMethodOptions={paymentMethodOptions}
+                  sanitizeAmount={sanitizeAmount}
+                  parseAmount={parseAmount}
+                  toCents={toCents}
+                  billingOpen={billingOpen}
+                  onBillingOpenToggle={() =>
+                    setBillingOpen((current) => !current)
+                  }
+                  billingName={billingName}
+                  billingNit={billingNit}
+                  usingSenderBilling={billingOverride === null}
+                  onBillingChange={(field, value) =>
+                    setBillingOverride({
+                      name: billingName,
+                      nit: billingNit,
+                      [field]: value,
+                    })
+                  }
+                  onBillingReset={() => {
+                    setBillingOverride(null);
+                    setBillingOpen(false);
+                  }}
+                />
+              </>
+            )}
           </>
         )}
       </section>

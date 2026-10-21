@@ -11,3 +11,15 @@ export {
   type ClientProfile,
   type ClientProfileDialogProps,
 } from "./client-profile-dialog";
+export {
+  EditBeneficiaryDialog,
+  type EditBeneficiaryDialogProps,
+} from "./edit-beneficiary-dialog";
+export {
+  EditPaymentBillingDialog,
+  type EditPaymentBillingDialogProps,
+} from "./edit-payment-billing-dialog";
+export {
+  EditRemitterDialog,
+  type EditRemitterDialogProps,
+} from "./edit-remitter-dialog";

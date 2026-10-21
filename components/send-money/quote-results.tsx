@@ -99,7 +99,16 @@ export function QuoteResults({
                   alt={quote.label}
                 />
               </div>
-              <p className="text-sm font-bold text-foreground">{quote.label}</p>
+              <div className="relative">
+                <p className="text-sm font-bold text-foreground">
+                  {quote.label}
+                </p>
+                {quote.description && (
+                  <p className="absolute text-xs font-bold text-accent-foreground">
+                    {quote.description}
+                  </p>
+                )}
+              </div>
             </div>
             <dl className="mt-3 flex-1 space-y-1 text-sm">
               <div className="flex justify-between gap-3">

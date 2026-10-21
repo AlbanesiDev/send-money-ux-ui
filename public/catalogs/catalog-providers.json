@@ -11,8 +11,9 @@
   {
     "id": 1,
     "code": "TERRAPAY",
-    "name": "Terrapay",
-    "logo": "/logos/providers/terrapay.png",
+    "name": "CIS Remesas",
+    "description": "(Terrapay)",
+    "logo": "/logos/providers/cis.png",
     "amountSent": true,
     "amountReceived": false,
     "sendingTypes": ["BANK", "WALLET"]

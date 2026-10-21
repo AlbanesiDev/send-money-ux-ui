@@ -7,6 +7,7 @@ export type CatalogProvider = {
   id: number;
   code: ProviderId;
   name: string;
+  description?: string;
   logo: string;
   amountSent: boolean;
   amountReceived: boolean;
@@ -16,6 +17,7 @@ export type CatalogProvider = {
 export type ProviderQuote = {
   provider: ProviderId;
   label: string;
+  description?: string;
   amount: number;
   fee: number;
   tax: number;

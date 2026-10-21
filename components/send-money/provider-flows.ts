@@ -177,6 +177,7 @@ export function buildProviderQuotes(
     return {
       provider: item.code,
       label: item.name,
+      description: item.description,
       fee,
       tax,
       rate,

@@ -70,7 +70,6 @@ export type ProviderStepContentProps = {
   formatAmount: (value: number) => string;
   billingSlot: ReactNode;
   isGuestFlow?: boolean;
-  documentFieldsLocked?: boolean;
   onDocumentNumberChange?: (value: string) => void;
   onRegisterClient?: () => void;
   isRegisteringClient?: boolean;
@@ -99,7 +98,6 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
     let beneficiary: ReactNode;
     let declarations: ReactNode = null;
 
-    const documentFieldsLocked = props.documentFieldsLocked === true;
     const afterDocumentFields =
       props.isGuestFlow === true &&
       props.guestLookupStatus !== undefined &&
@@ -160,7 +158,6 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       documentNumber: props.documentNumber,
       form: props.remitterForm,
       onFormChange: props.onRemitterFormChange,
-      documentFieldsLocked,
       onDocumentNumberChange: props.onDocumentNumberChange,
       afterDocumentFields,
       footerSlot,

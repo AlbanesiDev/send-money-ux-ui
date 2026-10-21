@@ -20,7 +20,6 @@ export function WuRemitterStep({
   documentNumber,
   form,
   onFormChange,
-  documentFieldsLocked = true,
   onDocumentNumberChange,
   afterDocumentFields,
   footerSlot,
@@ -28,7 +27,6 @@ export function WuRemitterStep({
   documentNumber: string;
   form: CustomerRegistrationDraft;
   onFormChange: RemitterFormChangeHandler;
-  documentFieldsLocked?: boolean;
   onDocumentNumberChange?: (value: string) => void;
   afterDocumentFields?: ReactNode;
   footerSlot?: ReactNode;
@@ -69,7 +67,6 @@ export function WuRemitterStep({
             hideLabel
             value={form.documentType}
             options={DOCUMENT_TYPE_OPTIONS}
-            disabled={documentFieldsLocked}
             required
             onChange={(value) => onFormChange("documentType", value)}
           />
@@ -77,7 +74,6 @@ export function WuRemitterStep({
         <Field
           label="Número de documento"
           value={documentNumber}
-          disabled={documentFieldsLocked}
           required
           numericOnly
           maxLength={7}

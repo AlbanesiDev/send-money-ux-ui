@@ -19,6 +19,22 @@ const MONTH_LABELS = [
   "noviembre",
   "diciembre",
 ];
+const MONTH_SHORT_LABELS = [
+  "ene",
+  "feb",
+  "mar",
+  "abr",
+  "may",
+  "jun",
+  "jul",
+  "ago",
+  "sep",
+  "oct",
+  "nov",
+  "dic",
+];
+
+type CalendarPanel = "day" | "month" | "year";
 
 function parseDisplayDate(value: string): Date | null {
   if (value.length !== 10) return null;
@@ -74,6 +90,7 @@ export function DateField({
 }) {
   const [touched, setTouched] = useState(false);
   const [open, setOpen] = useState(false);
+  const [calendarPanel, setCalendarPanel] = useState<CalendarPanel>("day");
   const rootRef = useRef<HTMLDivElement>(null);
   const localInputRef = useRef<HTMLInputElement>(null);
   const textInputRef = inputRef === undefined ? localInputRef : inputRef;
@@ -126,6 +143,7 @@ export function DateField({
 
   useEffect(() => {
     if (!open) return;
+    setCalendarPanel("day");
     if (selectedDate !== null) {
       const withinMax =
         maxAllowedDate === null || selectedDate <= maxAllowedDate;
@@ -148,6 +166,7 @@ export function DateField({
       if (!(target instanceof Node)) return;
       if (rootRef.current?.contains(target)) return;
       setOpen(false);
+      setCalendarPanel("day");
       setTouched(true);
       if (onBlur !== undefined) onBlur();
     }
@@ -183,12 +202,57 @@ export function DateField({
     calendarCells.push(day);
   }
 
-  const canGoNextMonth =
-    maxAllowedDate === null ||
-    new Date(viewYear, viewMonth + 1, 1) <= maxAllowedDate;
-  const canGoPrevMonth =
-    minAllowedDate === null ||
-    new Date(viewYear, viewMonth, 0) >= minAllowedDate;
+  const yearGridStart = Math.floor(viewYear / 12) * 12;
+
+  let canGoPrev = false;
+  let canGoNext = false;
+  if (calendarPanel === "day") {
+    canGoPrev =
+      minAllowedDate === null ||
+      new Date(viewYear, viewMonth, 0) >= minAllowedDate;
+    canGoNext =
+      maxAllowedDate === null ||
+      new Date(viewYear, viewMonth + 1, 1) <= maxAllowedDate;
+  } else if (calendarPanel === "month") {
+    canGoPrev =
+      minAllowedDate === null || viewYear - 1 >= minAllowedDate.getFullYear();
+    canGoNext =
+      maxAllowedDate === null || viewYear + 1 <= maxAllowedDate.getFullYear();
+  } else {
+    canGoPrev =
+      minAllowedDate === null ||
+      yearGridStart - 1 >= minAllowedDate.getFullYear();
+    canGoNext =
+      maxAllowedDate === null ||
+      yearGridStart + 12 <= maxAllowedDate.getFullYear();
+  }
+
+  let headerLabel = "";
+  let headerAriaLabel = "";
+  let canDrillUp = false;
+  if (calendarPanel === "day") {
+    headerLabel = `${MONTH_LABELS[viewMonth]} de ${viewYear}`;
+    headerAriaLabel = "Elegir mes";
+    canDrillUp = true;
+  } else if (calendarPanel === "month") {
+    headerLabel = String(viewYear);
+    headerAriaLabel = "Elegir año";
+    canDrillUp = true;
+  } else {
+    headerLabel = `${yearGridStart} – ${yearGridStart + 11}`;
+    headerAriaLabel = "Rango de años";
+    canDrillUp = false;
+  }
+
+  let prevAriaLabel = "Mes anterior";
+  let nextAriaLabel = "Mes siguiente";
+  if (calendarPanel === "month") {
+    prevAriaLabel = "Año anterior";
+    nextAriaLabel = "Año siguiente";
+  } else if (calendarPanel === "year") {
+    prevAriaLabel = "Años anteriores";
+    nextAriaLabel = "Años siguientes";
+  }
 
   const todaySelectable =
     minimumAgeYears === undefined &&
@@ -292,12 +356,14 @@ export function DateField({
               }
             }
             setOpen(false);
+            setCalendarPanel("day");
             setTouched(true);
             if (onBlur !== undefined) onBlur();
           }}
           onKeyDown={(event) => {
             if (event.key === "Escape") {
               setOpen(false);
+              setCalendarPanel("day");
               return;
             }
             if (event.key === "ArrowDown" && !open) {
@@ -308,6 +374,7 @@ export function DateField({
             if (event.key !== "Enter") return;
             event.preventDefault();
             setOpen(false);
+            setCalendarPanel("day");
             nextRef?.current?.focus();
           }}
           className={inputClassName}
@@ -336,106 +403,233 @@ export function DateField({
             <div className="mb-2 flex items-center justify-between gap-2">
               <button
                 type="button"
-                aria-label="Mes anterior"
-                disabled={!canGoPrevMonth}
+                aria-label={prevAriaLabel}
+                disabled={!canGoPrev}
                 onClick={() => {
-                  if (!canGoPrevMonth) return;
-                  if (viewMonth === 0) {
-                    setViewMonth(11);
+                  if (!canGoPrev) return;
+                  if (calendarPanel === "day") {
+                    if (viewMonth === 0) {
+                      setViewMonth(11);
+                      setViewYear((current) => current - 1);
+                      return;
+                    }
+                    setViewMonth((current) => current - 1);
+                    return;
+                  }
+                  if (calendarPanel === "month") {
                     setViewYear((current) => current - 1);
                     return;
                   }
-                  setViewMonth((current) => current - 1);
+                  setViewYear(yearGridStart - 12);
                 }}
                 className="grid size-8 place-items-center rounded-md text-foreground hover:bg-accent disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronLeftIcon className="size-4" />
               </button>
-              <p className="text-sm font-semibold capitalize text-foreground">
-                {MONTH_LABELS[viewMonth]} de {viewYear}
-              </p>
               <button
                 type="button"
-                aria-label="Mes siguiente"
-                disabled={!canGoNextMonth}
+                aria-label={headerAriaLabel}
+                disabled={!canDrillUp}
                 onClick={() => {
-                  if (!canGoNextMonth) return;
-                  if (viewMonth === 11) {
-                    setViewMonth(0);
+                  if (!canDrillUp) return;
+                  if (calendarPanel === "day") {
+                    setCalendarPanel("month");
+                    return;
+                  }
+                  setCalendarPanel("year");
+                }}
+                className="rounded-md px-2 py-1 text-sm font-semibold capitalize text-foreground hover:bg-accent disabled:pointer-events-none disabled:hover:bg-transparent"
+              >
+                {headerLabel}
+              </button>
+              <button
+                type="button"
+                aria-label={nextAriaLabel}
+                disabled={!canGoNext}
+                onClick={() => {
+                  if (!canGoNext) return;
+                  if (calendarPanel === "day") {
+                    if (viewMonth === 11) {
+                      setViewMonth(0);
+                      setViewYear((current) => current + 1);
+                      return;
+                    }
+                    setViewMonth((current) => current + 1);
+                    return;
+                  }
+                  if (calendarPanel === "month") {
                     setViewYear((current) => current + 1);
                     return;
                   }
-                  setViewMonth((current) => current + 1);
+                  setViewYear(yearGridStart + 12);
                 }}
                 className="grid size-8 place-items-center rounded-md text-foreground hover:bg-accent disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronRightIcon className="size-4" />
               </button>
             </div>
-            <div className="mb-1 grid grid-cols-7 gap-1">
-              {WEEKDAY_LABELS.map((weekday) => (
-                <span
-                  key={weekday}
-                  className="grid h-8 place-items-center text-[0.6875rem] font-semibold text-muted-foreground"
-                >
-                  {weekday}
-                </span>
-              ))}
-            </div>
-            <div className="grid grid-cols-7 gap-1">
-              {calendarCells.map((day, index) => {
-                if (day === null) {
-                  return <span key={`empty-${index}`} className="h-8" />;
-                }
-                const cellDate = new Date(viewYear, viewMonth, day);
-                const isAfterMax =
-                  maxAllowedDate !== null && cellDate > maxAllowedDate;
-                const isBeforeMin =
-                  minAllowedDate !== null && cellDate < minAllowedDate;
-                const isDisabledDay = isAfterMax || isBeforeMin;
-                const isSelected =
-                  selectedDay === day &&
-                  selectedMonth === viewMonth + 1 &&
-                  selectedYear === viewYear;
-                const isToday =
-                  day === today.getDate() &&
-                  viewMonth === today.getMonth() &&
-                  viewYear === today.getFullYear();
-                let dayClassName =
-                  "grid h-8 place-items-center rounded-md text-sm";
-                if (isDisabledDay) {
-                  dayClassName +=
-                    " cursor-not-allowed text-muted-foreground/40";
-                } else {
-                  dayClassName += " hover:bg-accent";
-                  if (isSelected) {
-                    dayClassName +=
-                      " bg-brand-strong font-semibold text-white hover:bg-brand-strong";
-                  } else if (isToday) {
-                    dayClassName += " font-semibold text-brand-strong";
+            {calendarPanel === "day" && (
+              <>
+                <div className="mb-1 grid grid-cols-7 gap-1">
+                  {WEEKDAY_LABELS.map((weekday) => (
+                    <span
+                      key={weekday}
+                      className="grid h-8 place-items-center text-[0.6875rem] font-semibold text-muted-foreground"
+                    >
+                      {weekday}
+                    </span>
+                  ))}
+                </div>
+                <div className="grid grid-cols-7 gap-1">
+                  {calendarCells.map((day, index) => {
+                    if (day === null) {
+                      return <span key={`empty-${index}`} className="h-8" />;
+                    }
+                    const cellDate = new Date(viewYear, viewMonth, day);
+                    const isAfterMax =
+                      maxAllowedDate !== null && cellDate > maxAllowedDate;
+                    const isBeforeMin =
+                      minAllowedDate !== null && cellDate < minAllowedDate;
+                    const isDisabledDay = isAfterMax || isBeforeMin;
+                    const isSelected =
+                      selectedDay === day &&
+                      selectedMonth === viewMonth + 1 &&
+                      selectedYear === viewYear;
+                    const isToday =
+                      day === today.getDate() &&
+                      viewMonth === today.getMonth() &&
+                      viewYear === today.getFullYear();
+                    let dayClassName =
+                      "grid h-8 place-items-center rounded-md text-sm";
+                    if (isDisabledDay) {
+                      dayClassName +=
+                        " cursor-not-allowed text-muted-foreground/40";
+                    } else {
+                      dayClassName += " hover:bg-accent";
+                      if (isSelected) {
+                        dayClassName +=
+                          " bg-brand-strong font-semibold text-white hover:bg-brand-strong";
+                      } else if (isToday) {
+                        dayClassName += " font-semibold text-brand-strong";
+                      }
+                    }
+                    return (
+                      <button
+                        key={`${viewYear}-${viewMonth}-${day}`}
+                        type="button"
+                        disabled={isDisabledDay}
+                        onClick={() => {
+                          if (isDisabledDay) return;
+                          onChange(formatDisplayDate(cellDate));
+                          setTouched(true);
+                          setOpen(false);
+                          setCalendarPanel("day");
+                          window.requestAnimationFrame(() => {
+                            textInputRef.current?.focus();
+                          });
+                        }}
+                        className={dayClassName}
+                      >
+                        {day}
+                      </button>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+            {calendarPanel === "month" && (
+              <div className="grid grid-cols-3 gap-1">
+                {MONTH_SHORT_LABELS.map((monthLabel, monthIndex) => {
+                  const monthStart = new Date(viewYear, monthIndex, 1);
+                  const monthEnd = new Date(viewYear, monthIndex + 1, 0);
+                  const isAfterMax =
+                    maxAllowedDate !== null && monthStart > maxAllowedDate;
+                  const isBeforeMin =
+                    minAllowedDate !== null && monthEnd < minAllowedDate;
+                  const isDisabledMonth = isAfterMax || isBeforeMin;
+                  const isSelected =
+                    selectedMonth === monthIndex + 1 &&
+                    selectedYear === viewYear;
+                  const isCurrentMonth =
+                    monthIndex === today.getMonth() &&
+                    viewYear === today.getFullYear();
+                  let monthClassName =
+                    "grid h-10 place-items-center rounded-md text-sm capitalize";
+                  if (isDisabledMonth) {
+                    monthClassName +=
+                      " cursor-not-allowed text-muted-foreground/40";
+                  } else {
+                    monthClassName += " hover:bg-accent";
+                    if (isSelected) {
+                      monthClassName +=
+                        " bg-brand-strong font-semibold text-white hover:bg-brand-strong";
+                    } else if (isCurrentMonth) {
+                      monthClassName += " font-semibold text-brand-strong";
+                    }
                   }
-                }
-                return (
-                  <button
-                    key={`${viewYear}-${viewMonth}-${day}`}
-                    type="button"
-                    disabled={isDisabledDay}
-                    onClick={() => {
-                      if (isDisabledDay) return;
-                      onChange(formatDisplayDate(cellDate));
-                      setTouched(true);
-                      setOpen(false);
-                      window.requestAnimationFrame(() => {
-                        textInputRef.current?.focus();
-                      });
-                    }}
-                    className={dayClassName}
-                  >
-                    {day}
-                  </button>
-                );
-              })}
-            </div>
+                  return (
+                    <button
+                      key={`${viewYear}-${monthLabel}`}
+                      type="button"
+                      disabled={isDisabledMonth}
+                      onClick={() => {
+                        if (isDisabledMonth) return;
+                        setViewMonth(monthIndex);
+                        setCalendarPanel("day");
+                      }}
+                      className={monthClassName}
+                    >
+                      {monthLabel}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+            {calendarPanel === "year" && (
+              <div className="grid grid-cols-3 gap-1">
+                {Array.from({ length: 12 }, (_, index) => {
+                  const year = yearGridStart + index;
+                  const yearStart = new Date(year, 0, 1);
+                  const yearEnd = new Date(year, 11, 31);
+                  const isAfterMax =
+                    maxAllowedDate !== null && yearStart > maxAllowedDate;
+                  const isBeforeMin =
+                    minAllowedDate !== null && yearEnd < minAllowedDate;
+                  const isDisabledYear = isAfterMax || isBeforeMin;
+                  const isSelected = selectedYear === year;
+                  const isCurrentYear = year === today.getFullYear();
+                  let yearClassName =
+                    "grid h-10 place-items-center rounded-md text-sm";
+                  if (isDisabledYear) {
+                    yearClassName +=
+                      " cursor-not-allowed text-muted-foreground/40";
+                  } else {
+                    yearClassName += " hover:bg-accent";
+                    if (isSelected) {
+                      yearClassName +=
+                        " bg-brand-strong font-semibold text-white hover:bg-brand-strong";
+                    } else if (isCurrentYear) {
+                      yearClassName += " font-semibold text-brand-strong";
+                    }
+                  }
+                  return (
+                    <button
+                      key={year}
+                      type="button"
+                      disabled={isDisabledYear}
+                      onClick={() => {
+                        if (isDisabledYear) return;
+                        setViewYear(year);
+                        setCalendarPanel("month");
+                      }}
+                      className={yearClassName}
+                    >
+                      {year}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
             <div className="mt-2 flex items-center justify-between border-t border-border pt-2">
               <button
                 type="button"
@@ -455,6 +649,7 @@ export function DateField({
                     onChange(todayValue);
                     setViewMonth(today.getMonth());
                     setViewYear(today.getFullYear());
+                    setCalendarPanel("day");
                     setTouched(true);
                     setOpen(false);
                     window.requestAnimationFrame(() => {

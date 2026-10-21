@@ -35,6 +35,8 @@ export type ClientSearchResult =
   | null;
 
 export type IdentifySenderStepProps = {
+  documentType: string;
+  onDocumentTypeChange: (value: string) => void;
   documentNumber: string;
   onDocumentNumberChange: (value: string) => void;
   result: ClientSearchResult;
@@ -58,6 +60,8 @@ const SEARCH_ERROR_DOCUMENT = "0000000";
 const DEMO_NEW_CLIENT_DOCUMENT = "1234567";
 
 export function IdentifySenderStep({
+  documentType,
+  onDocumentTypeChange,
   documentNumber,
   onDocumentNumberChange,
   result,
@@ -83,7 +87,6 @@ export function IdentifySenderStep({
     }
     return STATUS.IDLE;
   });
-  const [documentType, setDocumentType] = useState("Cédula");
   const documentTypeRef = useRef<HTMLButtonElement>(null);
   const documentNumberInputRef = useRef<HTMLInputElement>(null);
   const searchTimeoutRef = useRef<number | null>(null);
@@ -232,7 +235,7 @@ export function IdentifySenderStep({
                   if (!item) {
                     throw new Error(`Unknown document type: ${value}`);
                   }
-                  setDocumentType(item.name);
+                  onDocumentTypeChange(item.name);
                 }}
               />
             </div>

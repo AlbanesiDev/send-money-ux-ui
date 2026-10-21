@@ -70,18 +70,6 @@ export function TerrapayBeneficiaryStep({
           onChange={(value) => onFormChange("city", value)}
         />
       </div>
-      <h2 className="pt-4 font-bold">Envío directo al banco / billetera</h2>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <Field
-          label="Forma de Entrega"
-          value="Cuenta bancaria"
-          disabled
-          required
-        />
-        <Field label="Banco" value="Banco Nacional" disabled required />
-        <Field label="Wallet" value="—" disabled />
-        <Field label="Nro. Cuenta" value="9876543210" disabled required />
-      </div>
     </div>
   );
 }

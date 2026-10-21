@@ -214,6 +214,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [activeSteps, setActiveSteps] = useState<string[]>(() =>
     buildQuoteLoadingSteps(false),
   );
+  const [documentType, setDocumentType] = useState("Cédula");
   const [documentNumber, setDocumentNumber] = useState("");
   const [selectedProvider, setSelectedProvider] = useState<ProviderId | null>(
     null,
@@ -395,7 +396,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   };
   const [result, setResult] = useState<ClientSearchResult>(null);
   const [isGuestFlow, setIsGuestFlow] = useState(false);
-  const [documentFieldsLocked, setDocumentFieldsLocked] = useState(true);
   const [guestLookupStatus, setGuestLookupStatus] =
     useState<GuestClientLookupStatus>("idle");
   const [guestFoundCustomer, setGuestFoundCustomer] = useState<Customer | null>(
@@ -408,7 +408,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [isRegisteringClient, setIsRegisteringClient] = useState(false);
   const [registerClientError, setRegisterClientError] = useState("");
   const [remitterForm, setRemitterForm] = useState<CustomerRegistrationDraft>(
-    () => createEmptyCustomerDraft(),
+    () => createEmptyCustomerDraft("", "Cédula"),
   );
   const [originalRemitterForm, setOriginalRemitterForm] =
     useState<CustomerRegistrationDraft | null>(null);
@@ -429,6 +429,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const remitterFormSyncedCustomerIdRef = useRef<string | null>(null);
   const beneficiariesLoadedForCustomerIdRef = useRef<string | null>(null);
   const transactionsLoadedForCustomerIdRef = useRef<string | null>(null);
+  const isGuestFlowRef = useRef(isGuestFlow);
+  isGuestFlowRef.current = isGuestFlow;
 
   useEffect(() => {
     void ensureCustomersSeeded()
@@ -467,15 +469,21 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     if (customer === null) {
       remitterFormSyncedCustomerIdRef.current = null;
       setOriginalRemitterForm(null);
+      if (!isGuestFlowRef.current) {
+        setRemitterForm(
+          createEmptyCustomerDraft(documentNumber.trim(), documentType),
+        );
+      }
       return;
     }
     if (remitterFormSyncedCustomerIdRef.current === customer.id) return;
     remitterFormSyncedCustomerIdRef.current = customer.id;
     const draft = customerToRegistrationDraft(customer);
     draft.documentNumber = documentNumber.trim();
+    setDocumentType(draft.documentType);
     setRemitterForm(draft);
     setOriginalRemitterForm(draft);
-  }, [customer, documentNumber]);
+  }, [customer, documentNumber, documentType]);
 
   useEffect(() => {
     if (customer === null) {
@@ -487,12 +495,14 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       setRecentTransactions([]);
       return;
     }
-    if (beneficiariesLoadedForCustomerIdRef.current !== customer.id) {
-      beneficiariesLoadedForCustomerIdRef.current = customer.id;
-      void listBeneficiariesByCustomer(customer.id).then((items) => {
+    const customerId = customer.id;
+    if (beneficiariesLoadedForCustomerIdRef.current !== customerId) {
+      beneficiariesLoadedForCustomerIdRef.current = customerId;
+      void listBeneficiariesByCustomer(customerId).then((items) => {
+        if (beneficiariesLoadedForCustomerIdRef.current !== customerId) return;
         setBeneficiaries(items);
         if (items.length === 0) {
-          const emptyDraft = createEmptyBeneficiaryDraft(customer.id);
+          const emptyDraft = createEmptyBeneficiaryDraft(customerId);
           setSelectedBeneficiary(-1);
           setBeneficiaryForm(emptyDraft);
           setOriginalBeneficiaryForm(emptyDraft);
@@ -505,9 +515,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
         setGuestBeneficiaryChosen(true);
       });
     }
-    if (transactionsLoadedForCustomerIdRef.current !== customer.id) {
-      transactionsLoadedForCustomerIdRef.current = customer.id;
-      void listTransactionsByCustomer(customer.id).then((items) => {
+    if (transactionsLoadedForCustomerIdRef.current !== customerId) {
+      transactionsLoadedForCustomerIdRef.current = customerId;
+      void listTransactionsByCustomer(customerId).then((items) => {
+        if (transactionsLoadedForCustomerIdRef.current !== customerId) return;
         setRecentTransactions(items);
       });
     }
@@ -615,7 +626,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
         item.documentNumbers.includes(documentNumber.trim()),
     );
   const showSaveClientButton =
-    isGuestFlow || (customer !== null && isRemitterFormDirty);
+    isGuestFlow || customer === null || isRemitterFormDirty;
   let isBeneficiaryFormDirty = false;
   if (originalBeneficiaryForm !== null) {
     isBeneficiaryFormDirty =
@@ -757,7 +768,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   function startGuestQuote() {
     clearGuestLookupTimeout();
     setIsGuestFlow(true);
-    setDocumentFieldsLocked(false);
     setResult(null);
     setDocumentNumber("");
     setAdditionalChecks({});
@@ -770,7 +780,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     remitterFormSyncedCustomerIdRef.current = null;
     beneficiariesLoadedForCustomerIdRef.current = null;
     transactionsLoadedForCustomerIdRef.current = null;
-    setRemitterForm(createEmptyCustomerDraft());
+    setRemitterForm(createEmptyCustomerDraft("", documentType));
     setOriginalRemitterForm(null);
     setBeneficiaries([]);
     setBeneficiaryForm(createEmptyBeneficiaryDraft());
@@ -790,7 +800,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setSelectedBeneficiary(0);
     remitterFormSyncedCustomerIdRef.current = null;
     if (hadAutofill) {
-      setRemitterForm(createEmptyCustomerDraft(value));
+      setRemitterForm(createEmptyCustomerDraft(value, documentType));
       setOriginalRemitterForm(null);
     } else {
       setRemitterForm((current) => ({ ...current, documentNumber: value }));
@@ -833,7 +843,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setGuestBeneficiaryChosen(false);
     setAdditionalChecks({});
     remitterFormSyncedCustomerIdRef.current = null;
-    setRemitterForm(createEmptyCustomerDraft(documentNumber));
+    setRemitterForm(createEmptyCustomerDraft(documentNumber, documentType));
     setOriginalRemitterForm(null);
     setGuestLookupStatus("declined");
     setRegisterClientError("");
@@ -866,6 +876,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     field,
     value,
   ) => {
+    if (field === "documentType") {
+      setDocumentType(value);
+    }
     setRemitterForm((current) => ({ ...current, [field]: value }));
     setRegisterClientError("");
   };
@@ -1261,15 +1274,27 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                     data-form-fields
                   >
                     <IdentifySenderStep
+                      documentType={documentType}
+                      onDocumentTypeChange={(value) => {
+                        setDocumentType(value);
+                        setRemitterForm((current) => ({
+                          ...current,
+                          documentType: value,
+                        }));
+                      }}
                       documentNumber={documentNumber}
                       onDocumentNumberChange={setDocumentNumber}
                       result={result}
                       onResultChange={(nextResult) => {
                         setIsGuestFlow(false);
-                        setDocumentFieldsLocked(true);
                         setResult(nextResult);
                       }}
-                      onContinue={next}
+                      onContinue={() => {
+                        if (result === "empty") {
+                          setIsGuestFlow(true);
+                        }
+                        next();
+                      }}
                       onGuestContinue={startGuestQuote}
                       continueRef={continueRef}
                       customer={customer}
@@ -1280,7 +1305,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                       formatUsd={formatUsd}
                       onRepeatTransaction={(transaction) => {
                         setIsGuestFlow(false);
-                        setDocumentFieldsLocked(true);
                         repeatTransaction(transaction);
                         setStep(2);
                       }}
@@ -1476,7 +1500,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                             }
                             formatAmount={formatAmount}
                             isGuestFlow={isGuestFlow}
-                            documentFieldsLocked={documentFieldsLocked}
                             onDocumentNumberChange={
                               handleGuestDocumentNumberChange
                             }

@@ -9,7 +9,6 @@ export function MoneygramRemitterStep({
   documentNumber,
   form,
   onFormChange,
-  documentFieldsLocked = true,
   onDocumentNumberChange,
   afterDocumentFields,
   footerSlot,
@@ -17,7 +16,6 @@ export function MoneygramRemitterStep({
   documentNumber: string;
   form: CustomerRegistrationDraft;
   onFormChange: RemitterFormChangeHandler;
-  documentFieldsLocked?: boolean;
   onDocumentNumberChange?: (value: string) => void;
   afterDocumentFields?: ReactNode;
   footerSlot?: ReactNode;
@@ -27,7 +25,6 @@ export function MoneygramRemitterStep({
       documentNumber={documentNumber}
       form={form}
       onFormChange={onFormChange}
-      documentFieldsLocked={documentFieldsLocked}
       onDocumentNumberChange={onDocumentNumberChange}
       afterDocumentFields={afterDocumentFields}
       footerSlot={footerSlot}

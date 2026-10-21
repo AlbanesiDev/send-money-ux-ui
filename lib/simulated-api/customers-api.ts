@@ -251,10 +251,11 @@ export async function registerCustomer(
 
 export function createEmptyCustomerDraft(
   documentNumber = "",
+  documentType = "",
 ): CustomerRegistrationDraft {
   return {
     documentNumber,
-    documentType: "",
+    documentType,
     documentIssueCountry: "",
     documentIssueDate: "",
     documentExpiryDate: "",

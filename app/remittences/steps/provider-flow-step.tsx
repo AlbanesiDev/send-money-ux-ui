@@ -61,7 +61,6 @@ export type ProviderFlowStepProps = {
   onEditPayment: () => void;
   formatAmount: (value: number) => string;
   isGuestFlow?: boolean;
-  documentFieldsLocked?: boolean;
   onDocumentNumberChange?: (value: string) => void;
   onRegisterClient?: () => void;
   isRegisteringClient?: boolean;

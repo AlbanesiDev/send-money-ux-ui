@@ -584,6 +584,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     }, 900);
   };
   const [sent, setSent] = useState(false);
+  const [completedOperationNumber, setCompletedOperationNumber] = useState("");
   const [processing, setProcessing] = useState(false);
   const [cancelConfirmOpen, setCancelConfirmOpen] = useState(false);
   const processingTimeoutRef = useRef<number | undefined>(undefined);
@@ -1102,6 +1103,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       setRecentTransactions(history);
       transactionsLoadedForCustomerIdRef.current = customer.id;
       setSelectedTransactionId(savedTransaction.id);
+      setCompletedOperationNumber(savedTransaction.id);
 
       processingTimeoutRef.current = window.setTimeout(() => {
         setProcessing(false);
@@ -1121,6 +1123,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     window.clearTimeout(processingTimeoutRef.current);
     setProcessing(false);
     setSent(false);
+    setCompletedOperationNumber("");
     setStep(2);
   }
 
@@ -1236,7 +1239,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
           />
         ) : sent ? (
           <RemittanceSuccess
-            operationNumber="12030070733"
+            operationNumber={completedOperationNumber}
             totalSent={formatUsd(quote ? quote.amount : 0)}
             onNewTransaction={onReset}
             onRepeatClient={startAnotherQuote}

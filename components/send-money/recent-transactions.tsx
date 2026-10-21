@@ -168,7 +168,7 @@ export function RecentTransactions({
   const visibleTransactions = transactions.filter((transaction) => {
     const matchesFilter =
       activeFilter === "Todas" || transaction.status === activeFilter;
-    let beneficiary = beneficiaries[transaction.beneficiaryIndex];
+    let beneficiary: Beneficiary | undefined;
     if (transaction.beneficiaryId !== undefined) {
       for (let index = 0; index < beneficiaries.length; index += 1) {
         if (beneficiaries[index].id === transaction.beneficiaryId) {
@@ -176,7 +176,11 @@ export function RecentTransactions({
           break;
         }
       }
+    } else {
+      beneficiary = beneficiaries[transaction.beneficiaryIndex];
     }
+    if (beneficiary === undefined) return false;
+
     const matchesQuery = [
       beneficiary.name,
       `Op. ${transaction.id}`,
@@ -282,7 +286,7 @@ export function RecentTransactions({
     }
 
     return visibleTransactions.slice(0, 3).map((transaction, index) => {
-      let beneficiary = beneficiaries[transaction.beneficiaryIndex];
+      let beneficiary: Beneficiary | undefined;
       if (transaction.beneficiaryId !== undefined) {
         for (let i = 0; i < beneficiaries.length; i += 1) {
           if (beneficiaries[i].id === transaction.beneficiaryId) {
@@ -290,6 +294,13 @@ export function RecentTransactions({
             break;
           }
         }
+      } else {
+        beneficiary = beneficiaries[transaction.beneficiaryIndex];
+      }
+      if (beneficiary === undefined) {
+        throw new Error(
+          `Beneficiary not found for transaction ${transaction.id}`,
+        );
       }
       const selected = transaction.id === selectedId;
 

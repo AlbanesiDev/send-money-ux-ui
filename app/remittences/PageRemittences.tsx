@@ -1377,8 +1377,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       >
         {processing ? (
           <RemittanceProcessing
-            totalSent={formatUsd(quote ? quote.amount : 0)}
-            chargesSubtotal={formatUsd(quote ? quote.fee + quote.tax : 0)}
             amountReceived={formatUsd(
               quote ? quote.amount - quote.fee - quote.tax : 0,
             )}

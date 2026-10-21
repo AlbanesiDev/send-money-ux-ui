@@ -296,19 +296,22 @@ export function IdentifySenderStep({
               )}
               {loading ? "Buscando cliente…" : "Buscar"}
             </button>
-            {result !== "success" && (
-              <>
-                <hr className="my-3 border-border" />
-                <button
-                  type="button"
-                  className="mt-1 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-summary-soft text-sm font-bold text-summary-fg hover:bg-summary/20 focus:outline-none focus:ring-4 focus:ring-summary/20"
-                  onClick={onGuestContinue}
-                >
-                  <ArrowRightIcon className="size-4" />
-                  Realizar cotización como invitado
-                </button>
-              </>
-            )}
+            {documentNumber &&
+              result !== "success" &&
+              result !== "empty" &&
+              result !== "blocked" && (
+                <>
+                  <hr className="my-3 border-border" />
+                  <button
+                    type="button"
+                    className="mt-1 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-summary-soft text-sm font-bold text-summary-fg hover:bg-summary/20 focus:outline-none focus:ring-4 focus:ring-summary/20"
+                    onClick={onGuestContinue}
+                  >
+                    <ArrowRightIcon className="size-4" />
+                    Realizar cotización como invitado
+                  </button>
+                </>
+              )}
             <div
               aria-live="polite"
               className={

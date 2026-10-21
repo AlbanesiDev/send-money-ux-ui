@@ -26,9 +26,13 @@ const ROUTE_LABELS: Record<string, string> = {
 export function AppHeader({
   sidebarExpanded,
   onToggleSidebar,
+  partiesAboveShipping,
+  onPartiesAboveShippingChange,
 }: {
   sidebarExpanded: boolean;
   onToggleSidebar: () => void;
+  partiesAboveShipping: boolean;
+  onPartiesAboveShippingChange: (value: boolean) => void;
 }) {
   const { pathname } = useLocation();
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -146,6 +150,31 @@ export function AppHeader({
             Saldo virtual USD: $700,00
             <strong>·</strong>
             Saldo virtual BOB: $6.000,00
+          </div>
+
+          <div className="flex items-center gap-2 rounded-md px-2 py-1 text-xs text-slate-300">
+            <span className="hidden whitespace-nowrap sm:inline">
+              Partes arriba
+            </span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={partiesAboveShipping}
+              aria-label="Mostrar remitente y beneficiario arriba de datos del envío"
+              onClick={() =>
+                onPartiesAboveShippingChange(!partiesAboveShipping)
+              }
+              className={`relative h-5 w-9 shrink-0 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
+                partiesAboveShipping ? "bg-emerald-400" : "bg-slate-500"
+              }`}
+            >
+              <span
+                aria-hidden="true"
+                className={`absolute top-0.5 left-0.5 size-4 rounded-full bg-white transition-transform ${
+                  partiesAboveShipping ? "translate-x-4" : "translate-x-0"
+                }`}
+              />
+            </button>
           </div>
 
           <button

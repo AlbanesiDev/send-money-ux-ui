@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { flushSync } from "react-dom";
+import { useOutletContext } from "react-router-dom";
+import type { DemoQuoteLayoutContext } from "@/components/layout/demo-quote-layout";
 import {
   RemittanceProcessing,
   RemittanceSuccess,
@@ -212,6 +214,7 @@ function PageRemittences() {
 
 function TransactionFlow({ onReset }: { onReset: () => void }) {
   useAltFieldNavigation();
+  const { partiesAboveShipping } = useOutletContext<DemoQuoteLayoutContext>();
   const [step, setStep] = useState(1);
   const [activeSteps, setActiveSteps] = useState<string[]>(() =>
     buildQuoteLoadingSteps(false),
@@ -1290,48 +1293,89 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   }, [step, lastStep, selectedProvider]);
 
   const isPartiesStep = activeSteps[step - 1] === PARTIES_STEP_LABEL;
+  const showPartyCardsAboveShipping =
+    partiesAboveShipping && step === 2 && !isPartiesStep;
+  const showPartyCardsInAside = !isPartiesStep && !showPartyCardsAboveShipping;
+
+  const partyCards = (
+    <div className="flex gap-3">
+      <div
+        className={`flex-1 rounded-xl border border-border border-l-4 border-l-party-sender-border bg-card p-3 shadow-sm ${
+          showPartyCardsAboveShipping
+            ? "flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1"
+            : ""
+        }`}
+      >
+        <p className="shrink-0 text-[0.75rem] font-bold uppercase tracking-[0.12em] text-party-sender-fg">
+          Remitente
+        </p>
+        <p
+          className={`min-w-0 truncate text-sm font-bold text-foreground ${
+            showPartyCardsAboveShipping ? "" : "mt-1.5"
+          }`}
+        >
+          {customer === null ? "Nuevo cliente" : customer.fullName}
+        </p>
+        <p
+          className={`min-w-0 truncate text-sm text-muted-foreground ${
+            showPartyCardsAboveShipping ? "" : "mt-1"
+          }`}
+        >
+          Cédula: {documentNumber}
+          {customer !== null && ` · ${customer.emailMasked}`}
+        </p>
+        {customer !== null && customer.isPep && (
+          <p
+            className={`shrink-0 text-sm font-semibold text-party-sender-fg ${
+              showPartyCardsAboveShipping ? "" : "mt-1"
+            }`}
+          >
+            PEP: Sí
+          </p>
+        )}
+      </div>
+      {isKnownClient &&
+        beneficiary !== undefined &&
+        selectedProvider !== "MONEYGRAM" && (
+          <div
+            className={`w-1/2 rounded-xl border border-border border-l-4 border-l-party-beneficiary-border bg-card p-3 shadow-sm ${
+              showPartyCardsAboveShipping
+                ? "flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1"
+                : ""
+            }`}
+          >
+            <p className="shrink-0 text-[0.75rem] font-bold uppercase tracking-[0.12em] text-party-beneficiary-fg">
+              Beneficiario
+            </p>
+            <p
+              className={`min-w-0 truncate text-sm font-bold text-foreground ${
+                showPartyCardsAboveShipping ? "" : "mt-1.5"
+              }`}
+            >
+              {beneficiary.name}
+            </p>
+            <p
+              className={`min-w-0 truncate text-sm text-muted-foreground ${
+                showPartyCardsAboveShipping ? "" : "mt-1"
+              }`}
+            >
+              Doc: {beneficiary.document} · {beneficiary.city}
+            </p>
+            <p
+              className={`min-w-0 truncate text-xs text-muted-foreground ${
+                showPartyCardsAboveShipping ? "" : "mt-1"
+              }`}
+            >
+              {beneficiary.phone} · {beneficiary.email}
+            </p>
+          </div>
+        )}
+    </div>
+  );
 
   const summaryAside = (
     <aside className="sticky top-0 flex flex-col gap-3 self-start">
-      {!isPartiesStep && (
-        <div className="flex gap-3">
-          <div className="flex-1 rounded-xl border border-border border-l-4 border-l-party-sender-border bg-card p-3 shadow-sm">
-            <p className="text-[0.75rem] font-bold uppercase tracking-[0.12em] text-party-sender-fg">
-              Remitente
-            </p>
-            <p className="mt-1.5 text-sm font-bold text-foreground">
-              {customer === null ? "Nuevo cliente" : customer.fullName}
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Cédula: {documentNumber}
-              {customer !== null && ` · ${customer.emailMasked}`}
-            </p>
-            {customer !== null && customer.isPep && (
-              <p className="mt-1 text-sm font-semibold text-party-sender-fg">
-                PEP: Sí
-              </p>
-            )}
-          </div>
-          {isKnownClient &&
-            beneficiary !== undefined &&
-            selectedProvider !== "MONEYGRAM" && (
-              <div className="w-1/2 rounded-xl border border-border border-l-4 border-l-party-beneficiary-border bg-card p-3 shadow-sm">
-                <p className="text-[0.75rem] font-bold uppercase tracking-[0.12em] text-party-beneficiary-fg">
-                  Beneficiario
-                </p>
-                <p className="mt-1.5 text-sm font-bold text-foreground">
-                  {beneficiary.name}
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Doc: {beneficiary.document} · {beneficiary.city}
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {beneficiary.phone} · {beneficiary.email}
-                </p>
-              </div>
-            )}
-        </div>
-      )}
+      {showPartyCardsInAside && partyCards}
       <RemittanceSummary
         provider={selectedProvider}
         quote={quote}
@@ -1448,6 +1492,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
               </Stepper.Step>
               <Stepper.Step index={2}>
                 <div className="grid min-h-0 flex-1 gap-4 overflow-y-auto lg:grid-cols-[minmax(0,1fr)_minmax(10rem,34rem)]">
+                  {showPartyCardsAboveShipping && (
+                    <div className="min-w-0 lg:col-span-2">{partyCards}</div>
+                  )}
                   <div className="min-w-0" data-form-fields>
                     <QuoteStep
                       quoteLoading={quoteLoading}

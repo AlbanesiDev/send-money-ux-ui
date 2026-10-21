@@ -389,7 +389,7 @@ export function RecentTransactions({
                     onClick={onClear}
                     aria-label={`Deseleccionar transacción ${transaction.id}`}
                     aria-pressed="true"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-[#b8e1d1] bg-[#effaf5] px-2.5 py-2 text-[11px] font-bold whitespace-nowrap text-[#167152] transition-colors hover:bg-[#e8f7f0] dark:border-border dark:bg-success-soft dark:text-success hover:dark:bg-success-border focus:outline-none focus:ring-4 focus:ring-[#3064d1]/20 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-[#b8e1d1] bg-[#effaf5] px-2.5 py-2 text-sm font-bold whitespace-nowrap text-[#167152] transition-colors hover:bg-[#e8f7f0] dark:border-border dark:bg-success-soft dark:text-success hover:dark:bg-success-border focus:outline-none focus:ring-4 focus:ring-[#3064d1]/20 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <Check size={16} />
                     Deseleccionar
@@ -400,7 +400,7 @@ export function RecentTransactions({
                     disabled={disabled}
                     onClick={() => onSelect(transaction)}
                     aria-label={`Repetir envío ${transaction.id} a ${beneficiary.name} por ${formatUsd(transaction.amount)}`}
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-amber-400  bg-amber-300/75 px-2.5 py-2 text-[11px] font-bold whitespace-nowrap text-[#33425f] transition-colors hover:border-amber-300 hover:bg-amber-300 focus:outline-none focus:ring-4 focus:ring-[#3064d1]/20 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-amber-400  bg-amber-300/75 px-2.5 py-2 text-sm font-bold whitespace-nowrap text-[#33425f] transition-colors hover:border-amber-300 hover:bg-amber-300 focus:outline-none focus:ring-4 focus:ring-[#3064d1]/20 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <RefreshCw size={16} />
                     Repetir envío

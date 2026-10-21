@@ -462,7 +462,7 @@ export function QuoteStep({
               })}
             </div>
           </div>
-          <Field
+          {/* <Field
             label="Monto que recibe"
             value={
               selectedQuote
@@ -474,7 +474,7 @@ export function QuoteStep({
                 : ""
             }
             disabled
-          />
+          /> */}
           {showTerraPayBank && (
             <>
               <SearchableSelect

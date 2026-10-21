@@ -57,7 +57,7 @@ export function PaymentMethodPanel({
 
   if (provider === "TERRAPAY") {
     return (
-      <div className="rounded-xl border border-border bg-card p-3">
+      <div className="rounded-xl border border-border bg-card p-3 shadow-sm">
         <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
           Método de pago
         </p>
@@ -93,12 +93,12 @@ export function PaymentMethodPanel({
     CURRENCIES.filter((currency) => !isTaken(method, currency, id));
 
   return (
-    <div className="rounded-xl border border-border bg-card p-3">
+    <div className="rounded-xl border border-border bg-card p-3 shadow-sm">
       <div className="flex items-center justify-between gap-2">
         <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
           Método de pago
         </p>
-        <span className="rounded-full bg-accent px-2 py-0.5 text-[0.625rem] font-semibold text-brand-strong">
+        <span className="rounded-full bg-accent px-2 py-0.5 text-[0.625rem] font-semibold text-amount">
           {extraPayments.length + 1}
         </span>
       </div>

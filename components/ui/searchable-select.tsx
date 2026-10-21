@@ -4,6 +4,8 @@ import { useEffect, useRef, useState, type RefObject } from "react";
 import { CountryFlag } from "@/components/ui/country-flag";
 import { ChevronDownIcon, XIcon } from "lucide-react";
 
+const REQUIRED_MESSAGE = "Este campo es requerido";
+
 export type SearchableSelectProps = {
   label: string;
   value: string;
@@ -17,6 +19,9 @@ export type SearchableSelectProps = {
   hideLabel?: boolean;
   dropdownSide?: "top" | "bottom";
   clearable?: boolean;
+  error?: string;
+  onBlur?: () => void;
+  required?: boolean;
 };
 
 export function SearchableSelect({
@@ -32,10 +37,14 @@ export function SearchableSelect({
   hideLabel = false,
   dropdownSide = "bottom",
   clearable = false,
+  error,
+  onBlur,
+  required = false,
 }: SearchableSelectProps) {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(0);
+  const [touched, setTouched] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const filterRef = useRef<HTMLInputElement>(null);
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -43,8 +52,14 @@ export function SearchableSelect({
     option.toLowerCase().includes(filter.toLowerCase()),
   );
 
+  const markTouched = () => {
+    setTouched(true);
+    if (onBlur !== undefined) onBlur();
+  };
+
   const choose = (option: string) => {
     onChange(option);
+    setTouched(true);
     setOpen(false);
     setFilter("");
     window.requestAnimationFrame(() => {
@@ -86,10 +101,34 @@ export function SearchableSelect({
       if (rootRef.current?.contains(target)) return;
       setOpen(false);
       setFilter("");
+      setTouched(true);
+      if (onBlur !== undefined) onBlur();
     }
     document.addEventListener("pointerdown", handlePointerDown);
     return () => document.removeEventListener("pointerdown", handlePointerDown);
-  }, [open]);
+  }, [open, onBlur]);
+
+  let resolvedError = "";
+  if (error !== undefined && error !== "") {
+    resolvedError = error;
+  } else if (required && !disabled && touched && value.trim() === "") {
+    resolvedError = REQUIRED_MESSAGE;
+  }
+  const hasError = resolvedError !== "";
+  let buttonClassName =
+    "flex h-10 w-full items-center rounded-lg border bg-card py-0 pl-3 text-left text-sm text-foreground outline-none disabled:bg-muted disabled:text-muted-foreground";
+  if (clearable && value) {
+    buttonClassName += " pr-14";
+  } else {
+    buttonClassName += " pr-9";
+  }
+  if (hasError) {
+    buttonClassName +=
+      " border-destructive focus:border-destructive focus:ring-4 focus:ring-destructive/15";
+  } else {
+    buttonClassName +=
+      " border-input focus:border-brand focus:ring-4 focus:ring-brand/10";
+  }
 
   return (
     <div
@@ -115,8 +154,25 @@ export function SearchableSelect({
           disabled={disabled}
           aria-disabled={loading || undefined}
           aria-busy={loading}
+          aria-invalid={hasError}
           onClick={() => {
-            if (!loading) setOpen((current) => !current);
+            if (loading) return;
+            setOpen((current) => {
+              if (current) {
+                window.requestAnimationFrame(() => markTouched());
+              }
+              return !current;
+            });
+          }}
+          onBlur={(event) => {
+            const nextTarget = event.relatedTarget;
+            if (
+              nextTarget instanceof Node &&
+              rootRef.current?.contains(nextTarget)
+            ) {
+              return;
+            }
+            markTouched();
           }}
           onKeyDown={(event) => {
             if (loading || disabled) return;
@@ -127,9 +183,7 @@ export function SearchableSelect({
           }}
           aria-haspopup="listbox"
           aria-expanded={open}
-          className={`flex h-10 w-full items-center rounded-lg border border-input bg-card py-0 pl-3 text-left text-sm text-foreground outline-none focus:border-brand focus:ring-4 focus:ring-brand/10 disabled:bg-muted disabled:text-muted-foreground ${
-            clearable && value ? "pr-14" : "pr-9"
-          }`}
+          className={buttonClassName}
         >
           {loading ? (
             <span role="status" className="flex items-center gap-2 text-brand">
@@ -256,6 +310,14 @@ export function SearchableSelect({
               )}
             </div>
           </div>
+        )}
+        {hasError && (
+          <span
+            role="alert"
+            className="pointer-events-none absolute top-[calc(100%+0.125rem)] left-0 z-1 text-[0.6875rem] leading-none text-destructive"
+          >
+            {resolvedError}
+          </span>
         )}
       </div>
     </div>

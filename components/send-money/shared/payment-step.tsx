@@ -160,7 +160,7 @@ function ExtraPaymentRow({
           <p
             id={`payment-${line.id}-clamped`}
             role="status"
-            className="mt-1 text-right text-xs text-[#b5622a] dark:text-amber-200"
+            className="mt-1 text-right text-xs text-warning-foreground"
           >
             Ajustado al máximo disponible
           </p>

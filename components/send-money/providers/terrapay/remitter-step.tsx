@@ -1,45 +1,88 @@
-import type { Customer } from "../../types";
+"use client";
+
+import type { ReactNode } from "react";
+import { useRef } from "react";
+import { SearchableSelect } from "@/components/ui/searchable-select";
+import documentTypesCatalog from "@/public/catalogs/catalog-document-types.json";
+import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
 import { Field } from "../../field";
+import type { RemitterFormChangeHandler } from "../wu/remitter-step";
+
+const DOCUMENT_TYPE_OPTIONS = documentTypesCatalog.map((item) => item.name);
 
 export function TerrapayRemitterStep({
   documentNumber,
-  customer,
+  form,
+  onFormChange,
+  documentFieldsLocked = true,
+  onDocumentNumberChange,
+  afterDocumentFields,
+  footerSlot,
 }: {
   documentNumber: string;
-  customer: Customer | null;
+  form: CustomerRegistrationDraft;
+  onFormChange: RemitterFormChangeHandler;
+  documentFieldsLocked?: boolean;
+  onDocumentNumberChange?: (value: string) => void;
+  afterDocumentFields?: ReactNode;
+  footerSlot?: ReactNode;
 }) {
+  const documentTypeRef = useRef<HTMLButtonElement>(null);
+
   return (
-    <div className="space-y-6">
+    <div data-remitter-form className="space-y-6">
       <h2 className="font-bold">Documento de identidad</h2>
       <div className="grid gap-3 sm:grid-cols-2">
-        <Field label="Tipo de documento" value="Cédula" disabled required />
+        <div className="block">
+          <span className="mb-1 block text-sm font-semibold text-foreground">
+            Tipo de documento <span className="text-destructive">*</span>
+          </span>
+          <SearchableSelect
+            fieldRef={documentTypeRef}
+            label="Tipo de documento"
+            hideLabel
+            value={form.documentType}
+            options={DOCUMENT_TYPE_OPTIONS}
+            disabled={documentFieldsLocked}
+            required
+            onChange={(value) => onFormChange("documentType", value)}
+          />
+        </div>
         <Field
           label="Número de documento"
           value={documentNumber}
-          disabled
+          disabled={documentFieldsLocked}
           required
+          numericOnly
+          onChange={onDocumentNumberChange}
         />
+      </div>
+      {afterDocumentFields}
+      <div className="grid gap-3 sm:grid-cols-2">
         <Field
           label="País de emisión"
-          value={customer === null ? undefined : customer.documentIssueCountry}
+          value={form.documentIssueCountry}
           required
+          onChange={(value) => onFormChange("documentIssueCountry", value)}
         />
         <Field
           label="Fecha de emisión"
-          value={customer === null ? undefined : customer.documentIssueDate}
+          value={form.documentIssueDate}
           required
+          onChange={(value) => onFormChange("documentIssueDate", value)}
         />
         <Field
           label="Fecha de vencimiento"
-          value={customer === null ? undefined : customer.documentExpiryDate}
+          value={form.documentExpiryDate}
           required
+          onChange={(value) => onFormChange("documentExpiryDate", value)}
         />
         <label className="flex items-center gap-3 self-end pb-3 text-sm">
-          <input type="checkbox" className="h-5 w-5 accent-[#465bc2]" />
+          <input type="checkbox" className="h-5 w-5 accent-amount" />
           Sin fecha de emisión
         </label>
         <label className="flex items-center gap-3 self-end pb-3 text-sm">
-          <input type="checkbox" className="h-5 w-5 accent-[#465bc2]" />
+          <input type="checkbox" className="h-5 w-5 accent-amount" />
           Sin fecha de vencimiento
         </label>
       </div>
@@ -47,52 +90,57 @@ export function TerrapayRemitterStep({
       <div className="grid gap-3 sm:grid-cols-2">
         <Field
           label="Nombre"
-          value={customer === null ? undefined : customer.firstName}
+          value={form.firstName}
           required
+          onChange={(value) => onFormChange("firstName", value)}
         />
         <Field
           label="Segundo nombre"
-          value={customer === null ? undefined : customer.middleName}
+          value={form.middleName}
+          onChange={(value) => onFormChange("middleName", value)}
         />
         <Field
           label="Primer apellido"
-          value={customer === null ? undefined : customer.lastName}
+          value={form.lastName}
           required
+          onChange={(value) => onFormChange("lastName", value)}
         />
         <Field
           label="Segundo apellido"
-          value={customer === null ? undefined : customer.secondLastName}
+          value={form.secondLastName}
+          onChange={(value) => onFormChange("secondLastName", value)}
         />
         <Field
           label="Fecha de nacimiento"
-          value={customer === null ? undefined : customer.birthDate}
+          value={form.birthDate}
           required
+          onChange={(value) => onFormChange("birthDate", value)}
         />
         <Field
           label="País de nacimiento"
-          value={customer === null ? undefined : customer.birthCountry}
+          value={form.birthCountry}
           required
+          onChange={(value) => onFormChange("birthCountry", value)}
         />
         <Field
           label="Nacionalidad"
-          value={customer === null ? undefined : customer.nationality}
+          value={form.nationality}
           required
+          onChange={(value) => onFormChange("nationality", value)}
         />
         <Field
           label="Género"
-          value={customer === null ? undefined : customer.gender}
+          value={form.gender}
           required
+          onChange={(value) => onFormChange("gender", value)}
         />
-        <Field
-          label="Estado civil"
-          value={customer === null ? undefined : customer.civilStatus}
-          required
-        />
+        <Field label="Estado civil" required />
         <Field label="Nombre del cónyuge" />
         <Field
           label="Correo electrónico"
-          value={customer === null ? undefined : customer.email}
+          value={form.email}
           required
+          onChange={(value) => onFormChange("email", value)}
         />
         <Field label="Comentarios" />
       </div>
@@ -100,48 +148,60 @@ export function TerrapayRemitterStep({
       <div className="grid gap-3 sm:grid-cols-2">
         <Field
           label="Calle"
-          value={customer === null ? undefined : customer.street}
+          value={form.street}
           required
+          onChange={(value) => onFormChange("street", value)}
         />
         <Field
           label="Nro. casa"
-          value={customer === null ? undefined : customer.houseNumber}
+          value={form.houseNumber}
           required
+          onChange={(value) => onFormChange("houseNumber", value)}
         />
         <Field
           label="Dirección 2"
-          value={customer === null ? undefined : customer.address2}
+          value={form.address2}
+          onChange={(value) => onFormChange("address2", value)}
         />
         <Field
           label="Zona"
-          value={customer === null ? undefined : customer.zone}
+          value={form.zone}
           required
+          onChange={(value) => onFormChange("zone", value)}
         />
         <Field
           label="Código postal"
-          value={customer === null ? undefined : customer.postalCode}
+          value={form.postalCode}
+          onChange={(value) => onFormChange("postalCode", value)}
         />
         <Field label="País" value="Bolivia" disabled required />
         <Field
           label="Departamento / Estado"
-          value={customer === null ? undefined : customer.state}
+          value={form.state}
           required
+          onChange={(value) => onFormChange("state", value)}
         />
         <Field
           label="Ciudad"
-          value={customer === null ? undefined : customer.city}
+          value={form.city}
           required
+          onChange={(value) => onFormChange("city", value)}
         />
         <Field
           label="Teléfono"
-          value={customer === null ? undefined : customer.phone}
+          value={form.phone}
+          numericOnly
+          onChange={(value) => onFormChange("phone", value)}
         />
         <Field
           label="Móvil"
-          value={customer === null ? undefined : customer.mobile}
+          value={form.mobile}
           required
+          numericOnly
+          onChange={(value) => onFormChange("mobile", value)}
         />
       </div>
+      {footerSlot}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type RefObject } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import { Field } from "@/components/send-money/field";
 import {
   DELIVERY_TYPE_OPTIONS,
@@ -70,8 +70,12 @@ export type QuoteStepProps = {
   onWuServiceChange: (value: string) => void;
   terraPayBank: string;
   onTerraPayBankChange: (value: string) => void;
+  terraPayCbu: string;
+  onTerraPayCbuChange: (value: string) => void;
   terraPayWallet: string;
   onTerraPayWalletChange: (value: string) => void;
+  terraPayAlias: string;
+  onTerraPayAliasChange: (value: string) => void;
   partnerLoading: boolean;
   locationLoading: boolean;
   simulateOptionsLoad: (
@@ -130,8 +134,12 @@ export function QuoteStep({
   onWuServiceChange,
   terraPayBank,
   onTerraPayBankChange,
+  terraPayCbu,
+  onTerraPayCbuChange,
   terraPayWallet,
   onTerraPayWalletChange,
+  terraPayAlias,
+  onTerraPayAliasChange,
   partnerLoading,
   locationLoading,
   simulateOptionsLoad,
@@ -161,6 +169,67 @@ export function QuoteStep({
   const quoteDebounceRef = useRef<number | null>(null);
   const cbuRef = useRef<HTMLInputElement | null>(null);
   const aliasRef = useRef<HTMLInputElement | null>(null);
+  const [touched, setTouched] = useState({
+    destinationCountry: false,
+    deliveryType: false,
+    sendAmount: false,
+    terraPayBank: false,
+    terraPayCbu: false,
+    terraPayWallet: false,
+    terraPayAlias: false,
+  });
+
+  const REQUIRED_MESSAGE = "Este campo es requerido";
+
+  let destinationCountryError = "";
+  if (touched.destinationCountry && destinationCountry.trim() === "") {
+    destinationCountryError = REQUIRED_MESSAGE;
+  }
+  let deliveryTypeError = "";
+  if (touched.deliveryType && deliveryType === "") {
+    deliveryTypeError = REQUIRED_MESSAGE;
+  }
+  let sendAmountError = "";
+  if (touched.sendAmount && sendAmount.trim() === "") {
+    sendAmountError = REQUIRED_MESSAGE;
+  }
+  let sendAmountMessage = "\u00A0";
+  let sendAmountMessageVisible = false;
+  if (amountExceedsBalance) {
+    sendAmountMessage = `El monto supera el saldo virtual de la agencia (${formatUsd(agencyUsdBalance)}). No es posible cotizar.`;
+    sendAmountMessageVisible = true;
+  } else if (sendAmountError !== "") {
+    sendAmountMessage = sendAmountError;
+    sendAmountMessageVisible = true;
+  }
+  let terraPayBankError = "";
+  if (showTerraPayBank && touched.terraPayBank && terraPayBank.trim() === "") {
+    terraPayBankError = REQUIRED_MESSAGE;
+  }
+  let terraPayCbuError = "";
+  if (showTerraPayBank && touched.terraPayCbu) {
+    if (terraPayCbu === "") {
+      terraPayCbuError = REQUIRED_MESSAGE;
+    } else if (terraPayCbu.length !== 22) {
+      terraPayCbuError = `Debe tener exactamente 22 dígitos (${terraPayCbu.length}/22).`;
+    }
+  }
+  let terraPayWalletError = "";
+  if (
+    showTerraPayWallet &&
+    touched.terraPayWallet &&
+    terraPayWallet.trim() === ""
+  ) {
+    terraPayWalletError = REQUIRED_MESSAGE;
+  }
+  let terraPayAliasError = "";
+  if (
+    showTerraPayWallet &&
+    touched.terraPayAlias &&
+    terraPayAlias.trim() === ""
+  ) {
+    terraPayAliasError = REQUIRED_MESSAGE;
+  }
 
   useEffect(() => {
     window.requestAnimationFrame(() => destinationCountryRef.current?.focus());
@@ -226,6 +295,13 @@ export function QuoteStep({
             options={destinationCountryOptions}
             fieldRef={destinationCountryRef}
             nextRef={deliveryTypeRef}
+            error={destinationCountryError}
+            onBlur={() =>
+              setTouched((current) => ({
+                ...current,
+                destinationCountry: true,
+              }))
+            }
             onChange={(value) => {
               onDestinationCountryChange(value);
               onDeliveryTypeChange("");
@@ -239,6 +315,10 @@ export function QuoteStep({
             options={DELIVERY_TYPE_OPTIONS.map((option) => option.label)}
             fieldRef={deliveryTypeRef}
             disabled={!destinationCountry}
+            error={deliveryTypeError}
+            onBlur={() =>
+              setTouched((current) => ({ ...current, deliveryType: true }))
+            }
             onChange={(label) => {
               const option = DELIVERY_TYPE_OPTIONS.find(
                 (item) => item.label === label,
@@ -269,7 +349,7 @@ export function QuoteStep({
               <span className="relative block">
                 <span
                   aria-hidden="true"
-                  className={`pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm font-bold ${amountUnlocked ? "text-brand-strong" : "text-muted-foreground"}`}
+                  className={`pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm font-bold ${amountUnlocked ? "text-amount" : "text-muted-foreground"}`}
                 >
                   USD $
                 </span>
@@ -281,7 +361,7 @@ export function QuoteStep({
                       ? "send-amount-currency send-amount-balance-error"
                       : "send-amount-currency"
                   }
-                  aria-invalid={amountExceedsBalance}
+                  aria-invalid={amountExceedsBalance || sendAmountError !== ""}
                   onChange={(event) => {
                     const nextAmount = sanitizeAmount(event.target.value);
                     onSendAmountChange(nextAmount);
@@ -293,6 +373,10 @@ export function QuoteStep({
                     resetQuoteSelection();
                   }}
                   onBlur={() => {
+                    setTouched((current) => ({
+                      ...current,
+                      sendAmount: true,
+                    }));
                     const normalized = normalizeAmount(sendAmount);
                     onSendAmountChange(normalized);
                     const amount = Number(
@@ -321,27 +405,34 @@ export function QuoteStep({
                   disabled={!amountUnlocked}
                   placeholder="0,00"
                   inputMode="decimal"
-                  className={`h-10 w-full rounded-lg border bg-card pl-16 pr-3 text-sm text-foreground outline-none disabled:bg-muted disabled:text-muted-foreground focus:ring-4 ${amountExceedsBalance ? "border-destructive focus:border-destructive focus:ring-destructive/15" : "border-input focus:border-brand focus:ring-brand/10"}`}
+                  className={`h-10 w-full rounded-lg border bg-card pl-16 pr-3 text-sm text-foreground outline-none disabled:bg-muted disabled:text-muted-foreground focus:ring-4 ${
+                    amountExceedsBalance || sendAmountError !== ""
+                      ? "border-destructive focus:border-destructive focus:ring-destructive/15"
+                      : "border-input focus:border-brand focus:ring-brand/10"
+                  }`}
                 />
                 <span id="send-amount-currency" className="sr-only">
                   Dólares estadounidenses, máximo dos decimales
                 </span>
+                {sendAmountMessageVisible && (
+                  <span
+                    id={
+                      amountExceedsBalance
+                        ? "send-amount-balance-error"
+                        : undefined
+                    }
+                    role="alert"
+                    className="pointer-events-none absolute top-[calc(100%+0.125rem)] left-0 z-1 text-[0.6875rem] leading-none text-destructive"
+                  >
+                    {sendAmountMessage}
+                  </span>
+                )}
               </span>
             </label>
-            {amountExceedsBalance && (
-              <p
-                id="send-amount-balance-error"
-                role="alert"
-                className="mt-1 text-sm text-destructive"
-              >
-                El monto supera el saldo virtual de la agencia (
-                {formatUsd(agencyUsdBalance)}). No es posible cotizar.
-              </p>
-            )}
             <div
               role="group"
               aria-label="Montos rápidos"
-              className="mt-2 flex flex-wrap gap-1.5"
+              className="mt-3 flex flex-wrap gap-1.5"
             >
               {quickAmounts.map((amount) => {
                 const selected =
@@ -391,6 +482,13 @@ export function QuoteStep({
                 options={TERRAPAY_BANK_OPTIONS}
                 fieldRef={terraPayBankRef}
                 nextRef={cbuRef}
+                error={terraPayBankError}
+                onBlur={() =>
+                  setTouched((current) => ({
+                    ...current,
+                    terraPayBank: true,
+                  }))
+                }
                 onChange={(value) => {
                   onTerraPayBankChange(value);
                   resetQuoteSelection();
@@ -400,6 +498,17 @@ export function QuoteStep({
                 inputRef={cbuRef}
                 nextRef={sendAmountRef}
                 label="CBU/CVU"
+                value={terraPayCbu}
+                error={terraPayCbuError}
+                onBlur={() =>
+                  setTouched((current) => ({
+                    ...current,
+                    terraPayCbu: true,
+                  }))
+                }
+                onChange={(value) => {
+                  onTerraPayCbuChange(value.replace(/\D/g, "").slice(0, 22));
+                }}
               />
             </>
           )}
@@ -411,6 +520,13 @@ export function QuoteStep({
                 options={TERRAPAY_WALLET_OPTIONS}
                 fieldRef={terraPayWalletRef}
                 nextRef={aliasRef}
+                error={terraPayWalletError}
+                onBlur={() =>
+                  setTouched((current) => ({
+                    ...current,
+                    terraPayWallet: true,
+                  }))
+                }
                 onChange={(value) => {
                   onTerraPayWalletChange(value);
                   resetQuoteSelection();
@@ -420,6 +536,15 @@ export function QuoteStep({
                 inputRef={aliasRef}
                 nextRef={sendAmountRef}
                 label="Alias"
+                value={terraPayAlias}
+                error={terraPayAliasError}
+                onBlur={() =>
+                  setTouched((current) => ({
+                    ...current,
+                    terraPayAlias: true,
+                  }))
+                }
+                onChange={onTerraPayAliasChange}
               />
             </>
           )}

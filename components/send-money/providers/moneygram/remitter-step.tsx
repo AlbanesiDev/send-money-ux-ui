@@ -1,12 +1,36 @@
-import type { Customer } from "../../types";
-import { WuRemitterStep } from "../wu/remitter-step";
+import type { ReactNode } from "react";
+import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
+import {
+  WuRemitterStep,
+  type RemitterFormChangeHandler,
+} from "../wu/remitter-step";
 
 export function MoneygramRemitterStep({
   documentNumber,
-  customer,
+  form,
+  onFormChange,
+  documentFieldsLocked = true,
+  onDocumentNumberChange,
+  afterDocumentFields,
+  footerSlot,
 }: {
   documentNumber: string;
-  customer: Customer | null;
+  form: CustomerRegistrationDraft;
+  onFormChange: RemitterFormChangeHandler;
+  documentFieldsLocked?: boolean;
+  onDocumentNumberChange?: (value: string) => void;
+  afterDocumentFields?: ReactNode;
+  footerSlot?: ReactNode;
 }) {
-  return <WuRemitterStep documentNumber={documentNumber} customer={customer} />;
+  return (
+    <WuRemitterStep
+      documentNumber={documentNumber}
+      form={form}
+      onFormChange={onFormChange}
+      documentFieldsLocked={documentFieldsLocked}
+      onDocumentNumberChange={onDocumentNumberChange}
+      afterDocumentFields={afterDocumentFields}
+      footerSlot={footerSlot}
+    />
+  );
 }

@@ -12,26 +12,49 @@ function SummarySection({
   editLabel,
   onEdit,
   highlight = false,
+  tone = "default",
   children,
 }: {
   title: string;
   editLabel?: string;
   onEdit?: () => void;
   highlight?: boolean;
+  tone?: "default" | "sender" | "beneficiary";
   children: ReactNode;
 }) {
+  let toneClass = "border-border border-l-border bg-card shadow-sm";
+  let titleClass = "text-foreground";
+  let editClass =
+    "text-muted-foreground hover:bg-muted focus-visible:ring-border";
+  if (highlight) {
+    toneClass = "border-border border-l-summary-border bg-card shadow-sm";
+    titleClass = "text-summary-fg";
+    editClass =
+      "text-summary-fg hover:bg-summary-soft focus-visible:ring-summary";
+  } else if (tone === "sender") {
+    toneClass = "border-border border-l-party-sender-border bg-card shadow-sm";
+    titleClass = "text-party-sender-fg";
+    editClass =
+      "text-party-sender-fg hover:bg-accent focus-visible:ring-party-sender-border";
+  } else if (tone === "beneficiary") {
+    toneClass =
+      "border-border border-l-party-beneficiary-border bg-card shadow-sm";
+    titleClass = "text-party-beneficiary-fg";
+    editClass =
+      "text-party-beneficiary-fg hover:bg-success-soft focus-visible:ring-party-beneficiary-border";
+  }
   return (
     <section
-      className={`rounded-lg border px-3.5 py-2.5 ${highlight ? "border-brand/40 bg-accent" : "border-border bg-muted"}`}
+      className={`rounded-lg border border-l-4 px-3.5 py-2.5 ${toneClass}`}
     >
       <div className="flex items-center justify-between gap-3">
-        <h2 className="text-sm font-bold text-foreground">{title}</h2>
+        <h2 className={`text-sm font-bold ${titleClass}`}>{title}</h2>
         {onEdit && editLabel && (
           <button
             type="button"
             onClick={onEdit}
             aria-label={editLabel}
-            className="rounded-md px-1.5 py-0.5 text-xs font-semibold text-brand-strong hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-strong"
+            className={`rounded-md px-1.5 py-0.5 text-xs font-semibold focus-visible:outline-none focus-visible:ring-2 ${editClass}`}
           >
             Editar
           </button>
@@ -48,19 +71,23 @@ function SummaryRow({
   label,
   value,
   emphasis = false,
+  accent = false,
 }: {
   label: string;
   value: string;
   emphasis?: boolean;
+  accent?: boolean;
 }) {
+  let valueClass = "font-semibold text-foreground";
+  if (accent) {
+    valueClass = "text-sm font-bold text-summary-fg";
+  } else if (emphasis) {
+    valueClass = "text-sm font-bold text-foreground";
+  }
   return (
     <div className="flex items-baseline justify-between gap-3 py-1 text-xs">
       <dt className="text-muted-foreground">{label}</dt>
-      <dd
-        className={`text-right ${emphasis ? "text-sm font-bold text-foreground" : "font-semibold text-foreground"}`}
-      >
-        {value}
-      </dd>
+      <dd className={`text-right ${valueClass}`}>{value}</dd>
     </div>
   );
 }
@@ -118,7 +145,7 @@ export function ReviewStep({
 }) {
   return (
     <div className="flex flex-col gap-3">
-      <p className="rounded-md border border-[#eadcae] bg-[#fffaf0] px-3 py-2 text-xs text-[#765d12] dark:border-amber-700/50 dark:bg-amber-950/40 dark:text-amber-200">
+      <p className="rounded-md border border-warning-border bg-warning-soft px-3 py-2 text-xs text-warning-foreground">
         Confirma con el cliente el monto, el beneficiario y el lugar de pago
         antes de enviar.
       </p>
@@ -159,12 +186,13 @@ export function ReviewStep({
           <SummaryRow
             label="Total a cobrar"
             value={formatUsd(totalToCharge)}
-            emphasis
+            accent
           />
         </SummarySection>
         <div className="flex flex-col gap-3">
           <SummarySection
             title="Beneficiario"
+            tone="beneficiary"
             onEdit={onEditBeneficiary}
             editLabel={onEditBeneficiary ? "Editar beneficiario" : undefined}
           >
@@ -200,6 +228,7 @@ export function ReviewStep({
           </SummarySection>
           <SummarySection
             title="Remitente"
+            tone="sender"
             onEdit={onEditRemitter}
             editLabel={onEditRemitter ? "Editar remitente" : undefined}
           >

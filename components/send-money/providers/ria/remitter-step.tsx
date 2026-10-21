@@ -1,44 +1,91 @@
-import type { Customer } from "../../types";
+"use client";
+
+import type { ReactNode } from "react";
+import { useRef } from "react";
+import { SearchableSelect } from "@/components/ui/searchable-select";
+import documentTypesCatalog from "@/public/catalogs/catalog-document-types.json";
+import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
 import { Field } from "../../field";
+import type { RemitterFormChangeHandler } from "../wu/remitter-step";
+
+const DOCUMENT_TYPE_OPTIONS = documentTypesCatalog.map((item) => item.name);
 
 export function RiaRemitterStep({
   documentNumber,
-  customer,
+  form,
+  onFormChange,
+  documentFieldsLocked = true,
+  onDocumentNumberChange,
+  afterDocumentFields,
+  footerSlot,
 }: {
   documentNumber: string;
-  customer: Customer | null;
+  form: CustomerRegistrationDraft;
+  onFormChange: RemitterFormChangeHandler;
+  documentFieldsLocked?: boolean;
+  onDocumentNumberChange?: (value: string) => void;
+  afterDocumentFields?: ReactNode;
+  footerSlot?: ReactNode;
 }) {
+  const documentTypeRef = useRef<HTMLButtonElement>(null);
+
   return (
-    <div className="space-y-6">
+    <div data-remitter-form className="space-y-6">
       <h2 className="font-bold">Datos personales</h2>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div className="block">
+          <span className="mb-1 block text-sm font-semibold text-foreground">
+            Tipo de documento <span className="text-destructive">*</span>
+          </span>
+          <SearchableSelect
+            fieldRef={documentTypeRef}
+            label="Tipo de documento"
+            hideLabel
+            value={form.documentType}
+            options={DOCUMENT_TYPE_OPTIONS}
+            disabled={documentFieldsLocked}
+            required
+            onChange={(value) => onFormChange("documentType", value)}
+          />
+        </div>
+        <Field
+          label="Número de documento"
+          value={documentNumber}
+          disabled={documentFieldsLocked}
+          required
+          numericOnly
+          onChange={onDocumentNumberChange}
+        />
+      </div>
+      {afterDocumentFields}
       <div className="grid gap-3 sm:grid-cols-2">
         <Field
           label="Nombre"
-          value={customer === null ? undefined : customer.firstName}
+          value={form.firstName}
           required
+          onChange={(value) => onFormChange("firstName", value)}
         />
         <Field
           label="Segundo nombre"
-          value={customer === null ? undefined : customer.middleName}
+          value={form.middleName}
+          onChange={(value) => onFormChange("middleName", value)}
         />
         <Field
           label="Primer apellido"
-          value={customer === null ? undefined : customer.lastName}
+          value={form.lastName}
           required
+          onChange={(value) => onFormChange("lastName", value)}
         />
         <Field
           label="Segundo apellido"
-          value={customer === null ? undefined : customer.secondLastName}
+          value={form.secondLastName}
+          onChange={(value) => onFormChange("secondLastName", value)}
         />
         <Field
           label="Correo electrónico"
-          value={customer === null ? undefined : customer.email}
+          value={form.email}
           required
-        />
-        <Field
-          label="Documento (referencia)"
-          value={`Cédula ${documentNumber}`}
-          disabled
+          onChange={(value) => onFormChange("email", value)}
         />
       </div>
       <h2 className="pt-4 font-bold">Datos de dirección</h2>
@@ -46,24 +93,30 @@ export function RiaRemitterStep({
         <Field label="País de residencia" value="Bolivia" disabled required />
         <Field
           label="Estado"
-          value={customer === null ? undefined : customer.state}
+          value={form.state}
           required
+          onChange={(value) => onFormChange("state", value)}
         />
         <Field
           label="Ciudad"
-          value={customer === null ? undefined : customer.city}
+          value={form.city}
           required
+          onChange={(value) => onFormChange("city", value)}
         />
         <Field
           label="Dirección"
-          value={customer === null ? undefined : customer.address}
+          value={form.address}
           required
+          onChange={(value) => onFormChange("address", value)}
         />
         <Field
           label="Número de teléfono"
-          value={customer === null ? undefined : customer.phone}
+          value={form.phone}
+          numericOnly
+          onChange={(value) => onFormChange("phone", value)}
         />
       </div>
+      {footerSlot}
     </div>
   );
 }

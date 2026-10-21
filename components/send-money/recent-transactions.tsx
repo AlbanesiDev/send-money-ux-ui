@@ -39,7 +39,9 @@ export type RecentTransaction = {
   payingPartner?: string;
   location?: string;
   terraPayBank?: string;
+  terraPayCbu?: string;
   terraPayWallet?: string;
+  terraPayAlias?: string;
   amount: number;
   beneficiaryIndex: number;
   paymentMethod: string;

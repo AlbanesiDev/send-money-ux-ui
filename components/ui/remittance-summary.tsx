@@ -4,7 +4,7 @@ import type {
   ProviderId,
   ProviderQuote,
 } from "@/components/send-money/types";
-import { ReceiptText, ReceiptTextIcon, TicketIcon } from "lucide-react";
+import { ReceiptTextIcon } from "lucide-react";
 
 const usdFormatter = new Intl.NumberFormat("es-ES", {
   minimumFractionDigits: 2,
@@ -43,14 +43,14 @@ export function RemittanceSummary({
   return (
     <div
       aria-busy={loading}
-      className="rounded-xl border border-border bg-card p-3"
+      className="rounded-xl border border-border border-l-4 border-l-summary-border bg-card p-3 shadow-sm"
     >
-      <div className=" flex items-center justify-between border-b border-border pb-2.5">
-        <h2 className="font-bold text-foreground">Resumen</h2>
+      <div className="flex items-center justify-between border-b border-border pb-2.5">
+        <h2 className="font-bold text-summary-fg">Resumen</h2>
         <span
           aria-label="Ticket"
           title="Ticket"
-          className="flex h-6 w-6 items-center justify-center rounded-full border border-border bg-card text-xs font-bold text-brand"
+          className="flex h-6 w-6 items-center justify-center rounded-full border border-summary-border/40 bg-summary-soft text-xs font-bold text-summary-fg"
         >
           <ReceiptTextIcon className="size-4" />
         </span>
@@ -75,9 +75,9 @@ export function RemittanceSummary({
           </div>
         ))}
         <div className="mt-2.5 flex justify-between border-t border-border pt-2.5 text-base">
-          <dt className="font-bold">Total</dt>
+          <dt className="font-bold text-foreground">Total</dt>
           <dd
-            className={`font-bold tabular-nums text-foreground ${loading ? "animate-pulse opacity-40" : ""}`}
+            className={`font-bold tabular-nums text-summary-fg ${loading ? "animate-pulse opacity-40" : ""}`}
           >
             {formatUsd(amount + fee + tax)}
           </dd>

@@ -1,4 +1,8 @@
 import type { ReactNode } from "react";
+import {
+  GuestClientLookupNotice,
+  type GuestClientLookupStatus,
+} from "./guest-client-lookup-notice";
 import { RiaAdditionalInfoStep } from "./providers/ria/additional-info-step";
 import { RiaBeneficiaryStep } from "./providers/ria/beneficiary-step";
 import { RiaRemitterStep } from "./providers/ria/remitter-step";
@@ -11,6 +15,7 @@ import { WuRemitterStep } from "./providers/wu/remitter-step";
 import { PepStep } from "./shared/pep-step";
 import { ReviewStep } from "./shared/review-step";
 import { getStepKey } from "./provider-flows";
+import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
 import type {
   Beneficiary,
   Customer,
@@ -19,6 +24,7 @@ import type {
   ProviderQuote,
   ProviderStepKey,
 } from "./types";
+import type { RemitterFormChangeHandler } from "./providers/wu/remitter-step";
 
 export type ProviderStepContentProps = {
   provider: ProviderId;
@@ -26,8 +32,12 @@ export type ProviderStepContentProps = {
   activeSteps: readonly string[];
   documentNumber: string;
   customer: Customer | null;
+  remitterForm: CustomerRegistrationDraft;
+  onRemitterFormChange: RemitterFormChangeHandler;
   known: (value?: string) => string | undefined;
   isKnownClient: boolean;
+  showFrequentBeneficiaries: boolean;
+  fillBeneficiaryFields: boolean;
   beneficiaries: Beneficiary[];
   selectedBeneficiary: number;
   onSelectBeneficiary: (index: number) => void;
@@ -53,6 +63,16 @@ export type ProviderStepContentProps = {
   onEditPayment: () => void;
   formatAmount: (value: number) => string;
   billingSlot: ReactNode;
+  isGuestFlow?: boolean;
+  documentFieldsLocked?: boolean;
+  onDocumentNumberChange?: (value: string) => void;
+  onRegisterClient?: () => void;
+  isRegisteringClient?: boolean;
+  registerClientError?: string;
+  isUpdatingExistingClient?: boolean;
+  guestLookupStatus?: GuestClientLookupStatus;
+  onAcceptGuestAutofill?: () => void;
+  onDeclineGuestAutofill?: () => void;
 };
 
 export function ProviderStepContent(props: ProviderStepContentProps) {
@@ -67,22 +87,22 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
     let beneficiary: ReactNode;
     let declarations: ReactNode = null;
 
+    const documentFieldsLocked = props.documentFieldsLocked === true;
+    const afterDocumentFields =
+      props.isGuestFlow === true &&
+      props.guestLookupStatus !== undefined &&
+      props.onAcceptGuestAutofill !== undefined &&
+      props.onDeclineGuestAutofill !== undefined ? (
+        <div className="pt-4">
+          <GuestClientLookupNotice
+            status={props.guestLookupStatus}
+            onAcceptAutofill={props.onAcceptGuestAutofill}
+            onDeclineAutofill={props.onDeclineGuestAutofill}
+          />
+        </div>
+      ) : null;
+
     if (props.provider === "RIA") {
-      remitter = (
-        <RiaRemitterStep
-          documentNumber={props.documentNumber}
-          customer={props.customer}
-        />
-      );
-      beneficiary = (
-        <RiaBeneficiaryStep
-          isKnownClient={props.isKnownClient}
-          beneficiaries={props.beneficiaries}
-          selectedBeneficiary={props.selectedBeneficiary}
-          onSelectBeneficiary={props.onSelectBeneficiary}
-          known={props.known}
-        />
-      );
       declarations = (
         <RiaAdditionalInfoStep
           additionalChecks={props.additionalChecks}
@@ -90,37 +110,7 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
           customer={props.customer}
         />
       );
-    } else if (props.provider === "WU") {
-      remitter = (
-        <WuRemitterStep
-          documentNumber={props.documentNumber}
-          customer={props.customer}
-        />
-      );
-      beneficiary = (
-        <WuBeneficiaryStep
-          isKnownClient={props.isKnownClient}
-          beneficiaries={props.beneficiaries}
-          selectedBeneficiary={props.selectedBeneficiary}
-          onSelectBeneficiary={props.onSelectBeneficiary}
-          known={props.known}
-        />
-      );
-      declarations = (
-        <PepStep
-          customer={props.customer}
-          additionalChecks={props.additionalChecks}
-          onChange={props.onAdditionalCheckChange}
-        />
-      );
-    } else if (props.provider === "MONEYGRAM") {
-      remitter = (
-        <MoneygramRemitterStep
-          documentNumber={props.documentNumber}
-          customer={props.customer}
-        />
-      );
-      beneficiary = <MoneygramBeneficiaryAccountStep known={props.known} />;
+    } else if (props.provider === "WU" || props.provider === "MONEYGRAM") {
       declarations = (
         <PepStep
           customer={props.customer}
@@ -129,21 +119,6 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
         />
       );
     } else {
-      remitter = (
-        <TerrapayRemitterStep
-          documentNumber={props.documentNumber}
-          customer={props.customer}
-        />
-      );
-      beneficiary = (
-        <TerrapayBeneficiaryStep
-          isKnownClient={props.isKnownClient}
-          beneficiaries={props.beneficiaries}
-          selectedBeneficiary={props.selectedBeneficiary}
-          onSelectBeneficiary={props.onSelectBeneficiary}
-          known={props.known}
-        />
-      );
       declarations = (
         <PepStep
           customer={props.customer}
@@ -154,21 +129,107 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       );
     }
 
+    let registerButtonLabel = "Registrar cliente";
+    if (props.isRegisteringClient === true) {
+      registerButtonLabel =
+        props.isUpdatingExistingClient === true
+          ? "Actualizando…"
+          : "Registrando…";
+    } else if (props.isUpdatingExistingClient === true) {
+      registerButtonLabel = "Actualizar cliente";
+    }
+
+    const footerSlot = (
+      <div className="space-y-6 pt-6">
+        {declarations}
+        {props.isGuestFlow === true && props.onRegisterClient !== undefined && (
+          <div className="space-y-2">
+            <button
+              type="button"
+              onClick={props.onRegisterClient}
+              disabled={props.isRegisteringClient === true}
+              className="flex h-11 w-full items-center justify-center rounded-lg bg-party-sender-border text-sm font-bold text-white hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-party-sender-border/30 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {registerButtonLabel}
+            </button>
+            {props.registerClientError !== undefined &&
+              props.registerClientError !== "" && (
+                <p role="alert" className="text-sm text-destructive">
+                  {props.registerClientError}
+                </p>
+              )}
+          </div>
+        )}
+      </div>
+    );
+
+    const remitterDocumentProps = {
+      documentNumber: props.documentNumber,
+      form: props.remitterForm,
+      onFormChange: props.onRemitterFormChange,
+      documentFieldsLocked,
+      onDocumentNumberChange: props.onDocumentNumberChange,
+      afterDocumentFields,
+      footerSlot,
+    };
+
+    if (props.provider === "RIA") {
+      remitter = <RiaRemitterStep {...remitterDocumentProps} />;
+      beneficiary = (
+        <RiaBeneficiaryStep
+          showFrequentBeneficiaries={props.showFrequentBeneficiaries}
+          fillBeneficiaryFields={props.fillBeneficiaryFields}
+          beneficiaries={props.beneficiaries}
+          selectedBeneficiary={props.selectedBeneficiary}
+          onSelectBeneficiary={props.onSelectBeneficiary}
+          known={props.known}
+        />
+      );
+    } else if (props.provider === "WU") {
+      remitter = <WuRemitterStep {...remitterDocumentProps} />;
+      beneficiary = (
+        <WuBeneficiaryStep
+          showFrequentBeneficiaries={props.showFrequentBeneficiaries}
+          fillBeneficiaryFields={props.fillBeneficiaryFields}
+          beneficiaries={props.beneficiaries}
+          selectedBeneficiary={props.selectedBeneficiary}
+          onSelectBeneficiary={props.onSelectBeneficiary}
+          known={props.known}
+        />
+      );
+    } else if (props.provider === "MONEYGRAM") {
+      remitter = <MoneygramRemitterStep {...remitterDocumentProps} />;
+      let moneygramKnown = props.known;
+      if (!props.fillBeneficiaryFields) {
+        moneygramKnown = () => undefined;
+      }
+      beneficiary = <MoneygramBeneficiaryAccountStep known={moneygramKnown} />;
+    } else {
+      remitter = <TerrapayRemitterStep {...remitterDocumentProps} />;
+      beneficiary = (
+        <TerrapayBeneficiaryStep
+          showFrequentBeneficiaries={props.showFrequentBeneficiaries}
+          fillBeneficiaryFields={props.fillBeneficiaryFields}
+          beneficiaries={props.beneficiaries}
+          selectedBeneficiary={props.selectedBeneficiary}
+          onSelectBeneficiary={props.onSelectBeneficiary}
+          known={props.known}
+        />
+      );
+    }
+
     return (
       <div className="grid gap-4 lg:grid-cols-2 lg:items-start">
-        <section className="rounded-xl border border-border bg-card p-5">
-          <h2 className="mb-5 font-bold">Remitente</h2>
+        <section className="rounded-xl border border-border border-l-4 border-l-party-sender-border bg-card p-5 shadow-sm">
+          <h2 className="mb-5 font-bold text-party-sender-fg">Remitente</h2>
           {remitter}
         </section>
-        <div className="space-y-4">
-          <section className="rounded-xl border border-border bg-card p-5">
-            <h2 className="mb-5 font-bold">Beneficiario</h2>
-            {beneficiary}
-          </section>
-          <section className="rounded-xl border border-border bg-card p-5">
-            {declarations}
-          </section>
-        </div>
+        <section className="rounded-xl border border-border border-l-4 border-l-party-beneficiary-border bg-card p-5 shadow-sm">
+          <h2 className="mb-5 font-bold text-party-beneficiary-fg">
+            Beneficiario
+          </h2>
+          {beneficiary}
+        </section>
       </div>
     );
   }

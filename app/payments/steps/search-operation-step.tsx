@@ -255,7 +255,7 @@ function StatusBadge({ status }: { status: PaymentOperation["status"] }) {
     );
   if (status === "onHold")
     return (
-      <span className="rounded-full border border-[#eadcae] bg-[#fffaf0] px-3 py-1 text-xs font-bold text-[#765d12] dark:border-amber-700/50 dark:bg-amber-950/40 dark:text-amber-200">
+      <span className="rounded-full border border-warning-border bg-warning-soft px-3 py-1 text-xs font-bold text-warning-foreground">
         En revisión
       </span>
     );
@@ -280,8 +280,7 @@ export function Notice({
   const toneClass = {
     error:
       "border-destructive/30 bg-destructive/5 text-destructive dark:bg-destructive/15",
-    warning:
-      "border-[#eadcae] bg-[#fffaf0] text-[#765d12] dark:border-amber-700/50 dark:bg-amber-950/40 dark:text-amber-200",
+    warning: "border-warning-border bg-warning-soft text-warning-foreground",
     info: "border-brand/30 bg-accent text-brand-strong",
     success: "border-success-border bg-success-soft text-success",
   }[tone];

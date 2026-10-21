@@ -1,82 +1,75 @@
 import { Field } from "../../field";
+import { FrequentBeneficiaries } from "../../frequent-beneficiaries";
 import type { Beneficiary } from "../../types";
 
 export function RiaBeneficiaryStep({
-  isKnownClient,
+  showFrequentBeneficiaries,
+  fillBeneficiaryFields,
   beneficiaries,
   selectedBeneficiary,
   onSelectBeneficiary,
   known,
 }: {
-  isKnownClient: boolean;
+  showFrequentBeneficiaries: boolean;
+  fillBeneficiaryFields: boolean;
   beneficiaries: Beneficiary[];
   selectedBeneficiary: number;
   onSelectBeneficiary: (index: number) => void;
   known: (value?: string) => string | undefined;
 }) {
-  const beneficiary = beneficiaries[selectedBeneficiary];
+  let formBeneficiaryIndex = 0;
+  if (selectedBeneficiary >= 0) {
+    formBeneficiaryIndex = selectedBeneficiary;
+  }
+  const beneficiary = beneficiaries[formBeneficiaryIndex];
+
+  let formKey = "new-beneficiary";
+  let document: string | undefined;
+  let firstName: string | undefined;
+  let middleName: string | undefined;
+  let lastName: string | undefined;
+  let secondLastName: string | undefined;
+  let email: string | undefined;
+  let city: string | undefined;
+  let phone: string | undefined;
+  if (beneficiary !== undefined) {
+    const nameParts = beneficiary.name.split(" ");
+    document = beneficiary.document;
+    firstName = nameParts[0];
+    middleName = nameParts[1];
+    lastName = nameParts[2];
+    secondLastName = nameParts[3];
+    email = beneficiary.email;
+    city = beneficiary.city;
+    phone = beneficiary.phone;
+    if (fillBeneficiaryFields) {
+      formKey = beneficiary.document;
+    }
+  }
+
   return (
     <div className="space-y-6">
-      {isKnownClient && (
-        <div>
-          <h2 className="font-bold">Beneficiarios frecuentes</h2>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            {beneficiaries.map((person, index) => (
-              <button
-                key={person.document}
-                type="button"
-                onClick={() => onSelectBeneficiary(index)}
-                className={`cursor-pointer rounded-xl border p-4 text-left transition-colors ${
-                  selectedBeneficiary === index
-                    ? "border-brand bg-accent"
-                    : "border-border bg-card hover:border-brand/40"
-                }`}
-              >
-                <p className="text-sm font-bold text-foreground">
-                  {person.name}
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {person.city} · ***{person.phone.slice(-3)}
-                </p>
-              </button>
-            ))}
-          </div>
-        </div>
+      {showFrequentBeneficiaries && (
+        <FrequentBeneficiaries
+          beneficiaries={beneficiaries}
+          selectedBeneficiary={selectedBeneficiary}
+          onSelectBeneficiary={onSelectBeneficiary}
+        />
       )}
       <h2 className="font-bold">Datos personales</h2>
-      <div
-        key={isKnownClient ? beneficiary.document : "new-beneficiary"}
-        className="grid gap-3 sm:grid-cols-2"
-      >
+      <div key={formKey} className="grid gap-3 sm:grid-cols-2">
         <Field label="Tipo Documento" value="Cédula" disabled required />
         <Field
           label="Nro. de Documento"
-          value={known(beneficiary.document)}
+          value={known(document)}
           required
+          numericOnly
         />
-        <Field
-          label="Nombre"
-          value={known(beneficiary.name.split(" ")[0])}
-          required
-        />
-        <Field
-          label="Segundo Nombre"
-          value={known(beneficiary.name.split(" ")[1])}
-        />
-        <Field
-          label="Primer Apellido"
-          value={known(beneficiary.name.split(" ")[2])}
-          required
-        />
-        <Field
-          label="Segundo Apellido"
-          value={known(beneficiary.name.split(" ")[3])}
-        />
-        <Field
-          label="Correo electrónico"
-          value={known(beneficiary.email)}
-          required
-        />
+        <Field label="Nombre" value={known(firstName)} required />
+        <Field label="Segundo Nombre" value={known(middleName)} />
+        <Field label="Primer Apellido" value={known(lastName)} required />
+        <Field label="Segundo Apellido" value={known(secondLastName)} />
+        <Field label="Correo electrónico" value={known(email)} required />
         <Field label="Nacionalidad" value={known("Boliviana")} required />
         <Field label="País Residencia" value={known("Bolivia")} required />
       </div>
@@ -85,11 +78,12 @@ export function RiaBeneficiaryStep({
         <Field label="Calle/Numero" value={known("Calle 123")} required />
         <Field label="Dirección" value={known("Calle 123")} required />
         <Field label="Estado" value={known("La Paz")} required />
-        <Field label="Ciudad" value={known(beneficiary.city)} required />
+        <Field label="Ciudad" value={known(city)} required />
         <Field
           label="Nro. Teléfono"
-          value={known(beneficiary.phone)}
+          value={known(phone)}
           required
+          numericOnly
         />
       </div>
       <label className="flex items-center gap-3 text-sm">

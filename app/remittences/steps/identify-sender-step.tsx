@@ -9,8 +9,10 @@ import type { Beneficiary, Customer } from "@/components/send-money/types";
 import { SearchableSelect } from "@/components/ui/searchable-select";
 import documentTypesCatalog from "@/public/catalogs/catalog-document-types.json";
 import customersSnapshot from "@/public/data/customers.snapshot.json";
+import { findCustomerByDocument } from "@/lib/simulated-api/customers-api";
 import {
   ArrowRightIcon,
+  DollarSignIcon,
   Loader2Icon,
   SearchIcon,
   UserIcon,
@@ -38,6 +40,7 @@ export type IdentifySenderStepProps = {
   result: ClientSearchResult;
   onResultChange: (result: ClientSearchResult) => void;
   onContinue: () => void;
+  onGuestContinue: () => void;
   continueRef: RefObject<HTMLButtonElement | null>;
   customer: Customer | null;
   recentTransactions: RecentTransaction[];
@@ -50,7 +53,7 @@ export type IdentifySenderStepProps = {
 };
 
 const DOCUMENT_TYPE_OPTIONS = documentTypesCatalog.map((item) => item.name);
-const CUSTOMERS = customersSnapshot as Customer[];
+const DEMO_CUSTOMERS = customersSnapshot as Customer[];
 const SEARCH_ERROR_DOCUMENT = "0000000";
 const DEMO_NEW_CLIENT_DOCUMENT = "1234567";
 
@@ -60,6 +63,7 @@ export function IdentifySenderStep({
   result,
   onResultChange,
   onContinue,
+  onGuestContinue,
   continueRef,
   customer,
   recentTransactions,
@@ -134,21 +138,24 @@ export function IdentifySenderStep({
     setLoading(true);
     setTransactionsStatus(STATUS.LOADING);
     onResultChange(null);
-    searchTimeoutRef.current = window.setTimeout(() => {
+
+    if (value === SEARCH_ERROR_DOCUMENT) {
+      searchTimeoutRef.current = window.setTimeout(() => {
+        onResultChange("error");
+        setLoading(false);
+        setTransactionsStatus(STATUS.EMPTY);
+      }, 550);
+      return;
+    }
+
+    void findCustomerByDocument(value).then((found) => {
       let nextResult: ClientSearchResult;
-      if (value === SEARCH_ERROR_DOCUMENT) {
-        nextResult = "error";
+      if (found === null) {
+        nextResult = "empty";
+      } else if (found.status === "blocked") {
+        nextResult = "blocked";
       } else {
-        const found = CUSTOMERS.find((item) =>
-          item.documentNumbers.includes(value),
-        );
-        if (found === undefined) {
-          nextResult = "empty";
-        } else if (found.status === "blocked") {
-          nextResult = "blocked";
-        } else {
-          nextResult = "success";
-        }
+        nextResult = "success";
       }
       onResultChange(nextResult);
       setLoading(false);
@@ -159,7 +166,7 @@ export function IdentifySenderStep({
       } else {
         setTransactionsStatus(STATUS.EMPTY);
       }
-    }, 550);
+    });
   }
 
   useEffect(() => {
@@ -289,6 +296,19 @@ export function IdentifySenderStep({
               )}
               {loading ? "Buscando cliente…" : "Buscar"}
             </button>
+            {result !== "success" && (
+              <>
+                <hr className="my-3 border-border" />
+                <button
+                  type="button"
+                  className="mt-1 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-summary-soft text-sm font-bold text-summary-fg hover:bg-summary/20 focus:outline-none focus:ring-4 focus:ring-summary/20"
+                  onClick={onGuestContinue}
+                >
+                  <ArrowRightIcon className="size-4" />
+                  Realizar cotización como invitado
+                </button>
+              </>
+            )}
             <div
               aria-live="polite"
               className={
@@ -399,7 +419,7 @@ export function IdentifySenderStep({
 
       <div className="absolute right-4 bottom-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
         <span className="select-none">Demo:</span>
-        {CUSTOMERS.flatMap((item) =>
+        {DEMO_CUSTOMERS.flatMap((item) =>
           item.documentNumbers.map((number) => (
             <div key={number} className="flex gap-0.5">
               <button

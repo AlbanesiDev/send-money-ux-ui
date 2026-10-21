@@ -54,7 +54,7 @@ const buttonVariants = cva(
         link: false,
         severity: "primary",
         className:
-          "bg-brand-strong text-white hover:opacity-90 focus-visible:ring-brand/30",
+          "bg-brand-strong text-white hover:opacity-90 focus-visible:ring-amount/30",
       },
       {
         outline: false,

@@ -1,7 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
+import type { GuestClientLookupStatus } from "@/components/send-money/guest-client-lookup-notice";
 import { ProviderStepContent } from "@/components/send-money/provider-step-content";
+import type { RemitterFormChangeHandler } from "@/components/send-money/providers/wu/remitter-step";
 import type {
   Beneficiary,
   Customer,
@@ -10,6 +12,7 @@ import type {
   ProviderQuote,
 } from "@/components/send-money/types";
 import { BillingSummary } from "@/components/ui/billing-summary";
+import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
 
 export type ProviderFlowStepProps = {
   provider: ProviderId;
@@ -17,8 +20,12 @@ export type ProviderFlowStepProps = {
   activeSteps: readonly string[];
   documentNumber: string;
   customer: Customer | null;
+  remitterForm: CustomerRegistrationDraft;
+  onRemitterFormChange: RemitterFormChangeHandler;
   known: (value?: string) => string | undefined;
   isKnownClient: boolean;
+  showFrequentBeneficiaries: boolean;
+  fillBeneficiaryFields: boolean;
   beneficiaries: Beneficiary[];
   selectedBeneficiary: number;
   onSelectBeneficiary: (index: number) => void;
@@ -48,6 +55,16 @@ export type ProviderFlowStepProps = {
   onEditBeneficiary?: () => void;
   onEditPayment: () => void;
   formatAmount: (value: number) => string;
+  isGuestFlow?: boolean;
+  documentFieldsLocked?: boolean;
+  onDocumentNumberChange?: (value: string) => void;
+  onRegisterClient?: () => void;
+  isRegisteringClient?: boolean;
+  registerClientError?: string;
+  isUpdatingExistingClient?: boolean;
+  guestLookupStatus?: GuestClientLookupStatus;
+  onAcceptGuestAutofill?: () => void;
+  onDeclineGuestAutofill?: () => void;
 };
 
 export function ProviderFlowStep({

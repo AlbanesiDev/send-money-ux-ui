@@ -1,81 +1,79 @@
 import { Field } from "../../field";
+import { FrequentBeneficiaries } from "../../frequent-beneficiaries";
 import type { Beneficiary } from "../../types";
 
 export function TerrapayBeneficiaryStep({
-  isKnownClient,
+  showFrequentBeneficiaries,
+  fillBeneficiaryFields,
   beneficiaries,
   selectedBeneficiary,
   onSelectBeneficiary,
   known,
 }: {
-  isKnownClient: boolean;
+  showFrequentBeneficiaries: boolean;
+  fillBeneficiaryFields: boolean;
   beneficiaries: Beneficiary[];
   selectedBeneficiary: number;
   onSelectBeneficiary: (index: number) => void;
   known: (value?: string) => string | undefined;
 }) {
-  const beneficiary = beneficiaries[selectedBeneficiary];
+  let formBeneficiaryIndex = 0;
+  if (selectedBeneficiary >= 0) {
+    formBeneficiaryIndex = selectedBeneficiary;
+  }
+  const beneficiary = beneficiaries[formBeneficiaryIndex];
+
+  let formKey = "new-beneficiary";
+  let firstName: string | undefined;
+  let lastName: string | undefined;
+  let document: string | undefined;
+  let city: string | undefined;
+  let phone: string | undefined;
+  if (beneficiary !== undefined) {
+    const nameParts = beneficiary.name.split(" ");
+    firstName = nameParts[0];
+    lastName = nameParts[2];
+    document = beneficiary.document;
+    city = beneficiary.city;
+    phone = beneficiary.phone;
+    if (fillBeneficiaryFields) {
+      formKey = beneficiary.document;
+    }
+  }
+
   return (
     <div className="space-y-6">
-      {isKnownClient && (
-        <div>
-          <h2 className="font-bold">Beneficiarios frecuentes</h2>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            {beneficiaries.map((person, index) => (
-              <button
-                key={person.document}
-                type="button"
-                onClick={() => onSelectBeneficiary(index)}
-                className={`cursor-pointer rounded-xl border p-4 text-left transition-colors ${
-                  selectedBeneficiary === index
-                    ? "border-brand bg-accent"
-                    : "border-border bg-card hover:border-brand/40"
-                }`}
-              >
-                <p className="text-sm font-bold text-foreground">
-                  {person.name}
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {person.city} · ***{person.phone.slice(-3)}
-                </p>
-              </button>
-            ))}
-          </div>
-        </div>
+      {showFrequentBeneficiaries && (
+        <FrequentBeneficiaries
+          beneficiaries={beneficiaries}
+          selectedBeneficiary={selectedBeneficiary}
+          onSelectBeneficiary={onSelectBeneficiary}
+        />
       )}
       <h2 className="font-bold">Datos del beneficiario</h2>
-      <div
-        key={isKnownClient ? beneficiary.document : "new-beneficiary"}
-        className="grid gap-3 sm:grid-cols-2"
-      >
-        <Field
-          label="Nombre"
-          value={known(beneficiary.name.split(" ")[0])}
-          required
-        />
-        <Field
-          label="Primer Apellido"
-          value={known(beneficiary.name.split(" ")[2])}
-          required
-        />
+      <div key={formKey} className="grid gap-3 sm:grid-cols-2">
+        <Field label="Nombre" value={known(firstName)} required />
+        <Field label="Primer Apellido" value={known(lastName)} required />
         <Field label="Tipo ID beneficiario" value={known("Cédula")} required />
         <Field
           label="Nro. ID beneficiario"
-          value={known(beneficiary.document)}
+          value={known(document)}
           required
+          numericOnly
         />
         <Field label="Nacionalidad" value={known("Boliviana")} />
         <Field label="Código Postal" value={known("0000")} />
         <Field label="Cód. Móvil" value={known("+591")} required />
         <Field
           label="Nro. Teléfono"
-          value={known(beneficiary.phone)}
+          value={known(phone)}
           required
+          numericOnly
         />
         <Field label="Calle/Numero" value={known("Calle 123")} required />
         <Field label="Dirección" value={known("Calle 123")} required />
         <Field label="Estado" value={known("La Paz")} required />
-        <Field label="Ciudad" value={known(beneficiary.city)} required />
+        <Field label="Ciudad" value={known(city)} required />
       </div>
       <h2 className="pt-4 font-bold">Envío directo al banco / billetera</h2>
       <div className="grid gap-3 sm:grid-cols-2">

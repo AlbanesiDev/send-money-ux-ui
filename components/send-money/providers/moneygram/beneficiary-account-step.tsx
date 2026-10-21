@@ -26,7 +26,12 @@ export function MoneygramBeneficiaryAccountStep({
         />
         <Field label="Estado" value={known("La Paz")} required />
         <Field label="Ciudad" value={known("La Paz")} required />
-        <Field label="Nro. Teléfono" value={known("22123456")} required />
+        <Field
+          label="Nro. Teléfono"
+          value={known("22123456")}
+          required
+          numericOnly
+        />
       </div>
     </div>
   );

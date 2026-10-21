@@ -16,8 +16,10 @@ import {
   buildQuoteLoadingSteps,
   findStepNumber,
   getStepKey,
+  PARTIES_STEP_LABEL,
   quoteFieldVisibility,
 } from "@/components/send-money/provider-flows";
+import type { GuestClientLookupStatus } from "@/components/send-money/guest-client-lookup-notice";
 import { type RecentTransaction } from "@/components/send-money/recent-transactions";
 import { PaymentMethodPanel } from "@/components/send-money/shared/payment-method-panel";
 import type {
@@ -38,15 +40,24 @@ import {
   type ClientSearchResult,
 } from "@/app/remittences/steps";
 import beneficiariesSnapshot from "@/public/data/beneficiaries.snapshot.json";
-import customersSnapshot from "@/public/data/customers.snapshot.json";
 import transactionsHistorySnapshot from "@/public/data/transactions-history.snapshot.json";
+import type { RemitterFormChangeHandler } from "@/components/send-money/providers/wu/remitter-step";
+import {
+  createEmptyCustomerDraft,
+  customerToRegistrationDraft,
+  ensureCustomersSeeded,
+  findCustomerByDocument,
+  registerCustomer,
+  type CustomerRegistrationDraft,
+} from "@/lib/simulated-api/customers-api";
+import { readAllCustomers } from "@/lib/simulated-api/customers-store";
 import { ArrowLeftIcon, ArrowRightIcon, SendIcon } from "lucide-react";
 
-const CUSTOMERS = customersSnapshot as Customer[];
 const BENEFICIARIES = beneficiariesSnapshot as Beneficiary[];
 const TRANSACTIONS_HISTORY = transactionsHistorySnapshot as Array<
   RecentTransaction & { customerId: string }
 >;
+const PEP_CHECK_LABEL = "¿Es una Persona Expuesta Políticamente (PEP)?";
 
 function useAltFieldNavigation() {
   useEffect(() => {
@@ -205,7 +216,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [wuService, setWuService] = useState("");
   const [moneygramCompany, setMoneygramCompany] = useState("");
   const [terraPayBank, setTerraPayBank] = useState("");
+  const [terraPayCbu, setTerraPayCbu] = useState("");
   const [terraPayWallet, setTerraPayWallet] = useState("");
+  const [terraPayAlias, setTerraPayAlias] = useState("");
   const [sendAmount, setSendAmount] = useState("");
   const [amountExceedsBalance, setAmountExceedsBalance] = useState(false);
   const deliveryTypeRef = useRef<HTMLButtonElement>(null);
@@ -230,8 +243,30 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setWuService("");
     setMoneygramCompany("");
     setTerraPayBank("");
+    setTerraPayCbu("");
     setTerraPayWallet("");
+    setTerraPayAlias("");
   };
+
+  let quoteDeliveryExtrasComplete = true;
+  if (showTerraPayBank) {
+    quoteDeliveryExtrasComplete =
+      terraPayBank.trim() !== "" && terraPayCbu.length === 22;
+  } else if (showTerraPayWallet) {
+    quoteDeliveryExtrasComplete =
+      terraPayWallet.trim() !== "" && terraPayAlias.trim() !== "";
+  }
+
+  const quoteBasicsComplete =
+    destinationCountry.trim() !== "" &&
+    deliveryType !== "" &&
+    sendAmount.trim() !== "" &&
+    !amountExceedsBalance;
+
+  const canContinueFromQuote =
+    quoteBasicsComplete &&
+    selectedProvider !== null &&
+    quoteDeliveryExtrasComplete;
   const [selectedTransactionId, setSelectedTransactionId] = useState<
     string | null
   >(null);
@@ -349,18 +384,80 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setQuoteLoading(false);
   };
   const [result, setResult] = useState<ClientSearchResult>(null);
-  const isKnownClient = result === "success";
+  const [isGuestFlow, setIsGuestFlow] = useState(false);
+  const [documentFieldsLocked, setDocumentFieldsLocked] = useState(true);
+  const [guestLookupStatus, setGuestLookupStatus] =
+    useState<GuestClientLookupStatus>("idle");
+  const [guestFoundCustomer, setGuestFoundCustomer] = useState<Customer | null>(
+    null,
+  );
+  const [guestAutofillCustomer, setGuestAutofillCustomer] =
+    useState<Customer | null>(null);
+  const [guestBeneficiaryChosen, setGuestBeneficiaryChosen] = useState(false);
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [isRegisteringClient, setIsRegisteringClient] = useState(false);
+  const [registerClientError, setRegisterClientError] = useState("");
+  const [remitterForm, setRemitterForm] = useState<CustomerRegistrationDraft>(
+    () => createEmptyCustomerDraft(),
+  );
+  const guestLookupTimeoutRef = useRef<number | null>(null);
+  const guestLookupRequestRef = useRef(0);
+  const remitterFormSyncedCustomerIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    void ensureCustomersSeeded()
+      .then(() => readAllCustomers())
+      .then((items) => setCustomers(items));
+  }, []);
+
+  const foundByDocument = customers.find((item) =>
+    item.documentNumbers.includes(documentNumber.trim()),
+  );
+  const matchedCustomer =
+    foundByDocument === undefined ? null : foundByDocument;
   let customer: Customer | null = null;
   if (result === "success") {
-    const found = CUSTOMERS.find((item) =>
-      item.documentNumbers.includes(documentNumber.trim()),
-    );
-    if (found === undefined) {
-      throw new Error(`Customer not found for document ${documentNumber}`);
-    }
-    customer = found;
+    customer = matchedCustomer;
+  } else if (isGuestFlow) {
+    customer = guestAutofillCustomer;
   }
-  const known = (value?: string) => (isKnownClient ? value : undefined);
+
+  useEffect(() => {
+    if (result !== "success") return;
+    if (matchedCustomer !== null) return;
+    void findCustomerByDocument(documentNumber).then((found) => {
+      if (found === null) return;
+      setCustomers((current) => {
+        const exists = current.some((item) => item.id === found.id);
+        if (exists) return current;
+        return [...current, found];
+      });
+    });
+  }, [result, documentNumber, matchedCustomer]);
+
+  useEffect(() => {
+    if (customer === null) {
+      remitterFormSyncedCustomerIdRef.current = null;
+      return;
+    }
+    if (remitterFormSyncedCustomerIdRef.current === customer.id) return;
+    remitterFormSyncedCustomerIdRef.current = customer.id;
+    setRemitterForm(customerToRegistrationDraft(customer));
+  }, [customer]);
+
+  const isUpdatingExistingClient = customers.some(
+    (item) =>
+      item.documentType === remitterForm.documentType.trim() &&
+      item.documentNumbers.includes(documentNumber.trim()),
+  );
+  const isKnownClient =
+    result === "success" || (isGuestFlow && guestAutofillCustomer !== null);
+  const fillBeneficiaryFields =
+    result === "success" || (isGuestFlow && guestBeneficiaryChosen);
+  const known = (value?: string) => {
+    if (!fillBeneficiaryFields) return undefined;
+    return value;
+  };
   const senderName = customer === null ? "" : customer.fullName;
   const [billingOpen, setBillingOpen] = useState(false);
   const [billingOverride, setBillingOverride] = useState<{
@@ -436,6 +533,11 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     customer === null
       ? BENEFICIARIES
       : BENEFICIARIES.filter((item) => item.customerId === customer.id);
+  const showFrequentBeneficiaries = isKnownClient && beneficiaries.length > 0;
+  let carouselSelectedBeneficiary = selectedBeneficiary;
+  if (isGuestFlow && !guestBeneficiaryChosen) {
+    carouselSelectedBeneficiary = -1;
+  }
   const beneficiary = beneficiaries[selectedBeneficiary];
   const recentTransactions =
     customer === null
@@ -456,7 +558,17 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setWuService(transaction.wuService);
     setMoneygramCompany("");
     setTerraPayBank(transaction.terraPayBank ?? "");
+    let nextCbu = "";
+    if (transaction.terraPayCbu !== undefined) {
+      nextCbu = transaction.terraPayCbu;
+    }
+    setTerraPayCbu(nextCbu);
     setTerraPayWallet(transaction.terraPayWallet ?? "");
+    let nextAlias = "";
+    if (transaction.terraPayAlias !== undefined) {
+      nextAlias = transaction.terraPayAlias;
+    }
+    setTerraPayAlias(nextAlias);
     setSendAmount(usdFormatter.format(transaction.amount));
     setSelectedBeneficiary(transaction.beneficiaryIndex);
     setPaymentMethod(transaction.paymentMethod);
@@ -489,14 +601,160 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   }
 
   useEffect(() => {
+    if (isGuestFlow) {
+      if (guestAutofillCustomer !== null && guestAutofillCustomer.isPep) {
+        setAdditionalChecks({
+          [PEP_CHECK_LABEL]: true,
+        });
+        return;
+      }
+      setAdditionalChecks({});
+      return;
+    }
     if (result === "success" || result === "empty") {
       setAdditionalChecks(
         result === "success" && customer !== null && customer.isPep
-          ? { "¿Es una Persona Expuesta Políticamente (PEP)?": true }
+          ? { [PEP_CHECK_LABEL]: true }
           : {},
       );
     }
-  }, [result, customer]);
+  }, [result, customer, isGuestFlow, guestAutofillCustomer]);
+
+  function clearGuestLookupTimeout() {
+    if (guestLookupTimeoutRef.current === null) return;
+    window.clearTimeout(guestLookupTimeoutRef.current);
+    guestLookupTimeoutRef.current = null;
+  }
+
+  function startGuestQuote() {
+    clearGuestLookupTimeout();
+    setIsGuestFlow(true);
+    setDocumentFieldsLocked(false);
+    setResult(null);
+    setDocumentNumber("");
+    setAdditionalChecks({});
+    setSelectedBeneficiary(0);
+    setSelectedTransactionId(null);
+    setGuestLookupStatus("idle");
+    setGuestFoundCustomer(null);
+    setGuestAutofillCustomer(null);
+    setGuestBeneficiaryChosen(false);
+    remitterFormSyncedCustomerIdRef.current = null;
+    setRemitterForm(createEmptyCustomerDraft());
+    setRegisterClientError("");
+    setStep(2);
+  }
+
+  function handleGuestDocumentNumberChange(value: string) {
+    const hadAutofill = guestAutofillCustomer !== null;
+    setDocumentNumber(value);
+    setGuestAutofillCustomer(null);
+    setGuestFoundCustomer(null);
+    setGuestBeneficiaryChosen(false);
+    setSelectedBeneficiary(0);
+    remitterFormSyncedCustomerIdRef.current = null;
+    if (hadAutofill) {
+      setRemitterForm(createEmptyCustomerDraft(value));
+    } else {
+      setRemitterForm((current) => ({ ...current, documentNumber: value }));
+    }
+    setRegisterClientError("");
+    clearGuestLookupTimeout();
+    const trimmed = value.trim();
+    if (trimmed === "") {
+      setGuestLookupStatus("idle");
+      return;
+    }
+    const requestId = ++guestLookupRequestRef.current;
+    setGuestLookupStatus("loading");
+    guestLookupTimeoutRef.current = window.setTimeout(() => {
+      void findCustomerByDocument(trimmed).then((found) => {
+        if (requestId !== guestLookupRequestRef.current) return;
+        if (found === null || found.status === "blocked") {
+          setGuestFoundCustomer(null);
+          setGuestLookupStatus("not_found");
+          return;
+        }
+        setGuestFoundCustomer(found);
+        setGuestLookupStatus("found");
+      });
+    }, 350);
+  }
+
+  function acceptGuestAutofill() {
+    if (guestFoundCustomer === null) return;
+    remitterFormSyncedCustomerIdRef.current = null;
+    setGuestAutofillCustomer(guestFoundCustomer);
+    setGuestBeneficiaryChosen(false);
+    setSelectedBeneficiary(0);
+    setGuestLookupStatus("autofilled");
+    setRegisterClientError("");
+  }
+
+  function declineGuestAutofill() {
+    setGuestAutofillCustomer(null);
+    setGuestBeneficiaryChosen(false);
+    setAdditionalChecks({});
+    remitterFormSyncedCustomerIdRef.current = null;
+    setRemitterForm(createEmptyCustomerDraft(documentNumber));
+    setGuestLookupStatus("declined");
+    setRegisterClientError("");
+  }
+
+  function selectBeneficiary(index: number) {
+    setSelectedBeneficiary(index);
+    if (isGuestFlow) {
+      setGuestBeneficiaryChosen(true);
+    }
+  }
+
+  const handleRemitterFormChange: RemitterFormChangeHandler = (
+    field,
+    value,
+  ) => {
+    setRemitterForm((current) => ({ ...current, [field]: value }));
+    setRegisterClientError("");
+  };
+
+  function registerClient() {
+    if (documentNumber.trim() === "") return;
+    if (isRegisteringClient) return;
+    clearGuestLookupTimeout();
+    setRegisterClientError("");
+
+    const draft: CustomerRegistrationDraft = {
+      ...remitterForm,
+      documentNumber: documentNumber.trim(),
+      isPep: Boolean(additionalChecks[PEP_CHECK_LABEL]),
+    };
+
+    setIsRegisteringClient(true);
+    void registerCustomer(draft)
+      .then(async (result) => {
+        const items = await readAllCustomers();
+        setCustomers(items);
+        remitterFormSyncedCustomerIdRef.current = result.customer.id;
+        setRemitterForm(customerToRegistrationDraft(result.customer));
+        setGuestAutofillCustomer(result.customer);
+        setResult("success");
+        setIsGuestFlow(false);
+        setGuestLookupStatus("autofilled");
+      })
+      .catch((error: unknown) => {
+        if (error instanceof Error) {
+          setRegisterClientError(error.message);
+          return;
+        }
+        setRegisterClientError("No se pudo registrar el cliente.");
+      })
+      .finally(() => {
+        setIsRegisteringClient(false);
+      });
+  }
+
+  useEffect(() => {
+    return () => clearGuestLookupTimeout();
+  }, []);
 
   useEffect(() => {
     if (
@@ -506,13 +764,35 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     ) {
       window.requestAnimationFrame(() => {
         const fields = Array.from(
-          document.querySelectorAll<
-            HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-          >(
-            "[data-enter-advance] input[required]:not([disabled]):not([readonly]):not([type=hidden]):not([type=checkbox]):not([type=radio]), [data-enter-advance] select[required]:not([disabled]), [data-enter-advance] textarea[required]:not([disabled]):not([readonly])",
+          document.querySelectorAll<HTMLElement>(
+            [
+              "[data-enter-advance] input[required]:not([disabled]):not([readonly]):not([type=hidden]):not([type=checkbox]):not([type=radio])",
+              "[data-enter-advance] select[required]:not([disabled])",
+              "[data-enter-advance] textarea[required]:not([disabled]):not([readonly])",
+              '[data-enter-advance] button[aria-haspopup="listbox"]:not([disabled])',
+            ].join(", "),
           ),
         );
-        const firstEmptyRequired = fields.find((field) => !field.value.trim());
+        const firstEmptyRequired = fields.find((field) => {
+          if (field instanceof HTMLButtonElement) {
+            const ariaLabel = field.getAttribute("aria-label");
+            if (ariaLabel !== null && ariaLabel.includes("sin seleccionar")) {
+              return true;
+            }
+            return (
+              field.textContent !== null &&
+              field.textContent.includes("Selecciona")
+            );
+          }
+          if (
+            field instanceof HTMLInputElement ||
+            field instanceof HTMLSelectElement ||
+            field instanceof HTMLTextAreaElement
+          ) {
+            return field.value.trim() === "";
+          }
+          return false;
+        });
         if (firstEmptyRequired) {
           firstEmptyRequired.focus();
           return;
@@ -526,7 +806,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   }, [step, isReviewStep, selectedProvider, activeSteps]);
 
   function next() {
-    if (step === 2 && !selectedProvider) return;
+    if (step === 2 && !canContinueFromQuote) return;
     setStep((current) => Math.min(lastStep, current + 1));
   }
   function back() {
@@ -534,6 +814,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   }
   function goToStep(target: number) {
     if (target < 1 || target > lastStep) return;
+    if (target > 2 && !canContinueFromQuote) return;
     setStep(target);
   }
   function handleContinue() {
@@ -580,41 +861,47 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     return () => window.removeEventListener("keydown", handleStepperShortcut);
   }, [step, lastStep, selectedProvider]);
 
+  const isPartiesStep = activeSteps[step - 1] === PARTIES_STEP_LABEL;
+
   const summaryAside = (
     <aside className="sticky top-0 flex flex-col gap-3 self-start">
-      <div className="flex gap-3">
-        <div className="rounded-xl border border-border bg-card p-3 flex-1">
-          <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-            Remitente
-          </p>
-          <p className="mt-1.5 text-sm font-bold text-foreground">
-            {customer === null ? "Nuevo cliente" : customer.fullName}
-          </p>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Cédula: {documentNumber}
-            {customer !== null && ` · ${customer.emailMasked}`}
-          </p>
-          {customer !== null && customer.isPep && (
-            <p className="mt-1 text-sm font-semibold text-brand">PEP: Sí</p>
-          )}
-        </div>
-        {selectedBeneficiary !== 0 && (
-          <div className="rounded-xl border border-border bg-card p-3 w-1/2">
-            <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-              Beneficiario
+      {!isPartiesStep && (
+        <div className="flex gap-3">
+          <div className="flex-1 rounded-xl border border-border border-l-4 border-l-party-sender-border bg-card p-3 shadow-sm">
+            <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-party-sender-fg">
+              Remitente
             </p>
             <p className="mt-1.5 text-sm font-bold text-foreground">
-              {beneficiary.name}
+              {customer === null ? "Nuevo cliente" : customer.fullName}
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
-              Doc: {beneficiary.document} · {beneficiary.city}
+              Cédula: {documentNumber}
+              {customer !== null && ` · ${customer.emailMasked}`}
             </p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              {beneficiary.phone} · {beneficiary.email}
-            </p>
+            {customer !== null && customer.isPep && (
+              <p className="mt-1 text-sm font-semibold text-party-sender-fg">
+                PEP: Sí
+              </p>
+            )}
           </div>
-        )}
-      </div>
+          {isKnownClient && beneficiary !== undefined && (
+            <div className="w-1/2 rounded-xl border border-border border-l-4 border-l-party-beneficiary-border bg-card p-3 shadow-sm">
+              <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-party-beneficiary-fg">
+                Beneficiario
+              </p>
+              <p className="mt-1.5 text-sm font-bold text-foreground">
+                {beneficiary.name}
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Doc: {beneficiary.document} · {beneficiary.city}
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {beneficiary.phone} · {beneficiary.email}
+              </p>
+            </div>
+          )}
+        </div>
+      )}
       <RemittanceSummary
         provider={selectedProvider}
         quote={quote}
@@ -656,7 +943,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   return (
     <>
       <section
-        className={`relative flex h-full min-h-0 w-full min-w-0 flex-1 flex-col gap-4 overflow-hidden rounded-[14px] text-foreground ${step === 2 || step === 3 ? "" : "bg-card shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none"}`}
+        className={`relative flex h-full min-h-0 w-full min-w-0 flex-1 flex-col gap-4 overflow-hidden rounded-[14px] text-foreground ${processing || sent || (step !== 2 && step !== 3) ? "bg-card shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none" : ""}`}
       >
         {processing ? (
           <RemittanceProcessing
@@ -689,8 +976,13 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                       documentNumber={documentNumber}
                       onDocumentNumberChange={setDocumentNumber}
                       result={result}
-                      onResultChange={setResult}
+                      onResultChange={(nextResult) => {
+                        setIsGuestFlow(false);
+                        setDocumentFieldsLocked(true);
+                        setResult(nextResult);
+                      }}
                       onContinue={next}
+                      onGuestContinue={startGuestQuote}
                       continueRef={continueRef}
                       customer={customer}
                       recentTransactions={recentTransactions}
@@ -699,6 +991,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                       quoteLoading={quoteLoading}
                       formatUsd={formatUsd}
                       onRepeatTransaction={(transaction) => {
+                        setIsGuestFlow(false);
+                        setDocumentFieldsLocked(true);
                         repeatTransaction(transaction);
                         setStep(2);
                       }}
@@ -753,8 +1047,12 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                       onWuServiceChange={setWuService}
                       terraPayBank={terraPayBank}
                       onTerraPayBankChange={setTerraPayBank}
+                      terraPayCbu={terraPayCbu}
+                      onTerraPayCbuChange={setTerraPayCbu}
                       terraPayWallet={terraPayWallet}
                       onTerraPayWalletChange={setTerraPayWallet}
+                      terraPayAlias={terraPayAlias}
+                      onTerraPayAliasChange={setTerraPayAlias}
                       partnerLoading={partnerLoading}
                       locationLoading={locationLoading}
                       simulateOptionsLoad={simulateOptionsLoad}
@@ -812,11 +1110,17 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                             activeSteps={activeSteps}
                             documentNumber={documentNumber}
                             customer={customer}
+                            remitterForm={remitterForm}
+                            onRemitterFormChange={handleRemitterFormChange}
                             known={known}
                             isKnownClient={isKnownClient}
+                            showFrequentBeneficiaries={
+                              showFrequentBeneficiaries
+                            }
+                            fillBeneficiaryFields={fillBeneficiaryFields}
                             beneficiaries={beneficiaries}
-                            selectedBeneficiary={selectedBeneficiary}
-                            onSelectBeneficiary={setSelectedBeneficiary}
+                            selectedBeneficiary={carouselSelectedBeneficiary}
+                            onSelectBeneficiary={selectBeneficiary}
                             additionalChecks={additionalChecks}
                             onAdditionalCheckChange={(checkLabel, checked) =>
                               setAdditionalChecks((current) => ({
@@ -883,6 +1187,18 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                               )
                             }
                             formatAmount={formatAmount}
+                            isGuestFlow={isGuestFlow}
+                            documentFieldsLocked={documentFieldsLocked}
+                            onDocumentNumberChange={
+                              handleGuestDocumentNumberChange
+                            }
+                            onRegisterClient={registerClient}
+                            isRegisteringClient={isRegisteringClient}
+                            registerClientError={registerClientError}
+                            isUpdatingExistingClient={isUpdatingExistingClient}
+                            guestLookupStatus={guestLookupStatus}
+                            onAcceptGuestAutofill={acceptGuestAutofill}
+                            onDeclineGuestAutofill={declineGuestAutofill}
                           />
                         )}
                       </div>
@@ -917,7 +1233,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
           </>
         )}
       </section>
-      {step > 1 && (
+      {step > 1 && !processing && !sent && (
         <div
           className={`flex h-[42px] shrink-0 items-center ${isReviewStep ? "mx-auto w-full  px-4 sm:px-6" : ""}`}
         >
@@ -926,7 +1242,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
               <button
                 type="button"
                 onClick={back}
-                className=" rounded-md border flex items-center gap-2 border-border px-4 py-1 text-sm font-bold text-muted-foreground hover:bg-white bg-muted"
+                className="flex items-center gap-2 rounded-md border border-border bg-card px-4 py-1 text-sm font-bold text-muted-foreground hover:bg-secondary focus:outline-none focus:ring-4 focus:ring-brand/20"
               >
                 <ArrowLeftIcon className="size-4" />
                 Volver
@@ -942,8 +1258,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
               ref={nextButtonRef}
               data-next-button
               onClick={handleContinue}
-              disabled={step === 2 && !selectedProvider}
-              className="flex items-center gap-2 rounded-md bg-brand-strong px-4 py-1 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-brand/30 disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground"
+              disabled={step === 2 && !canContinueFromQuote}
+              className="flex items-center gap-2 rounded-md bg-brand-strong px-4 py-1 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-amount/30 disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground"
             >
               {isReviewStep ? "Confirmar y enviar" : "Siguiente"}
               {isReviewStep !== true && <ArrowRightIcon className="size-4" />}

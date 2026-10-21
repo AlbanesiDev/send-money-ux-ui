@@ -163,7 +163,7 @@ export function VerificationStep({
                   className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold ${
                     attemptsLeft === 1
                       ? "border-destructive/30 bg-destructive/10 text-destructive"
-                      : "border-[#eadcae] bg-[#fffaf0] text-[#765d12] dark:border-amber-700/50 dark:bg-amber-950/40 dark:text-amber-200"
+                      : "border-warning-border bg-warning-soft text-warning-foreground"
                   }`}
                 >
                   <TriangleAlertIcon className="size-3.5" aria-hidden="true" />

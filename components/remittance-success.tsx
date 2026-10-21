@@ -15,14 +15,14 @@ import {
 export function RemittanceProcessing({ totalSent }: { totalSent: string }) {
   return (
     <div
-      className="flex min-h-0 flex-1 items-center justify-center overflow-y-auto p-6 sm:p-12"
+      className="flex min-h-0 flex-1 items-center justify-center overflow-y-auto bg-card p-6 sm:p-12"
       role="status"
       aria-live="polite"
       aria-busy="true"
     >
       <div className="flex w-full max-w-[620px] flex-col items-center text-center">
         <div
-          className="flex h-20 w-20 items-center justify-center rounded-full bg-accent text-brand-strong"
+          className="flex h-20 w-20 items-center justify-center rounded-full bg-accent text-amount"
           aria-hidden="true"
         >
           <Loader2
@@ -30,7 +30,7 @@ export function RemittanceProcessing({ totalSent }: { totalSent: string }) {
             strokeWidth={2.5}
           />
         </div>
-        <p className="mt-6 text-xs font-bold uppercase tracking-[0.14em] text-brand-strong">
+        <p className="mt-6 text-xs font-bold uppercase tracking-[0.14em] text-amount">
           Procesando envío
         </p>
         <h1 className="mt-2 text-balance text-3xl font-bold tracking-[-0.02em] text-foreground">
@@ -39,17 +39,17 @@ export function RemittanceProcessing({ totalSent }: { totalSent: string }) {
         <p className="mt-3 max-w-lg text-pretty text-sm leading-6 text-muted-foreground">
           No cierres esta ventana. Esto puede tardar unos segundos.
         </p>
-        <div className="mt-8 flex w-full max-w-md items-center justify-between gap-4 rounded-xl border border-border bg-muted p-5 text-left">
+        <div className="mt-8 flex w-full max-w-md items-center justify-between gap-4 rounded-xl border border-amount/25 bg-secondary p-5 text-left shadow-sm">
           <span className="text-sm text-muted-foreground">Total a enviar</span>
-          <span className="text-lg font-bold tabular-nums text-brand-strong">
+          <span className="text-lg font-bold tabular-nums text-amount">
             {totalSent}
           </span>
         </div>
         <div
-          className="mt-6 h-1.5 w-full max-w-md overflow-hidden rounded-full bg-accent"
+          className="mt-6 h-1.5 w-full max-w-md overflow-hidden rounded-full bg-secondary"
           aria-hidden="true"
         >
-          <div className="h-full w-1/3 rounded-full bg-brand-strong motion-safe:animate-[processing-bar_1.4s_ease-in-out_infinite]" />
+          <div className="h-full w-1/3 rounded-full bg-amount motion-safe:animate-[processing-bar_1.4s_linear_infinite]" />
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@ type RemittanceSuccessProps = {
 };
 
 const secondaryButton =
-  "inline-flex cursor-pointer items-center gap-2 rounded-full border border-border px-5 py-3 text-sm font-bold text-foreground transition-colors hover:border-brand-strong hover:text-brand-strong focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/20";
+  "inline-flex cursor-pointer items-center gap-2 rounded-lg border border-border bg-card px-5 py-3 text-sm font-bold text-foreground transition-colors hover:border-amount hover:bg-accent hover:text-amount focus:outline-none focus-visible:ring-4 focus-visible:ring-amount/20";
 
 export function RemittanceSuccess({
   operationNumber,
@@ -88,7 +88,7 @@ export function RemittanceSuccess({
   }
 
   return (
-    <div className="flex min-h-0 flex-1 items-center justify-center overflow-y-auto p-6 sm:p-12">
+    <div className="flex min-h-0 flex-1 items-center justify-center overflow-y-auto bg-card p-6 sm:p-12">
       <div className="flex w-full max-w-[620px] flex-col items-center text-center">
         <div
           className="flex h-20 w-20 items-center justify-center rounded-full bg-success-soft text-success"
@@ -107,7 +107,7 @@ export function RemittanceSuccess({
           cobrar.
         </p>
 
-        <dl className="mt-8 w-full max-w-md rounded-xl border border-border bg-muted p-5 text-left">
+        <dl className="mt-8 w-full max-w-md rounded-xl border border-amount/25 bg-secondary p-5 text-left shadow-sm">
           <div className="flex items-center justify-between gap-4 border-b border-border pb-4">
             <dt className="text-sm text-muted-foreground">
               Número de operación
@@ -122,7 +122,7 @@ export function RemittanceSuccess({
                 aria-label={
                   copied ? "Número copiado" : "Copiar número de operación"
                 }
-                className="cursor-pointer rounded-md p-2 text-brand-strong hover:bg-accent focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/20"
+                className="cursor-pointer rounded-md p-2 text-amount hover:bg-accent focus:outline-none focus-visible:ring-4 focus-visible:ring-amount/20"
               >
                 {copied ? (
                   <Check className="h-4 w-4" aria-hidden="true" />
@@ -134,7 +134,7 @@ export function RemittanceSuccess({
           </div>
           <div className="flex items-center justify-between gap-4 pt-4">
             <dt className="text-sm text-muted-foreground">Total enviado</dt>
-            <dd className="text-lg font-bold tabular-nums text-brand-strong">
+            <dd className="text-lg font-bold tabular-nums text-amount">
               {totalSent}
             </dd>
           </div>
@@ -161,7 +161,7 @@ export function RemittanceSuccess({
             Descargar
           </button>
         </div>
-        <button type="button" className={`mt-4 bg-muted ${secondaryButton}`}>
+        <button type="button" className={`mt-4 ${secondaryButton}`}>
           <Download className="h-4 w-4" aria-hidden="true" />
           Descargar factura electrónica
         </button>
@@ -189,7 +189,7 @@ export function RemittanceSuccess({
             type="button"
             ref={newTransactionRef}
             onClick={onNewTransaction}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-brand-strong px-8 py-3 text-sm font-bold text-white transition-colors hover:opacity-90 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/30"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-brand-strong px-8 py-3 text-sm font-bold text-white transition-colors hover:opacity-90 focus:outline-none focus-visible:ring-4 focus-visible:ring-amount/30"
           >
             <RotateCcw className="h-4 w-4" aria-hidden="true" />
             Nueva transacción

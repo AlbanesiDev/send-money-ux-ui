@@ -20,7 +20,8 @@
     "terraPayAlias": "",
     "amount": 300,
     "beneficiaryIndex": 0,
-    "paymentMethod": "Pago en efectivo"
+    "paymentMethod": "Pago en efectivo",
+    "collectionStatus": "available"
   },
   {
     "customerId": "eliana-antezana",
@@ -43,7 +44,8 @@
     "terraPayAlias": "",
     "amount": 150,
     "beneficiaryIndex": 1,
-    "paymentMethod": "Tarjeta de débito"
+    "paymentMethod": "Tarjeta de débito",
+    "collectionStatus": "available"
   },
   {
     "customerId": "eliana-antezana",
@@ -66,7 +68,8 @@
     "terraPayAlias": "",
     "amount": 500,
     "beneficiaryIndex": 2,
-    "paymentMethod": "Transferencia bancaria"
+    "paymentMethod": "Transferencia bancaria",
+    "collectionStatus": "onHold"
   },
   {
     "customerId": "eliana-antezana",
@@ -89,7 +92,9 @@
     "terraPayAlias": "",
     "amount": 150,
     "beneficiaryIndex": 1,
-    "paymentMethod": "Tarjeta de débito"
+    "paymentMethod": "Tarjeta de débito",
+    "collectionStatus": "paid",
+    "paidAt": "14 oct 2026 · 16:20"
   },
   {
     "customerId": "eliana-antezana",
@@ -112,6 +117,7 @@
     "terraPayAlias": "",
     "amount": 500,
     "beneficiaryIndex": 2,
-    "paymentMethod": "Transferencia bancaria"
+    "paymentMethod": "Transferencia bancaria",
+    "collectionStatus": "onHold"
   }
 ]

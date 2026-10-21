@@ -5,7 +5,18 @@
  * public/templates/payment.snapshot.json.
  */
 
+import type { ProviderId } from "@/components/send-money/types";
+import { findBeneficiaryById } from "@/lib/simulated-api/beneficiaries-api";
+import { findCustomerById } from "@/lib/simulated-api/customers-api";
+import {
+  findTransactionByOperationNumber,
+  markTransactionAsPaid,
+} from "@/lib/simulated-api/transactions-api";
+
 export type OperationStatus = "available" | "onHold" | "paid";
+
+/** Tipo de cambio simulado USD → BOB para el pago en agencia. */
+export const USD_TO_BOB_RATE = 6.96;
 
 export type CustomerProfile = {
   documentType: string;
@@ -38,7 +49,7 @@ export type CustomerProfile = {
 
 export type PaymentOperation = {
   number: string;
-  provider: "RIA" | "WU" | "MONEYGRAM";
+  provider: ProviderId;
   status: OperationStatus;
   amount: number;
   currency: string;
@@ -58,159 +69,105 @@ export type PaymentOperation = {
   existingCustomer: CustomerProfile | null;
   /** Información  que ya declaró el cliente en operaciones anteriores. */
   knownUifData?: Record<string, string>;
+  paidAt: string;
 };
-
-const JORGE_PROFILE: CustomerProfile = {
-  documentType: "Cédula",
-  documentNumber: "7807365",
-  documentCountry: "Bolivia",
-  documentIssueDate: "2020-01-01",
-  documentExpiryDate: "2030-01-01",
-  firstName: "Jorge",
-  middleName: "",
-  lastName: "Céspedes",
-  secondLastName: "",
-  birthDate: "1988-04-12",
-  birthCountry: "Bolivia",
-  nationality: "Bolivia",
-  gender: "Masculino",
-  email: "",
-  residenceCountry: "Bolivia",
-  street: "Las Palmas",
-  houseNumber: "125",
-  address2: "",
-  zone: "Equipetrol",
-  department: "Santa Cruz",
-  city: "Santa Cruz de la Sierra",
-  postalCode: "",
-  phoneCode: "+591",
-  phone: "71948652",
-  isPep: false,
-  isPepRelated: false,
-};
-
-export const PAYMENT_OPERATIONS: PaymentOperation[] = [
-  {
-    number: "12090991105",
-    provider: "RIA",
-    status: "available",
-    amount: 975,
-    currency: "BOB",
-    exchangeRate: 1,
-    originCountry: "Spain",
-    senderName: "Mario Moreno",
-    beneficiaryName: "Jorge Céspedes",
-    declaredDocument: { type: "Cédula", country: "Bolivia", number: "7807365" },
-    transactionData: {
-      firstName: "Jorge",
-      lastName: "Céspedes",
-      street: "Las Palmas",
-      houseNumber: "125",
-      phoneCode: "+591",
-      phone: "71948652",
-    },
-    existingCustomer: JORGE_PROFILE,
-    knownUifData: {
-      occupation: "Comerciante",
-      employmentLevel: "Dueño/a",
-      economicActivity: "Comercio",
-      employer: "Comercial Céspedes",
-      position: "Propietario",
-      workAddress: "Mercado Los Pozos, puesto 14",
-      monthlyIncome: "3.001 a 7.000 BOB",
-      workStartDate: "2015-03-01",
-      civilStatus: "Soltero/a",
-      idExtensionPlace: "Santa Cruz",
-    },
-  },
-  {
-    number: "12090991200",
-    provider: "RIA",
-    status: "available",
-    amount: 15400,
-    currency: "BOB",
-    exchangeRate: 1,
-    originCountry: "United States",
-    senderName: "Lucía Fernández Vargas",
-    beneficiaryName: "Ana María Quispe",
-    declaredDocument: { type: "Cédula", country: "Bolivia", number: "6543210" },
-    transactionData: {
-      firstName: "Ana",
-      middleName: "María",
-      lastName: "Quispe",
-      street: "Av. Busch",
-      houseNumber: "1450",
-      // El proveedor envía el teléfono con el prefijo del país.
-      phone: "59176543210",
-    },
-    existingCustomer: null,
-  },
-  {
-    number: "12090991300",
-    provider: "RIA",
-    status: "available",
-    amount: 15400,
-    currency: "BOB",
-    exchangeRate: 1,
-    originCountry: "Spain",
-    senderName: "Mario Moreno",
-    beneficiaryName: "Jorge Céspedes",
-    declaredDocument: { type: "Cédula", country: "Bolivia", number: "7807365" },
-    transactionData: {
-      firstName: "Jorge",
-      lastName: "Céspedes",
-      street: "Las Palmas",
-      houseNumber: "125",
-      phoneCode: "+591",
-      phone: "71948652",
-    },
-    existingCustomer: JORGE_PROFILE,
-    knownUifData: {
-      occupation: "Comerciante",
-      employmentLevel: "Dueño/a",
-      economicActivity: "Comercio",
-      employer: "Comercial Céspedes",
-      position: "Propietario",
-      workAddress: "Mercado Los Pozos, puesto 14",
-      monthlyIncome: "3.001 a 7.000 BOB",
-      workStartDate: "2015-03-01",
-      civilStatus: "Soltero/a",
-      idExtensionPlace: "Santa Cruz",
-    },
-  },
-  {
-    number: "12090990000",
-    provider: "RIA",
-    status: "onHold",
-    amount: 3200,
-    currency: "BOB",
-    exchangeRate: 1,
-    originCountry: "Argentina",
-    senderName: "Pedro Gómez",
-    beneficiaryName: "Luis Mamani",
-    declaredDocument: { type: "Cédula", country: "Bolivia", number: "5550001" },
-    transactionData: {},
-    existingCustomer: null,
-  },
-  {
-    number: "12090991111",
-    provider: "RIA",
-    status: "paid",
-    amount: 500,
-    currency: "BOB",
-    exchangeRate: 1,
-    originCountry: "Chile",
-    senderName: "Rosa Díaz",
-    beneficiaryName: "Carla Rojas",
-    declaredDocument: { type: "Cédula", country: "Bolivia", number: "4440002" },
-    transactionData: {},
-    existingCustomer: null,
-  },
-];
 
 export const AGENCY_COUNTRY = "Bolivia";
 export const AGENCY_PHONE_CODE = "+591";
 export const AGENCY_CASH_BOB = 20000;
+
+/** Pools de distractores para las preguntas de verificación. */
+export const VERIFICATION_DISTRACTOR_NAMES = [
+  "Mario Moreno",
+  "Lucía Fernández Vargas",
+  "Pedro Gómez",
+  "Rosa Díaz",
+  "Ana María Quispe",
+  "Carlos Alberto Rojas",
+  "María Fernanda López",
+];
+
+export const VERIFICATION_DISTRACTOR_COUNTRIES = [
+  "Spain",
+  "United States",
+  "Argentina",
+  "Chile",
+  "Peru",
+  "Brazil",
+  "Mexico",
+];
+
+export const VERIFICATION_DISTRACTOR_AMOUNTS_BOB = [
+  500, 975, 1500, 3200, 6860, 15400, 20880,
+];
+
+export async function loadPaymentOperationByNumber(
+  operationNumber: string,
+): Promise<PaymentOperation | null> {
+  const stored = await findTransactionByOperationNumber(operationNumber);
+  if (stored === null) return null;
+
+  const customer = await findCustomerById(stored.customerId);
+  if (customer === null) {
+    throw new Error(`Customer ${stored.customerId} was not found`);
+  }
+
+  const beneficiary = await findBeneficiaryById(stored.beneficiaryId);
+  if (beneficiary === null) {
+    throw new Error(`Beneficiary ${stored.beneficiaryId} was not found`);
+  }
+
+  const amountBob = Math.round(stored.amount * USD_TO_BOB_RATE * 100) / 100;
+
+  let paidAt = "";
+  if (stored.paidAt !== undefined) {
+    paidAt = stored.paidAt;
+  }
+
+  return {
+    number: stored.id,
+    provider: stored.provider,
+    status: stored.collectionStatus,
+    amount: amountBob,
+    currency: "BOB",
+    exchangeRate: USD_TO_BOB_RATE,
+    originCountry: stored.destinationCountry,
+    senderName: customer.fullName,
+    beneficiaryName: beneficiary.name,
+    declaredDocument: {
+      type: beneficiary.documentType,
+      country: AGENCY_COUNTRY,
+      number: beneficiary.document,
+    },
+    transactionData: {
+      firstName: beneficiary.firstName,
+      middleName: beneficiary.middleName,
+      lastName: beneficiary.lastName,
+      secondLastName: beneficiary.secondLastName,
+      documentType: beneficiary.documentType,
+      documentNumber: beneficiary.document,
+      documentCountry: AGENCY_COUNTRY,
+      street: beneficiary.street,
+      phone: beneficiary.phone,
+      email: beneficiary.email,
+      city: beneficiary.city,
+      department: beneficiary.state,
+    },
+    existingCustomer: null,
+    paidAt,
+  };
+}
+
+export async function collectPaymentOperation(
+  operationNumber: string,
+): Promise<PaymentOperation> {
+  await markTransactionAsPaid(operationNumber);
+  const operation = await loadPaymentOperationByNumber(operationNumber);
+  if (operation === null) {
+    throw new Error(`Operation ${operationNumber} was not found after payment`);
+  }
+  return operation;
+}
 
 /** Umbral  (Valor envío / Monto a pagar >= 13.720 BOB, ~2.000 USD). */
 export const UIF_AMOUNT_THRESHOLD = 13720;

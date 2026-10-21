@@ -12,6 +12,26 @@ export async function readAllBeneficiaries(): Promise<Beneficiary[]> {
   });
 }
 
+export async function readBeneficiaryById(
+  id: string,
+): Promise<Beneficiary | null> {
+  const db = await openSendMoneyDb();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(BENEFICIARIES_STORE, "readonly");
+    const store = transaction.objectStore(BENEFICIARIES_STORE);
+    const request = store.get(id);
+    request.onsuccess = () => {
+      const result = request.result;
+      if (result === undefined) {
+        resolve(null);
+        return;
+      }
+      resolve(result as Beneficiary);
+    };
+    request.onerror = () => reject(request.error);
+  });
+}
+
 export async function readBeneficiariesByCustomerId(
   customerId: string,
 ): Promise<Beneficiary[]> {

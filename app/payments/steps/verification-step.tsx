@@ -10,7 +10,9 @@ import {
 } from "lucide-react";
 import {
   formatMoney,
-  PAYMENT_OPERATIONS,
+  VERIFICATION_DISTRACTOR_AMOUNTS_BOB,
+  VERIFICATION_DISTRACTOR_COUNTRIES,
+  VERIFICATION_DISTRACTOR_NAMES,
   type PaymentOperation,
 } from "../payment-data";
 import { Notice } from "./search-operation-step";
@@ -70,28 +72,45 @@ export function VerificationStep({
   ].filter((answer) => answer !== "").length;
   const complete = selectedCount === 3;
 
-  const rotateBy = Number(operation.number[operation.number.length - 1]) % 3;
+  const seedDigit = Number(operation.number[operation.number.length - 1]);
+  const rotateBy = seedDigit % 3;
+  const distractorOffset = seedDigit % 5;
 
-  const otherNames = [
-    ...new Set(
-      PAYMENT_OPERATIONS.map((item) => item.senderName).filter(
-        (name) => name !== operation.senderName,
-      ),
-    ),
-  ];
+  const otherNames: string[] = [];
+  for (
+    let index = 0;
+    index < VERIFICATION_DISTRACTOR_NAMES.length;
+    index += 1
+  ) {
+    const name =
+      VERIFICATION_DISTRACTOR_NAMES[
+        (index + distractorOffset) % VERIFICATION_DISTRACTOR_NAMES.length
+      ];
+    if (name === operation.senderName) continue;
+    otherNames.push(name);
+    if (otherNames.length === 2) break;
+  }
   const senderOptions = [operation.senderName, otherNames[0], otherNames[1]];
   const senderChoices = [
     ...senderOptions.slice(rotateBy),
     ...senderOptions.slice(0, rotateBy),
   ];
 
-  const otherCountries = [
-    ...new Set(
-      PAYMENT_OPERATIONS.map((item) => item.originCountry).filter(
-        (country) => country !== operation.originCountry,
-      ),
-    ),
-  ];
+  const otherCountries: string[] = [];
+  for (
+    let index = 0;
+    index < VERIFICATION_DISTRACTOR_COUNTRIES.length;
+    index += 1
+  ) {
+    const country =
+      VERIFICATION_DISTRACTOR_COUNTRIES[
+        (index + distractorOffset + 1) %
+          VERIFICATION_DISTRACTOR_COUNTRIES.length
+      ];
+    if (country === operation.originCountry) continue;
+    otherCountries.push(country);
+    if (otherCountries.length === 2) break;
+  }
   const countryOptions = [
     operation.originCountry,
     otherCountries[0],
@@ -103,13 +122,22 @@ export function VerificationStep({
   ];
 
   const correctAmount = formatMoney(operation.amount, operation.currency);
-  const otherAmounts = [
-    ...new Set(
-      PAYMENT_OPERATIONS.map((item) =>
-        formatMoney(item.amount, item.currency),
-      ).filter((amount) => amount !== correctAmount),
-    ),
-  ];
+  const otherAmounts: string[] = [];
+  for (
+    let index = 0;
+    index < VERIFICATION_DISTRACTOR_AMOUNTS_BOB.length;
+    index += 1
+  ) {
+    const amountValue =
+      VERIFICATION_DISTRACTOR_AMOUNTS_BOB[
+        (index + distractorOffset + 2) %
+          VERIFICATION_DISTRACTOR_AMOUNTS_BOB.length
+      ];
+    const amountLabel = formatMoney(amountValue, operation.currency);
+    if (amountLabel === correctAmount) continue;
+    otherAmounts.push(amountLabel);
+    if (otherAmounts.length === 2) break;
+  }
   const amountOptions = [correctAmount, otherAmounts[0], otherAmounts[1]];
   const amountChoices = [
     ...amountOptions.slice((rotateBy + 2) % 3),

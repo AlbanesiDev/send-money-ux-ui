@@ -6,6 +6,7 @@ import { CancelOperationDialog } from "@/app/remittences/dialogs";
 import { Stepper } from "@/components/ui/stepper";
 import {
   AGENCY_CASH_BOB,
+  collectPaymentOperation,
   formatMoney,
   type PaymentOperation,
 } from "./payment-data";
@@ -134,12 +135,19 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
       }
       return goTo(4);
     }
-    if (step === 4 && !cashShort && !processing) {
+    if (step === 4 && !cashShort && !processing && operation !== null) {
       setProcessing(true);
-      processingTimeoutRef.current = window.setTimeout(() => {
-        setProcessing(false);
-        setPaid(true);
-      }, 2200);
+      void collectPaymentOperation(operation.number)
+        .then((paidOperation) => {
+          setOperation(paidOperation);
+          processingTimeoutRef.current = window.setTimeout(() => {
+            setProcessing(false);
+            setPaid(true);
+          }, 1200);
+        })
+        .catch(() => {
+          setProcessing(false);
+        });
     }
   }
 

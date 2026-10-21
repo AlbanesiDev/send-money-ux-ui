@@ -5,6 +5,7 @@ import {
   readAllCustomers,
   readCustomerByDocument,
   readCustomerByDocumentIdentity,
+  readCustomerById,
   writeCustomer,
   writeCustomers,
 } from "./customers-store";
@@ -155,6 +156,12 @@ export async function listCustomers(): Promise<Customer[]> {
   await ensureCustomersSeeded();
   await wait(API_LATENCY_MS);
   return readAllCustomers();
+}
+
+export async function findCustomerById(id: string): Promise<Customer | null> {
+  await ensureCustomersSeeded();
+  await wait(API_LATENCY_MS);
+  return readCustomerById(id);
 }
 
 export async function findCustomerByDocument(

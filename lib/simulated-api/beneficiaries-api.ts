@@ -3,6 +3,7 @@ import beneficiariesSnapshot from "@/public/data/beneficiaries.snapshot.json";
 import {
   countBeneficiaries,
   readBeneficiariesByCustomerId,
+  readBeneficiaryById,
   writeBeneficiaries,
   writeBeneficiary,
 } from "./beneficiaries-store";
@@ -67,6 +68,14 @@ export async function listBeneficiariesByCustomer(
   await ensureBeneficiariesSeeded();
   await wait(API_LATENCY_MS);
   return readBeneficiariesByCustomerId(customerId);
+}
+
+export async function findBeneficiaryById(
+  id: string,
+): Promise<Beneficiary | null> {
+  await ensureBeneficiariesSeeded();
+  await wait(API_LATENCY_MS);
+  return readBeneficiaryById(id);
 }
 
 export async function registerBeneficiary(

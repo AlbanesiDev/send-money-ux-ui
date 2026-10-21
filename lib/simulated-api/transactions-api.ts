@@ -1,9 +1,13 @@
-import type { RecentTransaction } from "@/components/send-money/recent-transactions";
+import type {
+  CollectionStatus,
+  RecentTransaction,
+} from "@/components/send-money/recent-transactions";
 import type { DeliveryTypeId, ProviderId } from "@/components/send-money/types";
 import transactionsHistorySnapshot from "@/public/data/transactions-history.snapshot.json";
 import {
   countTransactions,
   readAllTransactions,
+  readTransactionById,
   readTransactionsByCustomerId,
   writeTransaction,
   writeTransactions,
@@ -84,12 +88,58 @@ function sortByNewest(items: StoredTransaction[]): StoredTransaction[] {
 
 let seedPromise: Promise<void> | null = null;
 
+function resolveCollectionStatus(item: StoredTransaction): CollectionStatus {
+  if (item.collectionStatus === "available") return "available";
+  if (item.collectionStatus === "onHold") return "onHold";
+  if (item.collectionStatus === "paid") return "paid";
+  if (item.status === "En revisión") return "onHold";
+  if (item.status === "Cancelada") return "onHold";
+  return "available";
+}
+
 export async function ensureTransactionsSeeded(): Promise<void> {
   if (seedPromise !== null) return seedPromise;
   seedPromise = (async () => {
     const existingCount = await countTransactions();
-    if (existingCount > 0) return;
-    await writeTransactions(SEED_TRANSACTIONS);
+    if (existingCount === 0) {
+      await writeTransactions(SEED_TRANSACTIONS);
+      return;
+    }
+    const items = await readAllTransactions();
+    let needsWrite = false;
+    const patched: StoredTransaction[] = [];
+    for (const item of items) {
+      let collectionStatus = resolveCollectionStatus(item);
+      if (item.collectionStatus === undefined) {
+        for (const seed of SEED_TRANSACTIONS) {
+          if (seed.id !== item.id) continue;
+          collectionStatus = seed.collectionStatus;
+          break;
+        }
+      }
+      let paidAt = item.paidAt;
+      if (item.collectionStatus === undefined) {
+        for (const seed of SEED_TRANSACTIONS) {
+          if (seed.id !== item.id) continue;
+          if (seed.paidAt !== undefined) {
+            paidAt = seed.paidAt;
+          }
+          break;
+        }
+      }
+      if (
+        item.collectionStatus === collectionStatus &&
+        item.paidAt === paidAt
+      ) {
+        patched.push(item);
+        continue;
+      }
+      needsWrite = true;
+      patched.push({ ...item, collectionStatus, paidAt });
+    }
+    if (needsWrite) {
+      await writeTransactions(patched);
+    }
   })();
   return seedPromise;
 }
@@ -124,6 +174,7 @@ export async function createCompletedTransaction(
     date: formatTransactionDate(now),
     time: formatTransactionTime(now),
     status: "Completada",
+    collectionStatus: "available",
     provider: input.provider,
     destinationCountry: input.destinationCountry,
     deliveryType: input.deliveryType,
@@ -143,4 +194,46 @@ export async function createCompletedTransaction(
 
   await writeTransaction(stored);
   return stored;
+}
+
+export async function findTransactionByOperationNumber(
+  operationNumber: string,
+): Promise<StoredTransaction | null> {
+  await ensureTransactionsSeeded();
+  await wait(API_LATENCY_MS);
+  const stored = await readTransactionById(operationNumber.trim());
+  if (stored === null) return null;
+  return {
+    ...stored,
+    collectionStatus: resolveCollectionStatus(stored),
+  };
+}
+
+export async function markTransactionAsPaid(
+  operationNumber: string,
+): Promise<StoredTransaction> {
+  await ensureTransactionsSeeded();
+  await wait(API_LATENCY_MS);
+
+  const stored = await readTransactionById(operationNumber.trim());
+  if (stored === null) {
+    throw new Error(`Transaction ${operationNumber} was not found`);
+  }
+
+  const collectionStatus = resolveCollectionStatus(stored);
+  if (collectionStatus === "paid") {
+    throw new Error(`Transaction ${operationNumber} was already paid`);
+  }
+  if (collectionStatus === "onHold") {
+    throw new Error(`Transaction ${operationNumber} is on hold`);
+  }
+
+  const now = new Date();
+  const paid: StoredTransaction = {
+    ...stored,
+    collectionStatus: "paid",
+    paidAt: `${formatTransactionDate(now)} · ${formatTransactionTime(now)}`,
+  };
+  await writeTransaction(paid);
+  return paid;
 }

@@ -12,6 +12,26 @@ export async function readAllCustomers(): Promise<Customer[]> {
   });
 }
 
+export async function readCustomerById(
+  id: string,
+): Promise<Customer | null> {
+  const db = await openSendMoneyDb();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(CUSTOMERS_STORE, "readonly");
+    const store = transaction.objectStore(CUSTOMERS_STORE);
+    const request = store.get(id);
+    request.onsuccess = () => {
+      const result = request.result;
+      if (result === undefined) {
+        resolve(null);
+        return;
+      }
+      resolve(result as Customer);
+    };
+    request.onerror = () => reject(request.error);
+  });
+}
+
 export async function writeCustomer(customer: Customer): Promise<void> {
   const db = await openSendMoneyDb();
   return new Promise((resolve, reject) => {

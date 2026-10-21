@@ -26,11 +26,14 @@ import { AsyncDataHandler, STATUS } from "../async-data-handler";
 
 export type TransactionStatus = "Completada" | "En revisión" | "Cancelada";
 
+export type CollectionStatus = "available" | "onHold" | "paid";
+
 export type RecentTransaction = {
   id: string;
   date: string;
   time: string;
   status: TransactionStatus;
+  collectionStatus: CollectionStatus;
   provider: ProviderId;
   destinationCountry: string;
   deliveryType: DeliveryTypeId;
@@ -48,6 +51,7 @@ export type RecentTransaction = {
   beneficiaryId?: string;
   customerId?: string;
   paymentMethod: string;
+  paidAt?: string;
 };
 
 type FilterTab = "Todas" | "Completada" | "En revisión";

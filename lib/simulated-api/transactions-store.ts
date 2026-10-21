@@ -12,6 +12,26 @@ export async function readAllTransactions(): Promise<StoredTransaction[]> {
   });
 }
 
+export async function readTransactionById(
+  id: string,
+): Promise<StoredTransaction | null> {
+  const db = await openSendMoneyDb();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(TRANSACTIONS_STORE, "readonly");
+    const store = transaction.objectStore(TRANSACTIONS_STORE);
+    const request = store.get(id);
+    request.onsuccess = () => {
+      const result = request.result;
+      if (result === undefined) {
+        resolve(null);
+        return;
+      }
+      resolve(result as StoredTransaction);
+    };
+    request.onerror = () => reject(request.error);
+  });
+}
+
 export async function readTransactionsByCustomerId(
   customerId: string,
 ): Promise<StoredTransaction[]> {

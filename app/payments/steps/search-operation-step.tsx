@@ -12,9 +12,9 @@ import {
 } from "lucide-react";
 import { CountryFlag } from "@/components/ui/country-flag";
 import {
-  PAYMENT_OPERATIONS,
   formatMoney,
   formatOperationNumber,
+  loadPaymentOperationByNumber,
   maskName,
   type PaymentOperation,
 } from "../payment-data";
@@ -25,10 +25,9 @@ export type OperationSearchResult =
   | null;
 
 const DEMO_OPERATIONS = [
-  { number: "12090991105", label: "monto normal" },
-  { number: "12090991300", label: "monto alto" },
-  { number: "12090990000", label: "en revisión" },
-  { number: "12090991111", label: "ya pagada" },
+  { number: "12030070712", label: "disponible" },
+  { number: "12030070431", label: "en revisión" },
+  { number: "12030070592", label: "ya pagada" },
 ] as const;
 
 export function SearchOperationStep({
@@ -60,15 +59,19 @@ export function SearchOperationStep({
     if (operationNumber.length < 8 || loading) return;
     setLoading(true);
     onResultChange(null);
-    window.setTimeout(() => {
-      const found = PAYMENT_OPERATIONS.find(
-        (item) => item.number === operationNumber,
-      );
-      onResultChange(
-        found ? { kind: "found", operation: found } : { kind: "notFound" },
-      );
-      setLoading(false);
-    }, 600);
+    void loadPaymentOperationByNumber(operationNumber)
+      .then((found) => {
+        onResultChange(
+          found === null
+            ? { kind: "notFound" }
+            : { kind: "found", operation: found },
+        );
+        setLoading(false);
+      })
+      .catch(() => {
+        onResultChange({ kind: "notFound" });
+        setLoading(false);
+      });
   }
 
   useEffect(() => {
@@ -219,7 +222,7 @@ export function SearchOperationStep({
                   tone="error"
                   icon={<CircleAlertIcon className="size-5" />}
                   title="Esta operación ya fue pagada"
-                  text="Pagada el 14/10/2026 en la agencia #212. Si el beneficiario no la recibió, deriva el caso a Atención al Cliente."
+                  text={`Pagada el ${operation.paidAt}. Si el beneficiario no la recibió, deriva el caso a Atención al Cliente.`}
                 />
               </div>
             )}

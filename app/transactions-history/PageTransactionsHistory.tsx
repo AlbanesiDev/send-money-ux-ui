@@ -59,6 +59,7 @@ export default function PageTransactionsHistory() {
               <th className="px-4 py-3">Operación</th>
               <th className="px-4 py-3">Fecha</th>
               <th className="px-4 py-3">Estado</th>
+              <th className="px-4 py-3">Cobro</th>
               <th className="px-4 py-3">Proveedor</th>
               <th className="px-4 py-3">Destino</th>
               <th className="px-4 py-3">Tipo de envío</th>
@@ -70,7 +71,7 @@ export default function PageTransactionsHistory() {
             {loading && (
               <tr>
                 <td
-                  colSpan={8}
+                  colSpan={9}
                   className="px-4 py-8 text-center text-muted-foreground"
                 >
                   Cargando historial…
@@ -80,7 +81,7 @@ export default function PageTransactionsHistory() {
             {!loading && transactions.length === 0 && (
               <tr>
                 <td
-                  colSpan={8}
+                  colSpan={9}
                   className="px-4 py-8 text-center text-muted-foreground"
                 >
                   Todavía no hay transacciones guardadas.
@@ -88,35 +89,47 @@ export default function PageTransactionsHistory() {
               </tr>
             )}
             {!loading &&
-              transactions.map((item) => (
-                <tr
-                  key={item.id}
-                  className="border-b border-border last:border-b-0"
-                >
-                  <td className="px-4 py-3 font-semibold text-foreground">
-                    {item.id}
-                  </td>
-                  <td className="px-4 py-3 text-muted-foreground">
-                    {item.date} · {item.time}
-                  </td>
-                  <td className="px-4 py-3 text-foreground">{item.status}</td>
-                  <td className="px-4 py-3 text-foreground">
-                    {PROVIDER_LABELS[item.provider]}
-                  </td>
-                  <td className="px-4 py-3 text-foreground">
-                    {item.destinationCountry}
-                  </td>
-                  <td className="px-4 py-3 text-foreground">
-                    {deliveryTypeLabel(item.deliveryType)}
-                  </td>
-                  <td className="px-4 py-3 font-semibold text-foreground">
-                    {usdFormatter.format(item.amount)}
-                  </td>
-                  <td className="px-4 py-3 text-muted-foreground">
-                    {item.paymentMethod}
-                  </td>
-                </tr>
-              ))}
+              transactions.map((item) => {
+                let collectionLabel = "Pendiente";
+                if (item.collectionStatus === "paid") {
+                  collectionLabel = "Cobrada";
+                }
+                if (item.collectionStatus === "onHold") {
+                  collectionLabel = "Retenida";
+                }
+                return (
+                  <tr
+                    key={item.id}
+                    className="border-b border-border last:border-b-0"
+                  >
+                    <td className="px-4 py-3 font-semibold text-foreground">
+                      {item.id}
+                    </td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      {item.date} · {item.time}
+                    </td>
+                    <td className="px-4 py-3 text-foreground">{item.status}</td>
+                    <td className="px-4 py-3 text-foreground">
+                      {collectionLabel}
+                    </td>
+                    <td className="px-4 py-3 text-foreground">
+                      {PROVIDER_LABELS[item.provider]}
+                    </td>
+                    <td className="px-4 py-3 text-foreground">
+                      {item.destinationCountry}
+                    </td>
+                    <td className="px-4 py-3 text-foreground">
+                      {deliveryTypeLabel(item.deliveryType)}
+                    </td>
+                    <td className="px-4 py-3 font-semibold text-foreground">
+                      {usdFormatter.format(item.amount)}
+                    </td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      {item.paymentMethod}
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>

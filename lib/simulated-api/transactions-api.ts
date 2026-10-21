@@ -20,6 +20,7 @@ export type StoredTransaction = RecentTransaction & {
 export type CreateTransactionInput = {
   customerId: string;
   beneficiaryId: string;
+  beneficiaryIndex: number;
   provider: ProviderId;
   destinationCountry: string;
   deliveryType: DeliveryTypeId;
@@ -136,7 +137,7 @@ export async function createCompletedTransaction(
     terraPayWallet: input.terraPayWallet,
     terraPayAlias: input.terraPayAlias,
     amount: input.amount,
-    beneficiaryIndex: 0,
+    beneficiaryIndex: input.beneficiaryIndex,
     paymentMethod: input.paymentMethod,
   };
 

@@ -168,7 +168,15 @@ export function RecentTransactions({
   const visibleTransactions = transactions.filter((transaction) => {
     const matchesFilter =
       activeFilter === "Todas" || transaction.status === activeFilter;
-    const beneficiary = beneficiaries[transaction.beneficiaryIndex];
+    let beneficiary = beneficiaries[transaction.beneficiaryIndex];
+    if (transaction.beneficiaryId !== undefined) {
+      for (let index = 0; index < beneficiaries.length; index += 1) {
+        if (beneficiaries[index].id === transaction.beneficiaryId) {
+          beneficiary = beneficiaries[index];
+          break;
+        }
+      }
+    }
     const matchesQuery = [
       beneficiary.name,
       `Op. ${transaction.id}`,
@@ -274,7 +282,15 @@ export function RecentTransactions({
     }
 
     return visibleTransactions.slice(0, 3).map((transaction, index) => {
-      const beneficiary = beneficiaries[transaction.beneficiaryIndex];
+      let beneficiary = beneficiaries[transaction.beneficiaryIndex];
+      if (transaction.beneficiaryId !== undefined) {
+        for (let i = 0; i < beneficiaries.length; i += 1) {
+          if (beneficiaries[i].id === transaction.beneficiaryId) {
+            beneficiary = beneficiaries[i];
+            break;
+          }
+        }
+      }
       const selected = transaction.id === selectedId;
 
       return (

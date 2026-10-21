@@ -480,28 +480,37 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   useEffect(() => {
     if (customer === null) {
       beneficiariesLoadedForCustomerIdRef.current = null;
+      transactionsLoadedForCustomerIdRef.current = null;
       setBeneficiaries([]);
       setBeneficiaryForm(createEmptyBeneficiaryDraft());
       setOriginalBeneficiaryForm(null);
+      setRecentTransactions([]);
       return;
     }
-    if (beneficiariesLoadedForCustomerIdRef.current === customer.id) return;
-    beneficiariesLoadedForCustomerIdRef.current = customer.id;
-    void listBeneficiariesByCustomer(customer.id).then((items) => {
-      setBeneficiaries(items);
-      if (items.length === 0) {
-        const emptyDraft = createEmptyBeneficiaryDraft(customer.id);
-        setSelectedBeneficiary(-1);
-        setBeneficiaryForm(emptyDraft);
-        setOriginalBeneficiaryForm(emptyDraft);
-        return;
-      }
-      setSelectedBeneficiary(0);
-      const draft = beneficiaryToRegistrationDraft(items[0]);
-      setBeneficiaryForm(draft);
-      setOriginalBeneficiaryForm(draft);
-      setGuestBeneficiaryChosen(true);
-    });
+    if (beneficiariesLoadedForCustomerIdRef.current !== customer.id) {
+      beneficiariesLoadedForCustomerIdRef.current = customer.id;
+      void listBeneficiariesByCustomer(customer.id).then((items) => {
+        setBeneficiaries(items);
+        if (items.length === 0) {
+          const emptyDraft = createEmptyBeneficiaryDraft(customer.id);
+          setSelectedBeneficiary(-1);
+          setBeneficiaryForm(emptyDraft);
+          setOriginalBeneficiaryForm(emptyDraft);
+          return;
+        }
+        setSelectedBeneficiary(0);
+        const draft = beneficiaryToRegistrationDraft(items[0]);
+        setBeneficiaryForm(draft);
+        setOriginalBeneficiaryForm(draft);
+        setGuestBeneficiaryChosen(true);
+      });
+    }
+    if (transactionsLoadedForCustomerIdRef.current !== customer.id) {
+      transactionsLoadedForCustomerIdRef.current = customer.id;
+      void listTransactionsByCustomer(customer.id).then((items) => {
+        setRecentTransactions(items);
+      });
+    }
   }, [customer]);
 
   const isKnownClient =
@@ -620,10 +629,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     carouselSelectedBeneficiary = -1;
   }
   const beneficiary = beneficiaries[selectedBeneficiary];
-  const recentTransactions =
-    customer === null
-      ? []
-      : TRANSACTIONS_HISTORY.filter((item) => item.customerId === customer.id);
 
   // Autocompleta cotización, beneficiario y pago a partir de una transacción
   // previa; los datos del remitente y PEP ya vienen del cliente encontrado.
@@ -634,24 +639,65 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     isRepeatFlowRef.current = true;
     setDestinationCountry(transaction.destinationCountry);
     setDeliveryType(transaction.deliveryType);
-    setPayingPartner(transaction.payingPartner ?? "");
-    setLocation(transaction.location ?? "");
+    let nextPayingPartner = "";
+    if (transaction.payingPartner !== undefined) {
+      nextPayingPartner = transaction.payingPartner;
+    }
+    setPayingPartner(nextPayingPartner);
+    let nextLocation = "";
+    if (transaction.location !== undefined) {
+      nextLocation = transaction.location;
+    }
+    setLocation(nextLocation);
     setWuService(transaction.wuService);
-    setMoneygramCompany("");
-    setTerraPayBank(transaction.terraPayBank ?? "");
+    let nextMoneygramCompany = "";
+    if (transaction.moneygramCompany !== undefined) {
+      nextMoneygramCompany = transaction.moneygramCompany;
+    }
+    setMoneygramCompany(nextMoneygramCompany);
+    let nextBank = "";
+    if (transaction.terraPayBank !== undefined) {
+      nextBank = transaction.terraPayBank;
+    }
+    setTerraPayBank(nextBank);
     let nextCbu = "";
     if (transaction.terraPayCbu !== undefined) {
       nextCbu = transaction.terraPayCbu;
     }
     setTerraPayCbu(nextCbu);
-    setTerraPayWallet(transaction.terraPayWallet ?? "");
+    let nextWallet = "";
+    if (transaction.terraPayWallet !== undefined) {
+      nextWallet = transaction.terraPayWallet;
+    }
+    setTerraPayWallet(nextWallet);
     let nextAlias = "";
     if (transaction.terraPayAlias !== undefined) {
       nextAlias = transaction.terraPayAlias;
     }
     setTerraPayAlias(nextAlias);
     setSendAmount(usdFormatter.format(transaction.amount));
-    setSelectedBeneficiary(transaction.beneficiaryIndex);
+    let nextBeneficiaryIndex = transaction.beneficiaryIndex;
+    if (transaction.beneficiaryId !== undefined) {
+      for (let index = 0; index < beneficiaries.length; index += 1) {
+        if (beneficiaries[index].id === transaction.beneficiaryId) {
+          nextBeneficiaryIndex = index;
+          break;
+        }
+      }
+    }
+    if (
+      nextBeneficiaryIndex >= 0 &&
+      beneficiaries[nextBeneficiaryIndex] !== undefined
+    ) {
+      const selected = beneficiaries[nextBeneficiaryIndex];
+      setSelectedBeneficiary(nextBeneficiaryIndex);
+      const draft = beneficiaryToRegistrationDraft(selected);
+      setBeneficiaryForm(draft);
+      setOriginalBeneficiaryForm(draft);
+      setGuestBeneficiaryChosen(true);
+    } else {
+      setSelectedBeneficiary(nextBeneficiaryIndex);
+    }
     setPaymentMethod(transaction.paymentMethod);
     setPrimaryCurrency("USD");
     setExtraPayments([]);
@@ -722,11 +768,13 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setGuestBeneficiaryChosen(false);
     remitterFormSyncedCustomerIdRef.current = null;
     beneficiariesLoadedForCustomerIdRef.current = null;
+    transactionsLoadedForCustomerIdRef.current = null;
     setRemitterForm(createEmptyCustomerDraft());
     setOriginalRemitterForm(null);
     setBeneficiaries([]);
     setBeneficiaryForm(createEmptyBeneficiaryDraft());
     setOriginalBeneficiaryForm(null);
+    setRecentTransactions([]);
     setRegisterClientError("");
     setRegisterBeneficiaryError("");
     setStep(2);
@@ -973,11 +1021,95 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   function handleContinue() {
     if (!isReviewStep) return next();
     if (processing) return;
+    if (customer === null) return;
+    if (selectedProvider === null) return;
+    if (deliveryType === "") return;
+    if (quote === null) return;
+
     setProcessing(true);
-    processingTimeoutRef.current = window.setTimeout(() => {
+
+    void (async () => {
+      let beneficiaryId = beneficiaryForm.id.trim();
+      let beneficiaryIndex = selectedBeneficiary;
+      if (beneficiaryId === "" || originalBeneficiaryForm === null) {
+        const savedBeneficiary = await registerBeneficiary({
+          ...beneficiaryForm,
+          customerId: customer.id,
+        });
+        beneficiaryId = savedBeneficiary.beneficiary.id;
+        const items = await listBeneficiariesByCustomer(customer.id);
+        setBeneficiaries(items);
+        const savedDraft = beneficiaryToRegistrationDraft(
+          savedBeneficiary.beneficiary,
+        );
+        setBeneficiaryForm(savedDraft);
+        setOriginalBeneficiaryForm(savedDraft);
+        beneficiaryIndex = 0;
+        for (let index = 0; index < items.length; index += 1) {
+          if (items[index].id === beneficiaryId) {
+            beneficiaryIndex = index;
+            break;
+          }
+        }
+        setSelectedBeneficiary(beneficiaryIndex);
+      } else if (
+        JSON.stringify(beneficiaryForm) !==
+        JSON.stringify(originalBeneficiaryForm)
+      ) {
+        const savedBeneficiary = await registerBeneficiary({
+          ...beneficiaryForm,
+          customerId: customer.id,
+        });
+        beneficiaryId = savedBeneficiary.beneficiary.id;
+        const items = await listBeneficiariesByCustomer(customer.id);
+        setBeneficiaries(items);
+        const savedDraft = beneficiaryToRegistrationDraft(
+          savedBeneficiary.beneficiary,
+        );
+        setBeneficiaryForm(savedDraft);
+        setOriginalBeneficiaryForm(savedDraft);
+        beneficiaryIndex = 0;
+        for (let index = 0; index < items.length; index += 1) {
+          if (items[index].id === beneficiaryId) {
+            beneficiaryIndex = index;
+            break;
+          }
+        }
+        setSelectedBeneficiary(beneficiaryIndex);
+      }
+
+      const savedTransaction = await createCompletedTransaction({
+        customerId: customer.id,
+        beneficiaryId,
+        beneficiaryIndex,
+        provider: selectedProvider,
+        destinationCountry,
+        deliveryType,
+        wuService,
+        moneygramCompany,
+        payingPartner,
+        location,
+        terraPayBank,
+        terraPayCbu,
+        terraPayWallet,
+        terraPayAlias,
+        amount: quote.amount,
+        paymentMethod,
+        service: deliveryTypeLabel(deliveryType),
+      });
+
+      const history = await listTransactionsByCustomer(customer.id);
+      setRecentTransactions(history);
+      transactionsLoadedForCustomerIdRef.current = customer.id;
+      setSelectedTransactionId(savedTransaction.id);
+
+      processingTimeoutRef.current = window.setTimeout(() => {
+        setProcessing(false);
+        setSent(true);
+      }, 1200);
+    })().catch(() => {
       setProcessing(false);
-      setSent(true);
-    }, 2500);
+    });
   }
   function startAnotherQuote() {
     isRepeatFlowRef.current = false;

@@ -2,6 +2,7 @@ import type { Beneficiary } from "@/components/send-money/types";
 import beneficiariesSnapshot from "@/public/data/beneficiaries.snapshot.json";
 import {
   countBeneficiaries,
+  readAllBeneficiaries,
   readBeneficiariesByCustomerId,
   readBeneficiaryById,
   writeBeneficiaries,
@@ -57,8 +58,27 @@ export async function ensureBeneficiariesSeeded(): Promise<void> {
   if (seedPromise !== null) return seedPromise;
   seedPromise = (async () => {
     const existingCount = await countBeneficiaries();
-    if (existingCount > 0) return;
-    await writeBeneficiaries(SEED_BENEFICIARIES);
+    if (existingCount === 0) {
+      await writeBeneficiaries(SEED_BENEFICIARIES);
+      return;
+    }
+    const existing = await readAllBeneficiaries();
+    const seedById = new Map(
+      SEED_BENEFICIARIES.map((item) => [item.id, item] as const),
+    );
+    let changed = false;
+    const next = existing.map((item) => {
+      if (typeof item.nationality === "string") return item;
+      changed = true;
+      const seed = seedById.get(item.id);
+      if (seed !== undefined) {
+        return { ...item, nationality: seed.nationality };
+      }
+      return { ...item, nationality: "" };
+    });
+    if (changed) {
+      await writeBeneficiaries(next);
+    }
   })();
   return seedPromise;
 }

@@ -383,6 +383,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   };
   const selectProviderQuote = (providerQuote: ProviderQuote) => {
     const skipParties = isRepeatFlowRef.current;
+    const providerChanged =
+      selectedProvider !== null && selectedProvider !== providerQuote.provider;
     setSelectedProvider(providerQuote.provider);
     setQuote(providerQuote);
     setActiveSteps(
@@ -392,6 +394,16 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     );
     if (skipParties) {
       setRepeatProvider(providerQuote.provider);
+    }
+    if (providerChanged && !skipParties) {
+      setSelectedBeneficiary(-1);
+      setGuestBeneficiaryChosen(false);
+      setRegisterBeneficiaryError("");
+      setBeneficiaryForm((current) => {
+        const emptyDraft = createEmptyBeneficiaryDraft(current.customerId);
+        setOriginalBeneficiaryForm(emptyDraft);
+        return emptyDraft;
+      });
     }
     window.requestAnimationFrame(() => nextButtonRef.current?.focus());
   };
@@ -1284,7 +1296,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       {!isPartiesStep && (
         <div className="flex gap-3">
           <div className="flex-1 rounded-xl border border-border border-l-4 border-l-party-sender-border bg-card p-3 shadow-sm">
-            <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-party-sender-fg">
+            <p className="text-[0.75rem] font-bold uppercase tracking-[0.12em] text-party-sender-fg">
               Remitente
             </p>
             <p className="mt-1.5 text-sm font-bold text-foreground">
@@ -1300,22 +1312,24 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
               </p>
             )}
           </div>
-          {isKnownClient && beneficiary !== undefined && (
-            <div className="w-1/2 rounded-xl border border-border border-l-4 border-l-party-beneficiary-border bg-card p-3 shadow-sm">
-              <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-party-beneficiary-fg">
-                Beneficiario
-              </p>
-              <p className="mt-1.5 text-sm font-bold text-foreground">
-                {beneficiary.name}
-              </p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                Doc: {beneficiary.document} · {beneficiary.city}
-              </p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                {beneficiary.phone} · {beneficiary.email}
-              </p>
-            </div>
-          )}
+          {isKnownClient &&
+            beneficiary !== undefined &&
+            selectedProvider !== "MONEYGRAM" && (
+              <div className="w-1/2 rounded-xl border border-border border-l-4 border-l-party-beneficiary-border bg-card p-3 shadow-sm">
+                <p className="text-[0.75rem] font-bold uppercase tracking-[0.12em] text-party-beneficiary-fg">
+                  Beneficiario
+                </p>
+                <p className="mt-1.5 text-sm font-bold text-foreground">
+                  {beneficiary.name}
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Doc: {beneficiary.document} · {beneficiary.city}
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {beneficiary.phone} · {beneficiary.email}
+                </p>
+              </div>
+            )}
         </div>
       )}
       <RemittanceSummary
@@ -1518,10 +1532,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                 return (
                   <Stepper.Step key={stepLabel} index={stepIndex}>
                     <div
-                      className={`grid min-h-0 flex-1 gap-4 ${stepIsParties ? "overflow-hidden" : "overflow-y-auto"} ${stepIsReview ? "" : "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]"}`}
+                      className={`grid min-h-0 flex-1 gap-4 ${stepIsParties || stepIsReview ? "overflow-hidden" : "overflow-y-auto"} ${stepIsReview ? "" : "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]"}`}
                     >
                       <div
-                        className={`min-w-0 ${stepIsParties ? "flex h-full min-h-0 flex-col overflow-hidden" : ""} ${stepIsReview ? "mx-auto w-full max-w-[1120px] px-4 sm:px-6" : ""}`}
+                        className={`min-w-0 ${stepIsParties || stepIsReview ? "flex h-full min-h-0 flex-col overflow-hidden" : ""} ${stepIsReview ? "mx-auto w-full max-w-[1120px] px-4 sm:px-6" : ""}`}
                         data-form-fields
                         data-enter-advance={stepIsParties ? "" : undefined}
                       >

@@ -150,8 +150,42 @@ export async function ensureCustomersSeeded(): Promise<void> {
   if (seedPromise !== null) return seedPromise;
   seedPromise = (async () => {
     const existingCount = await countCustomers();
-    if (existingCount > 0) return;
-    await writeCustomers(SEED_CUSTOMERS);
+    if (existingCount === 0) {
+      await writeCustomers(SEED_CUSTOMERS);
+      return;
+    }
+    const existing = await readAllCustomers();
+    const seedById = new Map(
+      SEED_CUSTOMERS.map((item) => [item.id, item] as const),
+    );
+    let changed = false;
+    const next = existing.map((item) => {
+      const seed = seedById.get(item.id);
+      if (seed === undefined) return item;
+      let nextItem = item;
+      if (typeof item.spouseName !== "string") {
+        changed = true;
+        nextItem = { ...nextItem, spouseName: seed.spouseName };
+      }
+      if (
+        typeof item.pep.publicPositions !== "string" ||
+        (item.pep.publicPositions.trim() === "" &&
+          seed.pep.publicPositions.trim() !== "")
+      ) {
+        changed = true;
+        nextItem = {
+          ...nextItem,
+          pep: {
+            ...nextItem.pep,
+            publicPositions: seed.pep.publicPositions,
+          },
+        };
+      }
+      return nextItem;
+    });
+    if (changed) {
+      await writeCustomers(next);
+    }
   })();
   return seedPromise;
 }

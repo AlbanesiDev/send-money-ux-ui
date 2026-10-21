@@ -167,7 +167,15 @@ export function RiaAdditionalInfoStep({
                         }
                         required
                       />
-                      <Field label="Cargos Públicos" required />
+                      <Field
+                        label="Cargos Públicos"
+                        value={
+                          customer === null
+                            ? undefined
+                            : customer.pep.publicPositions
+                        }
+                        required
+                      />
                     </>
                   )}
                   {label === "¿Es allegado a una PEP?" && (

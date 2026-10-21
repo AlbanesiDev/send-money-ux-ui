@@ -42,9 +42,9 @@ function SummarySection({
   }
   return (
     <section
-      className={`rounded-lg border border-l-4 px-3.5 py-2.5 min-h-full ${toneClass}`}
+      className={`flex max-h-[min(70vh,36rem)] min-h-0 flex-col overflow-hidden rounded-lg border border-l-4 px-3.5 py-2.5 lg:max-h-none ${toneClass}`}
     >
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex shrink-0 items-center justify-between gap-3">
         <h2 className={`text-sm font-bold ${titleClass}`}>{title}</h2>
         {onEdit && editLabel && (
           <button
@@ -57,7 +57,7 @@ function SummarySection({
           </button>
         )}
       </div>
-      <dl className="mt-1.5 flex flex-col divide-y divide-border">
+      <dl className="mt-1.5 min-h-0 flex-1 overflow-y-auto pr-1 flex flex-col divide-y divide-border">
         {children}
       </dl>
     </section>
@@ -139,12 +139,12 @@ export function ReviewStep({
   billingSlot: ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-3">
-      <p className="rounded-md border border-warning-border bg-warning-soft px-3 py-2 text-xs text-warning-foreground">
+    <div className="flex h-full min-h-0 flex-col gap-3">
+      <p className="shrink-0 rounded-md border border-warning-border bg-warning-soft px-3 py-2 text-xs text-warning-foreground">
         Confirma con el cliente el monto, el beneficiario y el lugar de pago
         antes de enviar.
       </p>
-      <div className="grid gap-3 lg:grid-cols-2">
+      <div className="grid min-h-0 flex-1 gap-3 overflow-y-auto lg:grid-cols-2 lg:grid-rows-2 lg:overflow-hidden">
         <SummarySection
           title="Confirmar con el cliente"
           onEdit={onEditQuote}
@@ -172,42 +172,40 @@ export function ReviewStep({
             accent
           />
         </SummarySection>
-        <div className="flex flex-col gap-3">
-          <SummarySection
-            title="Pago y facturación"
-            onEdit={onEditPayment}
-            editLabel="Editar pago"
-          >
-            {provider === "TERRAPAY" ? (
-              <>
-                <SummaryRow label="Casa de Cambio" value="Casa Central" />
-                <SummaryRow label="Total" value={formatUsd(totalToCharge)} />
-              </>
-            ) : (
-              <>
-                {paymentLines.map((line) => (
-                  <SummaryRow
-                    key={line.id}
-                    label={line.method || "Método de pago"}
-                    value={
-                      line.currency === "USD"
-                        ? formatUsd(line.amount)
-                        : `${formatAmount(line.amount)} BOB (${formatUsd(line.usdCents / 100)})`
-                    }
-                  />
-                ))}
+        <SummarySection
+          title="Pago y facturación"
+          onEdit={onEditPayment}
+          editLabel="Editar pago"
+        >
+          {provider === "TERRAPAY" ? (
+            <>
+              <SummaryRow label="Casa de Cambio" value="Casa Central" />
+              <SummaryRow label="Total" value={formatUsd(totalToCharge)} />
+            </>
+          ) : (
+            <>
+              {paymentLines.map((line) => (
                 <SummaryRow
-                  label="Total cobrado"
-                  value={formatUsd(totalToCharge)}
+                  key={line.id}
+                  label={line.method || "Método de pago"}
+                  value={
+                    line.currency === "USD"
+                      ? formatUsd(line.amount)
+                      : `${formatAmount(line.amount)} BOB (${formatUsd(line.usdCents / 100)})`
+                  }
                 />
-              </>
-            )}
-            <SummaryRow
-              label="Facturar a"
-              value={`${billingName || "—"} · ${billingNit || "—"}`}
-            />
-          </SummarySection>
-        </div>
+              ))}
+              <SummaryRow
+                label="Total cobrado"
+                value={formatUsd(totalToCharge)}
+              />
+            </>
+          )}
+          <SummaryRow
+            label="Facturar a"
+            value={`${billingName || "—"} · ${billingNit || "—"}`}
+          />
+        </SummarySection>
         <SummarySection
           title="Remitente"
           tone="sender"

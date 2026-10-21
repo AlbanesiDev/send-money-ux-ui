@@ -3,13 +3,11 @@
 import { useRef, useState, type RefObject } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { SearchableSelect } from "@/components/ui/searchable-select";
-import type { PaymentCurrency, PaymentLine, ProviderId } from "../types";
+import type { PaymentCurrency, PaymentLine } from "../types";
 
 const CURRENCIES: PaymentCurrency[] = ["USD", "BOB"];
 
 export type PaymentMethodPanelProps = {
-  provider: ProviderId | null;
-  totalToCharge: number;
   formatUsd: (value: number) => string;
   formatAmount: (value: number) => string;
   bobPerUsd: number;
@@ -30,8 +28,6 @@ export type PaymentMethodPanelProps = {
 };
 
 export function PaymentMethodPanel({
-  provider,
-  totalToCharge,
   formatUsd,
   formatAmount,
   bobPerUsd,
@@ -54,23 +50,6 @@ export function PaymentMethodPanel({
   const availableBob = (primaryCents * bobPerUsd) / 100;
   const primaryAmount =
     primaryCurrency === "USD" ? primaryCents / 100 : availableBob;
-
-  if (provider === "TERRAPAY") {
-    return (
-      <div className="rounded-xl border border-border bg-card p-3 shadow-sm">
-        <p className="text-[0.625rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-          Método de pago
-        </p>
-        <p className="mt-2 text-sm font-semibold text-foreground">
-          Casa de Cambio
-        </p>
-        <p className="mt-0.5 text-xs text-muted-foreground">Casa Central</p>
-        <p className="mt-2 text-sm font-bold text-foreground">
-          {formatUsd(totalToCharge)}
-        </p>
-      </div>
-    );
-  }
 
   const usedLines = [
     { id: -1, method: primaryMethod, currency: primaryCurrency },

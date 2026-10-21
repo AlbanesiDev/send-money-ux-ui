@@ -1383,8 +1383,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
         loading={quoteLoading}
       />
       <PaymentMethodPanel
-        provider={selectedProvider}
-        totalToCharge={totalToCharge}
         formatUsd={formatUsd}
         formatAmount={formatAmount}
         bobPerUsd={BOB_PER_USD}
@@ -1494,7 +1492,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
               </Stepper.Step>
               <Stepper.Step index={2}>
                 <div
-                  className={`grid min-h-0 flex-1 gap-4 overflow-y-auto lg:grid-cols-[minmax(0,1fr)_minmax(10rem,34rem)] ${showFormFooter ? "pb-8" : ""}`}
+                  className={`grid min-h-0 flex-1 overflow-y-auto content-start lg:grid-cols-[minmax(0,1fr)_minmax(10rem,34rem)] ${showPartyCardsAboveShipping ? "gap-x-4 gap-y-2" : "gap-4"} ${showFormFooter ? "pb-8" : ""}`}
                 >
                   {showPartyCardsAboveShipping && (
                     <div className="min-w-0 lg:col-span-2">{partyCards}</div>
@@ -1781,8 +1779,6 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                 <EditPaymentBillingDialog
                   open={editPaymentOpen}
                   onOpenChange={setEditPaymentOpen}
-                  provider={selectedProvider}
-                  totalToCharge={totalToCharge}
                   formatUsd={formatUsd}
                   formatAmount={formatAmount}
                   bobPerUsd={BOB_PER_USD}

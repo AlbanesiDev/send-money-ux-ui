@@ -535,30 +535,21 @@ export function ReviewStep({
           onEdit={onEditPayment}
           editLabel="Editar pago"
         >
-          {provider === "TERRAPAY" ? (
-            <>
-              <SummaryRow label="Casa de Cambio" value="Casa Central" />
-              <SummaryRow label="Total" value={formatUsd(totalToCharge)} />
-            </>
-          ) : (
-            <>
-              {paymentLines.map((line) => (
-                <SummaryRow
-                  key={line.id}
-                  label={line.method || "Método de pago"}
-                  value={
-                    line.currency === "USD"
-                      ? formatUsd(line.amount)
-                      : `${formatAmount(line.amount)} BOB (${formatUsd(line.usdCents / 100)})`
-                  }
-                />
-              ))}
-              <SummaryRow
-                label="Total cobrado"
-                value={formatUsd(totalToCharge)}
-              />
-            </>
-          )}
+          {paymentLines.map((line) => (
+            <SummaryRow
+              key={line.id}
+              label={line.method || "Método de pago"}
+              value={
+                line.currency === "USD"
+                  ? formatUsd(line.amount)
+                  : `${formatAmount(line.amount)} BOB (${formatUsd(line.usdCents / 100)})`
+              }
+            />
+          ))}
+          <SummaryRow
+            label="Total cobrado"
+            value={formatUsd(totalToCharge)}
+          />
           <SummaryRow
             label="Facturar a"
             value={`${billingName || "—"} · ${billingNit || "—"}`}

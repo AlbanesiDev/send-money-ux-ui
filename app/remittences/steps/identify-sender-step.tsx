@@ -299,8 +299,7 @@ export function IdentifySenderStep({
               )}
               {loading ? "Buscando cliente…" : "Buscar"}
             </button>
-            {documentNumber &&
-              result !== "success" &&
+            {result !== "success" &&
               result !== "empty" &&
               result !== "blocked" && (
                 <>

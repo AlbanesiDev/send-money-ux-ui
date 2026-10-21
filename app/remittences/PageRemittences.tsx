@@ -359,7 +359,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       if (requestId !== quoteRequestRef.current) return;
       const quotes = buildProviderQuotes(amount, type);
       const cheapest = [...quotes].sort(
-        (a, b) => a.amount + a.fee + a.tax - (b.amount + b.fee + b.tax),
+        (a, b) => b.amount - b.fee - b.tax - (a.amount - a.fee - a.tax),
       )[0];
       // Al repetir una transacción se mantiene su proveedor.
       const preferredProviderId = override?.provider ?? repeatProvider;
@@ -563,7 +563,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const locationRef = useRef<HTMLButtonElement>(null);
   const sendAmountRef = useRef<HTMLInputElement>(null);
   const paymentMethodRef = useRef<HTMLButtonElement>(null);
-  const totalToCharge = quote ? quote.amount + quote.fee + quote.tax : 0;
+  const totalToCharge = quote ? quote.amount : 0;
   const primaryCents = Math.max(
     0,
     toCents(totalToCharge) -
@@ -1378,11 +1378,17 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
         {processing ? (
           <RemittanceProcessing
             totalSent={formatUsd(quote ? quote.amount : 0)}
+            chargesSubtotal={formatUsd(quote ? quote.fee + quote.tax : 0)}
+            amountReceived={formatUsd(
+              quote ? quote.amount - quote.fee - quote.tax : 0,
+            )}
           />
         ) : sent ? (
           <RemittanceSuccess
             operationNumber={completedOperationNumber}
-            totalSent={formatUsd(quote ? quote.amount : 0)}
+            amountReceived={formatUsd(
+              quote ? quote.amount - quote.fee - quote.tax : 0,
+            )}
             onNewTransaction={onReset}
             onRepeatClient={startAnotherQuote}
             onSameBeneficiary={startAnotherQuote}

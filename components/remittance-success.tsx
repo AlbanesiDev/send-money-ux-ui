@@ -12,7 +12,11 @@ import {
   Users,
 } from "lucide-react";
 
-export function RemittanceProcessing({ totalSent }: { totalSent: string }) {
+export function RemittanceProcessing({
+  amountReceived,
+}: {
+  amountReceived: string;
+}) {
   return (
     <div
       className="flex min-h-0 flex-1 items-center justify-center overflow-y-auto bg-card p-6 sm:p-12"
@@ -42,7 +46,7 @@ export function RemittanceProcessing({ totalSent }: { totalSent: string }) {
         <div className="mt-8 flex w-full max-w-md items-center justify-between gap-4 rounded-xl border border-amount/25 bg-secondary p-5 text-left shadow-sm">
           <span className="text-sm text-muted-foreground">Total a enviar</span>
           <span className="text-lg font-bold tabular-nums text-amount">
-            {totalSent}
+            {amountReceived}
           </span>
         </div>
         <div
@@ -58,7 +62,7 @@ export function RemittanceProcessing({ totalSent }: { totalSent: string }) {
 
 type RemittanceSuccessProps = {
   operationNumber: string;
-  totalSent: string;
+  amountReceived: string;
   onNewTransaction: () => void;
   onRepeatClient: () => void;
   onSameBeneficiary: () => void;
@@ -69,7 +73,7 @@ const secondaryButton =
 
 export function RemittanceSuccess({
   operationNumber,
-  totalSent,
+  amountReceived,
   onNewTransaction,
   onRepeatClient,
   onSameBeneficiary,
@@ -135,7 +139,7 @@ export function RemittanceSuccess({
           <div className="flex items-center justify-between gap-4 pt-4">
             <dt className="text-sm text-muted-foreground">Total enviado</dt>
             <dd className="text-lg font-bold tabular-nums text-amount">
-              {totalSent}
+              {amountReceived}
             </dd>
           </div>
         </dl>

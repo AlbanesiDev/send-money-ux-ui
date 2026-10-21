@@ -167,10 +167,11 @@ export function ReviewStep({
           <SummaryRow label="Cargo" value={formatUsd(quote.fee)} />
           <SummaryRow label="IVA" value={formatUsd(quote.tax)} />
           <SummaryRow
-            label="Total a cobrar"
-            value={formatUsd(totalToCharge)}
+            label="Recibe el beneficiario"
+            value={formatUsd(quote.amount - quote.fee - quote.tax)}
             accent
           />
+          <SummaryRow label="Total a cobrar" value={formatUsd(totalToCharge)} />
         </SummarySection>
         <SummarySection
           title="Pago y facturación"

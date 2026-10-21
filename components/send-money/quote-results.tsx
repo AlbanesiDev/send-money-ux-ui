@@ -10,8 +10,8 @@ function formatUsd(value: number) {
   return `${usdFormatter.format(value)} USD`;
 }
 
-function quoteTotal(quote: ProviderQuote) {
-  return quote.amount + quote.fee + quote.tax;
+function amountReceived(quote: ProviderQuote) {
+  return quote.amount - quote.fee - quote.tax;
 }
 
 export function QuoteResults({
@@ -26,13 +26,13 @@ export function QuoteResults({
   loading: boolean;
 }) {
   const sortedQuotes = [...quotes].sort(
-    (a, b) => quoteTotal(a) - quoteTotal(b),
+    (a, b) => amountReceived(b) - amountReceived(a),
   );
   const bestQuote = sortedQuotes[0];
   const nextQuote = sortedQuotes[1];
-  const bestTotal = bestQuote ? quoteTotal(bestQuote) : 0;
+  const bestReceived = bestQuote ? amountReceived(bestQuote) : 0;
   const savingsVsNext =
-    bestQuote && nextQuote ? quoteTotal(nextQuote) - bestTotal : 0;
+    bestQuote && nextQuote ? bestReceived - amountReceived(nextQuote) : 0;
 
   return (
     <div className="flex flex-row items-stretch gap-2 pt-2">
@@ -40,16 +40,17 @@ export function QuoteResults({
         const selected = !loading && selectedProvider === quote.provider;
         const isBestPrice =
           bestQuote !== undefined && quote.provider === bestQuote.provider;
-        const total = quoteTotal(quote);
-        const extraVsBest = total - bestTotal;
+        const received = amountReceived(quote);
+        const chargesSubtotal = quote.fee + quote.tax;
+        const lessThanBest = bestReceived - received;
 
         let comparison: string | null = null;
         let comparisonClass = "text-transparent";
         if (!loading && isBestPrice && savingsVsNext > 0 && nextQuote) {
-          comparison = `Ahorrás ${formatUsd(savingsVsNext)} vs ${nextQuote.label}`;
+          comparison = `Llega ${formatUsd(savingsVsNext)} más vs ${nextQuote.label}`;
           comparisonClass = "text-success";
-        } else if (!loading && !isBestPrice && selected && extraVsBest > 0) {
-          comparison = `Pagás ${formatUsd(extraVsBest)} más que el mejor precio`;
+        } else if (!loading && !isBestPrice && selected && lessThanBest > 0) {
+          comparison = `Llega ${formatUsd(lessThanBest)} menos que el mejor precio`;
           comparisonClass = "text-warning-foreground";
         }
 
@@ -124,6 +125,16 @@ export function QuoteResults({
                   </dd>
                 )}
               </div>
+              <div className="flex justify-between gap-3">
+                <dt className="text-muted-foreground">Subtotal cargos</dt>
+                {loading ? (
+                  <dd className="skeleton h-4 w-20 rounded" />
+                ) : (
+                  <dd className="font-semibold tabular-nums text-foreground">
+                    {formatUsd(chargesSubtotal)}
+                  </dd>
+                )}
+              </div>
               <div className="mb-3 flex justify-between gap-3">
                 <dt className="text-muted-foreground">Tasa</dt>
                 {loading ? (
@@ -135,12 +146,12 @@ export function QuoteResults({
                 )}
               </div>
               <div className="flex justify-between gap-3 border-t border-border pt-3">
-                <dt className="font-bold text-foreground">Total</dt>
+                <dt className="font-bold text-foreground">Recibe</dt>
                 {loading ? (
                   <dd className="skeleton h-4 w-24 rounded" />
                 ) : (
                   <dd className="font-bold tabular-nums text-amount">
-                    {formatUsd(total)}
+                    {formatUsd(received)}
                   </dd>
                 )}
               </div>

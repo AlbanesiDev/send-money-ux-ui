@@ -164,6 +164,9 @@ export function QuoteStep({
   showTerraPayBank,
   showTerraPayWallet,
 }: QuoteStepProps) {
+  const selectedQuote = providerQuotes.find(
+    (item) => item.provider === selectedProvider,
+  );
   const requestQuoteRef = useRef(requestQuote);
   requestQuoteRef.current = requestQuote;
   const quoteDebounceRef = useRef<number | null>(null);
@@ -462,13 +465,11 @@ export function QuoteStep({
           <Field
             label="Monto que recibe"
             value={
-              sendAmount
+              selectedQuote
                 ? formatUsd(
-                    Number(
-                      normalizeAmount(sendAmount)
-                        .replace(/\./g, "")
-                        .replace(",", "."),
-                    ),
+                    selectedQuote.amount -
+                      selectedQuote.fee -
+                      selectedQuote.tax,
                   )
                 : ""
             }

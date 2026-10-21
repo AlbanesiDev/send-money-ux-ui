@@ -74,12 +74,16 @@ export function RemittanceSummary({
             <dd className={valueClass}>{formatUsd(row.value)}</dd>
           </div>
         ))}
+        <div className="flex justify-between">
+          <dt className="text-muted-foreground">Subtotal cargos</dt>
+          <dd className={valueClass}>{formatUsd(fee + tax)}</dd>
+        </div>
         <div className="mt-2.5 flex justify-between border-t border-border pt-2.5 text-base">
-          <dt className="font-bold text-foreground">Total</dt>
+          <dt className="font-bold text-foreground">Recibe el beneficiario</dt>
           <dd
             className={`font-bold tabular-nums text-summary-fg ${loading ? "animate-pulse opacity-40" : ""}`}
           >
-            {formatUsd(amount + fee + tax)}
+            {formatUsd(amount - fee - tax)}
           </dd>
         </div>
       </dl>

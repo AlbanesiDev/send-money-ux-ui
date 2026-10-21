@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { useRef } from "react";
 import { SearchableSelect } from "@/components/ui/searchable-select";
 import documentTypesCatalog from "@/public/catalogs/catalog-document-types.json";
+import maritalStatusCatalog from "@/public/catalogs/catalog-marital-status.json";
 import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
 import { CountryField } from "../../country-field";
 import { DateField } from "../../date-field";
@@ -11,6 +12,10 @@ import { Field } from "../../field";
 import type { RemitterFormChangeHandler } from "../wu/remitter-step";
 
 const DOCUMENT_TYPE_OPTIONS = documentTypesCatalog.map((item) => item.name);
+const CIVIL_STATUS_OPTIONS = maritalStatusCatalog.items.map(
+  (item) => item.maritalStatus.description,
+);
+const MARRIED_CIVIL_STATUS = "Casado";
 
 export function TerrapayRemitterStep({
   documentNumber,
@@ -28,6 +33,8 @@ export function TerrapayRemitterStep({
   footerSlot?: ReactNode;
 }) {
   const documentTypeRef = useRef<HTMLButtonElement>(null);
+  const civilStatusRef = useRef<HTMLButtonElement>(null);
+  const showSpouseName = form.civilStatus === MARRIED_CIVIL_STATUS;
 
   let issueMaxDate = "";
   if (form.documentExpiryDate.length === 10) {
@@ -158,8 +165,27 @@ export function TerrapayRemitterStep({
           required
           onChange={(value) => onFormChange("gender", value)}
         />
-        <Field label="Estado civil" required />
-        <Field label="Nombre del cónyuge" />
+        <SearchableSelect
+          fieldRef={civilStatusRef}
+          label="Estado civil"
+          value={form.civilStatus}
+          options={CIVIL_STATUS_OPTIONS}
+          required
+          onChange={(value) => {
+            onFormChange("civilStatus", value);
+            if (value !== MARRIED_CIVIL_STATUS) {
+              onFormChange("spouseName", "");
+            }
+          }}
+        />
+        {showSpouseName && (
+          <Field
+            label="Nombre del cónyuge"
+            value={form.spouseName}
+            required
+            onChange={(value) => onFormChange("spouseName", value)}
+          />
+        )}
         <Field
           label="Correo electrónico"
           value={form.email}

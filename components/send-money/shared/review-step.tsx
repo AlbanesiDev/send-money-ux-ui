@@ -310,6 +310,16 @@ export function ReviewStep({
               />
               <SummaryRow label="Género" value={remitterForm.gender || "—"} />
               <SummaryRow
+                label="Estado civil"
+                value={remitterForm.civilStatus || "—"}
+              />
+              {remitterForm.civilStatus === "Casado" && (
+                <SummaryRow
+                  label="Nombre del cónyuge"
+                  value={remitterForm.spouseName || "—"}
+                />
+              )}
+              <SummaryRow
                 label="Correo electrónico"
                 value={remitterForm.email || "—"}
               />
@@ -458,7 +468,10 @@ export function ReviewStep({
                 label="Correo electrónico"
                 value={beneficiaryForm.email || "—"}
               />
-              <SummaryRow label="Nacionalidad" value="Boliviana" />
+              <SummaryRow
+                label="Nacionalidad"
+                value={beneficiaryForm.nationality || "—"}
+              />
               <SummaryRow label="País Residencia" value="Bolivia" />
               <SummaryRow
                 label="Calle/Numero"
@@ -491,7 +504,10 @@ export function ReviewStep({
                 label="Nro. ID beneficiario"
                 value={beneficiaryForm.document || "—"}
               />
-              <SummaryRow label="Nacionalidad" value="Boliviana" />
+              <SummaryRow
+                label="Nacionalidad"
+                value={beneficiaryForm.nationality || "—"}
+              />
               <SummaryRow label="Código Postal" value="0000" />
               <SummaryRow label="Cód. Móvil" value="+591" />
               <SummaryRow

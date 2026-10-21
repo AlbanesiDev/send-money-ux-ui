@@ -73,7 +73,12 @@ export function RiaBeneficiaryStep({
           email
           onChange={(value) => onFormChange("email", value)}
         />
-        <Field label="Nacionalidad" value="Boliviana" disabled required />
+        <CountryField
+          label="Nacionalidad"
+          value={form.nationality}
+          required
+          onChange={(value) => onFormChange("nationality", value)}
+        />
         <CountryField
           label="País Residencia"
           value="Bolivia"

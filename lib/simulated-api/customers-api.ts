@@ -27,6 +27,8 @@ export type CustomerRegistrationDraft = {
   birthCountry: string;
   nationality: string;
   gender: string;
+  civilStatus: string;
+  spouseName: string;
   email: string;
   phone: string;
   mobile: string;
@@ -123,6 +125,8 @@ function applyDraftToCustomer(
     birthCountry: draft.birthCountry,
     nationality: draft.nationality,
     gender: draft.gender,
+    civilStatus: draft.civilStatus,
+    spouseName: draft.spouseName,
     email: draft.email,
     emailMasked: maskEmail(draft.email),
     phone: draft.phone,
@@ -227,7 +231,8 @@ export async function registerCustomer(
     birthCountry: draft.birthCountry,
     nationality: draft.nationality,
     gender: draft.gender,
-    civilStatus: "",
+    civilStatus: draft.civilStatus,
+    spouseName: draft.spouseName,
     email: draft.email,
     emailMasked: maskEmail(draft.email),
     phone: draft.phone,
@@ -267,6 +272,8 @@ export function createEmptyCustomerDraft(
     birthCountry: "",
     nationality: "",
     gender: "",
+    civilStatus: "",
+    spouseName: "",
     email: "",
     phone: "",
     mobile: "",
@@ -291,6 +298,15 @@ export function customerToRegistrationDraft(
     documentNumber = customer.documentNumbers[0];
   }
 
+  let civilStatus = "";
+  if (typeof customer.civilStatus === "string") {
+    civilStatus = customer.civilStatus;
+  }
+  let spouseName = "";
+  if (typeof customer.spouseName === "string") {
+    spouseName = customer.spouseName;
+  }
+
   return {
     documentNumber,
     documentType: customer.documentType,
@@ -305,6 +321,8 @@ export function customerToRegistrationDraft(
     birthCountry: customer.birthCountry,
     nationality: customer.nationality,
     gender: customer.gender,
+    civilStatus,
+    spouseName,
     email: customer.email,
     phone: customer.phone,
     mobile: customer.mobile,

@@ -20,6 +20,7 @@ export type BeneficiaryRegistrationDraft = {
   secondLastName: string;
   documentType: string;
   document: string;
+  nationality: string;
   state: string;
   city: string;
   street: string;
@@ -122,6 +123,7 @@ export async function registerBeneficiary(
       name,
       documentType: draft.documentType,
       document,
+      nationality: draft.nationality,
       state: draft.state,
       city: draft.city,
       street: draft.street,
@@ -143,6 +145,7 @@ export async function registerBeneficiary(
     name,
     documentType: draft.documentType,
     document,
+    nationality: draft.nationality,
     state: draft.state,
     city: draft.city,
     street: draft.street,
@@ -166,6 +169,7 @@ export function createEmptyBeneficiaryDraft(
     secondLastName: "",
     documentType: "",
     document: "",
+    nationality: "",
     state: "",
     city: "",
     street: "",
@@ -178,6 +182,10 @@ export function createEmptyBeneficiaryDraft(
 export function beneficiaryToRegistrationDraft(
   beneficiary: Beneficiary,
 ): BeneficiaryRegistrationDraft {
+  let nationality = "";
+  if (typeof beneficiary.nationality === "string") {
+    nationality = beneficiary.nationality;
+  }
   return {
     id: beneficiary.id,
     customerId: beneficiary.customerId,
@@ -187,6 +195,7 @@ export function beneficiaryToRegistrationDraft(
     secondLastName: beneficiary.secondLastName,
     documentType: beneficiary.documentType,
     document: beneficiary.document,
+    nationality,
     state: beneficiary.state,
     city: beneficiary.city,
     street: beneficiary.street,

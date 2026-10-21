@@ -118,6 +118,8 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
           additionalChecks={props.additionalChecks}
           onChange={props.onAdditionalCheckChange}
           customer={props.customer}
+          remitterForm={props.remitterForm}
+          onRemitterFormChange={props.onRemitterFormChange}
         />
       );
     } else if (props.provider === "WU" || props.provider === "MONEYGRAM") {

@@ -3,6 +3,7 @@
 import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
 import { Field } from "../../field";
 import type { BeneficiaryFormChangeHandler } from "../wu/beneficiary-step";
+import { CountryField } from "../../country-field";
 
 export function TerrapayBeneficiaryStep({
   form,
@@ -35,7 +36,12 @@ export function TerrapayBeneficiaryStep({
           numericOnly
           onChange={(value) => onFormChange("document", value)}
         />
-        <Field label="Nacionalidad" value="Boliviana" disabled />
+        <CountryField
+          label="Nacionalidad"
+          value={form.nationality}
+          required
+          onChange={(value) => onFormChange("nationality", value)}
+        />
         <Field label="Código Postal" value="0000" disabled />
         <Field label="Cód. Móvil" value="+591" disabled required />
         <Field

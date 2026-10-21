@@ -1,5 +1,12 @@
+"use client";
+
+import { useRef } from "react";
+import { SearchableSelect } from "@/components/ui/searchable-select";
+import maritalStatusCatalog from "@/public/catalogs/catalog-marital-status.json";
+import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
 import type { Customer } from "../../types";
 import { Field } from "../../field";
+import type { RemitterFormChangeHandler } from "../wu/remitter-step";
 
 const CHECK_LABELS = [
   "Información adicional",
@@ -8,15 +15,27 @@ const CHECK_LABELS = [
   "Transacción sospechosa o inusual",
 ] as const;
 
+const CIVIL_STATUS_OPTIONS = maritalStatusCatalog.items.map(
+  (item) => item.maritalStatus.description,
+);
+const MARRIED_CIVIL_STATUS = "Casado";
+
 export function RiaAdditionalInfoStep({
   additionalChecks,
   onChange,
   customer,
+  remitterForm,
+  onRemitterFormChange,
 }: {
   additionalChecks: Record<string, boolean>;
   onChange: (label: string, checked: boolean) => void;
   customer: Customer | null;
+  remitterForm: CustomerRegistrationDraft;
+  onRemitterFormChange: RemitterFormChangeHandler;
 }) {
+  const civilStatusRef = useRef<HTMLButtonElement>(null);
+  const showSpouseName = remitterForm.civilStatus === MARRIED_CIVIL_STATUS;
+
   return (
     <div className="space-y-5">
       <h2 className="font-bold">Declaraciones de la operación</h2>
@@ -88,14 +107,29 @@ export function RiaAdditionalInfoStep({
                         }
                         required
                       />
-                      <Field
+                      <SearchableSelect
+                        fieldRef={civilStatusRef}
                         label="Estado Civil"
-                        value={
-                          customer === null ? undefined : customer.civilStatus
-                        }
+                        value={remitterForm.civilStatus}
+                        options={CIVIL_STATUS_OPTIONS}
                         required
+                        onChange={(value) => {
+                          onRemitterFormChange("civilStatus", value);
+                          if (value !== MARRIED_CIVIL_STATUS) {
+                            onRemitterFormChange("spouseName", "");
+                          }
+                        }}
                       />
-                      <Field label="Nombre(s) y Apellidos del cónyugue" />
+                      {showSpouseName && (
+                        <Field
+                          label="Nombre(s) y Apellidos del cónyuge"
+                          value={remitterForm.spouseName}
+                          required
+                          onChange={(value) =>
+                            onRemitterFormChange("spouseName", value)
+                          }
+                        />
+                      )}
                       <Field
                         label="Ingreso Mensual"
                         value={

@@ -70,6 +70,7 @@ export type Customer = {
   nationality: string;
   gender: string;
   civilStatus: string;
+  spouseName: string;
   email: string;
   emailMasked: string;
   phone: string;
@@ -97,6 +98,7 @@ export type Beneficiary = {
   name: string;
   documentType: string;
   document: string;
+  nationality: string;
   state: string;
   city: string;
   street: string;

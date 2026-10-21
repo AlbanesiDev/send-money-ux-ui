@@ -1,10 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState, type RefObject } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type RefObject,
+} from "react";
+import { createPortal } from "react-dom";
 import { CountryFlag } from "@/components/ui/country-flag";
 import { ChevronDownIcon, XIcon } from "lucide-react";
 
 const REQUIRED_MESSAGE = "Este campo es requerido";
+const MENU_GAP_PX = 4;
+const MENU_Z_INDEX = 200;
 
 export type SearchableSelectProps = {
   label: string;
@@ -45,7 +55,9 @@ export function SearchableSelect({
   const [filter, setFilter] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const [touched, setTouched] = useState(false);
+  const [menuStyle, setMenuStyle] = useState<CSSProperties | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const filterRef = useRef<HTMLInputElement>(null);
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const filteredOptions = options.filter((option) =>
@@ -68,6 +80,46 @@ export function SearchableSelect({
         (nextRef ?? fieldRef).current?.focus();
     });
   };
+
+  const updateMenuPosition = () => {
+    const trigger = fieldRef.current;
+    if (trigger === null) return;
+    const rect = trigger.getBoundingClientRect();
+    if (dropdownSide === "top") {
+      setMenuStyle({
+        position: "fixed",
+        left: rect.left,
+        width: rect.width,
+        bottom: window.innerHeight - rect.top + MENU_GAP_PX,
+        zIndex: MENU_Z_INDEX,
+      });
+      return;
+    }
+    setMenuStyle({
+      position: "fixed",
+      left: rect.left,
+      width: rect.width,
+      top: rect.bottom + MENU_GAP_PX,
+      zIndex: MENU_Z_INDEX,
+    });
+  };
+
+  useLayoutEffect(() => {
+    if (!open) {
+      setMenuStyle(null);
+      return;
+    }
+    updateMenuPosition();
+    function handleReposition() {
+      updateMenuPosition();
+    }
+    window.addEventListener("resize", handleReposition);
+    window.addEventListener("scroll", handleReposition, true);
+    return () => {
+      window.removeEventListener("resize", handleReposition);
+      window.removeEventListener("scroll", handleReposition, true);
+    };
+  }, [open, dropdownSide]);
 
   useEffect(() => {
     if (!open) return;
@@ -111,6 +163,7 @@ export function SearchableSelect({
       const target = event.target;
       if (!(target instanceof Node)) return;
       if (rootRef.current?.contains(target)) return;
+      if (dropdownRef.current?.contains(target)) return;
       setOpen(false);
       setFilter("");
       setTouched(true);
@@ -142,107 +195,13 @@ export function SearchableSelect({
       " border-input focus:border-brand focus:ring-4 focus:ring-brand/10";
   }
 
-  return (
-    <div
-      ref={rootRef}
-      className={`block w-full min-w-0 self-start ${open ? "relative z-50" : "relative z-0"}`}
-    >
-      <span
-        className={
-          hideLabel
-            ? "sr-only"
-            : "mb-1 block text-sm font-semibold text-foreground"
-        }
-      >
-        {label}
-      </span>
-      <div className="relative">
-        <button
-          ref={fieldRef}
-          aria-label={
-            hideLabel ? `${label}: ${value || "sin seleccionar"}` : undefined
-          }
-          type="button"
-          disabled={disabled}
-          aria-disabled={loading || undefined}
-          aria-busy={loading}
-          aria-required={required || undefined}
-          aria-invalid={hasError}
-          onClick={() => {
-            if (loading) return;
-            setOpen((current) => {
-              if (current) {
-                window.requestAnimationFrame(() => markTouched());
-              }
-              return !current;
-            });
-          }}
-          onBlur={(event) => {
-            const nextTarget = event.relatedTarget;
-            if (
-              nextTarget instanceof Node &&
-              rootRef.current?.contains(nextTarget)
-            ) {
-              return;
-            }
-            markTouched();
-          }}
-          onKeyDown={(event) => {
-            if (loading || disabled) return;
-            if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-              event.preventDefault();
-              setOpen(true);
-            }
-          }}
-          aria-haspopup="listbox"
-          aria-expanded={open}
-          className={buttonClassName}
-        >
-          {loading ? (
-            <span role="status" className="flex items-center gap-2 text-brand">
-              <span
-                aria-hidden="true"
-                className="h-4 w-4 animate-spin rounded-full border-2 border-brand/30 border-t-brand-strong"
-              />
-              Cargando {label.toLowerCase()}...
-            </span>
-          ) : (
-            <span
-              className={`flex min-w-0 items-center gap-2 ${value ? "" : "text-muted-foreground"}`}
-            >
-              {showFlags && value && <CountryFlag country={value} />}
-              <span className="truncate">
-                {value || `Selecciona ${label.toLowerCase()}`}
-              </span>
-            </span>
-          )}
-        </button>
-        {clearable && value && !disabled && !loading && (
-          <button
-            type="button"
-            aria-label={`Limpiar ${label.toLowerCase()}`}
-            onClick={() => {
-              onChange("");
-              setOpen(false);
-              setFilter("");
-              window.requestAnimationFrame(() => fieldRef.current?.focus());
-            }}
-            className="absolute top-1/2 right-8 grid size-5 -translate-y-1/2 place-items-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-brand/20"
-          >
-            <XIcon className="h-3.5 w-3.5" />
-          </button>
-        )}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-foreground"
-        >
-          <ChevronDownIcon className="h-4 w-4" />
-        </span>
-        {open && (
+  const menu =
+    open && menuStyle !== null
+      ? createPortal(
           <div
-            className={`absolute inset-x-0 z-50 rounded-lg border border-border bg-popover p-2 text-popover-foreground shadow-lg ${
-              dropdownSide === "top" ? "bottom-full mb-1" : "top-full mt-1"
-            }`}
+            ref={dropdownRef}
+            style={menuStyle}
+            className="rounded-lg border border-border bg-popover p-2 text-popover-foreground shadow-lg"
           >
             <input
               ref={filterRef}
@@ -322,8 +281,106 @@ export function SearchableSelect({
                 </p>
               )}
             </div>
-          </div>
+          </div>,
+          document.body,
+        )
+      : null;
+
+  return (
+    <div ref={rootRef} className="relative z-0 block w-full min-w-0 self-start">
+      <span
+        className={
+          hideLabel
+            ? "sr-only"
+            : "mb-1 block text-sm font-semibold text-foreground"
+        }
+      >
+        {label}
+      </span>
+      <div className="relative">
+        <button
+          ref={fieldRef}
+          aria-label={
+            hideLabel ? `${label}: ${value || "sin seleccionar"}` : undefined
+          }
+          type="button"
+          disabled={disabled}
+          aria-disabled={loading || undefined}
+          aria-busy={loading}
+          aria-required={required || undefined}
+          aria-invalid={hasError}
+          onClick={() => {
+            if (loading) return;
+            setOpen((current) => {
+              if (current) {
+                window.requestAnimationFrame(() => markTouched());
+              }
+              return !current;
+            });
+          }}
+          onBlur={(event) => {
+            const nextTarget = event.relatedTarget;
+            if (
+              nextTarget instanceof Node &&
+              (rootRef.current?.contains(nextTarget) ||
+                dropdownRef.current?.contains(nextTarget))
+            ) {
+              return;
+            }
+            markTouched();
+          }}
+          onKeyDown={(event) => {
+            if (loading || disabled) return;
+            if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+              event.preventDefault();
+              setOpen(true);
+            }
+          }}
+          aria-haspopup="listbox"
+          aria-expanded={open}
+          className={buttonClassName}
+        >
+          {loading ? (
+            <span role="status" className="flex items-center gap-2 text-brand">
+              <span
+                aria-hidden="true"
+                className="h-4 w-4 animate-spin rounded-full border-2 border-brand/30 border-t-brand-strong"
+              />
+              Cargando {label.toLowerCase()}...
+            </span>
+          ) : (
+            <span
+              className={`flex min-w-0 items-center gap-2 ${value ? "" : "text-muted-foreground"}`}
+            >
+              {showFlags && value && <CountryFlag country={value} />}
+              <span className="truncate">
+                {value || `Selecciona ${label.toLowerCase()}`}
+              </span>
+            </span>
+          )}
+        </button>
+        {clearable && value && !disabled && !loading && (
+          <button
+            type="button"
+            aria-label={`Limpiar ${label.toLowerCase()}`}
+            onClick={() => {
+              onChange("");
+              setOpen(false);
+              setFilter("");
+              window.requestAnimationFrame(() => fieldRef.current?.focus());
+            }}
+            className="absolute top-1/2 right-8 grid size-5 -translate-y-1/2 place-items-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-brand/20"
+          >
+            <XIcon className="h-3.5 w-3.5" />
+          </button>
         )}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-foreground"
+        >
+          <ChevronDownIcon className="h-4 w-4" />
+        </span>
+        {menu}
         {hasError && (
           <span
             role="alert"

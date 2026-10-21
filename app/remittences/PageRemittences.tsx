@@ -431,7 +431,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [isRegisteringBeneficiary, setIsRegisteringBeneficiary] =
     useState(false);
   const [registerBeneficiaryError, setRegisterBeneficiaryError] = useState("");
-  const [selectedBeneficiary, setSelectedBeneficiary] = useState(0);
+  const [selectedBeneficiary, setSelectedBeneficiary] = useState(-1);
   const [recentTransactions, setRecentTransactions] = useState<
     StoredTransaction[]
   >([]);
@@ -501,6 +501,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       beneficiariesLoadedForCustomerIdRef.current = null;
       transactionsLoadedForCustomerIdRef.current = null;
       setBeneficiaries([]);
+      setSelectedBeneficiary(-1);
       setBeneficiaryForm(createEmptyBeneficiaryDraft());
       setOriginalBeneficiaryForm(null);
       setRecentTransactions([]);
@@ -512,18 +513,11 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       void listBeneficiariesByCustomer(customerId).then((items) => {
         if (beneficiariesLoadedForCustomerIdRef.current !== customerId) return;
         setBeneficiaries(items);
-        if (items.length === 0) {
-          const emptyDraft = createEmptyBeneficiaryDraft(customerId);
-          setSelectedBeneficiary(-1);
-          setBeneficiaryForm(emptyDraft);
-          setOriginalBeneficiaryForm(emptyDraft);
-          return;
-        }
-        setSelectedBeneficiary(0);
-        const draft = beneficiaryToRegistrationDraft(items[0]);
-        setBeneficiaryForm(draft);
-        setOriginalBeneficiaryForm(draft);
-        setGuestBeneficiaryChosen(true);
+        const emptyDraft = createEmptyBeneficiaryDraft(customerId);
+        setSelectedBeneficiary(-1);
+        setBeneficiaryForm(emptyDraft);
+        setOriginalBeneficiaryForm(emptyDraft);
+        setGuestBeneficiaryChosen(false);
       });
     }
     if (transactionsLoadedForCustomerIdRef.current !== customerId) {
@@ -648,10 +642,11 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const showSaveBeneficiaryButton = customer !== null && isBeneficiaryFormDirty;
   const showFrequentBeneficiaries = customer !== null;
   let carouselSelectedBeneficiary = selectedBeneficiary;
-  if (isGuestFlow && !guestBeneficiaryChosen) {
+  if (selectedBeneficiary < 0 || (isGuestFlow && !guestBeneficiaryChosen)) {
     carouselSelectedBeneficiary = -1;
   }
-  const beneficiary = beneficiaries[selectedBeneficiary];
+  const beneficiary =
+    selectedBeneficiary >= 0 ? beneficiaries[selectedBeneficiary] : undefined;
 
   // Autocompleta cotización, beneficiario y pago a partir de una transacción
   // previa; los datos del remitente y PEP ya vienen del cliente encontrado.
@@ -743,7 +738,16 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setDeliveryType("");
     clearDeliveryExtras();
     clearAmount();
-    setSelectedBeneficiary(0);
+    setSelectedBeneficiary(-1);
+    setGuestBeneficiaryChosen(false);
+    if (customer !== null) {
+      const emptyDraft = createEmptyBeneficiaryDraft(customer.id);
+      setBeneficiaryForm(emptyDraft);
+      setOriginalBeneficiaryForm(emptyDraft);
+    } else {
+      setBeneficiaryForm(createEmptyBeneficiaryDraft());
+      setOriginalBeneficiaryForm(null);
+    }
     setPaymentMethod("Pago en efectivo");
     setPrimaryCurrency("USD");
     setExtraPayments([]);
@@ -782,7 +786,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setResult(null);
     setDocumentNumber("");
     setAdditionalChecks({});
-    setSelectedBeneficiary(0);
+    setSelectedBeneficiary(-1);
     setSelectedTransactionId(null);
     setGuestLookupStatus("idle");
     setGuestFoundCustomer(null);
@@ -808,7 +812,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setGuestAutofillCustomer(null);
     setGuestFoundCustomer(null);
     setGuestBeneficiaryChosen(false);
-    setSelectedBeneficiary(0);
+    setSelectedBeneficiary(-1);
     remitterFormSyncedCustomerIdRef.current = null;
     if (hadAutofill) {
       setRemitterForm(createEmptyCustomerDraft(value, documentType));
@@ -844,7 +848,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     remitterFormSyncedCustomerIdRef.current = null;
     setGuestAutofillCustomer(guestFoundCustomer);
     setGuestBeneficiaryChosen(false);
-    setSelectedBeneficiary(0);
+    setSelectedBeneficiary(-1);
     setGuestLookupStatus("autofilled");
     setRegisterClientError("");
   }
@@ -861,6 +865,20 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   }
 
   function selectBeneficiary(index: number) {
+    if (selectedBeneficiary === index) {
+      setSelectedBeneficiary(-1);
+      setGuestBeneficiaryChosen(false);
+      if (customer !== null) {
+        const emptyDraft = createEmptyBeneficiaryDraft(customer.id);
+        setBeneficiaryForm(emptyDraft);
+        setOriginalBeneficiaryForm(emptyDraft);
+      } else {
+        setBeneficiaryForm(createEmptyBeneficiaryDraft());
+        setOriginalBeneficiaryForm(null);
+      }
+      setRegisterBeneficiaryError("");
+      return;
+    }
     setSelectedBeneficiary(index);
     if (isGuestFlow) {
       setGuestBeneficiaryChosen(true);

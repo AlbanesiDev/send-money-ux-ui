@@ -15,7 +15,7 @@ export function CancelOperationDialog({
 }: CancelOperationDialogProps) {
   return (
     <AlertDialog.Root open={open} onOpenChange={onOpenChange}>
-      <AlertDialog.Trigger className="rounded-md border border-destructive px-4 py-1 text-sm font-bold text-destructive hover:bg-destructive/10 focus:outline-none focus:ring-4 focus:ring-destructive/15">
+      <AlertDialog.Trigger className="rounded-md border border-destructive bg-card px-4 py-1 text-sm font-bold text-destructive hover:bg-destructive/10 focus:outline-none focus:ring-4 focus:ring-destructive/15">
         Cancelar operación
       </AlertDialog.Trigger>
       <AlertDialog.Portal>

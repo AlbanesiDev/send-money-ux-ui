@@ -35,7 +35,7 @@ export function QuoteResults({
     bestQuote && nextQuote ? bestReceived - amountReceived(nextQuote) : 0;
 
   return (
-    <div className="flex flex-row items-stretch gap-2 pt-2">
+    <div className="flex flex-row items-stretch gap-2 pt-3">
       {sortedQuotes.map((quote) => {
         const selected = !loading && selectedProvider === quote.provider;
         const isBestPrice =
@@ -58,6 +58,9 @@ export function QuoteResults({
           "border-border bg-card shadow-sm ring-2 ring-transparent hover:border-amount/50 disabled:hover:border-border";
         if (selected) {
           cardClass = "border-amount bg-card shadow-md ring-2 ring-amount/30";
+        } else if (isBestPrice) {
+          cardClass =
+            "border-success bg-card shadow-sm ring-2 ring-transparent hover:border-success disabled:hover:border-success";
         }
 
         return (
@@ -70,17 +73,11 @@ export function QuoteResults({
             aria-busy={loading}
             className={`relative flex min-w-0 flex-1 flex-col rounded-xl border p-3 text-left transition-colors disabled:cursor-wait ${cardClass}`}
           >
-            <div className="flex h-5 items-center pr-6">
-              {isBestPrice ? (
-                <span className="rounded-full border border-success-border bg-success-soft px-2 py-0.5 text-[0.625rem] font-bold uppercase tracking-[0.06em] text-success">
-                  Mejor precio
-                </span>
-              ) : (
-                <span className="invisible text-[0.625rem]" aria-hidden="true">
-                  Mejor precio
-                </span>
-              )}
-            </div>
+            {isBestPrice && (
+              <span className="absolute -top-2.5 left-3 z-10 rounded-full border border-success bg-success-soft px-2 py-0.5 text-[0.625rem] font-bold uppercase tracking-[0.06em] text-success">
+                Mejor precio
+              </span>
+            )}
             <div className="absolute top-3 right-3">
               <span
                 aria-hidden="true"
@@ -94,8 +91,8 @@ export function QuoteResults({
               </span>
             </div>
 
-            <div className="mt-2 flex items-center justify-start gap-3">
-              <div className="size-16 overflow-hidden rounded-full border border-border bg-card">
+            <div className="flex items-center justify-start gap-3 pr-6">
+              <div className="size-13 overflow-hidden rounded-full border border-border bg-card">
                 <img
                   className="w-full object-contain object-left"
                   src={quote.logo}
@@ -104,7 +101,7 @@ export function QuoteResults({
               </div>
               <p className="text-sm font-bold text-foreground">{quote.label}</p>
             </div>
-            <dl className="mt-5 flex-1 space-y-1 text-sm">
+            <dl className="mt-3 flex-1 space-y-1 text-sm">
               <div className="flex justify-between gap-3">
                 <dt className="text-muted-foreground">Cargo</dt>
                 {loading ? (

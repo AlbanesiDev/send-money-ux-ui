@@ -82,7 +82,7 @@ function SummaryRow({
     valueClass = "text-sm font-bold text-foreground";
   }
   return (
-    <div className="flex items-baseline justify-between gap-3 py-1 text-xs">
+    <div className="flex items-baseline justify-between gap-3 py-1 text-sm">
       <dt className="text-muted-foreground">{label}</dt>
       <dd className={`text-right ${valueClass}`}>{value}</dd>
     </div>
@@ -144,7 +144,7 @@ export function ReviewStep({
         Confirma con el cliente el monto, el beneficiario y el lugar de pago
         antes de enviar.
       </p>
-      <div className="grid min-h-0 flex-1 gap-3 overflow-y-auto lg:grid-cols-2 lg:grid-rows-2 lg:overflow-hidden">
+      <div className="grid min-h-0 flex-1 gap-3 overflow-y-auto lg:grid-cols-4 lg:overflow-hidden">
         <SummarySection
           title="Confirmar con el cliente"
           onEdit={onEditQuote}
@@ -172,40 +172,6 @@ export function ReviewStep({
             accent
           />
           <SummaryRow label="Total a cobrar" value={formatUsd(totalToCharge)} />
-        </SummarySection>
-        <SummarySection
-          title="Pago y facturación"
-          onEdit={onEditPayment}
-          editLabel="Editar pago"
-        >
-          {provider === "TERRAPAY" ? (
-            <>
-              <SummaryRow label="Casa de Cambio" value="Casa Central" />
-              <SummaryRow label="Total" value={formatUsd(totalToCharge)} />
-            </>
-          ) : (
-            <>
-              {paymentLines.map((line) => (
-                <SummaryRow
-                  key={line.id}
-                  label={line.method || "Método de pago"}
-                  value={
-                    line.currency === "USD"
-                      ? formatUsd(line.amount)
-                      : `${formatAmount(line.amount)} BOB (${formatUsd(line.usdCents / 100)})`
-                  }
-                />
-              ))}
-              <SummaryRow
-                label="Total cobrado"
-                value={formatUsd(totalToCharge)}
-              />
-            </>
-          )}
-          <SummaryRow
-            label="Facturar a"
-            value={`${billingName || "—"} · ${billingNit || "—"}`}
-          />
         </SummarySection>
         <SummarySection
           title="Remitente"
@@ -563,6 +529,40 @@ export function ReviewStep({
               />
             </>
           )}
+        </SummarySection>
+        <SummarySection
+          title="Pago y facturación"
+          onEdit={onEditPayment}
+          editLabel="Editar pago"
+        >
+          {provider === "TERRAPAY" ? (
+            <>
+              <SummaryRow label="Casa de Cambio" value="Casa Central" />
+              <SummaryRow label="Total" value={formatUsd(totalToCharge)} />
+            </>
+          ) : (
+            <>
+              {paymentLines.map((line) => (
+                <SummaryRow
+                  key={line.id}
+                  label={line.method || "Método de pago"}
+                  value={
+                    line.currency === "USD"
+                      ? formatUsd(line.amount)
+                      : `${formatAmount(line.amount)} BOB (${formatUsd(line.usdCents / 100)})`
+                  }
+                />
+              ))}
+              <SummaryRow
+                label="Total cobrado"
+                value={formatUsd(totalToCharge)}
+              />
+            </>
+          )}
+          <SummaryRow
+            label="Facturar a"
+            value={`${billingName || "—"} · ${billingNit || "—"}`}
+          />
         </SummarySection>
       </div>
     </div>

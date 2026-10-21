@@ -1414,8 +1414,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     </aside>
   );
 
+  const showFormFooter = step > 1 && !processing && !sent;
+
   return (
-    <>
+    <div className="relative flex h-full min-h-0 w-full min-w-0 flex-1 flex-col">
       <section
         className={`relative flex h-full min-h-0 w-full min-w-0 flex-1 flex-col gap-4 overflow-hidden rounded-[14px] text-foreground ${processing || sent || (step !== 2 && step !== 3) ? "bg-card shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none" : ""}`}
       >
@@ -1491,7 +1493,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                 </div>
               </Stepper.Step>
               <Stepper.Step index={2}>
-                <div className="grid min-h-0 flex-1 gap-4 overflow-y-auto lg:grid-cols-[minmax(0,1fr)_minmax(10rem,34rem)]">
+                <div
+                  className={`grid min-h-0 flex-1 gap-4 overflow-y-auto lg:grid-cols-[minmax(0,1fr)_minmax(10rem,34rem)] ${showFormFooter ? "pb-8" : ""}`}
+                >
                   {showPartyCardsAboveShipping && (
                     <div className="min-w-0 lg:col-span-2">{partyCards}</div>
                   )}
@@ -1583,10 +1587,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                 return (
                   <Stepper.Step key={stepLabel} index={stepIndex}>
                     <div
-                      className={`grid min-h-0 flex-1 gap-4 ${stepIsParties || stepIsReview ? "overflow-hidden" : "overflow-y-auto"} ${stepIsReview ? "" : "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]"}`}
+                      className={`grid min-h-0 flex-1 gap-4 ${stepIsParties || stepIsReview ? "overflow-hidden" : "overflow-y-auto"} ${stepIsReview ? "" : "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]"} ${showFormFooter ? "pb-8" : ""}`}
                     >
                       <div
-                        className={`min-w-0 ${stepIsParties || stepIsReview ? "flex h-full min-h-0 flex-col overflow-hidden" : ""} ${stepIsReview ? "mx-auto w-full max-w-[1120px] px-4 sm:px-6" : ""}`}
+                        className={`min-w-0 ${stepIsParties || stepIsReview ? "flex h-full min-h-0 flex-col overflow-hidden" : ""} ${stepIsReview ? "w-full" : ""}`}
                         data-form-fields
                         data-enter-advance={stepIsParties ? "" : undefined}
                       >
@@ -1834,11 +1838,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
           </>
         )}
       </section>
-      {step > 1 && !processing && !sent && (
-        <div
-          className={`flex h-[42px] shrink-0 items-center ${isReviewStep ? "mx-auto w-full  px-4 sm:px-6" : ""}`}
-        >
-          <div className="flex w-full items-center justify-between gap-3">
+      {showFormFooter && (
+        <div className="pointer-events-none absolute inset-x-0 -bottom-3 z-20 flex items-end">
+          <div className="pointer-events-auto flex w-full items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -1868,7 +1870,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

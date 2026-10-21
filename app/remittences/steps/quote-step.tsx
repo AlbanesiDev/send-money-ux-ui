@@ -552,7 +552,7 @@ export function QuoteStep({
         </div>
       </div>
       <div className="card">
-        <h2 className="font-bold text-foreground">
+        <h2 className="font-bold text-foreground mb-1">
           Cotizaciones por proveedor
         </h2>
 

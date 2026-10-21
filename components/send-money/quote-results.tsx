@@ -163,7 +163,7 @@ export function QuoteResults({
               </div>
             </dl>
             <p
-              className={`mt-2 min-h-8 text-[0.6875rem] font-semibold leading-4 ${comparisonClass}`}
+              className={`mt-2 min-h-4 text-[0.6875rem] font-semibold leading-4 ${comparisonClass}`}
               aria-hidden={comparison === null}
             >
               {comparison ?? "\u00A0"}

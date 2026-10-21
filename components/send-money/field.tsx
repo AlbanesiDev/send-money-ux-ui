@@ -3,6 +3,8 @@
 import { useState, type RefObject } from "react";
 
 const REQUIRED_MESSAGE = "Este campo es requerido";
+const EMAIL_MESSAGE = "Correo electrónico inválido";
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function Field({
   label,
@@ -16,6 +18,7 @@ export function Field({
   onBlur,
   error,
   numericOnly = false,
+  email = false,
   name,
 }: {
   label: string;
@@ -29,6 +32,7 @@ export function Field({
   onBlur?: () => void;
   error?: string;
   numericOnly?: boolean;
+  email?: boolean;
   name?: string;
 }) {
   const isControlled = onChange !== undefined;
@@ -38,13 +42,26 @@ export function Field({
   let resolvedError = "";
   if (error !== undefined && error !== "") {
     resolvedError = error;
-  } else if (required && !disabled && touched) {
-    if (isControlled) {
-      if (value === undefined || value.trim() === "") {
+  } else if (!disabled && touched) {
+    if (required) {
+      if (isControlled) {
+        if (value === undefined || value.trim() === "") {
+          resolvedError = REQUIRED_MESSAGE;
+        }
+      } else if (uncontrolledEmpty) {
         resolvedError = REQUIRED_MESSAGE;
       }
-    } else if (uncontrolledEmpty) {
-      resolvedError = REQUIRED_MESSAGE;
+    }
+    if (resolvedError === "" && email) {
+      let emailValue = "";
+      if (isControlled) {
+        if (value !== undefined) {
+          emailValue = value.trim();
+        }
+      }
+      if (emailValue !== "" && !EMAIL_PATTERN.test(emailValue)) {
+        resolvedError = EMAIL_MESSAGE;
+      }
     }
   }
   const hasError = resolvedError !== "";
@@ -70,10 +87,12 @@ export function Field({
           name={name}
           value={isControlled ? (value === undefined ? "" : value) : undefined}
           defaultValue={isControlled ? undefined : value}
+          type={email ? "email" : "text"}
           placeholder={placeholder}
           disabled={disabled}
           required={required}
-          inputMode={numericOnly ? "numeric" : undefined}
+          inputMode={numericOnly ? "numeric" : email ? "email" : undefined}
+          autoComplete={email ? "email" : undefined}
           aria-invalid={hasError}
           onChange={(event) => {
             let nextValue = event.target.value;

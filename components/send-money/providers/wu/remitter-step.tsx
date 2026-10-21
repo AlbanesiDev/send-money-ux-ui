@@ -5,6 +5,8 @@ import { useRef } from "react";
 import { SearchableSelect } from "@/components/ui/searchable-select";
 import documentTypesCatalog from "@/public/catalogs/catalog-document-types.json";
 import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
+import { CountryField } from "../../country-field";
+import { DateField } from "../../date-field";
 import { Field } from "../../field";
 
 const DOCUMENT_TYPE_OPTIONS = documentTypesCatalog.map((item) => item.name);
@@ -32,6 +34,26 @@ export function WuRemitterStep({
   footerSlot?: ReactNode;
 }) {
   const documentTypeRef = useRef<HTMLButtonElement>(null);
+
+  let issueMaxDate = "";
+  if (form.documentExpiryDate.length === 10) {
+    const expiryDay = Number(form.documentExpiryDate.slice(0, 2));
+    const expiryMonth = Number(form.documentExpiryDate.slice(3, 5));
+    const expiryYear = Number(form.documentExpiryDate.slice(6, 10));
+    const maxIssueDate = new Date(expiryYear, expiryMonth - 1, expiryDay);
+    maxIssueDate.setDate(maxIssueDate.getDate() - 1);
+    issueMaxDate = `${String(maxIssueDate.getDate()).padStart(2, "0")}/${String(maxIssueDate.getMonth() + 1).padStart(2, "0")}/${String(maxIssueDate.getFullYear()).padStart(4, "0")}`;
+  }
+
+  let expiryMinDate = "";
+  if (form.documentIssueDate.length === 10) {
+    const issueDay = Number(form.documentIssueDate.slice(0, 2));
+    const issueMonth = Number(form.documentIssueDate.slice(3, 5));
+    const issueYear = Number(form.documentIssueDate.slice(6, 10));
+    const minExpiryDate = new Date(issueYear, issueMonth - 1, issueDay);
+    minExpiryDate.setDate(minExpiryDate.getDate() + 1);
+    expiryMinDate = `${String(minExpiryDate.getDate()).padStart(2, "0")}/${String(minExpiryDate.getMonth() + 1).padStart(2, "0")}/${String(minExpiryDate.getFullYear()).padStart(4, "0")}`;
+  }
 
   return (
     <div data-remitter-form className="space-y-6">
@@ -63,22 +85,26 @@ export function WuRemitterStep({
       </div>
       {afterDocumentFields}
       <div className="grid gap-3 sm:grid-cols-2">
-        <Field
+        <CountryField
           label="País de emisión"
           value={form.documentIssueCountry}
           required
           onChange={(value) => onFormChange("documentIssueCountry", value)}
         />
-        <Field
+        <DateField
           label="Fecha de emisión"
           value={form.documentIssueDate}
           required
+          disableFutureDates
+          maxDate={issueMaxDate}
           onChange={(value) => onFormChange("documentIssueDate", value)}
         />
-        <Field
+        <DateField
           label="Fecha de vencimiento"
           value={form.documentExpiryDate}
           required
+          disableFutureDates
+          minDate={expiryMinDate}
           onChange={(value) => onFormChange("documentExpiryDate", value)}
         />
       </div>
@@ -106,19 +132,20 @@ export function WuRemitterStep({
           value={form.secondLastName}
           onChange={(value) => onFormChange("secondLastName", value)}
         />
-        <Field
+        <DateField
           label="Fecha de nacimiento"
           value={form.birthDate}
           required
+          minimumAgeYears={18}
           onChange={(value) => onFormChange("birthDate", value)}
         />
-        <Field
+        <CountryField
           label="País de nacimiento"
           value={form.birthCountry}
           required
           onChange={(value) => onFormChange("birthCountry", value)}
         />
-        <Field
+        <CountryField
           label="Nacionalidad"
           value={form.nationality}
           required
@@ -134,9 +161,9 @@ export function WuRemitterStep({
           label="Correo electrónico"
           value={form.email}
           required
+          email
           onChange={(value) => onFormChange("email", value)}
         />
-        <Field label="Comentarios" />
       </div>
       <h2 className="pt-4 font-bold">Domicilio y teléfono</h2>
       <div className="grid gap-3 sm:grid-cols-2">
@@ -152,7 +179,13 @@ export function WuRemitterStep({
           required
           onChange={(value) => onFormChange("address", value)}
         />
-        <Field label="País" value="Bolivia" disabled required />
+        <CountryField
+          label="País"
+          value="Bolivia"
+          disabled
+          required
+          onChange={() => undefined}
+        />
         <Field
           label="Departamento / Estado"
           value={form.state}

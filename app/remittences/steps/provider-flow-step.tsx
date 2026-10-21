@@ -62,6 +62,7 @@ export type ProviderFlowStepProps = {
   isRegisteringClient?: boolean;
   registerClientError?: string;
   isUpdatingExistingClient?: boolean;
+  showSaveClientButton?: boolean;
   guestLookupStatus?: GuestClientLookupStatus;
   onAcceptGuestAutofill?: () => void;
   onDeclineGuestAutofill?: () => void;
@@ -90,11 +91,13 @@ export function ProviderFlowStep({
   );
 
   return (
-    <ProviderStepContent
-      {...props}
-      billingName={billingName}
-      billingNit={billingNit}
-      billingSlot={billingSlot}
-    />
+    <div className="h-full min-h-0">
+      <ProviderStepContent
+        {...props}
+        billingName={billingName}
+        billingNit={billingNit}
+        billingSlot={billingSlot}
+      />
+    </div>
   );
 }

@@ -1,3 +1,4 @@
+import { CountryField } from "../../country-field";
 import { Field } from "../../field";
 import { FrequentBeneficiaries } from "../../frequent-beneficiaries";
 import type { Beneficiary } from "../../types";
@@ -47,6 +48,12 @@ export function RiaBeneficiaryStep({
     }
   }
 
+  let residenceCountry = "";
+  const knownResidenceCountry = known("Bolivia");
+  if (knownResidenceCountry !== undefined) {
+    residenceCountry = knownResidenceCountry;
+  }
+
   return (
     <div className="space-y-6">
       {showFrequentBeneficiaries && (
@@ -71,7 +78,12 @@ export function RiaBeneficiaryStep({
         <Field label="Segundo Apellido" value={known(secondLastName)} />
         <Field label="Correo electrónico" value={known(email)} required />
         <Field label="Nacionalidad" value={known("Boliviana")} required />
-        <Field label="País Residencia" value={known("Bolivia")} required />
+        <CountryField
+          label="País Residencia"
+          value={residenceCountry}
+          required
+          onChange={() => undefined}
+        />
       </div>
       <h2 className="pt-4 font-bold">Datos de dirección</h2>
       <div className="grid gap-3 sm:grid-cols-2">

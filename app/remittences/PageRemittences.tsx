@@ -400,6 +400,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [remitterForm, setRemitterForm] = useState<CustomerRegistrationDraft>(
     () => createEmptyCustomerDraft(),
   );
+  const [originalRemitterForm, setOriginalRemitterForm] =
+    useState<CustomerRegistrationDraft | null>(null);
   const guestLookupTimeoutRef = useRef<number | null>(null);
   const guestLookupRequestRef = useRef(0);
   const remitterFormSyncedCustomerIdRef = useRef<string | null>(null);
@@ -438,18 +440,17 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   useEffect(() => {
     if (customer === null) {
       remitterFormSyncedCustomerIdRef.current = null;
+      setOriginalRemitterForm(null);
       return;
     }
     if (remitterFormSyncedCustomerIdRef.current === customer.id) return;
     remitterFormSyncedCustomerIdRef.current = customer.id;
-    setRemitterForm(customerToRegistrationDraft(customer));
-  }, [customer]);
+    const draft = customerToRegistrationDraft(customer);
+    draft.documentNumber = documentNumber.trim();
+    setRemitterForm(draft);
+    setOriginalRemitterForm(draft);
+  }, [customer, documentNumber]);
 
-  const isUpdatingExistingClient = customers.some(
-    (item) =>
-      item.documentType === remitterForm.documentType.trim() &&
-      item.documentNumbers.includes(documentNumber.trim()),
-  );
   const isKnownClient =
     result === "success" || (isGuestFlow && guestAutofillCustomer !== null);
   const fillBeneficiaryFields =
@@ -528,6 +529,30 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [additionalChecks, setAdditionalChecks] = useState<
     Record<string, boolean>
   >({ "¿Es una Persona Expuesta Políticamente (PEP)?": true });
+  const currentRemitterIsPep = Boolean(additionalChecks[PEP_CHECK_LABEL]);
+  let isRemitterFormDirty = false;
+  if (originalRemitterForm !== null) {
+    const currentSnapshot = JSON.stringify({
+      ...remitterForm,
+      documentNumber: documentNumber.trim(),
+      isPep: currentRemitterIsPep,
+    });
+    const originalSnapshot = JSON.stringify({
+      ...originalRemitterForm,
+      documentNumber: originalRemitterForm.documentNumber.trim(),
+      isPep: originalRemitterForm.isPep,
+    });
+    isRemitterFormDirty = currentSnapshot !== originalSnapshot;
+  }
+  const isUpdatingExistingClient =
+    customer !== null ||
+    customers.some(
+      (item) =>
+        item.documentType === remitterForm.documentType.trim() &&
+        item.documentNumbers.includes(documentNumber.trim()),
+    );
+  const showSaveClientButton =
+    isGuestFlow || (customer !== null && isRemitterFormDirty);
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(0);
   const beneficiaries =
     customer === null
@@ -641,6 +666,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setGuestBeneficiaryChosen(false);
     remitterFormSyncedCustomerIdRef.current = null;
     setRemitterForm(createEmptyCustomerDraft());
+    setOriginalRemitterForm(null);
     setRegisterClientError("");
     setStep(2);
   }
@@ -655,6 +681,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     remitterFormSyncedCustomerIdRef.current = null;
     if (hadAutofill) {
       setRemitterForm(createEmptyCustomerDraft(value));
+      setOriginalRemitterForm(null);
     } else {
       setRemitterForm((current) => ({ ...current, documentNumber: value }));
     }
@@ -697,6 +724,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setAdditionalChecks({});
     remitterFormSyncedCustomerIdRef.current = null;
     setRemitterForm(createEmptyCustomerDraft(documentNumber));
+    setOriginalRemitterForm(null);
     setGuestLookupStatus("declined");
     setRegisterClientError("");
   }
@@ -733,8 +761,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       .then(async (result) => {
         const items = await readAllCustomers();
         setCustomers(items);
+        const savedDraft = customerToRegistrationDraft(result.customer);
         remitterFormSyncedCustomerIdRef.current = result.customer.id;
-        setRemitterForm(customerToRegistrationDraft(result.customer));
+        setRemitterForm(savedDraft);
+        setOriginalRemitterForm(savedDraft);
         setGuestAutofillCustomer(result.customer);
         setResult("success");
         setIsGuestFlow(false);
@@ -1084,24 +1114,19 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
               {activeSteps.slice(2).map((stepLabel, offset) => {
                 const stepIndex = offset + 3;
                 const stepIsReview = stepIndex === lastStep;
+                const stepIsParties =
+                  selectedProvider !== null &&
+                  getStepKey(selectedProvider, stepIndex, activeSteps) ===
+                    "parties";
                 return (
                   <Stepper.Step key={stepLabel} index={stepIndex}>
                     <div
-                      className={`grid min-h-0 flex-1 gap-4 overflow-y-auto ${stepIsReview ? "" : "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]"}`}
+                      className={`grid min-h-0 flex-1 gap-4 ${stepIsParties ? "overflow-hidden" : "overflow-y-auto"} ${stepIsReview ? "" : "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]"}`}
                     >
                       <div
-                        className={`min-w-0 ${stepIsReview ? "mx-auto w-full max-w-[1120px] px-4 sm:px-6" : ""}`}
+                        className={`min-w-0 ${stepIsParties ? "flex h-full min-h-0 flex-col overflow-hidden" : ""} ${stepIsReview ? "mx-auto w-full max-w-[1120px] px-4 sm:px-6" : ""}`}
                         data-form-fields
-                        data-enter-advance={
-                          selectedProvider &&
-                          getStepKey(
-                            selectedProvider,
-                            stepIndex,
-                            activeSteps,
-                          ) === "parties"
-                            ? ""
-                            : undefined
-                        }
+                        data-enter-advance={stepIsParties ? "" : undefined}
                       >
                         {selectedProvider && quote && (
                           <ProviderFlowStep
@@ -1196,6 +1221,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                             isRegisteringClient={isRegisteringClient}
                             registerClientError={registerClientError}
                             isUpdatingExistingClient={isUpdatingExistingClient}
+                            showSaveClientButton={showSaveClientButton}
                             guestLookupStatus={guestLookupStatus}
                             onAcceptGuestAutofill={acceptGuestAutofill}
                             onDeclineGuestAutofill={declineGuestAutofill}

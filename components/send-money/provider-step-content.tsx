@@ -70,6 +70,7 @@ export type ProviderStepContentProps = {
   isRegisteringClient?: boolean;
   registerClientError?: string;
   isUpdatingExistingClient?: boolean;
+  showSaveClientButton?: boolean;
   guestLookupStatus?: GuestClientLookupStatus;
   onAcceptGuestAutofill?: () => void;
   onDeclineGuestAutofill?: () => void;
@@ -139,29 +140,10 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       registerButtonLabel = "Actualizar cliente";
     }
 
-    const footerSlot = (
-      <div className="space-y-6 pt-6">
-        {declarations}
-        {props.isGuestFlow === true && props.onRegisterClient !== undefined && (
-          <div className="space-y-2">
-            <button
-              type="button"
-              onClick={props.onRegisterClient}
-              disabled={props.isRegisteringClient === true}
-              className="flex h-11 w-full items-center justify-center rounded-lg bg-party-sender-border text-sm font-bold text-white hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-party-sender-border/30 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {registerButtonLabel}
-            </button>
-            {props.registerClientError !== undefined &&
-              props.registerClientError !== "" && (
-                <p role="alert" className="text-sm text-destructive">
-                  {props.registerClientError}
-                </p>
-              )}
-          </div>
-        )}
-      </div>
-    );
+    const footerSlot =
+      declarations === null ? undefined : (
+        <div className="space-y-6 pt-6">{declarations}</div>
+      );
 
     const remitterDocumentProps = {
       documentNumber: props.documentNumber,
@@ -219,16 +201,39 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
     }
 
     return (
-      <div className="grid gap-4 lg:grid-cols-2 lg:items-start">
-        <section className="rounded-xl border border-border border-l-4 border-l-party-sender-border bg-card p-5 shadow-sm">
-          <h2 className="mb-5 font-bold text-party-sender-fg">Remitente</h2>
-          {remitter}
+      <div className="grid h-full min-h-0 gap-4 lg:grid-cols-2">
+        <section className="flex max-h-[min(70vh,36rem)] min-h-0 flex-col overflow-hidden rounded-xl border border-border border-l-4 border-l-party-sender-border bg-card p-5 shadow-sm lg:max-h-none">
+          <h2 className="mb-4 shrink-0 font-bold text-party-sender-fg">
+            Remitente
+          </h2>
+          <div className="min-h-0 flex-1 overflow-y-auto pr-1">{remitter}</div>
+          {props.showSaveClientButton === true &&
+            props.onRegisterClient !== undefined && (
+              <div className="mt-4 shrink-0 space-y-2 border-t border-border pt-4">
+                <button
+                  type="button"
+                  onClick={props.onRegisterClient}
+                  disabled={props.isRegisteringClient === true}
+                  className="flex h-11 w-full items-center justify-center rounded-lg bg-party-sender-border text-sm font-bold text-white hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-party-sender-border/30 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {registerButtonLabel}
+                </button>
+                {props.registerClientError !== undefined &&
+                  props.registerClientError !== "" && (
+                    <p role="alert" className="text-sm text-destructive">
+                      {props.registerClientError}
+                    </p>
+                  )}
+              </div>
+            )}
         </section>
-        <section className="rounded-xl border border-border border-l-4 border-l-party-beneficiary-border bg-card p-5 shadow-sm">
-          <h2 className="mb-5 font-bold text-party-beneficiary-fg">
+        <section className="flex max-h-[min(70vh,36rem)] min-h-0 flex-col overflow-hidden rounded-xl border border-border border-l-4 border-l-party-beneficiary-border bg-card p-5 shadow-sm lg:max-h-none">
+          <h2 className="mb-4 shrink-0 font-bold text-party-beneficiary-fg">
             Beneficiario
           </h2>
-          {beneficiary}
+          <div className="min-h-0 flex-1 overflow-y-auto pr-1">
+            {beneficiary}
+          </div>
         </section>
       </div>
     );

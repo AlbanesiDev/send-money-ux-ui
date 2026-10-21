@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { SearchableSelect } from "@/components/ui/searchable-select";
 import documentTypesCatalog from "@/public/catalogs/catalog-document-types.json";
 import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
+import { CountryField } from "../../country-field";
 import { Field } from "../../field";
 import type { RemitterFormChangeHandler } from "../wu/remitter-step";
 
@@ -85,12 +86,19 @@ export function RiaRemitterStep({
           label="Correo electrónico"
           value={form.email}
           required
+          email
           onChange={(value) => onFormChange("email", value)}
         />
       </div>
       <h2 className="pt-4 font-bold">Datos de dirección</h2>
       <div className="grid gap-3 sm:grid-cols-2">
-        <Field label="País de residencia" value="Bolivia" disabled required />
+        <CountryField
+          label="País de residencia"
+          value="Bolivia"
+          disabled
+          required
+          onChange={() => undefined}
+        />
         <Field
           label="Estado"
           value={form.state}

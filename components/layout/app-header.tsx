@@ -152,7 +152,7 @@ export function AppHeader({
             Saldo virtual BOB: $6.000,00
           </div>
 
-          {/* <button
+          <button
             type="button"
             className="private-nav-button"
             aria-label={
@@ -180,7 +180,7 @@ export function AppHeader({
             ) : (
               <Moon className="h-[1.05rem] w-[1.05rem]" aria-hidden="true" />
             )}
-          </button> */}
+          </button>
 
           <div className="relative" ref={notificationsRoot}>
             <button

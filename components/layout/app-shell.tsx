@@ -23,16 +23,19 @@ export function AppShell() {
         partiesAboveShipping={partiesAboveShipping}
         onPartiesAboveShippingChange={setPartiesAboveShipping}
       />
-      <div className="private-chrome private-h-screen flex w-full min-w-0">
+      <div className="private-chrome private-h-screen relative flex w-full min-w-0">
         <AppSidebar expanded={sidebarExpanded} />
-        <main className="private-content-shell relative z-0 flex min-h-0 min-w-0 flex-1 flex-col p-6 text-foreground">
-          <div
-            key={pathname}
-            className="route-fade flex min-h-0 min-w-0 flex-1 flex-col"
-          >
-            <Outlet context={demoQuoteLayout} />
-          </div>
-        </main>
+        <div className="private-content-frame relative z-0 flex min-h-0 min-w-0 flex-1 flex-col">
+          <div className="private-chrome-glow" aria-hidden="true" />
+          <main className="private-content-shell relative z-0 flex min-h-0 min-w-0 flex-1 flex-col p-6 text-foreground">
+            <div
+              key={pathname}
+              className="route-fade flex min-h-0 min-w-0 flex-1 flex-col"
+            >
+              <Outlet context={demoQuoteLayout} />
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );

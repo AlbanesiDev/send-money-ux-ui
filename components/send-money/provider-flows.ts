@@ -34,7 +34,6 @@ export const DELIVERY_TYPE_OPTIONS: {
   label: string;
 }[] = [
   { id: "CASH", label: "Envío - Dinero en minutos" },
-  { id: "CASH24", label: "Envío - 24 horas" },
   { id: "BANK", label: "Direct to bank" },
   { id: "WALLET", label: "Direct to wallet" },
 ];
@@ -144,10 +143,6 @@ export function buildProviderQuotes(
     feeMultiplier = 1.1;
     ivaMultiplier = 1.08;
     rateMultiplier = 0.982;
-  } else if (deliveryType === "CASH24") {
-    feeMultiplier = 1.04;
-    ivaMultiplier = 1.03;
-    rateMultiplier = 0.991;
   } else if (deliveryType === "BANK") {
     feeMultiplier = 0.82;
     ivaMultiplier = 0.88;

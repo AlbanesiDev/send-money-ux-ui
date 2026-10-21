@@ -1,7 +1,7 @@
 export type ProviderId = "RIA" | "WU" | "MONEYGRAM" | "TERRAPAY";
 
 /** Maps to CIS presential/WU/TerraPay delivery codes in production. */
-export type DeliveryTypeId = "CASH" | "CASH24" | "BANK" | "WALLET";
+export type DeliveryTypeId = "CASH" | "BANK" | "WALLET";
 
 export type CatalogProvider = {
   id: number;

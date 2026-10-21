@@ -294,6 +294,12 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [editRemitterOpen, setEditRemitterOpen] = useState(false);
   const [editBeneficiaryOpen, setEditBeneficiaryOpen] = useState(false);
   const [editPaymentOpen, setEditPaymentOpen] = useState(false);
+  const remitterEditSnapshotRef = useRef<{
+    form: CustomerRegistrationDraft;
+    documentNumber: string;
+  } | null>(null);
+  const beneficiaryEditSnapshotRef =
+    useRef<BeneficiaryRegistrationDraft | null>(null);
   const paymentIdRef = useRef(0);
   const [quote, setQuote] = useState<ProviderQuote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
@@ -1562,10 +1568,18 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                               setBillingOpen(false);
                             }}
                             onEditQuote={() => setStep(2)}
-                            onEditRemitter={() => setEditRemitterOpen(true)}
-                            onEditBeneficiary={() =>
-                              setEditBeneficiaryOpen(true)
-                            }
+                            onEditRemitter={() => {
+                              remitterEditSnapshotRef.current = {
+                                form: remitterForm,
+                                documentNumber,
+                              };
+                              setEditRemitterOpen(true);
+                            }}
+                            onEditBeneficiary={() => {
+                              beneficiaryEditSnapshotRef.current =
+                                beneficiaryForm;
+                              setEditBeneficiaryOpen(true);
+                            }}
                             onEditPayment={() => setEditPaymentOpen(true)}
                             formatAmount={formatAmount}
                             isGuestFlow={isGuestFlow}
@@ -1630,6 +1644,28 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                   form={remitterForm}
                   onFormChange={handleRemitterFormChange}
                   onDocumentNumberChange={handleGuestDocumentNumberChange}
+                  onSave={() => {
+                    if (!validateRequiredFields("[data-remitter-form]")) return;
+                    setOriginalRemitterForm({
+                      ...remitterForm,
+                      documentNumber: documentNumber.trim(),
+                      isPep: currentRemitterIsPep,
+                    });
+                    remitterEditSnapshotRef.current = null;
+                    setEditRemitterOpen(false);
+                  }}
+                  onCancel={() => {
+                    const snapshot = remitterEditSnapshotRef.current;
+                    if (snapshot !== null) {
+                      setRemitterForm(snapshot.form);
+                      setDocumentNumber(snapshot.documentNumber);
+                      if (snapshot.form.documentType !== "") {
+                        setDocumentType(snapshot.form.documentType);
+                      }
+                    }
+                    remitterEditSnapshotRef.current = null;
+                    setEditRemitterOpen(false);
+                  }}
                 />
                 <EditBeneficiaryDialog
                   open={editBeneficiaryOpen}
@@ -1639,6 +1675,21 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                   onFormChange={handleBeneficiaryFormChange}
                   known={known}
                   fillBeneficiaryFields={fillBeneficiaryFields}
+                  onSave={() => {
+                    if (!validateRequiredFields("[data-beneficiary-form]"))
+                      return;
+                    setOriginalBeneficiaryForm(beneficiaryForm);
+                    beneficiaryEditSnapshotRef.current = null;
+                    setEditBeneficiaryOpen(false);
+                  }}
+                  onCancel={() => {
+                    const snapshot = beneficiaryEditSnapshotRef.current;
+                    if (snapshot !== null) {
+                      setBeneficiaryForm(snapshot);
+                    }
+                    beneficiaryEditSnapshotRef.current = null;
+                    setEditBeneficiaryOpen(false);
+                  }}
                 />
                 <EditPaymentBillingDialog
                   open={editPaymentOpen}

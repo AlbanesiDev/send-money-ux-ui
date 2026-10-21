@@ -6,7 +6,7 @@ export function MoneygramBeneficiaryAccountStep({
   known: (value?: string) => string | undefined;
 }) {
   return (
-    <div className="space-y-6">
+    <div data-beneficiary-form className="space-y-6">
       <h2 className="font-bold">Datos de cuenta / compañía</h2>
       <p className="text-sm text-muted-foreground">
         Moneygram utiliza datos de compañía y cuenta en lugar de nombre de

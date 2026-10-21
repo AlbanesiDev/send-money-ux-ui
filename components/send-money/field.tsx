@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, type RefObject } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 
 const REQUIRED_MESSAGE = "Este campo es requerido";
 const EMAIL_MESSAGE = "Correo electrónico inválido";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const FORCE_VALIDATE_EVENT = "party-form-validate";
 
 export function Field({
   label,
@@ -40,6 +41,23 @@ export function Field({
   const isControlled = onChange !== undefined;
   const [touched, setTouched] = useState(false);
   const [uncontrolledEmpty, setUncontrolledEmpty] = useState(false);
+  const localInputRef = useRef<HTMLInputElement>(null);
+  const resolvedInputRef = inputRef === undefined ? localInputRef : inputRef;
+
+  useEffect(() => {
+    function handleForceValidate(event: Event) {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const input = resolvedInputRef.current;
+      if (input === null) return;
+      if (!target.contains(input)) return;
+      setTouched(true);
+      setUncontrolledEmpty(input.value.trim() === "");
+    }
+    document.addEventListener(FORCE_VALIDATE_EVENT, handleForceValidate);
+    return () =>
+      document.removeEventListener(FORCE_VALIDATE_EVENT, handleForceValidate);
+  }, [resolvedInputRef]);
 
   let resolvedError = "";
   if (error !== undefined && error !== "") {
@@ -85,7 +103,7 @@ export function Field({
       </span>
       <span className="relative block">
         <input
-          ref={inputRef}
+          ref={resolvedInputRef}
           name={name}
           value={isControlled ? (value === undefined ? "" : value) : undefined}
           defaultValue={isControlled ? undefined : value}

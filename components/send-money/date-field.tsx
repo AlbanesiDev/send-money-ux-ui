@@ -95,6 +95,18 @@ export function DateField({
   const localInputRef = useRef<HTMLInputElement>(null);
   const textInputRef = inputRef === undefined ? localInputRef : inputRef;
 
+  useEffect(() => {
+    function handleForceValidate(event: Event) {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (!target.contains(rootRef.current)) return;
+      setTouched(true);
+    }
+    document.addEventListener("party-form-validate", handleForceValidate);
+    return () =>
+      document.removeEventListener("party-form-validate", handleForceValidate);
+  }, []);
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const todayValue = formatDisplayDate(today);

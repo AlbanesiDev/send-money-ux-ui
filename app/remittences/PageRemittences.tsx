@@ -891,9 +891,82 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setRegisterBeneficiaryError("");
   };
 
+  function validateRequiredFields(rootSelector: string): boolean {
+    const root = document.querySelector(rootSelector);
+    if (root === null) return false;
+
+    flushSync(() => {
+      root.dispatchEvent(new Event("party-form-validate", { bubbles: true }));
+    });
+
+    const fields = Array.from(
+      root.querySelectorAll<HTMLElement>(
+        [
+          "input[required]:not([disabled]):not([readonly]):not([type=hidden]):not([type=checkbox]):not([type=radio])",
+          "select[required]:not([disabled])",
+          "textarea[required]:not([disabled]):not([readonly])",
+          'button[aria-haspopup="listbox"][aria-required="true"]:not([disabled])',
+        ].join(", "),
+      ),
+    );
+
+    let firstInvalid: HTMLElement | null = null;
+    for (const field of fields) {
+      let isInvalid = false;
+      if (field instanceof HTMLButtonElement) {
+        const ariaLabel = field.getAttribute("aria-label");
+        if (ariaLabel !== null && ariaLabel.includes("sin seleccionar")) {
+          isInvalid = true;
+        } else if (
+          field.textContent !== null &&
+          field.textContent.includes("Selecciona")
+        ) {
+          isInvalid = true;
+        }
+      } else if (
+        field instanceof HTMLInputElement ||
+        field instanceof HTMLSelectElement ||
+        field instanceof HTMLTextAreaElement
+      ) {
+        const trimmed = field.value.trim();
+        if (trimmed === "") {
+          isInvalid = true;
+        } else if (
+          field instanceof HTMLInputElement &&
+          field.type === "email" &&
+          !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)
+        ) {
+          isInvalid = true;
+        }
+      }
+
+      if (isInvalid && firstInvalid === null) {
+        firstInvalid = field;
+      }
+    }
+
+    if (firstInvalid === null) return true;
+    firstInvalid.scrollIntoView({ block: "center", behavior: "smooth" });
+    window.requestAnimationFrame(() => {
+      firstInvalid.focus();
+    });
+    return false;
+  }
+
+  function validatePartiesStep(): boolean {
+    if (!validateRequiredFields("[data-remitter-form]")) return false;
+    if (!validateRequiredFields("[data-beneficiary-form]")) return false;
+    if (customer === null) {
+      setRegisterClientError("Registrá el cliente para continuar.");
+      return false;
+    }
+    return true;
+  }
+
   function saveBeneficiary() {
     if (customer === null) return;
     if (isRegisteringBeneficiary) return;
+    if (!validateRequiredFields("[data-beneficiary-form]")) return;
     setRegisterBeneficiaryError("");
     const draft: BeneficiaryRegistrationDraft = {
       ...beneficiaryForm,
@@ -930,8 +1003,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   }
 
   function registerClient() {
-    if (documentNumber.trim() === "") return;
     if (isRegisteringClient) return;
+    if (!validateRequiredFields("[data-remitter-form]")) return;
     clearGuestLookupTimeout();
     setRegisterClientError("");
 
@@ -1022,6 +1095,12 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
 
   function next() {
     if (step === 2 && !canContinueFromQuote) return;
+    if (
+      activeSteps[step - 1] === PARTIES_STEP_LABEL &&
+      !validatePartiesStep()
+    ) {
+      return;
+    }
     setStep((current) => Math.min(lastStep, current + 1));
   }
   function back() {
@@ -1030,6 +1109,13 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   function goToStep(target: number) {
     if (target < 1 || target > lastStep) return;
     if (target > 2 && !canContinueFromQuote) return;
+    if (
+      target > step &&
+      activeSteps[step - 1] === PARTIES_STEP_LABEL &&
+      !validatePartiesStep()
+    ) {
+      return;
+    }
     setStep(target);
   }
   function handleContinue() {

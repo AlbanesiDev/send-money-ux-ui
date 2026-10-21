@@ -94,6 +94,18 @@ export function SearchableSelect({
   }, [loading]);
 
   useEffect(() => {
+    function handleForceValidate(event: Event) {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (!target.contains(rootRef.current)) return;
+      setTouched(true);
+    }
+    document.addEventListener("party-form-validate", handleForceValidate);
+    return () =>
+      document.removeEventListener("party-form-validate", handleForceValidate);
+  }, []);
+
+  useEffect(() => {
     if (!open) return;
     function handlePointerDown(event: PointerEvent) {
       const target = event.target;
@@ -154,6 +166,7 @@ export function SearchableSelect({
           disabled={disabled}
           aria-disabled={loading || undefined}
           aria-busy={loading}
+          aria-required={required || undefined}
           aria-invalid={hasError}
           onClick={() => {
             if (loading) return;

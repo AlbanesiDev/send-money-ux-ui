@@ -15,6 +15,9 @@ import {
 
 export type OperationStatus = "available" | "onHold" | "paid";
 
+/** Moneda en la que el beneficiario cobra en ventanilla. */
+export type PayoutCurrency = "USD" | "BOB";
+
 /** Tipo de cambio simulado USD → BOB para el pago en agencia. */
 export const USD_TO_BOB_RATE = 6.96;
 
@@ -75,6 +78,7 @@ export type PaymentOperation = {
 export const AGENCY_COUNTRY = "Bolivia";
 export const AGENCY_PHONE_CODE = "+591";
 export const AGENCY_CASH_BOB = 20000;
+export const AGENCY_CASH_USD = 3000;
 
 /** Pools de distractores para las preguntas de verificación. */
 export const VERIFICATION_DISTRACTOR_NAMES = [
@@ -97,9 +101,21 @@ export const VERIFICATION_DISTRACTOR_COUNTRIES = [
   "Mexico",
 ];
 
-export const VERIFICATION_DISTRACTOR_AMOUNTS_BOB = [
-  500, 975, 1500, 3200, 6860, 15400, 20880,
+export const VERIFICATION_DISTRACTOR_AMOUNTS_USD = [
+  50, 100, 150, 300, 500, 975, 1500,
 ];
+
+export function convertUsdToBob(amountUsd: number): number {
+  return Math.round(amountUsd * USD_TO_BOB_RATE * 100) / 100;
+}
+
+export function resolvePayoutAmount(
+  amountUsd: number,
+  currency: PayoutCurrency,
+): number {
+  if (currency === "BOB") return convertUsdToBob(amountUsd);
+  return amountUsd;
+}
 
 export async function loadPaymentOperationByNumber(
   operationNumber: string,
@@ -117,19 +133,47 @@ export async function loadPaymentOperationByNumber(
     throw new Error(`Beneficiary ${stored.beneficiaryId} was not found`);
   }
 
-  const amountBob = Math.round(stored.amount * USD_TO_BOB_RATE * 100) / 100;
-
   let paidAt = "";
   if (stored.paidAt !== undefined) {
     paidAt = stored.paidAt;
   }
 
+  const phoneParts = splitPhone(beneficiary.phone);
+  const beneficiaryProfile: CustomerProfile = {
+    documentType: beneficiary.documentType,
+    documentNumber: beneficiary.document,
+    documentCountry: AGENCY_COUNTRY,
+    documentIssueDate: "2020-01-01",
+    documentExpiryDate: "2030-01-01",
+    firstName: beneficiary.firstName,
+    middleName: beneficiary.middleName,
+    lastName: beneficiary.lastName,
+    secondLastName: beneficiary.secondLastName,
+    birthDate: "1990-01-01",
+    birthCountry: AGENCY_COUNTRY,
+    nationality: AGENCY_COUNTRY,
+    gender: "Masculino",
+    email: beneficiary.email,
+    residenceCountry: AGENCY_COUNTRY,
+    street: beneficiary.street,
+    houseNumber: "S/N",
+    address2: "",
+    zone: beneficiary.city,
+    department: beneficiary.state,
+    city: beneficiary.city,
+    postalCode: "",
+    phoneCode: phoneParts.phoneCode,
+    phone: phoneParts.phone,
+    isPep: false,
+    isPepRelated: false,
+  };
+
   return {
     number: stored.id,
     provider: stored.provider,
     status: stored.collectionStatus,
-    amount: amountBob,
-    currency: "BOB",
+    amount: stored.amount,
+    currency: "USD",
     exchangeRate: USD_TO_BOB_RATE,
     originCountry: stored.destinationCountry,
     senderName: customer.fullName,
@@ -153,7 +197,7 @@ export async function loadPaymentOperationByNumber(
       city: beneficiary.city,
       department: beneficiary.state,
     },
-    existingCustomer: null,
+    existingCustomer: beneficiaryProfile,
     paidAt,
   };
 }
@@ -344,12 +388,20 @@ export function splitPhone(raw: string | undefined) {
 }
 
 const BOB_DENOMINATIONS = [200, 100, 50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1];
+const USD_DENOMINATIONS = [100, 50, 20, 10, 5, 1, 0.5, 0.25, 0.1, 0.05, 0.01];
 
 /** Desglose sugerido de billetes y monedas para entregar el efectivo. */
-export function cashBreakdown(amount: number) {
+export function cashBreakdown(
+  amount: number,
+  currency: PayoutCurrency = "BOB",
+) {
+  let denominations = BOB_DENOMINATIONS;
+  if (currency === "USD") {
+    denominations = USD_DENOMINATIONS;
+  }
   let remaining = Math.round(amount * 100);
   const lines: { value: number; count: number }[] = [];
-  for (const value of BOB_DENOMINATIONS) {
+  for (const value of denominations) {
     const cents = Math.round(value * 100);
     const count = Math.floor(remaining / cents);
     if (count > 0) {

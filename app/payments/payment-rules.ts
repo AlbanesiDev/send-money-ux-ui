@@ -4,6 +4,7 @@ import {
   FUNDS_ORIGIN_THRESHOLD,
   HIGH_RISK_ORIGIN_COUNTRIES,
   UIF_AMOUNT_THRESHOLD,
+  convertUsdToBob,
   formatMoney,
   splitPhone,
   type CustomerProfile,
@@ -234,7 +235,8 @@ const ADDITIONAL_INFO_FIELDS: UifField[] = [
 /** Motivos por los que el sistema exige el formulario . */
 export function uifTriggers(operation: PaymentOperation) {
   const reasons: string[] = [];
-  if (operation.amount >= UIF_AMOUNT_THRESHOLD)
+  const amountBob = convertUsdToBob(operation.amount);
+  if (amountBob >= UIF_AMOUNT_THRESHOLD)
     reasons.push(`El monto supera ${formatMoney(UIF_AMOUNT_THRESHOLD)}.`);
   if (HIGH_RISK_ORIGIN_COUNTRIES.includes(operation.originCountry))
     reasons.push(
@@ -254,7 +256,8 @@ export function requiredUifFields(
   const fields = new Set<UifField>();
   if (flags.additionalInfo || forced)
     ADDITIONAL_INFO_FIELDS.forEach((field) => fields.add(field));
-  if (operation.amount >= FUNDS_ORIGIN_THRESHOLD) fields.add("fundsOrigin");
+  const amountBob = convertUsdToBob(operation.amount);
+  if (amountBob >= FUNDS_ORIGIN_THRESHOLD) fields.add("fundsOrigin");
   if (["Casado/a", "Unión libre"].includes(form.civilStatus))
     fields.add("spouseName");
   if (documentType !== "Cédula") fields.delete("idExtensionPlace");

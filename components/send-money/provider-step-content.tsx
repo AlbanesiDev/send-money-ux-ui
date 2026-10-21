@@ -279,10 +279,9 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       moneygramCompany={props.moneygramCompany}
       terraPayBank={props.terraPayBank}
       terraPayWallet={props.terraPayWallet}
-      isKnownClient={props.isKnownClient}
-      beneficiary={props.beneficiaries[props.selectedBeneficiary]}
-      senderName={props.senderName}
+      remitterForm={props.remitterForm}
       documentNumber={props.documentNumber}
+      beneficiaryForm={props.beneficiaryForm}
       paymentLines={props.paymentLines}
       formatAmount={props.formatAmount}
       billingName={props.billingName}

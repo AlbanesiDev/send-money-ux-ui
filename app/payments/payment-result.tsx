@@ -15,20 +15,25 @@ import {
   cashBreakdown,
   formatMoney,
   formatOperationNumber,
+  resolvePayoutAmount,
   type PaymentOperation,
+  type PayoutCurrency,
 } from "./payment-data";
 
 export function PaymentSummaryAside({
   operation,
+  payoutCurrency,
   beneficiaryName,
   verified,
   documentValidated,
 }: {
   operation: PaymentOperation;
+  payoutCurrency: PayoutCurrency;
   beneficiaryName: string;
   verified: boolean;
   documentValidated: boolean;
 }) {
+  const deliverAmount = resolvePayoutAmount(operation.amount, payoutCurrency);
   return (
     <aside className="sticky top-0 flex flex-col gap-3 self-start">
       <div className="rounded-xl border border-border bg-card p-4">
@@ -40,7 +45,10 @@ export function PaymentSummaryAside({
         </div>
         <p className="mt-3 text-xs text-muted-foreground">Monto a entregar</p>
         <p className="text-2xl font-bold tabular-nums text-foreground">
-          {formatMoney(operation.amount, operation.currency)}
+          {formatMoney(deliverAmount, payoutCurrency)}
+        </p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Enviado {formatMoney(operation.amount, "USD")}
         </p>
         <dl className="mt-3 space-y-2 text-sm">
           <div className="flex justify-between gap-4">
@@ -129,15 +137,18 @@ const secondaryButton =
 
 export function PaymentSuccess({
   operation,
+  payoutCurrency,
   beneficiaryName,
   onNewPayment,
 }: {
   operation: PaymentOperation;
+  payoutCurrency: PayoutCurrency;
   beneficiaryName: string;
   onNewPayment: () => void;
 }) {
   const printRef = useRef<HTMLButtonElement>(null);
-  const breakdown = cashBreakdown(operation.amount);
+  const deliverAmount = resolvePayoutAmount(operation.amount, payoutCurrency);
+  const breakdown = cashBreakdown(deliverAmount, payoutCurrency);
 
   useEffect(() => {
     window.requestAnimationFrame(() => printRef.current?.focus());
@@ -153,7 +164,7 @@ export function PaymentSuccess({
           Pago registrado
         </p>
         <h1 className="mt-1 text-2xl font-bold tracking-[-0.02em] text-foreground">
-          Entrega {formatMoney(operation.amount, operation.currency)} a{" "}
+          Entrega {formatMoney(deliverAmount, payoutCurrency)} a{" "}
           {beneficiaryName}
         </h1>
         <p className="mt-1 font-mono text-sm text-muted-foreground">
@@ -192,7 +203,7 @@ export function PaymentSuccess({
                 >
                   <span className="text-muted-foreground">{line.count} ×</span>
                   <span className="font-semibold text-foreground">
-                    {formatMoney(line.value)}
+                    {formatMoney(line.value, payoutCurrency)}
                   </span>
                 </li>
               ))}

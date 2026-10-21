@@ -6,9 +6,12 @@ import { CancelOperationDialog } from "@/app/remittences/dialogs";
 import { Stepper } from "@/components/ui/stepper";
 import {
   AGENCY_CASH_BOB,
+  AGENCY_CASH_USD,
   collectPaymentOperation,
   formatMoney,
+  resolvePayoutAmount,
   type PaymentOperation,
+  type PayoutCurrency,
 } from "./payment-data";
 import {
   PaymentProcessing,
@@ -80,6 +83,7 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
   const [cancelOpen, setCancelOpen] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [paid, setPaid] = useState(false);
+  const [payoutCurrency, setPayoutCurrency] = useState<PayoutCurrency>("USD");
   const nextButtonRef = useRef<HTMLButtonElement>(null);
   const processingTimeoutRef = useRef<number | undefined>(undefined);
   useEffect(() => () => window.clearTimeout(processingTimeoutRef.current), []);
@@ -88,6 +92,7 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
     const customer = selected.existingCustomer;
     const known = selected.knownUifData ?? {};
     setOperation(selected);
+    setPayoutCurrency("USD");
     setProfile(buildInitialProfile(selected));
     setFlags({
       additionalInfo: false,
@@ -121,7 +126,16 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
         missingUifFields(uifRequiredFields, uifForm).length
       : 0;
   const beneficiaryReady = documentCheck === "matched" && pendingCount === 0;
-  const cashShort = operation ? operation.amount > AGENCY_CASH_BOB : false;
+  let deliverAmount = 0;
+  let cashShort = false;
+  if (operation !== null) {
+    deliverAmount = resolvePayoutAmount(operation.amount, payoutCurrency);
+    let agencyCash = AGENCY_CASH_USD;
+    if (payoutCurrency === "BOB") {
+      agencyCash = AGENCY_CASH_BOB;
+    }
+    cashShort = deliverAmount > agencyCash;
+  }
   const beneficiaryName = profile
     ? [profile.firstName, profile.lastName].filter(Boolean).join(" ")
     : (operation?.beneficiaryName ?? "");
@@ -159,7 +173,7 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
     return (
       <Shell>
         <PaymentProcessing
-          amount={formatMoney(operation.amount, operation.currency)}
+          amount={formatMoney(deliverAmount, payoutCurrency)}
         />
       </Shell>
     );
@@ -168,6 +182,7 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
       <Shell>
         <PaymentSuccess
           operation={operation}
+          payoutCurrency={payoutCurrency}
           beneficiaryName={beneficiaryName}
           onNewPayment={onReset}
         />
@@ -175,10 +190,10 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
     );
 
   const blocked = attemptsLeft <= 0 && !verified;
-  const primaryLabel =
-    step === 4 && operation
-      ? `Pagar ${formatMoney(operation.amount, operation.currency)}`
-      : "Siguiente";
+  let primaryLabel = "Siguiente";
+  if (step === 4 && operation !== null) {
+    primaryLabel = `Pagar ${formatMoney(deliverAmount, payoutCurrency)}`;
+  }
   const primaryDisabled =
     (step === 2 && !verified) ||
     (step === 3 && documentCheck !== "matched") ||
@@ -213,6 +228,7 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
                 aside={
                   <PaymentSummaryAside
                     operation={operation}
+                    payoutCurrency={payoutCurrency}
                     beneficiaryName={beneficiaryName}
                     verified={verified}
                     documentValidated={documentCheck === "matched"}
@@ -245,6 +261,7 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
                 aside={
                   <PaymentSummaryAside
                     operation={operation}
+                    payoutCurrency={payoutCurrency}
                     beneficiaryName={beneficiaryName}
                     verified={verified}
                     documentValidated={documentCheck === "matched"}
@@ -280,6 +297,7 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
                 aside={
                   <PaymentSummaryAside
                     operation={operation}
+                    payoutCurrency={payoutCurrency}
                     beneficiaryName={beneficiaryName}
                     verified={verified}
                     documentValidated={documentCheck === "matched"}
@@ -288,6 +306,8 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
               >
                 <ConfirmStep
                   operation={operation}
+                  payoutCurrency={payoutCurrency}
+                  onPayoutCurrencyChange={setPayoutCurrency}
                   profile={profile}
                   flags={flags}
                   uifForm={uifForm}

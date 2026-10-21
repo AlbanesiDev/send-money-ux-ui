@@ -4,15 +4,21 @@ import type { ReactNode } from "react";
 import { CountryFlag } from "@/components/ui/country-flag";
 import {
   AGENCY_CASH_BOB,
+  AGENCY_CASH_USD,
+  convertUsdToBob,
   formatMoney,
   formatOperationNumber,
+  resolvePayoutAmount,
   type PaymentOperation,
+  type PayoutCurrency,
 } from "../payment-data";
 import type { ComplianceFlags, ProfileForm, UifForm } from "../payment-rules";
 import { formatDate } from "./beneficiary-step";
 
 export function ConfirmStep({
   operation,
+  payoutCurrency,
+  onPayoutCurrencyChange,
   profile,
   flags,
   uifForm,
@@ -20,6 +26,8 @@ export function ConfirmStep({
   onEditBeneficiary,
 }: {
   operation: PaymentOperation;
+  payoutCurrency: PayoutCurrency;
+  onPayoutCurrencyChange: (currency: PayoutCurrency) => void;
   profile: ProfileForm;
   flags: ComplianceFlags;
   uifForm: UifForm;
@@ -34,7 +42,35 @@ export function ConfirmStep({
   ]
     .filter(Boolean)
     .join(" ");
-  const cashAfter = AGENCY_CASH_BOB - operation.amount;
+  const deliverAmount = resolvePayoutAmount(operation.amount, payoutCurrency);
+  let agencyCash = AGENCY_CASH_USD;
+  if (payoutCurrency === "BOB") {
+    agencyCash = AGENCY_CASH_BOB;
+  }
+  const cashAfter = agencyCash - deliverAmount;
+  const bobEquivalent = convertUsdToBob(operation.amount);
+  let conversionHint = ` · Cotización agencia disponible: 1 USD = ${operation.exchangeRate} BOB`;
+  if (payoutCurrency === "BOB") {
+    conversionHint = ` · Conversión agencia ${operation.exchangeRate} = ${formatMoney(bobEquivalent, "BOB")}`;
+  }
+  let cashMessage = `Efectivo en caja después del pago: ${formatMoney(cashAfter, payoutCurrency)}.`;
+  let cashMessageClass = "text-muted-foreground";
+  if (cashAfter < 0) {
+    cashMessage = `Efectivo insuficiente en caja (${formatMoney(agencyCash, payoutCurrency)}). Solicita una provisión antes de pagar.`;
+    cashMessageClass = "text-destructive";
+  }
+  let usdToggleClass =
+    "rounded-md px-3 py-1.5 text-xs font-bold transition-colors text-muted-foreground hover:text-foreground";
+  if (payoutCurrency === "USD") {
+    usdToggleClass =
+      "rounded-md px-3 py-1.5 text-xs font-bold transition-colors bg-brand-strong text-white";
+  }
+  let bobToggleClass =
+    "rounded-md px-3 py-1.5 text-xs font-bold transition-colors text-muted-foreground hover:text-foreground";
+  if (payoutCurrency === "BOB") {
+    bobToggleClass =
+      "rounded-md px-3 py-1.5 text-xs font-bold transition-colors bg-brand-strong text-white";
+  }
 
   return (
     <div className="flex flex-col gap-3">
@@ -46,12 +82,42 @@ export function ConfirmStep({
         </p>
       </div>
 
-      <section className="rounded-xl border border-brand/40 bg-accent p-4">
-        <p className="text-xs font-bold uppercase tracking-[0.12em] text-brand-strong">
-          Monto a entregar
-        </p>
-        <p className="mt-1 text-4xl font-bold tabular-nums tracking-[-0.02em] text-foreground">
-          {formatMoney(operation.amount, operation.currency)}
+      <section className="rounded-xl border border-brand/40 bg-white p-4">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-brand-strong ">
+              Monto a entregar
+            </p>
+            <p className="mt-1 text-4xl font-bold tabular-nums tracking-[-0.02em] text-foreground">
+              {formatMoney(deliverAmount, payoutCurrency)}
+            </p>
+          </div>
+          <div
+            role="group"
+            aria-label="Moneda de cobro"
+            className="inline-flex rounded-lg border border-border bg-card p-0.5"
+          >
+            <button
+              type="button"
+              aria-pressed={payoutCurrency === "USD"}
+              onClick={() => onPayoutCurrencyChange("USD")}
+              className={usdToggleClass}
+            >
+              USD
+            </button>
+            <button
+              type="button"
+              aria-pressed={payoutCurrency === "BOB"}
+              onClick={() => onPayoutCurrencyChange("BOB")}
+              className={bobToggleClass}
+            >
+              BOB
+            </button>
+          </div>
+        </div>
+        <p className="mt-2 text-xs text-muted-foreground">
+          Enviado: {formatMoney(operation.amount, "USD")}
+          {conversionHint}
         </p>
         <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-3">
           <Item label="Operación">
@@ -67,12 +133,8 @@ export function ConfirmStep({
           </Item>
           <Item label="Tasa de cambio">{operation.exchangeRate}</Item>
         </dl>
-        <p
-          className={`mt-3 text-xs font-semibold ${cashAfter < 0 ? "text-destructive" : "text-muted-foreground"}`}
-        >
-          {cashAfter < 0
-            ? `Efectivo insuficiente en caja (${formatMoney(AGENCY_CASH_BOB)}). Solicita una provisión antes de pagar.`
-            : `Efectivo en caja después del pago: ${formatMoney(cashAfter)}.`}
+        <p className={`mt-3 text-xs font-semibold ${cashMessageClass}`}>
+          {cashMessage}
         </p>
       </section>
 

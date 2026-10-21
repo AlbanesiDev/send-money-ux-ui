@@ -1,11 +1,8 @@
 import type { ReactNode } from "react";
+import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
+import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
 import { deliveryTypeLabel } from "../provider-flows";
-import type {
-  Beneficiary,
-  PaymentLine,
-  ProviderId,
-  ProviderQuote,
-} from "../types";
+import type { PaymentLine, ProviderId, ProviderQuote } from "../types";
 
 function SummarySection({
   title,
@@ -104,10 +101,9 @@ export function ReviewStep({
   moneygramCompany,
   terraPayBank,
   terraPayWallet,
-  isKnownClient,
-  beneficiary,
-  senderName,
+  remitterForm,
   documentNumber,
+  beneficiaryForm,
   paymentLines,
   formatAmount,
   billingName,
@@ -129,10 +125,9 @@ export function ReviewStep({
   moneygramCompany: string;
   terraPayBank: string;
   terraPayWallet: string;
-  isKnownClient: boolean;
-  beneficiary: Beneficiary | undefined;
-  senderName: string;
+  remitterForm: CustomerRegistrationDraft;
   documentNumber: string;
+  beneficiaryForm: BeneficiaryRegistrationDraft;
   paymentLines: PaymentLine[];
   formatAmount: (value: number) => string;
   billingName: string;
@@ -191,56 +186,6 @@ export function ReviewStep({
         </SummarySection>
         <div className="flex flex-col gap-3">
           <SummarySection
-            title="Beneficiario"
-            tone="beneficiary"
-            onEdit={onEditBeneficiary}
-            editLabel={onEditBeneficiary ? "Editar beneficiario" : undefined}
-          >
-            {provider === "MONEYGRAM" ? (
-              <>
-                <SummaryRow
-                  label="Compañía"
-                  value="Sol & Luna Pagos"
-                  emphasis
-                />
-                <SummaryRow label="Cuenta" value="001234567890" />
-                <SummaryRow label="Referencia" value="REF-77821" />
-              </>
-            ) : (
-              <>
-                <SummaryRow
-                  label="Nombre"
-                  value={
-                    beneficiary === undefined
-                      ? "Nuevo beneficiario"
-                      : beneficiary.name
-                  }
-                  emphasis
-                />
-                <SummaryRow
-                  label="Documento"
-                  value={beneficiary === undefined ? "—" : beneficiary.document}
-                />
-                <SummaryRow
-                  label="Teléfono"
-                  value={beneficiary === undefined ? "—" : beneficiary.phone}
-                />
-              </>
-            )}
-          </SummarySection>
-          <SummarySection
-            title="Remitente"
-            tone="sender"
-            onEdit={onEditRemitter}
-            editLabel={onEditRemitter ? "Editar remitente" : undefined}
-          >
-            <SummaryRow
-              label="Nombre"
-              value={senderName || "Nuevo remitente"}
-            />
-            <SummaryRow label="Documento" value={`Cédula ${documentNumber}`} />
-          </SummarySection>
-          <SummarySection
             title="Pago y facturación"
             onEdit={onEditPayment}
             editLabel="Editar pago"
@@ -274,9 +219,350 @@ export function ReviewStep({
               value={`${billingName || "—"} · ${billingNit || "—"}`}
             />
           </SummarySection>
+          {billingSlot}
         </div>
+        <SummarySection
+          title="Remitente"
+          tone="sender"
+          onEdit={onEditRemitter}
+          editLabel={onEditRemitter ? "Editar remitente" : undefined}
+        >
+          {provider === "RIA" ? (
+            <>
+              <SummaryRow
+                label="Tipo de documento"
+                value={remitterForm.documentType || "—"}
+              />
+              <SummaryRow
+                label="Número de documento"
+                value={documentNumber || "—"}
+              />
+              <SummaryRow
+                label="Nombre"
+                value={remitterForm.firstName || "—"}
+                emphasis
+              />
+              <SummaryRow
+                label="Segundo nombre"
+                value={remitterForm.middleName || "—"}
+              />
+              <SummaryRow
+                label="Primer apellido"
+                value={remitterForm.lastName || "—"}
+              />
+              <SummaryRow
+                label="Segundo apellido"
+                value={remitterForm.secondLastName || "—"}
+              />
+              <SummaryRow
+                label="Correo electrónico"
+                value={remitterForm.email || "—"}
+              />
+              <SummaryRow label="País de residencia" value="Bolivia" />
+              <SummaryRow label="Estado" value={remitterForm.state || "—"} />
+              <SummaryRow label="Ciudad" value={remitterForm.city || "—"} />
+              <SummaryRow
+                label="Dirección"
+                value={remitterForm.address || "—"}
+              />
+              <SummaryRow
+                label="Número de teléfono"
+                value={remitterForm.phone || "—"}
+              />
+            </>
+          ) : provider === "TERRAPAY" ? (
+            <>
+              <SummaryRow
+                label="Tipo de documento"
+                value={remitterForm.documentType || "—"}
+              />
+              <SummaryRow
+                label="Número de documento"
+                value={documentNumber || "—"}
+              />
+              <SummaryRow
+                label="País de emisión"
+                value={remitterForm.documentIssueCountry || "—"}
+              />
+              <SummaryRow
+                label="Fecha de emisión"
+                value={remitterForm.documentIssueDate || "—"}
+              />
+              <SummaryRow
+                label="Fecha de vencimiento"
+                value={remitterForm.documentExpiryDate || "—"}
+              />
+              <SummaryRow
+                label="Nombre"
+                value={remitterForm.firstName || "—"}
+                emphasis
+              />
+              <SummaryRow
+                label="Segundo nombre"
+                value={remitterForm.middleName || "—"}
+              />
+              <SummaryRow
+                label="Primer apellido"
+                value={remitterForm.lastName || "—"}
+              />
+              <SummaryRow
+                label="Segundo apellido"
+                value={remitterForm.secondLastName || "—"}
+              />
+              <SummaryRow
+                label="Fecha de nacimiento"
+                value={remitterForm.birthDate || "—"}
+              />
+              <SummaryRow
+                label="País de nacimiento"
+                value={remitterForm.birthCountry || "—"}
+              />
+              <SummaryRow
+                label="Nacionalidad"
+                value={remitterForm.nationality || "—"}
+              />
+              <SummaryRow label="Género" value={remitterForm.gender || "—"} />
+              <SummaryRow
+                label="Correo electrónico"
+                value={remitterForm.email || "—"}
+              />
+              <SummaryRow label="Calle" value={remitterForm.street || "—"} />
+              <SummaryRow
+                label="Nro. casa"
+                value={remitterForm.houseNumber || "—"}
+              />
+              <SummaryRow
+                label="Dirección 2"
+                value={remitterForm.address2 || "—"}
+              />
+              <SummaryRow label="Zona" value={remitterForm.zone || "—"} />
+              <SummaryRow
+                label="Código postal"
+                value={remitterForm.postalCode || "—"}
+              />
+              <SummaryRow label="País" value="Bolivia" />
+              <SummaryRow
+                label="Departamento / Estado"
+                value={remitterForm.state || "—"}
+              />
+              <SummaryRow label="Ciudad" value={remitterForm.city || "—"} />
+              <SummaryRow label="Teléfono" value={remitterForm.phone || "—"} />
+              <SummaryRow label="Móvil" value={remitterForm.mobile || "—"} />
+            </>
+          ) : (
+            <>
+              <SummaryRow
+                label="Tipo de documento"
+                value={remitterForm.documentType || "—"}
+              />
+              <SummaryRow
+                label="Número de documento"
+                value={documentNumber || "—"}
+              />
+              <SummaryRow
+                label="País de emisión"
+                value={remitterForm.documentIssueCountry || "—"}
+              />
+              <SummaryRow
+                label="Fecha de emisión"
+                value={remitterForm.documentIssueDate || "—"}
+              />
+              <SummaryRow
+                label="Fecha de vencimiento"
+                value={remitterForm.documentExpiryDate || "—"}
+              />
+              <SummaryRow
+                label="Nombre"
+                value={remitterForm.firstName || "—"}
+                emphasis
+              />
+              <SummaryRow
+                label="Segundo nombre"
+                value={remitterForm.middleName || "—"}
+              />
+              <SummaryRow
+                label="Primer apellido"
+                value={remitterForm.lastName || "—"}
+              />
+              <SummaryRow
+                label="Segundo apellido"
+                value={remitterForm.secondLastName || "—"}
+              />
+              <SummaryRow
+                label="Fecha de nacimiento"
+                value={remitterForm.birthDate || "—"}
+              />
+              <SummaryRow
+                label="País de nacimiento"
+                value={remitterForm.birthCountry || "—"}
+              />
+              <SummaryRow
+                label="Nacionalidad"
+                value={remitterForm.nationality || "—"}
+              />
+              <SummaryRow label="Género" value={remitterForm.gender || "—"} />
+              <SummaryRow
+                label="Correo electrónico"
+                value={remitterForm.email || "—"}
+              />
+              <SummaryRow label="Calle" value={remitterForm.street || "—"} />
+              <SummaryRow
+                label="Dirección"
+                value={remitterForm.address || "—"}
+              />
+              <SummaryRow label="País" value="Bolivia" />
+              <SummaryRow
+                label="Departamento / Estado"
+                value={remitterForm.state || "—"}
+              />
+              <SummaryRow label="Ciudad" value={remitterForm.city || "—"} />
+              <SummaryRow label="Teléfono" value={remitterForm.phone || "—"} />
+              <SummaryRow label="Móvil" value={remitterForm.mobile || "—"} />
+            </>
+          )}
+        </SummarySection>
+        <SummarySection
+          title="Beneficiario"
+          tone="beneficiary"
+          onEdit={onEditBeneficiary}
+          editLabel={onEditBeneficiary ? "Editar beneficiario" : undefined}
+        >
+          {provider === "MONEYGRAM" ? (
+            <>
+              <SummaryRow label="Compañía" value="Sol & Luna Pagos" emphasis />
+              <SummaryRow label="Nro de cuenta" value="001234567890" />
+              <SummaryRow label="Codigo de Localidad" value="LPZ-001" />
+              <SummaryRow label="Referencia" value="REF-77821" />
+              <SummaryRow label="Atención" value="Caja central" />
+              <SummaryRow label="Calle/Numero" value="Av. Camacho 450" />
+              <SummaryRow label="Dirección" value="Av. Camacho 450, piso 2" />
+              <SummaryRow label="Estado" value="La Paz" />
+              <SummaryRow label="Ciudad" value="La Paz" />
+              <SummaryRow label="Nro. Teléfono" value="22123456" />
+            </>
+          ) : provider === "RIA" ? (
+            <>
+              <SummaryRow
+                label="Tipo de documento"
+                value={beneficiaryForm.documentType || "—"}
+              />
+              <SummaryRow
+                label="Nro. de Documento"
+                value={beneficiaryForm.document || "—"}
+              />
+              <SummaryRow
+                label="Nombre"
+                value={beneficiaryForm.firstName || "—"}
+                emphasis
+              />
+              <SummaryRow
+                label="Segundo Nombre"
+                value={beneficiaryForm.middleName || "—"}
+              />
+              <SummaryRow
+                label="Primer Apellido"
+                value={beneficiaryForm.lastName || "—"}
+              />
+              <SummaryRow
+                label="Segundo Apellido"
+                value={beneficiaryForm.secondLastName || "—"}
+              />
+              <SummaryRow
+                label="Correo electrónico"
+                value={beneficiaryForm.email || "—"}
+              />
+              <SummaryRow label="Nacionalidad" value="Boliviana" />
+              <SummaryRow label="País Residencia" value="Bolivia" />
+              <SummaryRow
+                label="Calle/Numero"
+                value={beneficiaryForm.street || "—"}
+              />
+              <SummaryRow
+                label="Dirección"
+                value={beneficiaryForm.address || "—"}
+              />
+              <SummaryRow label="Estado" value={beneficiaryForm.state || "—"} />
+              <SummaryRow label="Ciudad" value={beneficiaryForm.city || "—"} />
+              <SummaryRow
+                label="Nro. Teléfono"
+                value={beneficiaryForm.phone || "—"}
+              />
+            </>
+          ) : provider === "TERRAPAY" ? (
+            <>
+              <SummaryRow
+                label="Nombre"
+                value={beneficiaryForm.firstName || "—"}
+                emphasis
+              />
+              <SummaryRow
+                label="Primer Apellido"
+                value={beneficiaryForm.lastName || "—"}
+              />
+              <SummaryRow label="Tipo ID beneficiario" value="Cédula" />
+              <SummaryRow
+                label="Nro. ID beneficiario"
+                value={beneficiaryForm.document || "—"}
+              />
+              <SummaryRow label="Nacionalidad" value="Boliviana" />
+              <SummaryRow label="Código Postal" value="0000" />
+              <SummaryRow label="Cód. Móvil" value="+591" />
+              <SummaryRow
+                label="Nro. Teléfono"
+                value={beneficiaryForm.phone || "—"}
+              />
+              <SummaryRow
+                label="Calle/Numero"
+                value={beneficiaryForm.street || "—"}
+              />
+              <SummaryRow
+                label="Dirección"
+                value={beneficiaryForm.address || "—"}
+              />
+              <SummaryRow label="Estado" value={beneficiaryForm.state || "—"} />
+              <SummaryRow label="Ciudad" value={beneficiaryForm.city || "—"} />
+            </>
+          ) : (
+            <>
+              <SummaryRow
+                label="Nombre"
+                value={beneficiaryForm.firstName || "—"}
+                emphasis
+              />
+              <SummaryRow
+                label="Segundo Nombre"
+                value={beneficiaryForm.middleName || "—"}
+              />
+              <SummaryRow
+                label="Primer Apellido"
+                value={beneficiaryForm.lastName || "—"}
+              />
+              <SummaryRow
+                label="Segundo Apellido"
+                value={beneficiaryForm.secondLastName || "—"}
+              />
+              <SummaryRow
+                label="Nro. de Documento"
+                value={beneficiaryForm.document || "—"}
+              />
+              <SummaryRow label="Estado" value={beneficiaryForm.state || "—"} />
+              <SummaryRow label="Ciudad" value={beneficiaryForm.city || "—"} />
+              <SummaryRow
+                label="Calle/Numero"
+                value={beneficiaryForm.street || "—"}
+              />
+              <SummaryRow
+                label="Dirección"
+                value={beneficiaryForm.address || "—"}
+              />
+              <SummaryRow
+                label="Nro. Teléfono"
+                value={beneficiaryForm.phone || "—"}
+              />
+            </>
+          )}
+        </SummarySection>
       </div>
-      {billingSlot}
     </div>
   );
 }

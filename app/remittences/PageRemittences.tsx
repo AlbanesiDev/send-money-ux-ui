@@ -189,7 +189,7 @@ const parseAmount = (value: string) =>
   Number(value.replace(/\./g, "").replace(",", "."));
 const toCents = (value: number) => Math.round(value * 100);
 /** Tipo de cambio oficial BOB por USD (mock hasta integrar el servicio). */
-const BOB_PER_USD = 6.96;
+const BOB_PER_USD = 11.56;
 const paymentMethodOptions = [
   "Pago en efectivo",
   "Tarjeta de débito",

@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import {
   formatMoney,
-  VERIFICATION_DISTRACTOR_AMOUNTS_BOB,
+  VERIFICATION_DISTRACTOR_AMOUNTS_USD,
   VERIFICATION_DISTRACTOR_COUNTRIES,
   VERIFICATION_DISTRACTOR_NAMES,
   type PaymentOperation,
@@ -125,13 +125,13 @@ export function VerificationStep({
   const otherAmounts: string[] = [];
   for (
     let index = 0;
-    index < VERIFICATION_DISTRACTOR_AMOUNTS_BOB.length;
+    index < VERIFICATION_DISTRACTOR_AMOUNTS_USD.length;
     index += 1
   ) {
     const amountValue =
-      VERIFICATION_DISTRACTOR_AMOUNTS_BOB[
+      VERIFICATION_DISTRACTOR_AMOUNTS_USD[
         (index + distractorOffset + 2) %
-          VERIFICATION_DISTRACTOR_AMOUNTS_BOB.length
+          VERIFICATION_DISTRACTOR_AMOUNTS_USD.length
       ];
     const amountLabel = formatMoney(amountValue, operation.currency);
     if (amountLabel === correctAmount) continue;

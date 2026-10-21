@@ -5,6 +5,7 @@ import { Field } from "@/components/send-money/field";
 import {
   DELIVERY_TYPE_OPTIONS,
   deliveryTypeLabel,
+  providersForDeliveryType,
   TERRAPAY_BANK_OPTIONS,
   TERRAPAY_WALLET_OPTIONS,
 } from "@/components/send-money/provider-flows";
@@ -283,7 +284,7 @@ export function QuoteStep({
     quotesStatus = STATUS.SUCCESS;
   }
   const quoteSkeletonCount =
-    deliveryType === "BANK" || deliveryType === "WALLET" ? 3 : 4;
+    deliveryType === "" ? 0 : providersForDeliveryType(deliveryType).length;
 
   return (
     <div className="space-y-3">

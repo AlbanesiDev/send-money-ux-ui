@@ -130,7 +130,7 @@ export function ReviewStep({
   terraPayBank: string;
   terraPayWallet: string;
   isKnownClient: boolean;
-  beneficiary: Beneficiary;
+  beneficiary: Beneficiary | undefined;
   senderName: string;
   documentNumber: string;
   paymentLines: PaymentLine[];
@@ -211,17 +211,19 @@ export function ReviewStep({
                 <SummaryRow
                   label="Nombre"
                   value={
-                    isKnownClient ? beneficiary.name : "Nuevo beneficiario"
+                    beneficiary === undefined
+                      ? "Nuevo beneficiario"
+                      : beneficiary.name
                   }
                   emphasis
                 />
                 <SummaryRow
                   label="Documento"
-                  value={isKnownClient ? beneficiary.document : "—"}
+                  value={beneficiary === undefined ? "—" : beneficiary.document}
                 />
                 <SummaryRow
                   label="Teléfono"
-                  value={isKnownClient ? beneficiary.phone : "—"}
+                  value={beneficiary === undefined ? "—" : beneficiary.phone}
                 />
               </>
             )}

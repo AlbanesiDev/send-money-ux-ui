@@ -35,6 +35,7 @@ export type RecentTransaction = {
   destinationCountry: string;
   deliveryType: DeliveryTypeId;
   wuService: string;
+  moneygramCompany?: string;
   service: string;
   payingPartner?: string;
   location?: string;
@@ -44,6 +45,8 @@ export type RecentTransaction = {
   terraPayAlias?: string;
   amount: number;
   beneficiaryIndex: number;
+  beneficiaryId?: string;
+  customerId?: string;
   paymentMethod: string;
 };
 

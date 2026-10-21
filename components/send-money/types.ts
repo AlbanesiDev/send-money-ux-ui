@@ -88,10 +88,19 @@ export type Customer = {
 };
 
 export type Beneficiary = {
+  id: string;
   customerId: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  secondLastName: string;
   name: string;
+  documentType: string;
   document: string;
+  state: string;
   city: string;
+  street: string;
+  address: string;
   phone: string;
   email: string;
 };

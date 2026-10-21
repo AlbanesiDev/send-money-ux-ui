@@ -20,6 +20,7 @@ export function Field({
   numericOnly = false,
   email = false,
   name,
+  maxLength,
 }: {
   label: string;
   value?: string;
@@ -34,6 +35,7 @@ export function Field({
   numericOnly?: boolean;
   email?: boolean;
   name?: string;
+  maxLength?: number;
 }) {
   const isControlled = onChange !== undefined;
   const [touched, setTouched] = useState(false);
@@ -91,6 +93,7 @@ export function Field({
           placeholder={placeholder}
           disabled={disabled}
           required={required}
+          maxLength={maxLength}
           inputMode={numericOnly ? "numeric" : email ? "email" : undefined}
           autoComplete={email ? "email" : undefined}
           aria-invalid={hasError}

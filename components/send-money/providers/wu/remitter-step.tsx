@@ -80,6 +80,7 @@ export function WuRemitterStep({
           disabled={documentFieldsLocked}
           required
           numericOnly
+          maxLength={7}
           onChange={onDocumentNumberChange}
         />
       </div>

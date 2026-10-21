@@ -78,7 +78,7 @@ export function SearchOperationStep({
   return (
     <div className="mx-auto w-full max-w-[760px] px-4 sm:px-6">
       <div className="mb-6 pt-12">
-        <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-brand">
+        <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-blue-600">
           Pago de remesa
         </p>
         <h1 className="text-xl font-bold tracking-[-0.02em] text-foreground">

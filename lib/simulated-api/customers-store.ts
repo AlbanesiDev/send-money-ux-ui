@@ -1,30 +1,11 @@
 import type { Customer } from "@/components/send-money/types";
-
-const DB_NAME = "send-money-ux-ui";
-const DB_VERSION = 1;
-const STORE_NAME = "customers";
-
-function openCustomersDb(): Promise<IDBDatabase> {
-  return new Promise((resolve, reject) => {
-    const request = window.indexedDB.open(DB_NAME, DB_VERSION);
-    request.onupgradeneeded = () => {
-      const db = request.result;
-      if (db.objectStoreNames.contains(STORE_NAME)) return;
-      const store = db.createObjectStore(STORE_NAME, { keyPath: "id" });
-      store.createIndex("documentNumbers", "documentNumbers", {
-        multiEntry: true,
-      });
-    };
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
-  });
-}
+import { CUSTOMERS_STORE, openSendMoneyDb } from "./send-money-db";
 
 export async function readAllCustomers(): Promise<Customer[]> {
-  const db = await openCustomersDb();
+  const db = await openSendMoneyDb();
   return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, "readonly");
-    const store = transaction.objectStore(STORE_NAME);
+    const transaction = db.transaction(CUSTOMERS_STORE, "readonly");
+    const store = transaction.objectStore(CUSTOMERS_STORE);
     const request = store.getAll();
     request.onsuccess = () => resolve(request.result as Customer[]);
     request.onerror = () => reject(request.error);
@@ -32,10 +13,10 @@ export async function readAllCustomers(): Promise<Customer[]> {
 }
 
 export async function writeCustomer(customer: Customer): Promise<void> {
-  const db = await openCustomersDb();
+  const db = await openSendMoneyDb();
   return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, "readwrite");
-    const store = transaction.objectStore(STORE_NAME);
+    const transaction = db.transaction(CUSTOMERS_STORE, "readwrite");
+    const store = transaction.objectStore(CUSTOMERS_STORE);
     const request = store.put(customer);
     request.onsuccess = () => resolve();
     request.onerror = () => reject(request.error);
@@ -43,10 +24,10 @@ export async function writeCustomer(customer: Customer): Promise<void> {
 }
 
 export async function writeCustomers(customers: Customer[]): Promise<void> {
-  const db = await openCustomersDb();
+  const db = await openSendMoneyDb();
   return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, "readwrite");
-    const store = transaction.objectStore(STORE_NAME);
+    const transaction = db.transaction(CUSTOMERS_STORE, "readwrite");
+    const store = transaction.objectStore(CUSTOMERS_STORE);
     for (const customer of customers) {
       store.put(customer);
     }
@@ -58,10 +39,10 @@ export async function writeCustomers(customers: Customer[]): Promise<void> {
 export async function readCustomerByDocument(
   documentNumber: string,
 ): Promise<Customer | null> {
-  const db = await openCustomersDb();
+  const db = await openSendMoneyDb();
   return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, "readonly");
-    const store = transaction.objectStore(STORE_NAME);
+    const transaction = db.transaction(CUSTOMERS_STORE, "readonly");
+    const store = transaction.objectStore(CUSTOMERS_STORE);
     const index = store.index("documentNumbers");
     const request = index.get(documentNumber);
     request.onsuccess = () => {
@@ -92,10 +73,10 @@ export async function readCustomerByDocumentIdentity(
 }
 
 export async function countCustomers(): Promise<number> {
-  const db = await openCustomersDb();
+  const db = await openSendMoneyDb();
   return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, "readonly");
-    const store = transaction.objectStore(STORE_NAME);
+    const transaction = db.transaction(CUSTOMERS_STORE, "readonly");
+    const store = transaction.objectStore(CUSTOMERS_STORE);
     const request = store.count();
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);

@@ -3,6 +3,7 @@ import {
   GuestClientLookupNotice,
   type GuestClientLookupStatus,
 } from "./guest-client-lookup-notice";
+import { FrequentBeneficiaries } from "./frequent-beneficiaries";
 import { RiaAdditionalInfoStep } from "./providers/ria/additional-info-step";
 import { RiaBeneficiaryStep } from "./providers/ria/beneficiary-step";
 import { RiaRemitterStep } from "./providers/ria/remitter-step";
@@ -15,6 +16,7 @@ import { WuRemitterStep } from "./providers/wu/remitter-step";
 import { PepStep } from "./shared/pep-step";
 import { ReviewStep } from "./shared/review-step";
 import { getStepKey } from "./provider-flows";
+import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
 import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
 import type {
   Beneficiary,
@@ -24,6 +26,7 @@ import type {
   ProviderQuote,
   ProviderStepKey,
 } from "./types";
+import type { BeneficiaryFormChangeHandler } from "./providers/wu/beneficiary-step";
 import type { RemitterFormChangeHandler } from "./providers/wu/remitter-step";
 
 export type ProviderStepContentProps = {
@@ -34,6 +37,8 @@ export type ProviderStepContentProps = {
   customer: Customer | null;
   remitterForm: CustomerRegistrationDraft;
   onRemitterFormChange: RemitterFormChangeHandler;
+  beneficiaryForm: BeneficiaryRegistrationDraft;
+  onBeneficiaryFormChange: BeneficiaryFormChangeHandler;
   known: (value?: string) => string | undefined;
   isKnownClient: boolean;
   showFrequentBeneficiaries: boolean;
@@ -41,6 +46,7 @@ export type ProviderStepContentProps = {
   beneficiaries: Beneficiary[];
   selectedBeneficiary: number;
   onSelectBeneficiary: (index: number) => void;
+  onCreateBeneficiary?: () => void;
   additionalChecks: Record<string, boolean>;
   onAdditionalCheckChange: (label: string, checked: boolean) => void;
   quote: ProviderQuote;
@@ -71,6 +77,11 @@ export type ProviderStepContentProps = {
   registerClientError?: string;
   isUpdatingExistingClient?: boolean;
   showSaveClientButton?: boolean;
+  onRegisterBeneficiary?: () => void;
+  isRegisteringBeneficiary?: boolean;
+  registerBeneficiaryError?: string;
+  isUpdatingExistingBeneficiary?: boolean;
+  showSaveBeneficiaryButton?: boolean;
   guestLookupStatus?: GuestClientLookupStatus;
   onAcceptGuestAutofill?: () => void;
   onDeclineGuestAutofill?: () => void;
@@ -94,13 +105,13 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       props.guestLookupStatus !== undefined &&
       props.onAcceptGuestAutofill !== undefined &&
       props.onDeclineGuestAutofill !== undefined ? (
-        <div className="pt-4">
+        <>
           <GuestClientLookupNotice
             status={props.guestLookupStatus}
             onAcceptAutofill={props.onAcceptGuestAutofill}
             onDeclineAutofill={props.onDeclineGuestAutofill}
           />
-        </div>
+        </>
       ) : null;
 
     if (props.provider === "RIA") {
@@ -155,30 +166,19 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       footerSlot,
     };
 
+    const beneficiaryFormProps = {
+      form: props.beneficiaryForm,
+      onFormChange: props.onBeneficiaryFormChange,
+    };
+
+    const usesFrequentBeneficiaries = props.provider !== "MONEYGRAM";
+
     if (props.provider === "RIA") {
       remitter = <RiaRemitterStep {...remitterDocumentProps} />;
-      beneficiary = (
-        <RiaBeneficiaryStep
-          showFrequentBeneficiaries={props.showFrequentBeneficiaries}
-          fillBeneficiaryFields={props.fillBeneficiaryFields}
-          beneficiaries={props.beneficiaries}
-          selectedBeneficiary={props.selectedBeneficiary}
-          onSelectBeneficiary={props.onSelectBeneficiary}
-          known={props.known}
-        />
-      );
+      beneficiary = <RiaBeneficiaryStep {...beneficiaryFormProps} />;
     } else if (props.provider === "WU") {
       remitter = <WuRemitterStep {...remitterDocumentProps} />;
-      beneficiary = (
-        <WuBeneficiaryStep
-          showFrequentBeneficiaries={props.showFrequentBeneficiaries}
-          fillBeneficiaryFields={props.fillBeneficiaryFields}
-          beneficiaries={props.beneficiaries}
-          selectedBeneficiary={props.selectedBeneficiary}
-          onSelectBeneficiary={props.onSelectBeneficiary}
-          known={props.known}
-        />
-      );
+      beneficiary = <WuBeneficiaryStep {...beneficiaryFormProps} />;
     } else if (props.provider === "MONEYGRAM") {
       remitter = <MoneygramRemitterStep {...remitterDocumentProps} />;
       let moneygramKnown = props.known;
@@ -188,16 +188,17 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       beneficiary = <MoneygramBeneficiaryAccountStep known={moneygramKnown} />;
     } else {
       remitter = <TerrapayRemitterStep {...remitterDocumentProps} />;
-      beneficiary = (
-        <TerrapayBeneficiaryStep
-          showFrequentBeneficiaries={props.showFrequentBeneficiaries}
-          fillBeneficiaryFields={props.fillBeneficiaryFields}
-          beneficiaries={props.beneficiaries}
-          selectedBeneficiary={props.selectedBeneficiary}
-          onSelectBeneficiary={props.onSelectBeneficiary}
-          known={props.known}
-        />
-      );
+      beneficiary = <TerrapayBeneficiaryStep {...beneficiaryFormProps} />;
+    }
+
+    let beneficiaryButtonLabel = "Guardar beneficiario";
+    if (props.isRegisteringBeneficiary === true) {
+      beneficiaryButtonLabel =
+        props.isUpdatingExistingBeneficiary === true
+          ? "Actualizando…"
+          : "Guardando…";
+    } else if (props.isUpdatingExistingBeneficiary === true) {
+      beneficiaryButtonLabel = "Actualizar beneficiario";
     }
 
     return (
@@ -227,14 +228,43 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
               </div>
             )}
         </section>
-        <section className="flex max-h-[min(70vh,36rem)] min-h-0 flex-col overflow-hidden rounded-xl border border-border border-l-4 border-l-party-beneficiary-border bg-card p-5 shadow-sm lg:max-h-none">
-          <h2 className="mb-4 shrink-0 font-bold text-party-beneficiary-fg">
-            Beneficiario
-          </h2>
-          <div className="min-h-0 flex-1 overflow-y-auto pr-1">
-            {beneficiary}
-          </div>
-        </section>
+        <div className="flex min-h-0 flex-col gap-4">
+          {props.showFrequentBeneficiaries && usesFrequentBeneficiaries && (
+            <FrequentBeneficiaries
+              beneficiaries={props.beneficiaries}
+              selectedBeneficiary={props.selectedBeneficiary}
+              onSelectBeneficiary={props.onSelectBeneficiary}
+              onCreateNew={props.onCreateBeneficiary}
+            />
+          )}
+          <section className="flex max-h-[min(70vh,36rem)] min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-border border-l-4 border-l-party-beneficiary-border bg-card p-5 shadow-sm lg:max-h-none">
+            <h2 className="mb-4 shrink-0 font-bold text-party-beneficiary-fg">
+              Beneficiario
+            </h2>
+            <div className="min-h-0 flex-1 overflow-y-auto pr-1">
+              {beneficiary}
+            </div>
+            {props.showSaveBeneficiaryButton === true &&
+              props.onRegisterBeneficiary !== undefined && (
+                <div className="mt-4 shrink-0 space-y-2 border-t border-border pt-4">
+                  <button
+                    type="button"
+                    onClick={props.onRegisterBeneficiary}
+                    disabled={props.isRegisteringBeneficiary === true}
+                    className="flex h-11 w-full items-center justify-center rounded-lg bg-party-beneficiary-border text-sm font-bold text-white hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-party-beneficiary-border/30 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {beneficiaryButtonLabel}
+                  </button>
+                  {props.registerBeneficiaryError !== undefined &&
+                    props.registerBeneficiaryError !== "" && (
+                      <p role="alert" className="text-sm text-destructive">
+                        {props.registerBeneficiaryError}
+                      </p>
+                    )}
+                </div>
+              )}
+          </section>
+        </div>
       </div>
     );
   }

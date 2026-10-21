@@ -1,72 +1,83 @@
+"use client";
+
+import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
 import { Field } from "../../field";
-import { FrequentBeneficiaries } from "../../frequent-beneficiaries";
-import type { Beneficiary } from "../../types";
+
+export type BeneficiaryFormChangeHandler = (
+  field: keyof BeneficiaryRegistrationDraft,
+  value: string,
+) => void;
 
 export function WuBeneficiaryStep({
-  showFrequentBeneficiaries,
-  fillBeneficiaryFields,
-  beneficiaries,
-  selectedBeneficiary,
-  onSelectBeneficiary,
-  known,
+  form,
+  onFormChange,
 }: {
-  showFrequentBeneficiaries: boolean;
-  fillBeneficiaryFields: boolean;
-  beneficiaries: Beneficiary[];
-  selectedBeneficiary: number;
-  onSelectBeneficiary: (index: number) => void;
-  known: (value?: string) => string | undefined;
+  form: BeneficiaryRegistrationDraft;
+  onFormChange: BeneficiaryFormChangeHandler;
 }) {
-  let formBeneficiaryIndex = 0;
-  if (selectedBeneficiary >= 0) {
-    formBeneficiaryIndex = selectedBeneficiary;
-  }
-  const beneficiary = beneficiaries[formBeneficiaryIndex];
-
-  let formKey = "new-beneficiary";
-  let firstName: string | undefined;
-  let middleName: string | undefined;
-  let lastName: string | undefined;
-  let secondLastName: string | undefined;
-  let city: string | undefined;
-  let phone: string | undefined;
-  if (beneficiary !== undefined) {
-    const nameParts = beneficiary.name.split(" ");
-    firstName = nameParts[0];
-    middleName = nameParts[1];
-    lastName = nameParts[2];
-    secondLastName = nameParts[3];
-    city = beneficiary.city;
-    phone = beneficiary.phone;
-    if (fillBeneficiaryFields) {
-      formKey = beneficiary.document;
-    }
-  }
-
   return (
-    <div className="space-y-6">
-      {showFrequentBeneficiaries && (
-        <FrequentBeneficiaries
-          beneficiaries={beneficiaries}
-          selectedBeneficiary={selectedBeneficiary}
-          onSelectBeneficiary={onSelectBeneficiary}
-        />
-      )}
+    <div data-beneficiary-form className="space-y-6">
       <h2 className="font-bold">Datos del beneficiario</h2>
-      <div key={formKey} className="grid gap-3 sm:grid-cols-2">
-        <Field label="Nombre" value={known(firstName)} required />
-        <Field label="Segundo Nombre" value={known(middleName)} />
-        <Field label="Primer Apellido" value={known(lastName)} required />
-        <Field label="Segundo Apellido" value={known(secondLastName)} />
-        <Field label="Estado" value={known("La Paz")} required />
-        <Field label="Ciudad" value={known(city)} required />
-        <Field label="Calle/Numero" value={known("Calle 123")} required />
-        <Field label="Dirección" value={known("Calle 123")} required />
+      <div className="grid gap-3 sm:grid-cols-2">
         <Field
-          label="Nro. Teléfono"
-          value={known(phone)}
+          label="Nombre"
+          value={form.firstName}
+          required
+          onChange={(value) => onFormChange("firstName", value)}
+        />
+        <Field
+          label="Segundo Nombre"
+          value={form.middleName}
+          onChange={(value) => onFormChange("middleName", value)}
+        />
+        <Field
+          label="Primer Apellido"
+          value={form.lastName}
+          required
+          onChange={(value) => onFormChange("lastName", value)}
+        />
+        <Field
+          label="Segundo Apellido"
+          value={form.secondLastName}
+          onChange={(value) => onFormChange("secondLastName", value)}
+        />
+        <Field
+          label="Nro. de Documento"
+          value={form.document}
           required
           numericOnly
+          onChange={(value) => onFormChange("document", value)}
+        />
+        <Field
+          label="Estado"
+          value={form.state}
+          required
+          onChange={(value) => onFormChange("state", value)}
+        />
+        <Field
+          label="Ciudad"
+          value={form.city}
+          required
+          onChange={(value) => onFormChange("city", value)}
+        />
+        <Field
+          label="Calle/Numero"
+          value={form.street}
+          required
+          onChange={(value) => onFormChange("street", value)}
+        />
+        <Field
+          label="Dirección"
+          value={form.address}
+          required
+          onChange={(value) => onFormChange("address", value)}
+        />
+        <Field
+          label="Nro. Teléfono"
+          value={form.phone}
+          required
+          numericOnly
+          onChange={(value) => onFormChange("phone", value)}
         />
       </div>
     </div>

@@ -197,7 +197,7 @@ export function IdentifySenderStep({
       >
         <div className="flex flex-col h-full">
           <div className="mb-6 select-none">
-            <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-brand">
+            <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-blue-600">
               Envío de remesas
             </p>
             <h1 className="text-xl font-bold tracking-[-0.02em] text-foreground">

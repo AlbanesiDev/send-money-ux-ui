@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import type { GuestClientLookupStatus } from "@/components/send-money/guest-client-lookup-notice";
 import { ProviderStepContent } from "@/components/send-money/provider-step-content";
+import type { BeneficiaryFormChangeHandler } from "@/components/send-money/providers/wu/beneficiary-step";
 import type { RemitterFormChangeHandler } from "@/components/send-money/providers/wu/remitter-step";
 import type {
   Beneficiary,
@@ -12,6 +13,7 @@ import type {
   ProviderQuote,
 } from "@/components/send-money/types";
 import { BillingSummary } from "@/components/ui/billing-summary";
+import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
 import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
 
 export type ProviderFlowStepProps = {
@@ -22,6 +24,8 @@ export type ProviderFlowStepProps = {
   customer: Customer | null;
   remitterForm: CustomerRegistrationDraft;
   onRemitterFormChange: RemitterFormChangeHandler;
+  beneficiaryForm: BeneficiaryRegistrationDraft;
+  onBeneficiaryFormChange: BeneficiaryFormChangeHandler;
   known: (value?: string) => string | undefined;
   isKnownClient: boolean;
   showFrequentBeneficiaries: boolean;
@@ -29,6 +33,7 @@ export type ProviderFlowStepProps = {
   beneficiaries: Beneficiary[];
   selectedBeneficiary: number;
   onSelectBeneficiary: (index: number) => void;
+  onCreateBeneficiary?: () => void;
   additionalChecks: Record<string, boolean>;
   onAdditionalCheckChange: (label: string, checked: boolean) => void;
   quote: ProviderQuote;
@@ -63,6 +68,11 @@ export type ProviderFlowStepProps = {
   registerClientError?: string;
   isUpdatingExistingClient?: boolean;
   showSaveClientButton?: boolean;
+  onRegisterBeneficiary?: () => void;
+  isRegisteringBeneficiary?: boolean;
+  registerBeneficiaryError?: string;
+  isUpdatingExistingBeneficiary?: boolean;
+  showSaveBeneficiaryButton?: boolean;
   guestLookupStatus?: GuestClientLookupStatus;
   onAcceptGuestAutofill?: () => void;
   onDeclineGuestAutofill?: () => void;

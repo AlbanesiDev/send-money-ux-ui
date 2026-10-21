@@ -14,6 +14,7 @@ import {
   buildActiveSteps,
   buildProviderQuotes,
   buildQuoteLoadingSteps,
+  deliveryTypeLabel,
   findStepNumber,
   getStepKey,
   PARTIES_STEP_LABEL,
@@ -39,9 +40,16 @@ import {
   QuoteStep,
   type ClientSearchResult,
 } from "@/app/remittences/steps";
-import beneficiariesSnapshot from "@/public/data/beneficiaries.snapshot.json";
-import transactionsHistorySnapshot from "@/public/data/transactions-history.snapshot.json";
+import type { BeneficiaryFormChangeHandler } from "@/components/send-money/providers/wu/beneficiary-step";
 import type { RemitterFormChangeHandler } from "@/components/send-money/providers/wu/remitter-step";
+import {
+  beneficiaryToRegistrationDraft,
+  createEmptyBeneficiaryDraft,
+  ensureBeneficiariesSeeded,
+  listBeneficiariesByCustomer,
+  registerBeneficiary,
+  type BeneficiaryRegistrationDraft,
+} from "@/lib/simulated-api/beneficiaries-api";
 import {
   createEmptyCustomerDraft,
   customerToRegistrationDraft,
@@ -51,12 +59,14 @@ import {
   type CustomerRegistrationDraft,
 } from "@/lib/simulated-api/customers-api";
 import { readAllCustomers } from "@/lib/simulated-api/customers-store";
+import {
+  createCompletedTransaction,
+  ensureTransactionsSeeded,
+  listTransactionsByCustomer,
+  type StoredTransaction,
+} from "@/lib/simulated-api/transactions-api";
 import { ArrowLeftIcon, ArrowRightIcon, SendIcon } from "lucide-react";
 
-const BENEFICIARIES = beneficiariesSnapshot as Beneficiary[];
-const TRANSACTIONS_HISTORY = transactionsHistorySnapshot as Array<
-  RecentTransaction & { customerId: string }
->;
 const PEP_CHECK_LABEL = "¿Es una Persona Expuesta Políticamente (PEP)?";
 
 function useAltFieldNavigation() {
@@ -402,14 +412,30 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   );
   const [originalRemitterForm, setOriginalRemitterForm] =
     useState<CustomerRegistrationDraft | null>(null);
+  const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>([]);
+  const [beneficiaryForm, setBeneficiaryForm] =
+    useState<BeneficiaryRegistrationDraft>(() => createEmptyBeneficiaryDraft());
+  const [originalBeneficiaryForm, setOriginalBeneficiaryForm] =
+    useState<BeneficiaryRegistrationDraft | null>(null);
+  const [isRegisteringBeneficiary, setIsRegisteringBeneficiary] =
+    useState(false);
+  const [registerBeneficiaryError, setRegisterBeneficiaryError] = useState("");
+  const [selectedBeneficiary, setSelectedBeneficiary] = useState(0);
+  const [recentTransactions, setRecentTransactions] = useState<
+    StoredTransaction[]
+  >([]);
   const guestLookupTimeoutRef = useRef<number | null>(null);
   const guestLookupRequestRef = useRef(0);
   const remitterFormSyncedCustomerIdRef = useRef<string | null>(null);
+  const beneficiariesLoadedForCustomerIdRef = useRef<string | null>(null);
+  const transactionsLoadedForCustomerIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     void ensureCustomersSeeded()
       .then(() => readAllCustomers())
       .then((items) => setCustomers(items));
+    void ensureBeneficiariesSeeded();
+    void ensureTransactionsSeeded();
   }, []);
 
   const foundByDocument = customers.find((item) =>
@@ -450,6 +476,33 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setRemitterForm(draft);
     setOriginalRemitterForm(draft);
   }, [customer, documentNumber]);
+
+  useEffect(() => {
+    if (customer === null) {
+      beneficiariesLoadedForCustomerIdRef.current = null;
+      setBeneficiaries([]);
+      setBeneficiaryForm(createEmptyBeneficiaryDraft());
+      setOriginalBeneficiaryForm(null);
+      return;
+    }
+    if (beneficiariesLoadedForCustomerIdRef.current === customer.id) return;
+    beneficiariesLoadedForCustomerIdRef.current = customer.id;
+    void listBeneficiariesByCustomer(customer.id).then((items) => {
+      setBeneficiaries(items);
+      if (items.length === 0) {
+        const emptyDraft = createEmptyBeneficiaryDraft(customer.id);
+        setSelectedBeneficiary(-1);
+        setBeneficiaryForm(emptyDraft);
+        setOriginalBeneficiaryForm(emptyDraft);
+        return;
+      }
+      setSelectedBeneficiary(0);
+      const draft = beneficiaryToRegistrationDraft(items[0]);
+      setBeneficiaryForm(draft);
+      setOriginalBeneficiaryForm(draft);
+      setGuestBeneficiaryChosen(true);
+    });
+  }, [customer]);
 
   const isKnownClient =
     result === "success" || (isGuestFlow && guestAutofillCustomer !== null);
@@ -553,12 +606,15 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     );
   const showSaveClientButton =
     isGuestFlow || (customer !== null && isRemitterFormDirty);
-  const [selectedBeneficiary, setSelectedBeneficiary] = useState(0);
-  const beneficiaries =
-    customer === null
-      ? BENEFICIARIES
-      : BENEFICIARIES.filter((item) => item.customerId === customer.id);
-  const showFrequentBeneficiaries = isKnownClient && beneficiaries.length > 0;
+  let isBeneficiaryFormDirty = false;
+  if (originalBeneficiaryForm !== null) {
+    isBeneficiaryFormDirty =
+      JSON.stringify(beneficiaryForm) !==
+      JSON.stringify(originalBeneficiaryForm);
+  }
+  const isUpdatingExistingBeneficiary = beneficiaryForm.id.trim() !== "";
+  const showSaveBeneficiaryButton = customer !== null && isBeneficiaryFormDirty;
+  const showFrequentBeneficiaries = customer !== null;
   let carouselSelectedBeneficiary = selectedBeneficiary;
   if (isGuestFlow && !guestBeneficiaryChosen) {
     carouselSelectedBeneficiary = -1;
@@ -665,9 +721,14 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setGuestAutofillCustomer(null);
     setGuestBeneficiaryChosen(false);
     remitterFormSyncedCustomerIdRef.current = null;
+    beneficiariesLoadedForCustomerIdRef.current = null;
     setRemitterForm(createEmptyCustomerDraft());
     setOriginalRemitterForm(null);
+    setBeneficiaries([]);
+    setBeneficiaryForm(createEmptyBeneficiaryDraft());
+    setOriginalBeneficiaryForm(null);
     setRegisterClientError("");
+    setRegisterBeneficiaryError("");
     setStep(2);
   }
 
@@ -734,6 +795,22 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     if (isGuestFlow) {
       setGuestBeneficiaryChosen(true);
     }
+    const selected = beneficiaries[index];
+    if (selected === undefined) return;
+    const draft = beneficiaryToRegistrationDraft(selected);
+    setBeneficiaryForm(draft);
+    setOriginalBeneficiaryForm(draft);
+    setRegisterBeneficiaryError("");
+  }
+
+  function createBeneficiary() {
+    if (customer === null) return;
+    const emptyDraft = createEmptyBeneficiaryDraft(customer.id);
+    setSelectedBeneficiary(-1);
+    setBeneficiaryForm(emptyDraft);
+    setOriginalBeneficiaryForm(emptyDraft);
+    setGuestBeneficiaryChosen(true);
+    setRegisterBeneficiaryError("");
   }
 
   const handleRemitterFormChange: RemitterFormChangeHandler = (
@@ -743,6 +820,52 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setRemitterForm((current) => ({ ...current, [field]: value }));
     setRegisterClientError("");
   };
+
+  const handleBeneficiaryFormChange: BeneficiaryFormChangeHandler = (
+    field,
+    value,
+  ) => {
+    setBeneficiaryForm((current) => ({ ...current, [field]: value }));
+    setRegisterBeneficiaryError("");
+  };
+
+  function saveBeneficiary() {
+    if (customer === null) return;
+    if (isRegisteringBeneficiary) return;
+    setRegisterBeneficiaryError("");
+    const draft: BeneficiaryRegistrationDraft = {
+      ...beneficiaryForm,
+      customerId: customer.id,
+    };
+    setIsRegisteringBeneficiary(true);
+    void registerBeneficiary(draft)
+      .then(async (result) => {
+        const items = await listBeneficiariesByCustomer(customer.id);
+        setBeneficiaries(items);
+        const savedDraft = beneficiaryToRegistrationDraft(result.beneficiary);
+        setBeneficiaryForm(savedDraft);
+        setOriginalBeneficiaryForm(savedDraft);
+        let nextIndex = 0;
+        for (let index = 0; index < items.length; index += 1) {
+          if (items[index].id === result.beneficiary.id) {
+            nextIndex = index;
+            break;
+          }
+        }
+        setSelectedBeneficiary(nextIndex);
+        setGuestBeneficiaryChosen(true);
+      })
+      .catch((error: unknown) => {
+        if (error instanceof Error) {
+          setRegisterBeneficiaryError(error.message);
+          return;
+        }
+        setRegisterBeneficiaryError("No se pudo guardar el beneficiario.");
+      })
+      .finally(() => {
+        setIsRegisteringBeneficiary(false);
+      });
+  }
 
   function registerClient() {
     if (documentNumber.trim() === "") return;
@@ -1137,6 +1260,10 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                             customer={customer}
                             remitterForm={remitterForm}
                             onRemitterFormChange={handleRemitterFormChange}
+                            beneficiaryForm={beneficiaryForm}
+                            onBeneficiaryFormChange={
+                              handleBeneficiaryFormChange
+                            }
                             known={known}
                             isKnownClient={isKnownClient}
                             showFrequentBeneficiaries={
@@ -1146,6 +1273,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                             beneficiaries={beneficiaries}
                             selectedBeneficiary={carouselSelectedBeneficiary}
                             onSelectBeneficiary={selectBeneficiary}
+                            onCreateBeneficiary={createBeneficiary}
                             additionalChecks={additionalChecks}
                             onAdditionalCheckChange={(checkLabel, checked) =>
                               setAdditionalChecks((current) => ({
@@ -1222,6 +1350,15 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                             registerClientError={registerClientError}
                             isUpdatingExistingClient={isUpdatingExistingClient}
                             showSaveClientButton={showSaveClientButton}
+                            onRegisterBeneficiary={saveBeneficiary}
+                            isRegisteringBeneficiary={isRegisteringBeneficiary}
+                            registerBeneficiaryError={registerBeneficiaryError}
+                            isUpdatingExistingBeneficiary={
+                              isUpdatingExistingBeneficiary
+                            }
+                            showSaveBeneficiaryButton={
+                              showSaveBeneficiaryButton
+                            }
                             guestLookupStatus={guestLookupStatus}
                             onAcceptGuestAutofill={acceptGuestAutofill}
                             onDeclineGuestAutofill={declineGuestAutofill}

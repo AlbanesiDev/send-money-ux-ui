@@ -1,0 +1,2257 @@
+[
+    {
+        "walletName":  "BKT Smart",
+        "providerCode":  "35501",
+        "countryCode":  "AL"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "35502",
+        "countryCode":  "AL"
+    },
+    {
+        "walletName":  "Bizum",
+        "providerCode":  "37601",
+        "countryCode":  "AD"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "37602",
+        "countryCode":  "AD"
+    },
+    {
+        "walletName":  "Multicaixa Express",
+        "providerCode":  "24401",
+        "countryCode":  "AO"
+    },
+    {
+        "walletName":  "Unitel Money",
+        "providerCode":  "24402",
+        "countryCode":  "AO"
+    },
+    {
+        "walletName":  "Digicel Mobile Money",
+        "providerCode":  "126801",
+        "countryCode":  "AG"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "126802",
+        "countryCode":  "AG"
+    },
+    {
+        "walletName":  "Mercado Pago",
+        "providerCode":  "5401",
+        "countryCode":  "AR"
+    },
+    {
+        "walletName":  "Ualá",
+        "providerCode":  "5402",
+        "countryCode":  "AR"
+    },
+    {
+        "walletName":  "MODO",
+        "providerCode":  "5403",
+        "countryCode":  "AR"
+    },
+    {
+        "walletName":  "Personal Pay",
+        "providerCode":  "5404",
+        "countryCode":  "AR"
+    },
+    {
+        "walletName":  "IDram",
+        "providerCode":  "37401",
+        "countryCode":  "AM"
+    },
+    {
+        "walletName":  "Telcell Wallet",
+        "providerCode":  "37402",
+        "countryCode":  "AM"
+    },
+    {
+        "walletName":  "PayID",
+        "providerCode":  "6101",
+        "countryCode":  "AU"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "6102",
+        "countryCode":  "AU"
+    },
+    {
+        "walletName":  "Google Pay",
+        "providerCode":  "6103",
+        "countryCode":  "AU"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "6104",
+        "countryCode":  "AU"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "4301",
+        "countryCode":  "AT"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "4302",
+        "countryCode":  "AT"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "4303",
+        "countryCode":  "AT"
+    },
+    {
+        "walletName":  "Birbank",
+        "providerCode":  "99401",
+        "countryCode":  "AZ"
+    },
+    {
+        "walletName":  "mBank",
+        "providerCode":  "99402",
+        "countryCode":  "AZ"
+    },
+    {
+        "walletName":  "OMNI",
+        "providerCode":  "124201",
+        "countryCode":  "BS"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "124202",
+        "countryCode":  "BS"
+    },
+    {
+        "walletName":  "BenefitPay",
+        "providerCode":  "97301",
+        "countryCode":  "BH"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "97302",
+        "countryCode":  "BH"
+    },
+    {
+        "walletName":  "bKash",
+        "providerCode":  "88001",
+        "countryCode":  "BD"
+    },
+    {
+        "walletName":  "Nagad",
+        "providerCode":  "88002",
+        "countryCode":  "BD"
+    },
+    {
+        "walletName":  "Rocket",
+        "providerCode":  "88003",
+        "countryCode":  "BD"
+    },
+    {
+        "walletName":  "Payconiq",
+        "providerCode":  "3201",
+        "countryCode":  "BE"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "3202",
+        "countryCode":  "BE"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "3203",
+        "countryCode":  "BE"
+    },
+    {
+        "walletName":  "DigiWallet",
+        "providerCode":  "50101",
+        "countryCode":  "BZ"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "50102",
+        "countryCode":  "BZ"
+    },
+    {
+        "walletName":  "MTN MoMo",
+        "providerCode":  "22901",
+        "countryCode":  "BJ"
+    },
+    {
+        "walletName":  "Moov Money",
+        "providerCode":  "22902",
+        "countryCode":  "BJ"
+    },
+    {
+        "walletName":  "mBoB",
+        "providerCode":  "97501",
+        "countryCode":  "BT"
+    },
+    {
+        "walletName":  "YoloPago",
+        "providerCode":  "59101",
+        "countryCode":  "BO"
+    },
+    {
+        "walletName":  "Tigo Money",
+        "providerCode":  "59102",
+        "countryCode":  "BO"
+    },
+    {
+        "walletName":  "NLB Pay",
+        "providerCode":  "38701",
+        "countryCode":  "BA"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "38702",
+        "countryCode":  "BA"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "26701",
+        "countryCode":  "BW"
+    },
+    {
+        "walletName":  "MyZaka",
+        "providerCode":  "26702",
+        "countryCode":  "BW"
+    },
+    {
+        "walletName":  "PicPay",
+        "providerCode":  "5501",
+        "countryCode":  "BR"
+    },
+    {
+        "walletName":  "Mercado Pago",
+        "providerCode":  "5502",
+        "countryCode":  "BR"
+    },
+    {
+        "walletName":  "PagBank",
+        "providerCode":  "5503",
+        "countryCode":  "BR"
+    },
+    {
+        "walletName":  "Nubank",
+        "providerCode":  "5504",
+        "countryCode":  "BR"
+    },
+    {
+        "walletName":  "BePay",
+        "providerCode":  "67301",
+        "countryCode":  "BN"
+    },
+    {
+        "walletName":  "DSTPay",
+        "providerCode":  "67302",
+        "countryCode":  "BN"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "35901",
+        "countryCode":  "BG"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "35902",
+        "countryCode":  "BG"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "22601",
+        "countryCode":  "BF"
+    },
+    {
+        "walletName":  "Moov Money",
+        "providerCode":  "22602",
+        "countryCode":  "BF"
+    },
+    {
+        "walletName":  "Lumicash",
+        "providerCode":  "25701",
+        "countryCode":  "BI"
+    },
+    {
+        "walletName":  "Ecocash",
+        "providerCode":  "25702",
+        "countryCode":  "BI"
+    },
+    {
+        "walletName":  "Wing",
+        "providerCode":  "85501",
+        "countryCode":  "KH"
+    },
+    {
+        "walletName":  "ABA Mobile",
+        "providerCode":  "85502",
+        "countryCode":  "KH"
+    },
+    {
+        "walletName":  "Pi Pay",
+        "providerCode":  "85503",
+        "countryCode":  "KH"
+    },
+    {
+        "walletName":  "MTN MoMo",
+        "providerCode":  "23701",
+        "countryCode":  "CM"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "23702",
+        "countryCode":  "CM"
+    },
+    {
+        "walletName":  "Interac e-Transfer",
+        "providerCode":  "101",
+        "countryCode":  "CA"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "102",
+        "countryCode":  "CA"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "103",
+        "countryCode":  "CA"
+    },
+    {
+        "walletName":  "vinti4",
+        "providerCode":  "23801",
+        "countryCode":  "CV"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "23601",
+        "countryCode":  "CF"
+    },
+    {
+        "walletName":  "Airtel Money",
+        "providerCode":  "23501",
+        "countryCode":  "TD"
+    },
+    {
+        "walletName":  "Moov Money",
+        "providerCode":  "23502",
+        "countryCode":  "TD"
+    },
+    {
+        "walletName":  "MACH",
+        "providerCode":  "5601",
+        "countryCode":  "CL"
+    },
+    {
+        "walletName":  "Mercado Pago",
+        "providerCode":  "5602",
+        "countryCode":  "CL"
+    },
+    {
+        "walletName":  "Tenpo",
+        "providerCode":  "5603",
+        "countryCode":  "CL"
+    },
+    {
+        "walletName":  "Alipay",
+        "providerCode":  "8601",
+        "countryCode":  "CN"
+    },
+    {
+        "walletName":  "WeChat Pay",
+        "providerCode":  "8602",
+        "countryCode":  "CN"
+    },
+    {
+        "walletName":  "UnionPay QuickPass",
+        "providerCode":  "8603",
+        "countryCode":  "CN"
+    },
+    {
+        "walletName":  "Nequi",
+        "providerCode":  "5701",
+        "countryCode":  "CO"
+    },
+    {
+        "walletName":  "Daviplata",
+        "providerCode":  "5702",
+        "countryCode":  "CO"
+    },
+    {
+        "walletName":  "Movii",
+        "providerCode":  "5703",
+        "countryCode":  "CO"
+    },
+    {
+        "walletName":  "MVola",
+        "providerCode":  "26901",
+        "countryCode":  "KM"
+    },
+    {
+        "walletName":  "M-Pesa",
+        "providerCode":  "24301",
+        "countryCode":  "CD"
+    },
+    {
+        "walletName":  "Airtel Money",
+        "providerCode":  "24302",
+        "countryCode":  "CD"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "24303",
+        "countryCode":  "CD"
+    },
+    {
+        "walletName":  "Airtel Money",
+        "providerCode":  "24201",
+        "countryCode":  "CG"
+    },
+    {
+        "walletName":  "MTN MoMo",
+        "providerCode":  "24202",
+        "countryCode":  "CG"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "68201",
+        "countryCode":  "CK"
+    },
+    {
+        "walletName":  "SINPE Móvil",
+        "providerCode":  "50601",
+        "countryCode":  "CR"
+    },
+    {
+        "walletName":  "Pako",
+        "providerCode":  "50602",
+        "countryCode":  "CR"
+    },
+    {
+        "walletName":  "KEKS Pay",
+        "providerCode":  "38501",
+        "countryCode":  "HR"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "38502",
+        "countryCode":  "HR"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "38503",
+        "countryCode":  "HR"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "35701",
+        "countryCode":  "CY"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "35702",
+        "countryCode":  "CY"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "42001",
+        "countryCode":  "CZ"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "42002",
+        "countryCode":  "CZ"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "42003",
+        "countryCode":  "CZ"
+    },
+    {
+        "walletName":  "MobilePay",
+        "providerCode":  "4501",
+        "countryCode":  "DK"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "4502",
+        "countryCode":  "DK"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "4503",
+        "countryCode":  "DK"
+    },
+    {
+        "walletName":  "Waafi",
+        "providerCode":  "25301",
+        "countryCode":  "DJ"
+    },
+    {
+        "walletName":  "D-Money",
+        "providerCode":  "25302",
+        "countryCode":  "DJ"
+    },
+    {
+        "walletName":  "Digicel Mobile Money",
+        "providerCode":  "176701",
+        "countryCode":  "DM"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "176702",
+        "countryCode":  "DM"
+    },
+    {
+        "walletName":  "TPago",
+        "providerCode":  "180901",
+        "countryCode":  "DO"
+    },
+    {
+        "walletName":  "Qik",
+        "providerCode":  "180902",
+        "countryCode":  "DO"
+    },
+    {
+        "walletName":  "Deuna",
+        "providerCode":  "59301",
+        "countryCode":  "EC"
+    },
+    {
+        "walletName":  "PayPhone",
+        "providerCode":  "59302",
+        "countryCode":  "EC"
+    },
+    {
+        "walletName":  "Bimo",
+        "providerCode":  "59303",
+        "countryCode":  "EC"
+    },
+    {
+        "walletName":  "Vodafone Cash",
+        "providerCode":  "2001",
+        "countryCode":  "EG"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "2002",
+        "countryCode":  "EG"
+    },
+    {
+        "walletName":  "InstaPay",
+        "providerCode":  "2003",
+        "countryCode":  "EG"
+    },
+    {
+        "walletName":  "Fawry",
+        "providerCode":  "2004",
+        "countryCode":  "EG"
+    },
+    {
+        "walletName":  "Tigo Money",
+        "providerCode":  "50301",
+        "countryCode":  "SV"
+    },
+    {
+        "walletName":  "Chivo Wallet",
+        "providerCode":  "50302",
+        "countryCode":  "SV"
+    },
+    {
+        "walletName":  "Muni",
+        "providerCode":  "24001",
+        "countryCode":  "GQ"
+    },
+    {
+        "walletName":  "Himbol Bank Mobile",
+        "providerCode":  "29101",
+        "countryCode":  "ER"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "37201",
+        "countryCode":  "EE"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "37202",
+        "countryCode":  "EE"
+    },
+    {
+        "walletName":  "eMali",
+        "providerCode":  "26801",
+        "countryCode":  "SZ"
+    },
+    {
+        "walletName":  "MoMo",
+        "providerCode":  "26802",
+        "countryCode":  "SZ"
+    },
+    {
+        "walletName":  "Telebirr",
+        "providerCode":  "25101",
+        "countryCode":  "ET"
+    },
+    {
+        "walletName":  "CBE Birr",
+        "providerCode":  "25102",
+        "countryCode":  "ET"
+    },
+    {
+        "walletName":  "M-PAiSA",
+        "providerCode":  "67901",
+        "countryCode":  "FJ"
+    },
+    {
+        "walletName":  "ANZ goMoney",
+        "providerCode":  "67902",
+        "countryCode":  "FJ"
+    },
+    {
+        "walletName":  "MobilePay",
+        "providerCode":  "35801",
+        "countryCode":  "FI"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "35802",
+        "countryCode":  "FI"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "35803",
+        "countryCode":  "FI"
+    },
+    {
+        "walletName":  "Lydia",
+        "providerCode":  "3301",
+        "countryCode":  "FR"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "3302",
+        "countryCode":  "FR"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "3303",
+        "countryCode":  "FR"
+    },
+    {
+        "walletName":  "Airtel Money",
+        "providerCode":  "24101",
+        "countryCode":  "GA"
+    },
+    {
+        "walletName":  "Moov Money",
+        "providerCode":  "24102",
+        "countryCode":  "GA"
+    },
+    {
+        "walletName":  "QMoney",
+        "providerCode":  "22001",
+        "countryCode":  "GM"
+    },
+    {
+        "walletName":  "Africell Money",
+        "providerCode":  "22002",
+        "countryCode":  "GM"
+    },
+    {
+        "walletName":  "BOG Wallet",
+        "providerCode":  "99501",
+        "countryCode":  "GE"
+    },
+    {
+        "walletName":  "TBC Pay",
+        "providerCode":  "99502",
+        "countryCode":  "GE"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "4901",
+        "countryCode":  "DE"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "4902",
+        "countryCode":  "DE"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "4903",
+        "countryCode":  "DE"
+    },
+    {
+        "walletName":  "MTN MoMo",
+        "providerCode":  "23301",
+        "countryCode":  "GH"
+    },
+    {
+        "walletName":  "Vodafone Cash",
+        "providerCode":  "23302",
+        "countryCode":  "GH"
+    },
+    {
+        "walletName":  "AirtelTigo Money",
+        "providerCode":  "23303",
+        "countryCode":  "GH"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "35001",
+        "countryCode":  "GI"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "35002",
+        "countryCode":  "GI"
+    },
+    {
+        "walletName":  "IRIS",
+        "providerCode":  "3001",
+        "countryCode":  "GR"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "3002",
+        "countryCode":  "GR"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "3003",
+        "countryCode":  "GR"
+    },
+    {
+        "walletName":  "Tigo Money",
+        "providerCode":  "50201",
+        "countryCode":  "GT"
+    },
+    {
+        "walletName":  "BAM Wallet",
+        "providerCode":  "50202",
+        "countryCode":  "GT"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "22401",
+        "countryCode":  "GN"
+    },
+    {
+        "walletName":  "MTN MoMo",
+        "providerCode":  "22402",
+        "countryCode":  "GN"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "24501",
+        "countryCode":  "GW"
+    },
+    {
+        "walletName":  "MMG Wallet",
+        "providerCode":  "59201",
+        "countryCode":  "GY"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "59202",
+        "countryCode":  "GY"
+    },
+    {
+        "walletName":  "MonCash",
+        "providerCode":  "50901",
+        "countryCode":  "HT"
+    },
+    {
+        "walletName":  "NatCash",
+        "providerCode":  "50902",
+        "countryCode":  "HT"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "37901",
+        "countryCode":  "VA"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "37902",
+        "countryCode":  "VA"
+    },
+    {
+        "walletName":  "Tigo Money",
+        "providerCode":  "50401",
+        "countryCode":  "HN"
+    },
+    {
+        "walletName":  "AlipayHK",
+        "providerCode":  "85201",
+        "countryCode":  "HK"
+    },
+    {
+        "walletName":  "WeChat Pay HK",
+        "providerCode":  "85202",
+        "countryCode":  "HK"
+    },
+    {
+        "walletName":  "PayMe",
+        "providerCode":  "85203",
+        "countryCode":  "HK"
+    },
+    {
+        "walletName":  "Octopus",
+        "providerCode":  "85204",
+        "countryCode":  "HK"
+    },
+    {
+        "walletName":  "Simple",
+        "providerCode":  "3601",
+        "countryCode":  "HU"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "3602",
+        "countryCode":  "HU"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "3603",
+        "countryCode":  "HU"
+    },
+    {
+        "walletName":  "Aurora",
+        "providerCode":  "35401",
+        "countryCode":  "IS"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "35402",
+        "countryCode":  "IS"
+    },
+    {
+        "walletName":  "PhonePe",
+        "providerCode":  "9101",
+        "countryCode":  "IN"
+    },
+    {
+        "walletName":  "Paytm",
+        "providerCode":  "9102",
+        "countryCode":  "IN"
+    },
+    {
+        "walletName":  "Google Pay",
+        "providerCode":  "9103",
+        "countryCode":  "IN"
+    },
+    {
+        "walletName":  "Amazon Pay",
+        "providerCode":  "9104",
+        "countryCode":  "IN"
+    },
+    {
+        "walletName":  "GoPay",
+        "providerCode":  "6201",
+        "countryCode":  "ID"
+    },
+    {
+        "walletName":  "OVO",
+        "providerCode":  "6202",
+        "countryCode":  "ID"
+    },
+    {
+        "walletName":  "DANA",
+        "providerCode":  "6203",
+        "countryCode":  "ID"
+    },
+    {
+        "walletName":  "ShopeePay",
+        "providerCode":  "6204",
+        "countryCode":  "ID"
+    },
+    {
+        "walletName":  "Zain Cash",
+        "providerCode":  "96401",
+        "countryCode":  "IQ"
+    },
+    {
+        "walletName":  "Asia Hawala",
+        "providerCode":  "96402",
+        "countryCode":  "IQ"
+    },
+    {
+        "walletName":  "FastPay",
+        "providerCode":  "96403",
+        "countryCode":  "IQ"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "35301",
+        "countryCode":  "IE"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "35302",
+        "countryCode":  "IE"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "35303",
+        "countryCode":  "IE"
+    },
+    {
+        "walletName":  "Bit",
+        "providerCode":  "97201",
+        "countryCode":  "IL"
+    },
+    {
+        "walletName":  "PayBox",
+        "providerCode":  "97202",
+        "countryCode":  "IL"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "97203",
+        "countryCode":  "IL"
+    },
+    {
+        "walletName":  "Satispay",
+        "providerCode":  "3901",
+        "countryCode":  "IT"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "3902",
+        "countryCode":  "IT"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "3903",
+        "countryCode":  "IT"
+    },
+    {
+        "walletName":  "Wave",
+        "providerCode":  "22501",
+        "countryCode":  "CI"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "22502",
+        "countryCode":  "CI"
+    },
+    {
+        "walletName":  "MTN MoMo",
+        "providerCode":  "22503",
+        "countryCode":  "CI"
+    },
+    {
+        "walletName":  "Lynk",
+        "providerCode":  "187601",
+        "countryCode":  "JM"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "187602",
+        "countryCode":  "JM"
+    },
+    {
+        "walletName":  "PayPay",
+        "providerCode":  "8101",
+        "countryCode":  "JP"
+    },
+    {
+        "walletName":  "LINE Pay",
+        "providerCode":  "8102",
+        "countryCode":  "JP"
+    },
+    {
+        "walletName":  "Rakuten Pay",
+        "providerCode":  "8103",
+        "countryCode":  "JP"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "8104",
+        "countryCode":  "JP"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "96201",
+        "countryCode":  "JO"
+    },
+    {
+        "walletName":  "Zain Cash",
+        "providerCode":  "96202",
+        "countryCode":  "JO"
+    },
+    {
+        "walletName":  "Dinarak",
+        "providerCode":  "96203",
+        "countryCode":  "JO"
+    },
+    {
+        "walletName":  "Kaspi Pay",
+        "providerCode":  "701",
+        "countryCode":  "KZ"
+    },
+    {
+        "walletName":  "Halyk",
+        "providerCode":  "702",
+        "countryCode":  "KZ"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "703",
+        "countryCode":  "KZ"
+    },
+    {
+        "walletName":  "M-Pesa",
+        "providerCode":  "25401",
+        "countryCode":  "KE"
+    },
+    {
+        "walletName":  "Airtel Money",
+        "providerCode":  "25402",
+        "countryCode":  "KE"
+    },
+    {
+        "walletName":  "T-Kash",
+        "providerCode":  "25403",
+        "countryCode":  "KE"
+    },
+    {
+        "walletName":  "KakaoPay",
+        "providerCode":  "8201",
+        "countryCode":  "KR"
+    },
+    {
+        "walletName":  "Naver Pay",
+        "providerCode":  "8202",
+        "countryCode":  "KR"
+    },
+    {
+        "walletName":  "TOSS",
+        "providerCode":  "8203",
+        "countryCode":  "KR"
+    },
+    {
+        "walletName":  "Samsung Pay",
+        "providerCode":  "8204",
+        "countryCode":  "KR"
+    },
+    {
+        "walletName":  "TEB Wallet",
+        "providerCode":  "38301",
+        "countryCode":  "KV"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "38302",
+        "countryCode":  "KV"
+    },
+    {
+        "walletName":  "KNET",
+        "providerCode":  "96501",
+        "countryCode":  "KW"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "96502",
+        "countryCode":  "KW"
+    },
+    {
+        "walletName":  "MegaPay",
+        "providerCode":  "99601",
+        "countryCode":  "KG"
+    },
+    {
+        "walletName":  "Balance.kg",
+        "providerCode":  "99602",
+        "countryCode":  "KG"
+    },
+    {
+        "walletName":  "U-Money",
+        "providerCode":  "85601",
+        "countryCode":  "LA"
+    },
+    {
+        "walletName":  "BCEL One",
+        "providerCode":  "85602",
+        "countryCode":  "LA"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "37101",
+        "countryCode":  "LV"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "37102",
+        "countryCode":  "LV"
+    },
+    {
+        "walletName":  "Whish Money",
+        "providerCode":  "96101",
+        "countryCode":  "LB"
+    },
+    {
+        "walletName":  "OMT Pay",
+        "providerCode":  "96102",
+        "countryCode":  "LB"
+    },
+    {
+        "walletName":  "EcoCash",
+        "providerCode":  "26601",
+        "countryCode":  "LS"
+    },
+    {
+        "walletName":  "M-Pesa",
+        "providerCode":  "26602",
+        "countryCode":  "LS"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "23101",
+        "countryCode":  "LR"
+    },
+    {
+        "walletName":  "MTN MoMo",
+        "providerCode":  "23102",
+        "countryCode":  "LR"
+    },
+    {
+        "walletName":  "TWINT",
+        "providerCode":  "42301",
+        "countryCode":  "LI"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "42302",
+        "countryCode":  "LI"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "37001",
+        "countryCode":  "LT"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "37002",
+        "countryCode":  "LT"
+    },
+    {
+        "walletName":  "Payconiq",
+        "providerCode":  "35201",
+        "countryCode":  "LU"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "35202",
+        "countryCode":  "LU"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "35203",
+        "countryCode":  "LU"
+    },
+    {
+        "walletName":  "Alipay",
+        "providerCode":  "85301",
+        "countryCode":  "MO"
+    },
+    {
+        "walletName":  "MPay",
+        "providerCode":  "85302",
+        "countryCode":  "MO"
+    },
+    {
+        "walletName":  "WeChat Pay",
+        "providerCode":  "85303",
+        "countryCode":  "MO"
+    },
+    {
+        "walletName":  "MVola",
+        "providerCode":  "26101",
+        "countryCode":  "MG"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "26102",
+        "countryCode":  "MG"
+    },
+    {
+        "walletName":  "Airtel Money",
+        "providerCode":  "26103",
+        "countryCode":  "MG"
+    },
+    {
+        "walletName":  "Airtel Money",
+        "providerCode":  "26501",
+        "countryCode":  "MW"
+    },
+    {
+        "walletName":  "TNM Mpamba",
+        "providerCode":  "26502",
+        "countryCode":  "MW"
+    },
+    {
+        "walletName":  "Touch n Go eWallet",
+        "providerCode":  "6001",
+        "countryCode":  "MY"
+    },
+    {
+        "walletName":  "GrabPay",
+        "providerCode":  "6002",
+        "countryCode":  "MY"
+    },
+    {
+        "walletName":  "Boost",
+        "providerCode":  "6003",
+        "countryCode":  "MY"
+    },
+    {
+        "walletName":  "BML Mobile Pay",
+        "providerCode":  "96001",
+        "countryCode":  "MV"
+    },
+    {
+        "walletName":  "Ooredoo M-Faisaa",
+        "providerCode":  "96002",
+        "countryCode":  "MV"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "22301",
+        "countryCode":  "ML"
+    },
+    {
+        "walletName":  "Wave",
+        "providerCode":  "22302",
+        "countryCode":  "ML"
+    },
+    {
+        "walletName":  "Moov Money",
+        "providerCode":  "22303",
+        "countryCode":  "ML"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "35601",
+        "countryCode":  "MT"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "35602",
+        "countryCode":  "MT"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "69201",
+        "countryCode":  "MH"
+    },
+    {
+        "walletName":  "Bankily",
+        "providerCode":  "22201",
+        "countryCode":  "MR"
+    },
+    {
+        "walletName":  "Masrvi",
+        "providerCode":  "22202",
+        "countryCode":  "MR"
+    },
+    {
+        "walletName":  "Sedad",
+        "providerCode":  "22203",
+        "countryCode":  "MR"
+    },
+    {
+        "walletName":  "Juice by MCB",
+        "providerCode":  "23001",
+        "countryCode":  "MU"
+    },
+    {
+        "walletName":  "my.t money",
+        "providerCode":  "23002",
+        "countryCode":  "MU"
+    },
+    {
+        "walletName":  "Mercado Pago",
+        "providerCode":  "5201",
+        "countryCode":  "MX"
+    },
+    {
+        "walletName":  "Spin by OXXO",
+        "providerCode":  "5202",
+        "countryCode":  "MX"
+    },
+    {
+        "walletName":  "CODI",
+        "providerCode":  "5203",
+        "countryCode":  "MX"
+    },
+    {
+        "walletName":  "Clip",
+        "providerCode":  "5204",
+        "countryCode":  "MX"
+    },
+    {
+        "walletName":  "MAIB Wallet",
+        "providerCode":  "37301",
+        "countryCode":  "MD"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "37302",
+        "countryCode":  "MD"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "37701",
+        "countryCode":  "MC"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "37702",
+        "countryCode":  "MC"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "37703",
+        "countryCode":  "MC"
+    },
+    {
+        "walletName":  "SocialPay",
+        "providerCode":  "97601",
+        "countryCode":  "MN"
+    },
+    {
+        "walletName":  "Most Money",
+        "providerCode":  "97602",
+        "countryCode":  "MN"
+    },
+    {
+        "walletName":  "QPay",
+        "providerCode":  "97603",
+        "countryCode":  "MN"
+    },
+    {
+        "walletName":  "NLB Pay",
+        "providerCode":  "38201",
+        "countryCode":  "ME"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "38202",
+        "countryCode":  "ME"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "21201",
+        "countryCode":  "MA"
+    },
+    {
+        "walletName":  "inwi money",
+        "providerCode":  "21202",
+        "countryCode":  "MA"
+    },
+    {
+        "walletName":  "CashPlus",
+        "providerCode":  "21203",
+        "countryCode":  "MA"
+    },
+    {
+        "walletName":  "M-Pesa",
+        "providerCode":  "25801",
+        "countryCode":  "MZ"
+    },
+    {
+        "walletName":  "e-Mola",
+        "providerCode":  "25802",
+        "countryCode":  "MZ"
+    },
+    {
+        "walletName":  "mKesh",
+        "providerCode":  "25803",
+        "countryCode":  "MZ"
+    },
+    {
+        "walletName":  "Wave Money",
+        "providerCode":  "9501",
+        "countryCode":  "MM"
+    },
+    {
+        "walletName":  "KBZPay",
+        "providerCode":  "9502",
+        "countryCode":  "MM"
+    },
+    {
+        "walletName":  "CB Pay",
+        "providerCode":  "9503",
+        "countryCode":  "MM"
+    },
+    {
+        "walletName":  "eBuck",
+        "providerCode":  "26401",
+        "countryCode":  "NA"
+    },
+    {
+        "walletName":  "PayToday",
+        "providerCode":  "26402",
+        "countryCode":  "NA"
+    },
+    {
+        "walletName":  "eSewa",
+        "providerCode":  "97701",
+        "countryCode":  "NP"
+    },
+    {
+        "walletName":  "Khalti",
+        "providerCode":  "97702",
+        "countryCode":  "NP"
+    },
+    {
+        "walletName":  "IME Pay",
+        "providerCode":  "97703",
+        "countryCode":  "NP"
+    },
+    {
+        "walletName":  "Tikkie",
+        "providerCode":  "3101",
+        "countryCode":  "NL"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "3102",
+        "countryCode":  "NL"
+    },
+    {
+        "walletName":  "Bunq",
+        "providerCode":  "3103",
+        "countryCode":  "NL"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "6401",
+        "countryCode":  "NZ"
+    },
+    {
+        "walletName":  "Google Pay",
+        "providerCode":  "6402",
+        "countryCode":  "NZ"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "6403",
+        "countryCode":  "NZ"
+    },
+    {
+        "walletName":  "Tigo Money",
+        "providerCode":  "50501",
+        "countryCode":  "NI"
+    },
+    {
+        "walletName":  "Airtel Money",
+        "providerCode":  "22701",
+        "countryCode":  "NE"
+    },
+    {
+        "walletName":  "Moov Money",
+        "providerCode":  "22702",
+        "countryCode":  "NE"
+    },
+    {
+        "walletName":  "OPay",
+        "providerCode":  "23401",
+        "countryCode":  "NG"
+    },
+    {
+        "walletName":  "PalmPay",
+        "providerCode":  "23402",
+        "countryCode":  "NG"
+    },
+    {
+        "walletName":  "Paga",
+        "providerCode":  "23403",
+        "countryCode":  "NG"
+    },
+    {
+        "walletName":  "Halkbank Wallet",
+        "providerCode":  "38901",
+        "countryCode":  "MK"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "38902",
+        "countryCode":  "MK"
+    },
+    {
+        "walletName":  "Vipps",
+        "providerCode":  "4701",
+        "countryCode":  "NO"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "4702",
+        "countryCode":  "NO"
+    },
+    {
+        "walletName":  "Omani Pay",
+        "providerCode":  "96801",
+        "countryCode":  "OM"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "96802",
+        "countryCode":  "OM"
+    },
+    {
+        "walletName":  "JazzCash",
+        "providerCode":  "9201",
+        "countryCode":  "PK"
+    },
+    {
+        "walletName":  "Easypaisa",
+        "providerCode":  "9202",
+        "countryCode":  "PK"
+    },
+    {
+        "walletName":  "SadaPay",
+        "providerCode":  "9203",
+        "countryCode":  "PK"
+    },
+    {
+        "walletName":  "Jawwal Pay",
+        "providerCode":  "97001",
+        "countryCode":  "PS"
+    },
+    {
+        "walletName":  "PalPay",
+        "providerCode":  "97002",
+        "countryCode":  "PS"
+    },
+    {
+        "walletName":  "Yappy",
+        "providerCode":  "50701",
+        "countryCode":  "PA"
+    },
+    {
+        "walletName":  "Nequi Panamá",
+        "providerCode":  "50702",
+        "countryCode":  "PA"
+    },
+    {
+        "walletName":  "BSP SMS Banking",
+        "providerCode":  "67501",
+        "countryCode":  "PG"
+    },
+    {
+        "walletName":  "Cellmoni",
+        "providerCode":  "67502",
+        "countryCode":  "PG"
+    },
+    {
+        "walletName":  "Tigo Money",
+        "providerCode":  "59501",
+        "countryCode":  "PY"
+    },
+    {
+        "walletName":  "Zimple",
+        "providerCode":  "59502",
+        "countryCode":  "PY"
+    },
+    {
+        "walletName":  "Personal Pay",
+        "providerCode":  "59503",
+        "countryCode":  "PY"
+    },
+    {
+        "walletName":  "Yape",
+        "providerCode":  "5101",
+        "countryCode":  "PE"
+    },
+    {
+        "walletName":  "Plin",
+        "providerCode":  "5102",
+        "countryCode":  "PE"
+    },
+    {
+        "walletName":  "Tunki",
+        "providerCode":  "5103",
+        "countryCode":  "PE"
+    },
+    {
+        "walletName":  "BIM",
+        "providerCode":  "5104",
+        "countryCode":  "PE"
+    },
+    {
+        "walletName":  "GCash",
+        "providerCode":  "6301",
+        "countryCode":  "PH"
+    },
+    {
+        "walletName":  "Maya",
+        "providerCode":  "6302",
+        "countryCode":  "PH"
+    },
+    {
+        "walletName":  "GrabPay",
+        "providerCode":  "6303",
+        "countryCode":  "PH"
+    },
+    {
+        "walletName":  "BLIK",
+        "providerCode":  "4801",
+        "countryCode":  "PL"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "4802",
+        "countryCode":  "PL"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "4803",
+        "countryCode":  "PL"
+    },
+    {
+        "walletName":  "MB Way",
+        "providerCode":  "35101",
+        "countryCode":  "PT"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "35102",
+        "countryCode":  "PT"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "35103",
+        "countryCode":  "PT"
+    },
+    {
+        "walletName":  "ATH Móvil",
+        "providerCode":  "178701",
+        "countryCode":  "PR"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "178702",
+        "countryCode":  "PR"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "178703",
+        "countryCode":  "PR"
+    },
+    {
+        "walletName":  "Ooredoo Money",
+        "providerCode":  "97401",
+        "countryCode":  "QA"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "97402",
+        "countryCode":  "QA"
+    },
+    {
+        "walletName":  "BT Pay",
+        "providerCode":  "4001",
+        "countryCode":  "RO"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "4002",
+        "countryCode":  "RO"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "4003",
+        "countryCode":  "RO"
+    },
+    {
+        "walletName":  "MTN MoMo",
+        "providerCode":  "25001",
+        "countryCode":  "RW"
+    },
+    {
+        "walletName":  "Airtel Money",
+        "providerCode":  "25002",
+        "countryCode":  "RW"
+    },
+    {
+        "walletName":  "Digicel Mobile Money",
+        "providerCode":  "186901",
+        "countryCode":  "KN"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "186902",
+        "countryCode":  "KN"
+    },
+    {
+        "walletName":  "Digicel Mobile Money",
+        "providerCode":  "68501",
+        "countryCode":  "WS"
+    },
+    {
+        "walletName":  "Satispay",
+        "providerCode":  "37801",
+        "countryCode":  "SM"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "37802",
+        "countryCode":  "SM"
+    },
+    {
+        "walletName":  "Unitel Money",
+        "providerCode":  "23901",
+        "countryCode":  "ST"
+    },
+    {
+        "walletName":  "STC Pay",
+        "providerCode":  "96601",
+        "countryCode":  "SA"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "96602",
+        "countryCode":  "SA"
+    },
+    {
+        "walletName":  "urpay",
+        "providerCode":  "96603",
+        "countryCode":  "SA"
+    },
+    {
+        "walletName":  "Wave",
+        "providerCode":  "22101",
+        "countryCode":  "SN"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "22102",
+        "countryCode":  "SN"
+    },
+    {
+        "walletName":  "Free Money",
+        "providerCode":  "22103",
+        "countryCode":  "SN"
+    },
+    {
+        "walletName":  "IPS",
+        "providerCode":  "38101",
+        "countryCode":  "RS"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "38102",
+        "countryCode":  "RS"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "38103",
+        "countryCode":  "RS"
+    },
+    {
+        "walletName":  "Absa Wallet",
+        "providerCode":  "24801",
+        "countryCode":  "SC"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "23201",
+        "countryCode":  "SL"
+    },
+    {
+        "walletName":  "Afrimoney",
+        "providerCode":  "23202",
+        "countryCode":  "SL"
+    },
+    {
+        "walletName":  "PayNow",
+        "providerCode":  "6501",
+        "countryCode":  "SG"
+    },
+    {
+        "walletName":  "GrabPay",
+        "providerCode":  "6502",
+        "countryCode":  "SG"
+    },
+    {
+        "walletName":  "PayLah!",
+        "providerCode":  "6503",
+        "countryCode":  "SG"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "42101",
+        "countryCode":  "SK"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "42102",
+        "countryCode":  "SK"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "42103",
+        "countryCode":  "SK"
+    },
+    {
+        "walletName":  "Flik",
+        "providerCode":  "38601",
+        "countryCode":  "SI"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "38602",
+        "countryCode":  "SI"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "38603",
+        "countryCode":  "SI"
+    },
+    {
+        "walletName":  "B-Mobile Money",
+        "providerCode":  "67701",
+        "countryCode":  "SB"
+    },
+    {
+        "walletName":  "EVC Plus",
+        "providerCode":  "25201",
+        "countryCode":  "SO"
+    },
+    {
+        "walletName":  "Zaad",
+        "providerCode":  "25202",
+        "countryCode":  "SO"
+    },
+    {
+        "walletName":  "Sahal",
+        "providerCode":  "25203",
+        "countryCode":  "SO"
+    },
+    {
+        "walletName":  "SnapScan",
+        "providerCode":  "2701",
+        "countryCode":  "ZA"
+    },
+    {
+        "walletName":  "Capitec Pay",
+        "providerCode":  "2702",
+        "countryCode":  "ZA"
+    },
+    {
+        "walletName":  "PayShap",
+        "providerCode":  "2703",
+        "countryCode":  "ZA"
+    },
+    {
+        "walletName":  "FNB eWallet",
+        "providerCode":  "2704",
+        "countryCode":  "ZA"
+    },
+    {
+        "walletName":  "Bizum",
+        "providerCode":  "3401",
+        "countryCode":  "ES"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "3402",
+        "countryCode":  "ES"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "3403",
+        "countryCode":  "ES"
+    },
+    {
+        "walletName":  "eZ Cash",
+        "providerCode":  "9401",
+        "countryCode":  "LK"
+    },
+    {
+        "walletName":  "FriMi",
+        "providerCode":  "9402",
+        "countryCode":  "LK"
+    },
+    {
+        "walletName":  "Genie",
+        "providerCode":  "9403",
+        "countryCode":  "LK"
+    },
+    {
+        "walletName":  "Bankak",
+        "providerCode":  "24901",
+        "countryCode":  "SD"
+    },
+    {
+        "walletName":  "UniPay",
+        "providerCode":  "59701",
+        "countryCode":  "SR"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "59702",
+        "countryCode":  "SR"
+    },
+    {
+        "walletName":  "Swish",
+        "providerCode":  "4601",
+        "countryCode":  "SE"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "4602",
+        "countryCode":  "SE"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "4603",
+        "countryCode":  "SE"
+    },
+    {
+        "walletName":  "TWINT",
+        "providerCode":  "4101",
+        "countryCode":  "CH"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "4102",
+        "countryCode":  "CH"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "4103",
+        "countryCode":  "CH"
+    },
+    {
+        "walletName":  "Syriatel Cash",
+        "providerCode":  "96301",
+        "countryCode":  "SY"
+    },
+    {
+        "walletName":  "MTN Cash",
+        "providerCode":  "96302",
+        "countryCode":  "SY"
+    },
+    {
+        "walletName":  "Alif Mobi",
+        "providerCode":  "99201",
+        "countryCode":  "TJ"
+    },
+    {
+        "walletName":  "Humo",
+        "providerCode":  "99202",
+        "countryCode":  "TJ"
+    },
+    {
+        "walletName":  "M-Pesa",
+        "providerCode":  "25501",
+        "countryCode":  "TZ"
+    },
+    {
+        "walletName":  "Tigo Pesa",
+        "providerCode":  "25502",
+        "countryCode":  "TZ"
+    },
+    {
+        "walletName":  "Airtel Money",
+        "providerCode":  "25503",
+        "countryCode":  "TZ"
+    },
+    {
+        "walletName":  "PromptPay",
+        "providerCode":  "6601",
+        "countryCode":  "TH"
+    },
+    {
+        "walletName":  "TrueMoney",
+        "providerCode":  "6602",
+        "countryCode":  "TH"
+    },
+    {
+        "walletName":  "Rabbit LINE Pay",
+        "providerCode":  "6603",
+        "countryCode":  "TH"
+    },
+    {
+        "walletName":  "TPay",
+        "providerCode":  "67001",
+        "countryCode":  "TL"
+    },
+    {
+        "walletName":  "Flooz",
+        "providerCode":  "22801",
+        "countryCode":  "TG"
+    },
+    {
+        "walletName":  "T-Money",
+        "providerCode":  "22802",
+        "countryCode":  "TG"
+    },
+    {
+        "walletName":  "Digicel Mobile Money",
+        "providerCode":  "67601",
+        "countryCode":  "TO"
+    },
+    {
+        "walletName":  "PayWise",
+        "providerCode":  "186801",
+        "countryCode":  "TT"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "186802",
+        "countryCode":  "TT"
+    },
+    {
+        "walletName":  "Flouci",
+        "providerCode":  "21601",
+        "countryCode":  "TN"
+    },
+    {
+        "walletName":  "D17",
+        "providerCode":  "21602",
+        "countryCode":  "TN"
+    },
+    {
+        "walletName":  "Orange Money",
+        "providerCode":  "21603",
+        "countryCode":  "TN"
+    },
+    {
+        "walletName":  "Papara",
+        "providerCode":  "9001",
+        "countryCode":  "TR"
+    },
+    {
+        "walletName":  "Tosla",
+        "providerCode":  "9002",
+        "countryCode":  "TR"
+    },
+    {
+        "walletName":  "BKM Express",
+        "providerCode":  "9003",
+        "countryCode":  "TR"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "164901",
+        "countryCode":  "TC"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "164902",
+        "countryCode":  "TC"
+    },
+    {
+        "walletName":  "MTN MoMo",
+        "providerCode":  "25601",
+        "countryCode":  "UG"
+    },
+    {
+        "walletName":  "Airtel Money",
+        "providerCode":  "25602",
+        "countryCode":  "UG"
+    },
+    {
+        "walletName":  "Privat24",
+        "providerCode":  "38001",
+        "countryCode":  "UA"
+    },
+    {
+        "walletName":  "Monobank",
+        "providerCode":  "38002",
+        "countryCode":  "UA"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "38003",
+        "countryCode":  "UA"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "97101",
+        "countryCode":  "AE"
+    },
+    {
+        "walletName":  "Payit",
+        "providerCode":  "97102",
+        "countryCode":  "AE"
+    },
+    {
+        "walletName":  "Botim Pay",
+        "providerCode":  "97103",
+        "countryCode":  "AE"
+    },
+    {
+        "walletName":  "Revolut",
+        "providerCode":  "4401",
+        "countryCode":  "UK"
+    },
+    {
+        "walletName":  "Monzo",
+        "providerCode":  "4402",
+        "countryCode":  "UK"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "4403",
+        "countryCode":  "UK"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "4404",
+        "countryCode":  "UK"
+    },
+    {
+        "walletName":  "Venmo",
+        "providerCode":  "101",
+        "countryCode":  "US"
+    },
+    {
+        "walletName":  "Cash App",
+        "providerCode":  "102",
+        "countryCode":  "US"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "103",
+        "countryCode":  "US"
+    },
+    {
+        "walletName":  "Zelle",
+        "providerCode":  "104",
+        "countryCode":  "US"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "105",
+        "countryCode":  "US"
+    },
+    {
+        "walletName":  "Mercado Pago",
+        "providerCode":  "59801",
+        "countryCode":  "UY"
+    },
+    {
+        "walletName":  "Prex",
+        "providerCode":  "59802",
+        "countryCode":  "UY"
+    },
+    {
+        "walletName":  "OCA Blue",
+        "providerCode":  "59803",
+        "countryCode":  "UY"
+    },
+    {
+        "walletName":  "Click",
+        "providerCode":  "99801",
+        "countryCode":  "UZ"
+    },
+    {
+        "walletName":  "Payme",
+        "providerCode":  "99802",
+        "countryCode":  "UZ"
+    },
+    {
+        "walletName":  "Uzcard",
+        "providerCode":  "99803",
+        "countryCode":  "UZ"
+    },
+    {
+        "walletName":  "Digicel Mobile Money",
+        "providerCode":  "67801",
+        "countryCode":  "VU"
+    },
+    {
+        "walletName":  "Pago Móvil",
+        "providerCode":  "5801",
+        "countryCode":  "VE"
+    },
+    {
+        "walletName":  "Zinli",
+        "providerCode":  "5802",
+        "countryCode":  "VE"
+    },
+    {
+        "walletName":  "Reserve",
+        "providerCode":  "5803",
+        "countryCode":  "VE"
+    },
+    {
+        "walletName":  "MoMo",
+        "providerCode":  "8401",
+        "countryCode":  "VN"
+    },
+    {
+        "walletName":  "ZaloPay",
+        "providerCode":  "8402",
+        "countryCode":  "VN"
+    },
+    {
+        "walletName":  "Viettel Money",
+        "providerCode":  "8403",
+        "countryCode":  "VN"
+    },
+    {
+        "walletName":  "PayPal",
+        "providerCode":  "134001",
+        "countryCode":  "VI"
+    },
+    {
+        "walletName":  "Apple Pay",
+        "providerCode":  "134002",
+        "countryCode":  "VI"
+    },
+    {
+        "walletName":  "Zelle",
+        "providerCode":  "134003",
+        "countryCode":  "VI"
+    },
+    {
+        "walletName":  "Yemen Mobile Cash",
+        "providerCode":  "96701",
+        "countryCode":  "YE"
+    },
+    {
+        "walletName":  "MTN MoMo",
+        "providerCode":  "96702",
+        "countryCode":  "YE"
+    },
+    {
+        "walletName":  "Airtel Money",
+        "providerCode":  "26001",
+        "countryCode":  "ZM"
+    },
+    {
+        "walletName":  "MTN MoMo",
+        "providerCode":  "26002",
+        "countryCode":  "ZM"
+    },
+    {
+        "walletName":  "Zamtel Kwacha",
+        "providerCode":  "26003",
+        "countryCode":  "ZM"
+    },
+    {
+        "walletName":  "EcoCash",
+        "providerCode":  "26301",
+        "countryCode":  "ZW"
+    },
+    {
+        "walletName":  "OneMoney",
+        "providerCode":  "26302",
+        "countryCode":  "ZW"
+    },
+    {
+        "walletName":  "InnBucks",
+        "providerCode":  "26303",
+        "countryCode":  "ZW"
+    }
+]

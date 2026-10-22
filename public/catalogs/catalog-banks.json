@@ -1,0 +1,3428 @@
+[
+  {
+    "bankName": "BANCO BAC SAN JOSE",
+    "bankCode": "BSNJCRSJ",
+    "providerCode": "5069001",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "BANCO CATHAY DE COSTA RICA, S.A.",
+    "bankCode": "KTAYCRSJ ",
+    "providerCode": "5069003",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "BANCO DAVIVIENDA (COSTA RICA), S.A.",
+    "bankCode": "BXBACRSJ",
+    "providerCode": "5069015",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "BANCO DE COSTA RICA",
+    "bankCode": "BCRICRSJ",
+    "providerCode": "5069005",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "BANCO GENERAL (COSTA RICA), S.A.",
+    "bankCode": "BAGECRSJ ",
+    "providerCode": "5069006",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "BANCO IMPROSA, S.A.",
+    "bankCode": "BIMPCRSJ",
+    "providerCode": "5069007",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "BANCO LAFISE S.A.",
+    "bankCode": "BCCECRSJ",
+    "providerCode": "5069008",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "BANCO NACIONAL DE COSTA RICA",
+    "bankCode": "BNCRCRSJ",
+    "providerCode": "5069009",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "BANCO POPULAR Y DE DESARROLLO COMUNAL",
+    "bankCode": "BPDCCRSJ ",
+    "providerCode": "5069010",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "BANCO PROMERICA",
+    "bankCode": "PRMKCRSJ",
+    "providerCode": "5069016",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "BANCO BCT S.A.",
+    "bankCode": "CCIOCRSJ ",
+    "providerCode": "5069002",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "COOPENAE",
+    "bankCode": "CPOPCRS1 ",
+    "providerCode": "5069014",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "GRUPO MUTUAL ALAJUELA-LA VIVIENDA DE AHORRO Y PRESTAMO",
+    "bankCode": "GMAVCRS1",
+    "providerCode": "5069013",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "PRIVAL BANK (COSTA RICA) S.A.",
+    "bankCode": "BDSOCRSJ ",
+    "providerCode": "5069011",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "SCOTIABANK DE COSTA RICA",
+    "bankCode": "NOSCCRSJ",
+    "providerCode": "5069012",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "THE BANK OF NOVA SCOTIA (COSTA RICA) S.A.",
+    "bankCode": "BACUCRSJ ",
+    "providerCode": "5069004",
+    "countryCode": "CR"
+  },
+  {
+    "bankName": "+PAY",
+    "bankCode": "ARBW0213",
+    "providerCode": "0549277",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "3 SM",
+    "bankCode": "ARBW0046",
+    "providerCode": "0549110",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "369 EXPRESS",
+    "bankCode": "ARBW0047",
+    "providerCode": "0549111",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "ACQ Y MAS",
+    "bankCode": "ARBW0048",
+    "providerCode": "0549112",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "ADELANTOS PAY",
+    "bankCode": "ARBW0049",
+    "providerCode": "0549113",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "AGIL PAGOS",
+    "bankCode": "ARBW0050",
+    "providerCode": "0549114",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "AL2",
+    "bankCode": "ARBW0051",
+    "providerCode": "0549115",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "ALLARIA",
+    "bankCode": "ARBW0052",
+    "providerCode": "0549116",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "AQUI COBRO",
+    "bankCode": "ARBW0053",
+    "providerCode": "0549117",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "ARPAY",
+    "bankCode": "ARBW0054",
+    "providerCode": "0549118",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "ASTROPAY",
+    "bankCode": "ARBW0044",
+    "providerCode": "0549108",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BALPAYS",
+    "bankCode": "ARBW0055",
+    "providerCode": "0549119",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BAMBA",
+    "bankCode": "ARBW0041",
+    "providerCode": "0549105",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO BBVA ARGENTINA S.A.",
+    "bankCode": "BFRPARBA",
+    "providerCode": "0549066",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO INDUSTRIAL S.A.",
+    "bankCode": "NBIAARBA",
+    "providerCode": "0549070",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO INTERFINANZAS S.A.",
+    "bankCode": "BIINARBA",
+    "providerCode": "0549003",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO MASVENTAS S.A.",
+    "bankCode": "BANMAARS",
+    "providerCode": "0549071",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO RIOJA SOCIEDAD ANONIMA UNIPERSONAL",
+    "bankCode": "BSCHARBA",
+    "providerCode": "0549069",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO VOII S.A.",
+    "bankCode": "VOIBARBA",
+    "providerCode": "0549050",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BENKOPAY",
+    "bankCode": "ARBW0056",
+    "providerCode": "0549120",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BESTCARD",
+    "bankCode": "ARBW0057",
+    "providerCode": "0549121",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BILLETERA SUBE",
+    "bankCode": "ARBW0058",
+    "providerCode": "0549122",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BIND PSP",
+    "bankCode": "ARBW0059",
+    "providerCode": "0549123",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BIPAGOS",
+    "bankCode": "ARBW0060",
+    "providerCode": "0549124",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BITSO",
+    "bankCode": "ARBW0031",
+    "providerCode": "0549095",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BIVO",
+    "bankCode": "ARBW0061",
+    "providerCode": "0549125",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BIZLAND PAYMENT SOLUTIONS",
+    "bankCode": "ARBW0062",
+    "providerCode": "0549126",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BK DIGITAL SERVICES",
+    "bankCode": "ARBW0063",
+    "providerCode": "0549127",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BRICKS M2V",
+    "bankCode": "ARBW0064",
+    "providerCode": "0549128",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BRIDGE SOLUTIONS",
+    "bankCode": "ARBW0065",
+    "providerCode": "0549129",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BRISBANE",
+    "bankCode": "ARBW0066",
+    "providerCode": "0549130",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BACS BANCO DE CREDITO Y SECURITIZACION",
+    "bankCode": "BACSARBA",
+    "providerCode": "0549002",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO BICA S.A.",
+    "bankCode": "BICAARBS",
+    "providerCode": "0549058",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO BRADESCO ARGENTINA",
+    "bankCode": "BBDEARBA",
+    "providerCode": "0549004",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO CMF",
+    "bankCode": "CMFBARBA",
+    "providerCode": "0549006",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO CETELEM ARGENTINA",
+    "bankCode": "CETMARBA",
+    "providerCode": "0549005",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO COINAG S.A.",
+    "bankCode": "CNIAARBR",
+    "providerCode": "0549059",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO COLUMBIA",
+    "bankCode": "CLLUARBA",
+    "providerCode": "0549007",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO COMAFI",
+    "bankCode": "QUILARBA",
+    "providerCode": "0549008",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO CREDICOOP COOP. L",
+    "bankCode": "BCOOARBA",
+    "providerCode": "0549009",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DEL CHUBUT",
+    "bankCode": "BPCHARBA",
+    "providerCode": "0549026",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DEL SOL",
+    "bankCode": "DELSOLAR",
+    "providerCode": "0549027",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DINO S.A.",
+    "bankCode": "BANDNOAR",
+    "providerCode": "0549064",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO HIPOTECARIO",
+    "bankCode": "BHIPARBA",
+    "providerCode": "0549028",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO ITAU ",
+    "bankCode": "ITAUARBA",
+    "providerCode": "0549029",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO JULIO",
+    "bankCode": "BJULARBC",
+    "providerCode": "0549030",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO MACRO",
+    "bankCode": "BOSUARBA",
+    "providerCode": "0549031",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO MARIVA",
+    "bankCode": "MARIARBA",
+    "providerCode": "0549032",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO MAS VENTAS",
+    "bankCode": "BAMARIVA",
+    "providerCode": "0549033",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO MERIDIAN",
+    "bankCode": "BMRDARBA",
+    "providerCode": "0549034",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO MERIDIAN S.A",
+    "bankCode": "GFTCARBA",
+    "providerCode": "0549092",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO MUNICIPAL DE ROSARIO",
+    "bankCode": "MUNRARBR",
+    "providerCode": "0549035",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO PATAGONIA SUDAMERIS",
+    "bankCode": "BSUDARBA",
+    "providerCode": "0549036",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO PIANO",
+    "bankCode": "BAPIARBA",
+    "providerCode": "0549037",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO PROVINCIA DEL NEUQUEN",
+    "bankCode": "BPNEARBA",
+    "providerCode": "0549039",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO PROVINCIA DE TIERRA DEL FUEGO",
+    "bankCode": "TTFAARBA",
+    "providerCode": "0549038",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO ROELA",
+    "bankCode": "ROEBARB1",
+    "providerCode": "0549041",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO SAENZ",
+    "bankCode": "BSAEARBA",
+    "providerCode": "0549042",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO SANTANDER",
+    "bankCode": "BSCHARST",
+    "providerCode": "0549040",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO SUCREDITO REGIONAL S.A.U.",
+    "bankCode": "BACOINAR",
+    "providerCode": "0549060",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO SUPERVIELLE S.A.",
+    "bankCode": "BSUPARBA",
+    "providerCode": "0549043",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE COMERCIO S.A. ",
+    "bankCode": "MCFAARBA",
+    "providerCode": "0549063",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE CORRIENTES",
+    "bankCode": "BCORARBC",
+    "providerCode": "0549010",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE FORMOSA",
+    "bankCode": "BFSAARBF",
+    "providerCode": "0549011",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE GALICIA Y BUENOS AIRES",
+    "bankCode": "GABAARBA",
+    "providerCode": "0549012",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE INVERSION Y COMERCIO EXTERIOR",
+    "bankCode": "BICXARBA",
+    "providerCode": "0549013",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE LA CIUDAD DE BUENOS AIRES",
+    "bankCode": "BACIARBA",
+    "providerCode": "0549014",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE LA NACION ARGENTINA",
+    "bankCode": "NACNARBA",
+    "providerCode": "0549015",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE LA PAMPA SOCIEDAD DE ECONOMIA M",
+    "bankCode": "PAMPARBA",
+    "providerCode": "0549016",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE LA PROVINCIA DE BUENOS AIRES",
+    "bankCode": "PRBAARBA",
+    "providerCode": "0549017",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE LA PROVINCIA DE CORDOBA",
+    "bankCode": "CORDARBA",
+    "providerCode": "0549018",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE LA REPUBLICA ORIENTAL DEL URUGUAY",
+    "bankCode": "BROUARBA",
+    "providerCode": "0549019",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE SAN JUAN",
+    "bankCode": "BSJUARBJ",
+    "providerCode": "0549020",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE SANTA CRUZ",
+    "bankCode": "BPSCARBA",
+    "providerCode": "0549021",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE SANTIAGO DEL ESTERO",
+    "bankCode": "ESTEROAR",
+    "providerCode": "0549022",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE SERVICIOS FINANCIEROS",
+    "bankCode": "FSERARB1",
+    "providerCode": "0549023",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE SERVICIOS Y TRANSACCIONES",
+    "bankCode": "BSTIARBA",
+    "providerCode": "0549024",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO DE VALORES",
+    "bankCode": "BAVAARBA",
+    "providerCode": "0549025",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANK OF AMERICA NATIONAL ASSOCIATION",
+    "bankCode": "BOFAAR6S",
+    "providerCode": "0549044",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANK OF CHINE LIMITED SUCURSAL BUENOS AIRES",
+    "bankCode": "BKCHARBA",
+    "providerCode": "0549061",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BNP PARIBAS",
+    "bankCode": "BNPAARBA",
+    "providerCode": "0549047",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BRUBANK S.A.U.",
+    "bankCode": "BRUBANAR",
+    "providerCode": "0549062",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CARDCRED",
+    "bankCode": "ARBW0067",
+    "providerCode": "0549131",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CASH WALLET",
+    "bankCode": "ARBW0068",
+    "providerCode": "0549132",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CATALANA INVERSION",
+    "bankCode": "ARBW0069",
+    "providerCode": "0549133",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CENCOPAY",
+    "bankCode": "ARBW0070",
+    "providerCode": "0549134",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CHRONOS",
+    "bankCode": "ARBW0071",
+    "providerCode": "0549135",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CITIBANK N.A.",
+    "bankCode": "CITIARBA",
+    "providerCode": "0549065",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CLARO PAY",
+    "bankCode": "ARBW0072",
+    "providerCode": "0549136",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CLAVE DEBIT",
+    "bankCode": "ARBW0073",
+    "providerCode": "0549137",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CLICK",
+    "bankCode": "ARBW0074",
+    "providerCode": "0549138",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CLICKAUT",
+    "bankCode": "ARBW0075",
+    "providerCode": "0549139",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CMA",
+    "bankCode": "ARBW0076",
+    "providerCode": "0549140",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "COIN",
+    "bankCode": "ARBW0043",
+    "providerCode": "0549107",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "COMPANIA FINANCIERA ARGENTINA S.A.",
+    "bankCode": "MFCFARBA",
+    "providerCode": "0549073",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CORDIAL COMPANIA FINANCIERA S.A.",
+    "bankCode": "CABFARBA",
+    "providerCode": "0549075",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CREDENCIAL ARGENTINA",
+    "bankCode": "ARBW0077",
+    "providerCode": "0549141",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CREDISI ONLINE",
+    "bankCode": "ARBW0078",
+    "providerCode": "0549142",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CREDITO REGIONAL COMPANIA FINANCIERA S.A",
+    "bankCode": "CRCFARBA",
+    "providerCode": "0549085",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CRESIUM",
+    "bankCode": "ARBW0079",
+    "providerCode": "0549143",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CUENTADIGITAL",
+    "bankCode": "ARBW0032",
+    "providerCode": "0549096",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "CVU ACCOUNT",
+    "bankCode": "CVUACCAR",
+    "providerCode": "0549001",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "DATA 3.0",
+    "bankCode": "ARBW0080",
+    "providerCode": "0549144",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "DEL NORTE PSP",
+    "bankCode": "ARBW0081",
+    "providerCode": "0549145",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "DIGIFIN",
+    "bankCode": "ARBW0082",
+    "providerCode": "0549146",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "DIGIPAYMENTS",
+    "bankCode": "ARBW0083",
+    "providerCode": "0549147",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "E-COBRO",
+    "bankCode": "ARBW0084",
+    "providerCode": "0549148",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "EASY PAGOS",
+    "bankCode": "ARBW0085",
+    "providerCode": "0549149",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "ECASH",
+    "bankCode": "ARBW0086",
+    "providerCode": "0549150",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "EFECTIVO DIGITAL",
+    "bankCode": "ARBW0087",
+    "providerCode": "0549151",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "EPAGOS",
+    "bankCode": "ARBW0088",
+    "providerCode": "0549152",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "EVWEB PAY",
+    "bankCode": "ARBW0089",
+    "providerCode": "0549153",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "F5 PAGOS ONLINE",
+    "bankCode": "ARBW0090",
+    "providerCode": "0549154",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "FACAF",
+    "bankCode": "ARBW0091",
+    "providerCode": "0549155",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "FARMAPAY",
+    "bankCode": "ARBW0092",
+    "providerCode": "0549156",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "FCA COMPANIA FINANCIERA S.A.",
+    "bankCode": "FCACARBA",
+    "providerCode": "0549076",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "FERTIL SUMA",
+    "bankCode": "ARBW0093",
+    "providerCode": "0549157",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "FIDUFINA",
+    "bankCode": "ARBW0094",
+    "providerCode": "0549158",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "FINANDINO COMPAÑIA FINANCIERA S.A.",
+    "bankCode": "FCFSARBA",
+    "providerCode": "0549086",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "FINKET",
+    "bankCode": "ARBW0095",
+    "providerCode": "0549159",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "FIWIND PAY",
+    "bankCode": "ARBW0096",
+    "providerCode": "0549160",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "FORD CREDIT COMPANIA FINANCIERA S.A.",
+    "bankCode": "FORDARBA",
+    "providerCode": "0549072",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "FORTY",
+    "bankCode": "ARBW0097",
+    "providerCode": "0549161",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "GARPA SA",
+    "bankCode": "ARBW0036",
+    "providerCode": "0549100",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "GB PSP SAS",
+    "bankCode": "ARBW0098",
+    "providerCode": "0549162",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "GESTION SA",
+    "bankCode": "ARBW0099",
+    "providerCode": "0549163",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "GLOBAL66",
+    "bankCode": "ARBW0100",
+    "providerCode": "0549164",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "GO PAY",
+    "bankCode": "ARBW0101",
+    "providerCode": "0549165",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "GOAT",
+    "bankCode": "ARBW0040",
+    "providerCode": "0549104",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "GPAT COMPANIA FINANCIERA S.A.U.",
+    "bankCode": "GPCOARBA",
+    "providerCode": "0549077",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "GUAVAPAY",
+    "bankCode": "ARBW0102",
+    "providerCode": "0549166",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "HAZ PAGOS",
+    "bankCode": "ARBW0103",
+    "providerCode": "0549167",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "HELIPAGOS",
+    "bankCode": "ARBW0104",
+    "providerCode": "0549168",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "HER",
+    "bankCode": "ARBW0105",
+    "providerCode": "0549169",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "HNT",
+    "bankCode": "ARBW0106",
+    "providerCode": "0549170",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "HSBC BANK ARGENTINA",
+    "bankCode": "BACOARBA",
+    "providerCode": "0549048",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "IBBA",
+    "bankCode": "ARBW0107",
+    "providerCode": "0549171",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "IKEPAGO",
+    "bankCode": "ARBW0108",
+    "providerCode": "0549172",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "INI",
+    "bankCode": "ARBW0109",
+    "providerCode": "0549173",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "INSIGHT BUSINESS",
+    "bankCode": "ARBW0110",
+    "providerCode": "0549174",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "INTEGRA PAGOS",
+    "bankCode": "ARBW0111",
+    "providerCode": "0549175",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "INTERPAYS",
+    "bankCode": "ARBW0112",
+    "providerCode": "0549176",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "INVOITION SA",
+    "bankCode": "ARBW0029",
+    "providerCode": "0549093",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "INDUSTRIAL AND COMMERCIAL BANK OF CHINA (ICBC) ARGENTINA",
+    "bankCode": "ICBKARBA",
+    "providerCode": "0549045",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "J P MORGAN CHASE BANK SUCURSAL BUENOS AIRES",
+    "bankCode": "CHASARBA",
+    "providerCode": "0549049",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "JOHN DEERE CREDIT COMPANIA FINANCIERA S.",
+    "bankCode": "JDCCARBA",
+    "providerCode": "0549080",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "JPMORGAN CHASE BANK, NATIONAL ASSOCIATIO",
+    "bankCode": "CHASARJM",
+    "providerCode": "0549068",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "KI",
+    "bankCode": "ARBW0113",
+    "providerCode": "0549177",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "KOIPAY",
+    "bankCode": "ARBW0114",
+    "providerCode": "0549178",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "LEFT",
+    "bankCode": "ARBW0115",
+    "providerCode": "0549179",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "LINKIN",
+    "bankCode": "ARBW0116",
+    "providerCode": "0549180",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "LISTA",
+    "bankCode": "ARBW0117",
+    "providerCode": "0549181",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "LOHAS",
+    "bankCode": "ARBW0118",
+    "providerCode": "0549182",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "LUX 11",
+    "bankCode": "ARBW0119",
+    "providerCode": "0549183",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "MANGUEAR",
+    "bankCode": "ARBW0120",
+    "providerCode": "0549184",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "MAX PAY",
+    "bankCode": "ARBW0121",
+    "providerCode": "0549185",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "MECAENPOL",
+    "bankCode": "ARBW0122",
+    "providerCode": "0549186",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "MERCADO PAGO",
+    "bankCode": "ARBW0010",
+    "providerCode": "0549990",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "MERCEDES-BENZ COMPANIA FINANCIERA ARGENT",
+    "bankCode": "MEBEARBA",
+    "providerCode": "0549078",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "MOBBEX",
+    "bankCode": "ARBW0123",
+    "providerCode": "0549187",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "MOLI",
+    "bankCode": "ARBW0124",
+    "providerCode": "0549188",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "MOMENTUM PAGOS",
+    "bankCode": "ARBW0125",
+    "providerCode": "0549189",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "MONEDA 1",
+    "bankCode": "ARBW0126",
+    "providerCode": "0549190",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "MONI ONLINE",
+    "bankCode": "ARBW0127",
+    "providerCode": "0549191",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "MONTEMAR COMPANIA FINANCIERA S.A.",
+    "bankCode": "MCFIARB1",
+    "providerCode": "0549083",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "MUTUAL DE SOCIOS DE LA ASOCIACION MEDICA DE ROSARIO",
+    "bankCode": "ARBW0128",
+    "providerCode": "0549192",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "N&CO PAY",
+    "bankCode": "ARBW0129",
+    "providerCode": "0549193",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "N1U LEVEL",
+    "bankCode": "ARBW0130",
+    "providerCode": "0549194",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "NANOWALLET",
+    "bankCode": "ARBW0131",
+    "providerCode": "0549195",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "NEST",
+    "bankCode": "ARBW0132",
+    "providerCode": "0549196",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "NEW FINANCE",
+    "bankCode": "ARBW0133",
+    "providerCode": "0549197",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "NIPEAR",
+    "bankCode": "ARBW0134",
+    "providerCode": "0549198",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "NUMBER",
+    "bankCode": "ARBW0135",
+    "providerCode": "0549199",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "NVIO ARGENTINA",
+    "bankCode": "ARBW0136",
+    "providerCode": "0549200",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "NUEVO BANCO DEL CHACO",
+    "bankCode": "BACHARDC",
+    "providerCode": "0549054",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "NUEVO BANCO INDUSTRIAL DE AZUL",
+    "bankCode": "BACHARBA",
+    "providerCode": "0549055",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "NUEVO BANCO DE ENTRE RIOS",
+    "bankCode": "BERAARBA",
+    "providerCode": "0549051",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "NUEVO BANCO DE LA RIOJA",
+    "bankCode": "RIPBARB1",
+    "providerCode": "0549052",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "NUEVO BANCO DE SANTA FE",
+    "bankCode": "BPSFARBA",
+    "providerCode": "0549053",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "OKTO",
+    "bankCode": "ARBW0137",
+    "providerCode": "0549201",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "ONDA SIEMPRE PODES COMPRAR",
+    "bankCode": "ARBW0138",
+    "providerCode": "0549202",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "ONE TOUCH PAY",
+    "bankCode": "ARBW0139",
+    "providerCode": "0549203",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "OPENPAY",
+    "bankCode": "ARBW0140",
+    "providerCode": "0549204",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PACER",
+    "bankCode": "ARBW0141",
+    "providerCode": "0549205",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PAGO TIC",
+    "bankCode": "ARBW0142",
+    "providerCode": "0549206",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PAGO VIRTUAL DEL SUR SA",
+    "bankCode": "ARBW0143",
+    "providerCode": "0549207",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PAGOS",
+    "bankCode": "ARBW0144",
+    "providerCode": "0549208",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PAGOS360",
+    "bankCode": "ARBW0039",
+    "providerCode": "0549103",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PAGOTECH",
+    "bankCode": "ARBW0145",
+    "providerCode": "0549209",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PANDAPAY",
+    "bankCode": "ARBW0146",
+    "providerCode": "0549210",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PATROL",
+    "bankCode": "ARBW0147",
+    "providerCode": "0549211",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PAXSYS",
+    "bankCode": "ARBW0148",
+    "providerCode": "0549212",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PAYBAO",
+    "bankCode": "ARBW0149",
+    "providerCode": "0549213",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PAYCLOUD",
+    "bankCode": "ARBW0150",
+    "providerCode": "0549214",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PAYFUN",
+    "bankCode": "ARBW0151",
+    "providerCode": "0549215",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PAYMUN",
+    "bankCode": "ARBW0152",
+    "providerCode": "0549216",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PERC",
+    "bankCode": "ARBW0153",
+    "providerCode": "0549217",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PERSONAL PAY",
+    "bankCode": "ARBW0038",
+    "providerCode": "0549102",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PHILIDOR",
+    "bankCode": "ARBW0154",
+    "providerCode": "0549218",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PLANBOK",
+    "bankCode": "ARBW0155",
+    "providerCode": "0549219",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PLUG PAY",
+    "bankCode": "ARBW0156",
+    "providerCode": "0549220",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PLUS BILLETERA",
+    "bankCode": "ARBW0157",
+    "providerCode": "0549221",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "POLUX PAY",
+    "bankCode": "ARBW0158",
+    "providerCode": "0549222",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "POTENCIAR PSP",
+    "bankCode": "ARBW0159",
+    "providerCode": "0549223",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PP SERVICIOS DE PAGOS",
+    "bankCode": "ARBW0160",
+    "providerCode": "0549224",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PREX",
+    "bankCode": "ARBW0161",
+    "providerCode": "0549225",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PROFINTECH",
+    "bankCode": "ARBW0162",
+    "providerCode": "0549226",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PROPAGO",
+    "bankCode": "ARBW0037",
+    "providerCode": "0549101",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PSA FINANCE ARGENTINA COMPANIA FINANCIER",
+    "bankCode": "PFACARBA",
+    "providerCode": "0549081",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "PYXIT",
+    "bankCode": "ARBW0163",
+    "providerCode": "0549227",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "QIRA PAGOS",
+    "bankCode": "ARBW0164",
+    "providerCode": "0549228",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "RAMPY",
+    "bankCode": "ARBW0165",
+    "providerCode": "0549229",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "RCI BANQUE ARGENTINA",
+    "bankCode": "RCIBANAR",
+    "providerCode": "0549056",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "REDMAGISTER",
+    "bankCode": "ARBW0166",
+    "providerCode": "0549230",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "REMITEE",
+    "bankCode": "ARBW0167",
+    "providerCode": "0549231",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "RGM",
+    "bankCode": "ARBW0168",
+    "providerCode": "0549232",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "ROMBO COMPANIA FINANCIERA S.A.",
+    "bankCode": "ROCOARBA",
+    "providerCode": "0549079",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "ROW PAYMENTS",
+    "bankCode": "ARBW0169",
+    "providerCode": "0549233",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "SATOSHITANGO",
+    "bankCode": "ARBW0030",
+    "providerCode": "0549094",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "SERVICIOS DE PAGOS",
+    "bankCode": "ARBW0170",
+    "providerCode": "0549234",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "SERVICIOS URBANOS",
+    "bankCode": "ARBW0171",
+    "providerCode": "0549235",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "SIDOM PAY",
+    "bankCode": "ARBW0172",
+    "providerCode": "0549236",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "SIMPLE",
+    "bankCode": "ARBW0045",
+    "providerCode": "0549109",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "SIMPLE PAY",
+    "bankCode": "ARBW0173",
+    "providerCode": "0549237",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "SMART PAYMENTS",
+    "bankCode": "ARBW0174",
+    "providerCode": "0549238",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "SOS GENIAL",
+    "bankCode": "ARBW0175",
+    "providerCode": "0549239",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "SUPEFINA",
+    "bankCode": "ARBW0176",
+    "providerCode": "0549240",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "SUPERPAGO",
+    "bankCode": "ARBW0177",
+    "providerCode": "0549241",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "SUPRESTAMO",
+    "bankCode": "ARBW0178",
+    "providerCode": "0549242",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "SUR FINANZAS",
+    "bankCode": "ARBW0179",
+    "providerCode": "0549243",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "SUSTENTA PAGOS",
+    "bankCode": "ARBW0180",
+    "providerCode": "0549244",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "SYSWORLD DIGITAL S.A.",
+    "bankCode": "ARBW0034",
+    "providerCode": "0549098",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "TACA TACA",
+    "bankCode": "ARBW0181",
+    "providerCode": "0549245",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "TACH",
+    "bankCode": "ARBW0182",
+    "providerCode": "0549246",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "TARJETA PALTA",
+    "bankCode": "ARBW0183",
+    "providerCode": "0549247",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "TARJETA URBANA",
+    "bankCode": "ARBW0184",
+    "providerCode": "0549248",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "TDK LABS SAS",
+    "bankCode": "ARBW0185",
+    "providerCode": "0549249",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "TELEPAGOS",
+    "bankCode": "ARBW0033",
+    "providerCode": "0549097",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "TOTALCOIN",
+    "bankCode": "ARBW0186",
+    "providerCode": "0549250",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "TOYOTA COMPANIA FINANCIERA DE ARGENTINA",
+    "bankCode": "TCFDARBA",
+    "providerCode": "0549082",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "TRANSATLANTICA COMPANIA FINANCIERA S.A",
+    "bankCode": "TCSFARBA",
+    "providerCode": "0549084",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "TRASE",
+    "bankCode": "ARBW0187",
+    "providerCode": "0549251",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "TRUSTFIN TECHNOLOGY",
+    "bankCode": "ARBW0188",
+    "providerCode": "0549252",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "TUCASH",
+    "bankCode": "ARBW0189",
+    "providerCode": "0549253",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "UAN",
+    "bankCode": "ARBW0190",
+    "providerCode": "0549254",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "ULTRA",
+    "bankCode": "ARBW0035",
+    "providerCode": "0549099",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "UNEX",
+    "bankCode": "ARBW0191",
+    "providerCode": "0549255",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "UX CAPITAL ARGENTINA",
+    "bankCode": "ARBW0192",
+    "providerCode": "0549256",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "VALEPEI",
+    "bankCode": "ARBW0193",
+    "providerCode": "0549257",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "VAMOS PAGO",
+    "bankCode": "ARBW0194",
+    "providerCode": "0549258",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "VERIIL",
+    "bankCode": "ARBW0195",
+    "providerCode": "0549259",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "VIA PAGO",
+    "bankCode": "ARBW0196",
+    "providerCode": "0549260",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "VITA WALLET",
+    "bankCode": "ARBW0197",
+    "providerCode": "0549261",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "VIUMI",
+    "bankCode": "ARBW0198",
+    "providerCode": "0549262",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "VOLKSWAGEN FINANCIAL SERVICES COMPANIA F",
+    "bankCode": "VOWAAR2B",
+    "providerCode": "0549074",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "WAYA",
+    "bankCode": "ARBW0199",
+    "providerCode": "0549263",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "WAYNI MOVIL",
+    "bankCode": "ARBW0200",
+    "providerCode": "0549264",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "WIBOND",
+    "bankCode": "ARBW0201",
+    "providerCode": "0549265",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "WICO CREDITOS",
+    "bankCode": "ARBW0202",
+    "providerCode": "0549266",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "WONDERPAY",
+    "bankCode": "ARBW0203",
+    "providerCode": "0549267",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "WREX",
+    "bankCode": "ARBW0204",
+    "providerCode": "0549268",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "WILOBANK S.A.",
+    "bankCode": "RCIAANAR",
+    "providerCode": "0549057",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "XCARD",
+    "bankCode": "ARBW0205",
+    "providerCode": "0549269",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "XCOOP",
+    "bankCode": "ARBW0206",
+    "providerCode": "0549270",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "YA GANASTE",
+    "bankCode": "ARBW0207",
+    "providerCode": "0549271",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "YACARE",
+    "bankCode": "ARBW0208",
+    "providerCode": "0549272",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "YDI",
+    "bankCode": "ARBW0209",
+    "providerCode": "0549273",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "YONY",
+    "bankCode": "ARBW0210",
+    "providerCode": "0549274",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "YPF",
+    "bankCode": "ARBW0042",
+    "providerCode": "0549106",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "ZENRISE",
+    "bankCode": "ARBW0211",
+    "providerCode": "0549275",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "ZIMO",
+    "bankCode": "ARBW0212",
+    "providerCode": "0549276",
+    "countryCode": "AR"
+  },
+  {
+    "bankName": "BANCO FOMENTO A INICIATIVAS ECONOMICAS",
+    "bankCode": "BFIEBOLX",
+    "providerCode": "5919057",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO PYME DE LA COMUNIDAD S.A.",
+    "bankCode": "PYCOBO23XXX",
+    "providerCode": "5919058",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO PYME ECO FUTURO S.A.",
+    "bankCode": "PYEOBOLPXXX",
+    "providerCode": "5919059",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO BISA",
+    "bankCode": "BANIBOLX",
+    "providerCode": "5919005",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO DO BRASIL",
+    "bankCode": "BRASBOLX",
+    "providerCode": "5919004",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO ECOFUTURO",
+    "bankCode": "PYEOBOLP",
+    "providerCode": "5919047",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO ECONOMICO",
+    "bankCode": "BOEOBO22",
+    "providerCode": "5919007",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO FIE",
+    "bankCode": "BFIFBOLP",
+    "providerCode": "5919045",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO FASSIL",
+    "bankCode": "BSCFBO22",
+    "providerCode": "5919046",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO FORTALEZA",
+    "bankCode": "BFORBOLP",
+    "providerCode": "5919049",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO GANADERO",
+    "bankCode": "GNDRBO22",
+    "providerCode": "5919009",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO LOS ANDES PRO CREDIT",
+    "bankCode": "PRCBBO22",
+    "providerCode": "5919010",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO MERCANTIL",
+    "bankCode": "MERBBOLX",
+    "providerCode": "5919001",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO NACIONAL DE BOLIVIA",
+    "bankCode": "BNBOBOLX",
+    "providerCode": "5919002",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO PRODEM",
+    "bankCode": "BPRMBOLP",
+    "providerCode": "5919048",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO SOLIDARIO",
+    "bankCode": "BSOLBOLP",
+    "providerCode": "5919008",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO UNION",
+    "bankCode": "BAUNBO22",
+    "providerCode": "5919006",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO DE CREDITO DE BOLIVIA",
+    "bankCode": "BCPLBOLX",
+    "providerCode": "5919003",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BANCO DE LA NACION ARGENTINA",
+    "bankCode": "NACNBOLP",
+    "providerCode": "5919052",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "BILLETERA MOVIL DE ENTEL",
+    "bankCode": "BIMEBOLP",
+    "providerCode": "5919054",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA CATEDRAL",
+    "bankCode": "COCATBO1",
+    "providerCode": "5919038",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA COMARAPA",
+    "bankCode": "COCOMBO1",
+    "providerCode": "5919034",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA EDUCADORES GRAN CHACO",
+    "bankCode": "COEDGBO1",
+    "providerCode": "5919037",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA EL CHOROLQUE",
+    "bankCode": "COELCBO1",
+    "providerCode": "5919036",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA FATIMA",
+    "bankCode": "COFATBO1",
+    "providerCode": "5919024",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA HOSPICIO",
+    "bankCode": "COHOSBO1",
+    "providerCode": "5919027",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA INCAHUASSI",
+    "bankCode": "COINCBO1",
+    "providerCode": "5919030",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA JESUS NAZARENO",
+    "bankCode": "MUTMNBO1",
+    "providerCode": "5919022",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA LA MERCED",
+    "bankCode": "COLMBOLP",
+    "providerCode": "5919051",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA LOYOLA",
+    "bankCode": "COLOYBO1",
+    "providerCode": "5919026",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA PIO X",
+    "bankCode": "COPIOBO1",
+    "providerCode": "5919029",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA QUILLACOLLO",
+    "bankCode": "COQUIBO1",
+    "providerCode": "5919031",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA SAN ANTONIO",
+    "bankCode": "COSAABO1",
+    "providerCode": "5919028",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA SAN JOAQUIN",
+    "bankCode": "COSAJBO1",
+    "providerCode": "5919040",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA SAN JOSE DE PUNATA",
+    "bankCode": "COSJDBO1",
+    "providerCode": "5919032",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA SAN MARTIN",
+    "bankCode": "COSAMBO1",
+    "providerCode": "5919023",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA SAN MATEO",
+    "bankCode": "COSNMBO1",
+    "providerCode": "5919035",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA SAN PEDRO",
+    "bankCode": "COSPEBO1",
+    "providerCode": "5919025",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA TRAPETROL ORIENTE",
+    "bankCode": "COTROBO1",
+    "providerCode": "5919041",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "COOPERATIVA TRINIDAD",
+    "bankCode": "COTRIBO1",
+    "providerCode": "5919033",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "FINANCIERA ACCESO LA PAZ",
+    "bankCode": "FIALSBO1",
+    "providerCode": "5919043",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "FONDO FINANCIERO DE LA COMUNIDAD",
+    "bankCode": "FFDLCBO1",
+    "providerCode": "5919044",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "INSTITUCION FINANCIERA DE DESARROLLO",
+    "bankCode": "INFDBOLP",
+    "providerCode": "5919050",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "MAGISTERIO RURAL",
+    "bankCode": "MAGRUBO1",
+    "providerCode": "5919039",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "MUTUAL GUAPAY",
+    "bankCode": "MUTGUBO1",
+    "providerCode": "5919012",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "MUTUAL LA PLATA",
+    "bankCode": "MUTPLBO1",
+    "providerCode": "5919015",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "MUTUAL MANUTATA",
+    "bankCode": "MUTPNBO1",
+    "providerCode": "5919021",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "MUTUAL PAITITI",
+    "bankCode": "MUTPABO1",
+    "providerCode": "5919018",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "MUTUAL POTOSI",
+    "bankCode": "MUTPOBO1",
+    "providerCode": "5919016",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "MUTUAL DEL PUEBLO",
+    "bankCode": "MUTPUBO1",
+    "providerCode": "5919019",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "MUTUAL EL PROGRESO",
+    "bankCode": "MUTPRBO1",
+    "providerCode": "5919014",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "MUTUAL LA PRIMERA",
+    "bankCode": "MULPBBO1",
+    "providerCode": "5919011",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "MUTUAL LA PROMOTORA",
+    "bankCode": "MUTLPBO1",
+    "providerCode": "5919013",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "MUTUAL LA TARIJA",
+    "bankCode": "MUTTABO1",
+    "providerCode": "5919017",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "NACIONAL FINANCIERA BOLIVIANA SAN",
+    "bankCode": "NFBSABO1",
+    "providerCode": "5919042",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "SOLI (BILLETERA MOVIL DEL BCP)",
+    "bankCode": "SOLIBOLP",
+    "providerCode": "5919056",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "TIGO MONEY (BILLETERA MOVIL)",
+    "bankCode": "TIGOBOLP",
+    "providerCode": "5919053",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "YOLO PAGO (BILLETERA MOVIL DEL BGA)",
+    "bankCode": "YOPABOLP",
+    "providerCode": "5919055",
+    "countryCode": "BO"
+  },
+  {
+    "bankName": "AFD",
+    "bankCode": "AFDBPYPA",
+    "providerCode": "5959042",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "AFD NEGOCIOS FIDUCIARIOS",
+    "bankCode": "AFNFPYPA",
+    "providerCode": "5959045",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO ATLAS S.A.",
+    "bankCode": "BNITPYPA",
+    "providerCode": "5959002",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO BASA S.A",
+    "bankCode": "AMAMPYPA",
+    "providerCode": "5959001",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO BILBAO VIZCAYA ARGENTARIA PARAGUAY S.A.",
+    "bankCode": "BBVAPYPA",
+    "providerCode": "5959003",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO BUSAIF S.A. DE INVERSION Y FOMENTO",
+    "bankCode": "BOUIPYP1",
+    "providerCode": "5959004",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO CENTRAL DEL PARAGUAY",
+    "bankCode": "BCPAPYPD",
+    "providerCode": "5959005",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO COMERCIAL PARAGUAYO SA",
+    "bankCode": "PCOMPYP1",
+    "providerCode": "5959006",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO CONTINENTAL SAECA",
+    "bankCode": "BCNAPYPA",
+    "providerCode": "5959007",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO CORPORACION S.A.",
+    "bankCode": "BBCNPYP1",
+    "providerCode": "5959008",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO DE DESARROLLO DEL PARAGUAY S.A.",
+    "bankCode": "PADEPYP1",
+    "providerCode": "5959009",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO DE INVERSIONES DEL PARAGUAY",
+    "bankCode": "INVPPYP1",
+    "providerCode": "5959010",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO DE LA NACION ARGENTINA",
+    "bankCode": "NACNPYPA",
+    "providerCode": "5959011",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO DO BRASIL S.A.",
+    "bankCode": "BRASPYPX",
+    "providerCode": "5959012",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO FAMILIAR S.A.E.C.A.",
+    "bankCode": "FAMIPYPA",
+    "providerCode": "5959013",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO FINAMERICA SAECA.",
+    "bankCode": "BAFAPYP1",
+    "providerCode": "5959014",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO GENERAL S.A.",
+    "bankCode": "GENBPYP1",
+    "providerCode": "5959015",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO GNB PARAGUAY S.A.",
+    "bankCode": "BGNBPYPX",
+    "providerCode": "5959016",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO ITAU PARAGUAY S.A.",
+    "bankCode": "UBBRPYPX",
+    "providerCode": "5959017",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO NACIONAL DE FOMENTO",
+    "bankCode": "BNFAPYPA",
+    "providerCode": "5959018",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO NACIONAL DE TRABAJADORES",
+    "bankCode": "BNTRPYP1",
+    "providerCode": "5959019",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO PARA LA COMERCIALIZACION Y LA PRODUCCION S.A",
+    "bankCode": "BCOPPYPA",
+    "providerCode": "5959020",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO PARAGUAYO ORIENTAL DE INVERSION Y FOMENTO S.A.",
+    "bankCode": "POIFPYP1",
+    "providerCode": "5959021",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO REGIONAL S.A.E.C.A.",
+    "bankCode": "RGSAPYPE",
+    "providerCode": "5959022",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BID",
+    "bankCode": "BIDBPYPA",
+    "providerCode": "5959043",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BOLPAR SOCIEDAD ANONIMA",
+    "bankCode": "BOSNPYP1",
+    "providerCode": "5959024",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BOLSA DE VALORES Y PRODUCTOS DE ASUNCION S.A.",
+    "bankCode": "XVPAPYP1",
+    "providerCode": "5959025",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BRITISH AMERICAN TOBACCO PRODUCTORA DE CIGARILLOS S.A.",
+    "bankCode": "BATSPYP1",
+    "providerCode": "5959026",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "BANCO RIO S.A.E.C.A.",
+    "bankCode": "BISAPYPE",
+    "providerCode": "5959023",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "CITIBANK N.A.",
+    "bankCode": "CITIPYP1",
+    "providerCode": "5959027",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "CRISOL Y ENCARNACIN FINANCIERA S.A.",
+    "bankCode": "CIEFPYPE",
+    "providerCode": "5959028",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "FIC S.A. DE FINANZAS",
+    "bankCode": "FIDFPYPA",
+    "providerCode": "5959044",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "FINANCIERA EL COMERCIO S.A.E.C.A.",
+    "bankCode": "COMAPYPA",
+    "providerCode": "5959029",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "FINANCIERA EXPORTADORA PARAGUAYA S.A.",
+    "bankCode": "FNXAPYPA",
+    "providerCode": "5959030",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "FINANCIERA PARAGUAYO JAPONESA SAECA",
+    "bankCode": "FIPJPYPA",
+    "providerCode": "5959031",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "FINLANTINA S.A DE FINANZAS",
+    "bankCode": "FINDFPY1",
+    "providerCode": "5959038",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "FONPLATA - FONDO FINANCIERO PARA EL DESAROLLO DE LA CUENCA DEL PLATA",
+    "bankCode": "FOPLPYPA",
+    "providerCode": "5959032",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "FONDO DE LA GARANTIA DE DEPOSITOS",
+    "bankCode": "FDLGDDPY",
+    "providerCode": "5959046",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "GRUPO INTERNACIONAL DE FINANZAS S.A .C.A.",
+    "bankCode": "IIFAPYPA",
+    "providerCode": "5959033",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "HSBC BANK PARAGUAY SA",
+    "bankCode": "HSBCPYPX",
+    "providerCode": "5959034",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "MINISTERIO DE HACIENDA",
+    "bankCode": "MIDEHAPY",
+    "providerCode": "5959039",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "SUDAMERIS BANK S.A.E.C.A.",
+    "bankCode": "BSUDPYPX",
+    "providerCode": "5959035",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "SUMMA ASESORIES",
+    "bankCode": "SUMMASPY",
+    "providerCode": "5959036",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "SOLAR AHORRO Y FINANZAS SAECA",
+    "bankCode": "SAFSPYPA",
+    "providerCode": "5959040",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "TU FINANCIERA",
+    "bankCode": "TUFIPYPA",
+    "providerCode": "5959041",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "VISION BANCO S.A.E.C.A.",
+    "bankCode": "VISCPYPA",
+    "providerCode": "5959037",
+    "countryCode": "PY"
+  },
+  {
+    "bankName": "NATIONAL BANK OF ALBANIA",
+    "bankCode": "NATLALXX",
+    "providerCode": "3559001",
+    "countryCode": "AL"
+  },
+  {
+    "bankName": "NATIONAL BANK OF ANDORRA",
+    "bankCode": "NATLADXX",
+    "providerCode": "3769001",
+    "countryCode": "AD"
+  },
+  {
+    "bankName": "NATIONAL BANK OF ANGOLA",
+    "bankCode": "NATLAOXX",
+    "providerCode": "2449001",
+    "countryCode": "AO"
+  },
+  {
+    "bankName": "NATIONAL BANK OF ANTIGUA",
+    "bankCode": "NATLAGXX",
+    "providerCode": "12689001",
+    "countryCode": "AG"
+  },
+  {
+    "bankName": "NATIONAL BANK OF ARMENIA",
+    "bankCode": "NATLAMXX",
+    "providerCode": "3749001",
+    "countryCode": "AM"
+  },
+  {
+    "bankName": "COMMONWEALTH BANK OF AUSTRALIA",
+    "bankCode": "CTBAAU2S",
+    "providerCode": "619001",
+    "countryCode": "AU"
+  },
+  {
+    "bankName": "ERSTE BANK DER OESTERREICHISCHEN SPARKASSEN",
+    "bankCode": "GIBAATWW",
+    "providerCode": "439001",
+    "countryCode": "AT"
+  },
+  {
+    "bankName": "NATIONAL BANK OF AZERBAIJAN",
+    "bankCode": "NATLAZXX",
+    "providerCode": "9949001",
+    "countryCode": "AZ"
+  },
+  {
+    "bankName": "NATIONAL BANK OF BAHAMAS",
+    "bankCode": "NATLBSXX",
+    "providerCode": "12429001",
+    "countryCode": "BS"
+  },
+  {
+    "bankName": "NATIONAL BANK OF BAHRAIN",
+    "bankCode": "NATLBHXX",
+    "providerCode": "9739001",
+    "countryCode": "BH"
+  },
+  {
+    "bankName": "NATIONAL BANK OF BANGLADESH",
+    "bankCode": "NATLBDXX",
+    "providerCode": "8809001",
+    "countryCode": "BD"
+  },
+  {
+    "bankName": "KBC BANK NV",
+    "bankCode": "KREDBEBB",
+    "providerCode": "329001",
+    "countryCode": "BE"
+  },
+  {
+    "bankName": "NATIONAL BANK OF BELIZE",
+    "bankCode": "NATLBZXX",
+    "providerCode": "5019001",
+    "countryCode": "BZ"
+  },
+  {
+    "bankName": "NATIONAL BANK OF BENIN",
+    "bankCode": "NATLBJXX",
+    "providerCode": "2299001",
+    "countryCode": "BJ"
+  },
+  {
+    "bankName": "NATIONAL BANK OF BHUTAN",
+    "bankCode": "NATLBTXX",
+    "providerCode": "9759001",
+    "countryCode": "BT"
+  },
+  {
+    "bankName": "NATIONAL BANK OF BOSNIA AND HERZEGOVINA",
+    "bankCode": "NATLBAXX",
+    "providerCode": "3879001",
+    "countryCode": "BA"
+  },
+  {
+    "bankName": "NATIONAL BANK OF BOTSWANA",
+    "bankCode": "NATLBWXX",
+    "providerCode": "2679001",
+    "countryCode": "BW"
+  },
+  {
+    "bankName": "BANCO DO BRASIL S.A.",
+    "bankCode": "BRASBRRJ",
+    "providerCode": "559001",
+    "countryCode": "BR"
+  },
+  {
+    "bankName": "NATIONAL BANK OF BRUNEI DARUSSALAM",
+    "bankCode": "NATLBNXX",
+    "providerCode": "6739001",
+    "countryCode": "BN"
+  },
+  {
+    "bankName": "NATIONAL BANK OF BULGARIA",
+    "bankCode": "NATLBGXX",
+    "providerCode": "3599001",
+    "countryCode": "BG"
+  },
+  {
+    "bankName": "NATIONAL BANK OF BURKINA FASO",
+    "bankCode": "NATLBFXX",
+    "providerCode": "2269001",
+    "countryCode": "BF"
+  },
+  {
+    "bankName": "NATIONAL BANK OF BURUNDI",
+    "bankCode": "NATLBIXX",
+    "providerCode": "2579001",
+    "countryCode": "BI"
+  },
+  {
+    "bankName": "NATIONAL BANK OF CAMBODIA",
+    "bankCode": "NATLKHXX",
+    "providerCode": "8559001",
+    "countryCode": "KH"
+  },
+  {
+    "bankName": "NATIONAL BANK OF CAMEROON",
+    "bankCode": "NATLCMXX",
+    "providerCode": "2379001",
+    "countryCode": "CM"
+  },
+  {
+    "bankName": "ROYAL BANK OF CANADA",
+    "bankCode": "ROYCCAT2",
+    "providerCode": "19001",
+    "countryCode": "CA"
+  },
+  {
+    "bankName": "NATIONAL BANK OF CAPE VERDE",
+    "bankCode": "NATLCVXX",
+    "providerCode": "2389001",
+    "countryCode": "CV"
+  },
+  {
+    "bankName": "NATIONAL BANK OF CENTRAL AFRICAN REPUBLIC",
+    "bankCode": "NATLCFXX",
+    "providerCode": "2369001",
+    "countryCode": "CF"
+  },
+  {
+    "bankName": "NATIONAL BANK OF CHAD",
+    "bankCode": "NATLTDXX",
+    "providerCode": "2359001",
+    "countryCode": "TD"
+  },
+  {
+    "bankName": "BANCO DE CHILE",
+    "bankCode": "BCHICLRM",
+    "providerCode": "569001",
+    "countryCode": "CL"
+  },
+  {
+    "bankName": "INDUSTRIAL AND COMMERCIAL BANK OF CHINA",
+    "bankCode": "ICBKCNBJ",
+    "providerCode": "869001",
+    "countryCode": "CN"
+  },
+  {
+    "bankName": "BANCO DE BOGOTA",
+    "bankCode": "BBOGCOBB",
+    "providerCode": "579001",
+    "countryCode": "CO"
+  },
+  {
+    "bankName": "NATIONAL BANK OF COMOROS",
+    "bankCode": "NATLKMXX",
+    "providerCode": "2699001",
+    "countryCode": "KM"
+  },
+  {
+    "bankName": "NATIONAL BANK OF CONGO DEMOCRATIC REPUBLIC",
+    "bankCode": "NATLCDXX",
+    "providerCode": "2439001",
+    "countryCode": "CD"
+  },
+  {
+    "bankName": "NATIONAL BANK OF CONGO-BRAZAVILLE",
+    "bankCode": "NATLCGXX",
+    "providerCode": "2429001",
+    "countryCode": "CG"
+  },
+  {
+    "bankName": "NATIONAL BANK OF COOK ISLANDS",
+    "bankCode": "NATLCKXX",
+    "providerCode": "6829001",
+    "countryCode": "CK"
+  },
+  {
+    "bankName": "NATIONAL BANK OF CROATIA",
+    "bankCode": "NATLHRXX",
+    "providerCode": "3859001",
+    "countryCode": "HR"
+  },
+  {
+    "bankName": "NATIONAL BANK OF CYPRUS",
+    "bankCode": "NATLCYXX",
+    "providerCode": "3579001",
+    "countryCode": "CY"
+  },
+  {
+    "bankName": "CESKA SPORITELNA",
+    "bankCode": "GIBACZPX",
+    "providerCode": "4209001",
+    "countryCode": "CZ"
+  },
+  {
+    "bankName": "DANSKE BANK A/S",
+    "bankCode": "DABADKKK",
+    "providerCode": "459001",
+    "countryCode": "DK"
+  },
+  {
+    "bankName": "NATIONAL BANK OF DJIBOUTI",
+    "bankCode": "NATLDJXX",
+    "providerCode": "2539001",
+    "countryCode": "DJ"
+  },
+  {
+    "bankName": "NATIONAL BANK OF DOMINICA",
+    "bankCode": "NATLDMXX",
+    "providerCode": "17679001",
+    "countryCode": "DM"
+  },
+  {
+    "bankName": "BANCO POPULAR DOMINICANO",
+    "bankCode": "BPDODOSX",
+    "providerCode": "18099001",
+    "countryCode": "DO"
+  },
+  {
+    "bankName": "BANCO PICHINCHA C.A.",
+    "bankCode": "PICHECEQ",
+    "providerCode": "5939001",
+    "countryCode": "EC"
+  },
+  {
+    "bankName": "NATIONAL BANK OF EGYPT",
+    "bankCode": "NBEGEGCX",
+    "providerCode": "209001",
+    "countryCode": "EG"
+  },
+  {
+    "bankName": "BANCO AGRICOLA S.A.",
+    "bankCode": "BAGRSVSS",
+    "providerCode": "5039001",
+    "countryCode": "SV"
+  },
+  {
+    "bankName": "NATIONAL BANK OF EQUATORIAL GUINEA",
+    "bankCode": "NATLGQXX",
+    "providerCode": "2409001",
+    "countryCode": "GQ"
+  },
+  {
+    "bankName": "NATIONAL BANK OF ERITREA",
+    "bankCode": "NATLERXX",
+    "providerCode": "2919001",
+    "countryCode": "ER"
+  },
+  {
+    "bankName": "NATIONAL BANK OF ESTONIA",
+    "bankCode": "NATLEEXX",
+    "providerCode": "3729001",
+    "countryCode": "EE"
+  },
+  {
+    "bankName": "NATIONAL BANK OF ESWATINI",
+    "bankCode": "NATLSZXX",
+    "providerCode": "2689001",
+    "countryCode": "SZ"
+  },
+  {
+    "bankName": "NATIONAL BANK OF ETHIOPIA",
+    "bankCode": "NATLETXX",
+    "providerCode": "2519001",
+    "countryCode": "ET"
+  },
+  {
+    "bankName": "NATIONAL BANK OF FIJI",
+    "bankCode": "NATLFJXX",
+    "providerCode": "6799001",
+    "countryCode": "FJ"
+  },
+  {
+    "bankName": "NORDEA BANK ABP",
+    "bankCode": "NDEAFIHH",
+    "providerCode": "3589001",
+    "countryCode": "FI"
+  },
+  {
+    "bankName": "BNP PARIBAS",
+    "bankCode": "BNPAFRPP",
+    "providerCode": "339001",
+    "countryCode": "FR"
+  },
+  {
+    "bankName": "NATIONAL BANK OF GABON",
+    "bankCode": "NATLGAXX",
+    "providerCode": "2419001",
+    "countryCode": "GA"
+  },
+  {
+    "bankName": "NATIONAL BANK OF GAMBIA",
+    "bankCode": "NATLGMXX",
+    "providerCode": "2209001",
+    "countryCode": "GM"
+  },
+  {
+    "bankName": "NATIONAL BANK OF GEORGIA",
+    "bankCode": "NATLGEXX",
+    "providerCode": "9959001",
+    "countryCode": "GE"
+  },
+  {
+    "bankName": "DEUTSCHE BANK AG",
+    "bankCode": "DEUTDEFF",
+    "providerCode": "499001",
+    "countryCode": "DE"
+  },
+  {
+    "bankName": "GHANA COMMERCIAL BANK",
+    "bankCode": "GHCBGHAC",
+    "providerCode": "2339001",
+    "countryCode": "GH"
+  },
+  {
+    "bankName": "NATIONAL BANK OF GIBRALTAR",
+    "bankCode": "NATLGIXX",
+    "providerCode": "3509001",
+    "countryCode": "GI"
+  },
+  {
+    "bankName": "NATIONAL BANK OF GREECE",
+    "bankCode": "ETHNGRAA",
+    "providerCode": "309001",
+    "countryCode": "GR"
+  },
+  {
+    "bankName": "BANCO INDUSTRIAL S.A.",
+    "bankCode": "INDLGTGC",
+    "providerCode": "5029001",
+    "countryCode": "GT"
+  },
+  {
+    "bankName": "NATIONAL BANK OF GUINEA",
+    "bankCode": "NATLGNXX",
+    "providerCode": "2249001",
+    "countryCode": "GN"
+  },
+  {
+    "bankName": "NATIONAL BANK OF GUINEA-BISSAU",
+    "bankCode": "NATLGWXX",
+    "providerCode": "2459001",
+    "countryCode": "GW"
+  },
+  {
+    "bankName": "REPUBLIC BANK GUYANA",
+    "bankCode": "RBGLGYGG",
+    "providerCode": "5929001",
+    "countryCode": "GY"
+  },
+  {
+    "bankName": "BANQUE NATIONALE DE CREDIT",
+    "bankCode": "BNCRHTPP",
+    "providerCode": "5099001",
+    "countryCode": "HT"
+  },
+  {
+    "bankName": "NATIONAL BANK OF HOLY SEE (VATICAN CITY STATE)",
+    "bankCode": "NATLVAXX",
+    "providerCode": "3799001",
+    "countryCode": "VA"
+  },
+  {
+    "bankName": "BANCO ATLANTIDA S.A.",
+    "bankCode": "ATTDHNTE",
+    "providerCode": "5049001",
+    "countryCode": "HN"
+  },
+  {
+    "bankName": "HSBC HONG KONG",
+    "bankCode": "HSBCHKHH",
+    "providerCode": "8529001",
+    "countryCode": "HK"
+  },
+  {
+    "bankName": "OTP BANK NYRT",
+    "bankCode": "OTPVHUHB",
+    "providerCode": "369001",
+    "countryCode": "HU"
+  },
+  {
+    "bankName": "NATIONAL BANK OF ICELAND",
+    "bankCode": "NATLISXX",
+    "providerCode": "3549001",
+    "countryCode": "IS"
+  },
+  {
+    "bankName": "STATE BANK OF INDIA",
+    "bankCode": "SBININBB",
+    "providerCode": "919001",
+    "countryCode": "IN"
+  },
+  {
+    "bankName": "BANK MANDIRI",
+    "bankCode": "BMRIIDJA",
+    "providerCode": "629001",
+    "countryCode": "ID"
+  },
+  {
+    "bankName": "NATIONAL BANK OF IRAQ",
+    "bankCode": "NATLIQXX",
+    "providerCode": "9649001",
+    "countryCode": "IQ"
+  },
+  {
+    "bankName": "BANK OF IRELAND",
+    "bankCode": "BOFIIE2D",
+    "providerCode": "3539001",
+    "countryCode": "IE"
+  },
+  {
+    "bankName": "BANK HAPOALIM",
+    "bankCode": "POALILIT",
+    "providerCode": "9729001",
+    "countryCode": "IL"
+  },
+  {
+    "bankName": "INTESA SANPAOLO S.P.A.",
+    "bankCode": "BCITITMM",
+    "providerCode": "399001",
+    "countryCode": "IT"
+  },
+  {
+    "bankName": "NATIONAL BANK OF IVORY COAST",
+    "bankCode": "NATLCIXX",
+    "providerCode": "2259001",
+    "countryCode": "CI"
+  },
+  {
+    "bankName": "NATIONAL COMMERCIAL BANK JAMAICA",
+    "bankCode": "JNCBJMKN",
+    "providerCode": "18769001",
+    "countryCode": "JM"
+  },
+  {
+    "bankName": "MITSUBISHI UFJ BANK",
+    "bankCode": "BOTKJPJT",
+    "providerCode": "819001",
+    "countryCode": "JP"
+  },
+  {
+    "bankName": "NATIONAL BANK OF JORDAN",
+    "bankCode": "NATLJOXX",
+    "providerCode": "9629001",
+    "countryCode": "JO"
+  },
+  {
+    "bankName": "NATIONAL BANK OF KAZAKHSTAN",
+    "bankCode": "NATLKZXX",
+    "providerCode": "79001",
+    "countryCode": "KZ"
+  },
+  {
+    "bankName": "EQUITY BANK KENYA LIMITED",
+    "bankCode": "EQBLKENA",
+    "providerCode": "2549001",
+    "countryCode": "KE"
+  },
+  {
+    "bankName": "KOOKMIN BANK",
+    "bankCode": "CZNBKRSE",
+    "providerCode": "829001",
+    "countryCode": "KR"
+  },
+  {
+    "bankName": "NATIONAL BANK OF KOSOVO",
+    "bankCode": "NATLKVXX",
+    "providerCode": "3839001",
+    "countryCode": "KV"
+  },
+  {
+    "bankName": "NATIONAL BANK OF KUWAIT",
+    "bankCode": "NATLKWXX",
+    "providerCode": "9659001",
+    "countryCode": "KW"
+  },
+  {
+    "bankName": "NATIONAL BANK OF KYRGYZSTAN",
+    "bankCode": "NATLKGXX",
+    "providerCode": "9969001",
+    "countryCode": "KG"
+  },
+  {
+    "bankName": "NATIONAL BANK OF LAOS",
+    "bankCode": "NATLLAXX",
+    "providerCode": "8569001",
+    "countryCode": "LA"
+  },
+  {
+    "bankName": "NATIONAL BANK OF LATVIA",
+    "bankCode": "NATLLVXX",
+    "providerCode": "3719001",
+    "countryCode": "LV"
+  },
+  {
+    "bankName": "NATIONAL BANK OF LEBANON",
+    "bankCode": "NATLLBXX",
+    "providerCode": "9619001",
+    "countryCode": "LB"
+  },
+  {
+    "bankName": "NATIONAL BANK OF LESOTHO",
+    "bankCode": "NATLLSXX",
+    "providerCode": "2669001",
+    "countryCode": "LS"
+  },
+  {
+    "bankName": "NATIONAL BANK OF LIBERIA",
+    "bankCode": "NATLLRXX",
+    "providerCode": "2319001",
+    "countryCode": "LR"
+  },
+  {
+    "bankName": "NATIONAL BANK OF LIECHTENSTEIN",
+    "bankCode": "NATLLIXX",
+    "providerCode": "4239001",
+    "countryCode": "LI"
+  },
+  {
+    "bankName": "NATIONAL BANK OF LITHUANIA",
+    "bankCode": "NATLLTXX",
+    "providerCode": "3709001",
+    "countryCode": "LT"
+  },
+  {
+    "bankName": "NATIONAL BANK OF LUXEMBOURG",
+    "bankCode": "NATLLUXX",
+    "providerCode": "3529001",
+    "countryCode": "LU"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MACAU",
+    "bankCode": "NATLMOXX",
+    "providerCode": "8539001",
+    "countryCode": "MO"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MADAGASCAR",
+    "bankCode": "NATLMGXX",
+    "providerCode": "2619001",
+    "countryCode": "MG"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MALAWI",
+    "bankCode": "NATLMWXX",
+    "providerCode": "2659001",
+    "countryCode": "MW"
+  },
+  {
+    "bankName": "MAYBANK",
+    "bankCode": "MBBEMYKL",
+    "providerCode": "609001",
+    "countryCode": "MY"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MALDIVES",
+    "bankCode": "NATLMVXX",
+    "providerCode": "9609001",
+    "countryCode": "MV"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MALI",
+    "bankCode": "NATLMLXX",
+    "providerCode": "2239001",
+    "countryCode": "ML"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MALTA",
+    "bankCode": "NATLMTXX",
+    "providerCode": "3569001",
+    "countryCode": "MT"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MARSHALL ISLANDS",
+    "bankCode": "NATLMHXX",
+    "providerCode": "6929001",
+    "countryCode": "MH"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MAURITANIA",
+    "bankCode": "NATLMRXX",
+    "providerCode": "2229001",
+    "countryCode": "MR"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MAURITIUS",
+    "bankCode": "NATLMUXX",
+    "providerCode": "2309001",
+    "countryCode": "MU"
+  },
+  {
+    "bankName": "BBVA MEXICO S.A.",
+    "bankCode": "BCMRMXMM",
+    "providerCode": "529001",
+    "countryCode": "MX"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MOLDOVA REPUBLIC OF",
+    "bankCode": "NATLMDXX",
+    "providerCode": "3739001",
+    "countryCode": "MD"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MONACO",
+    "bankCode": "NATLMCXX",
+    "providerCode": "3779001",
+    "countryCode": "MC"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MONGOLIA",
+    "bankCode": "NATLMNXX",
+    "providerCode": "9769001",
+    "countryCode": "MN"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MONTENEGRO",
+    "bankCode": "NATLMEXX",
+    "providerCode": "3829001",
+    "countryCode": "ME"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MOROCCO",
+    "bankCode": "NATLMAXX",
+    "providerCode": "2129001",
+    "countryCode": "MA"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MOZAMBIQUE",
+    "bankCode": "NATLMZXX",
+    "providerCode": "2589001",
+    "countryCode": "MZ"
+  },
+  {
+    "bankName": "NATIONAL BANK OF MYANMAR",
+    "bankCode": "NATLMMXX",
+    "providerCode": "959001",
+    "countryCode": "MM"
+  },
+  {
+    "bankName": "NATIONAL BANK OF NAMIBIA",
+    "bankCode": "NATLNAXX",
+    "providerCode": "2649001",
+    "countryCode": "NA"
+  },
+  {
+    "bankName": "NATIONAL BANK OF NEPAL",
+    "bankCode": "NATLNPXX",
+    "providerCode": "9779001",
+    "countryCode": "NP"
+  },
+  {
+    "bankName": "ING BANK N.V.",
+    "bankCode": "INGBNL2A",
+    "providerCode": "319001",
+    "countryCode": "NL"
+  },
+  {
+    "bankName": "ANZ BANK NEW ZEALAND",
+    "bankCode": "ANZBNZ22",
+    "providerCode": "649001",
+    "countryCode": "NZ"
+  },
+  {
+    "bankName": "BANCO DE AMERICA CENTRAL",
+    "bankCode": "BAMCNIMA",
+    "providerCode": "5059001",
+    "countryCode": "NI"
+  },
+  {
+    "bankName": "NATIONAL BANK OF NIGER REPUBLIC OF",
+    "bankCode": "NATLNEXX",
+    "providerCode": "2279001",
+    "countryCode": "NE"
+  },
+  {
+    "bankName": "GUARANTY TRUST BANK PLC",
+    "bankCode": "GTBINGLA",
+    "providerCode": "2349001",
+    "countryCode": "NG"
+  },
+  {
+    "bankName": "NATIONAL BANK OF NORTH MACEDONIA",
+    "bankCode": "NATLMKXX",
+    "providerCode": "3899001",
+    "countryCode": "MK"
+  },
+  {
+    "bankName": "DNB BANK ASA",
+    "bankCode": "DNBANOKK",
+    "providerCode": "479001",
+    "countryCode": "NO"
+  },
+  {
+    "bankName": "NATIONAL BANK OF OMAN",
+    "bankCode": "NATLOMXX",
+    "providerCode": "9689001",
+    "countryCode": "OM"
+  },
+  {
+    "bankName": "NATIONAL BANK OF PAKISTAN",
+    "bankCode": "NATLPKXX",
+    "providerCode": "929001",
+    "countryCode": "PK"
+  },
+  {
+    "bankName": "NATIONAL BANK OF PALESTINE",
+    "bankCode": "NATLPSXX",
+    "providerCode": "9709001",
+    "countryCode": "PS"
+  },
+  {
+    "bankName": "BANCO GENERAL S.A.",
+    "bankCode": "BAGEPAPA",
+    "providerCode": "5079001",
+    "countryCode": "PA"
+  },
+  {
+    "bankName": "NATIONAL BANK OF PAPUA NEW GUINEA",
+    "bankCode": "NATLPGXX",
+    "providerCode": "6759001",
+    "countryCode": "PG"
+  },
+  {
+    "bankName": "BANCO DE CREDITO DEL PERU",
+    "bankCode": "BCPLPEPL",
+    "providerCode": "519001",
+    "countryCode": "PE"
+  },
+  {
+    "bankName": "BDO UNIBANK INC.",
+    "bankCode": "BNORPHMM",
+    "providerCode": "639001",
+    "countryCode": "PH"
+  },
+  {
+    "bankName": "PKO BANK POLSKI",
+    "bankCode": "BPKOPLPW",
+    "providerCode": "489001",
+    "countryCode": "PL"
+  },
+  {
+    "bankName": "CAIXA GERAL DE DEPOSITOS",
+    "bankCode": "CGDIPTPL",
+    "providerCode": "3519001",
+    "countryCode": "PT"
+  },
+  {
+    "bankName": "NATIONAL BANK OF PUERTO RICO",
+    "bankCode": "NATLPRXX",
+    "providerCode": "17879001",
+    "countryCode": "PR"
+  },
+  {
+    "bankName": "NATIONAL BANK OF QATAR",
+    "bankCode": "NATLQAXX",
+    "providerCode": "9749001",
+    "countryCode": "QA"
+  },
+  {
+    "bankName": "BANCA TRANSILVANIA",
+    "bankCode": "BTRLRO22",
+    "providerCode": "409001",
+    "countryCode": "RO"
+  },
+  {
+    "bankName": "NATIONAL BANK OF RWANDA",
+    "bankCode": "NATLRWXX",
+    "providerCode": "2509001",
+    "countryCode": "RW"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SAINT KITTS AND NEVIS",
+    "bankCode": "NATLKNXX",
+    "providerCode": "18699001",
+    "countryCode": "KN"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SAMOA",
+    "bankCode": "NATLWSXX",
+    "providerCode": "6859001",
+    "countryCode": "WS"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SAN MARINO",
+    "bankCode": "NATLSMXX",
+    "providerCode": "3789001",
+    "countryCode": "SM"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SAO TOME AND PRINCIPE",
+    "bankCode": "NATLSTXX",
+    "providerCode": "2399001",
+    "countryCode": "ST"
+  },
+  {
+    "bankName": "SAUDI NATIONAL BANK",
+    "bankCode": "NCBKSAJE",
+    "providerCode": "9669001",
+    "countryCode": "SA"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SENEGAL",
+    "bankCode": "NATLSNXX",
+    "providerCode": "2219001",
+    "countryCode": "SN"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SERBIA",
+    "bankCode": "NATLRSXX",
+    "providerCode": "3819001",
+    "countryCode": "RS"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SEYCHELLES",
+    "bankCode": "NATLSCXX",
+    "providerCode": "2489001",
+    "countryCode": "SC"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SIERRA LEONE",
+    "bankCode": "NATLSLXX",
+    "providerCode": "2329001",
+    "countryCode": "SL"
+  },
+  {
+    "bankName": "DBS BANK LTD",
+    "bankCode": "DBSSSGSG",
+    "providerCode": "659001",
+    "countryCode": "SG"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SLOVAKIA",
+    "bankCode": "NATLSKXX",
+    "providerCode": "4219001",
+    "countryCode": "SK"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SLOVENIA",
+    "bankCode": "NATLSIXX",
+    "providerCode": "3869001",
+    "countryCode": "SI"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SOLOMON ISLANDS",
+    "bankCode": "NATLSBXX",
+    "providerCode": "6779001",
+    "countryCode": "SB"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SOMALIA",
+    "bankCode": "NATLSOXX",
+    "providerCode": "2529001",
+    "countryCode": "SO"
+  },
+  {
+    "bankName": "STANDARD BANK OF SOUTH AFRICA",
+    "bankCode": "SBZAZAJJ",
+    "providerCode": "279001",
+    "countryCode": "ZA"
+  },
+  {
+    "bankName": "BANCO SANTANDER S.A.",
+    "bankCode": "BSCHESMM",
+    "providerCode": "349001",
+    "countryCode": "ES"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SRI LANKA",
+    "bankCode": "NATLLKXX",
+    "providerCode": "949001",
+    "countryCode": "LK"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SUDAN",
+    "bankCode": "NATLSDXX",
+    "providerCode": "2499001",
+    "countryCode": "SD"
+  },
+  {
+    "bankName": "DE SURINAAMSCHE BANK N.V.",
+    "bankCode": "SURBSRPA",
+    "providerCode": "5979001",
+    "countryCode": "SR"
+  },
+  {
+    "bankName": "SWEDBANK AB",
+    "bankCode": "SWEDSESS",
+    "providerCode": "469001",
+    "countryCode": "SE"
+  },
+  {
+    "bankName": "UBS SWITZERLAND AG",
+    "bankCode": "UBSWCHZH",
+    "providerCode": "419001",
+    "countryCode": "CH"
+  },
+  {
+    "bankName": "NATIONAL BANK OF SYRIA",
+    "bankCode": "NATLSYXX",
+    "providerCode": "9639001",
+    "countryCode": "SY"
+  },
+  {
+    "bankName": "NATIONAL BANK OF TAJIKISTAN",
+    "bankCode": "NATLTJXX",
+    "providerCode": "9929001",
+    "countryCode": "TJ"
+  },
+  {
+    "bankName": "NATIONAL BANK OF TANZANIA",
+    "bankCode": "NATLTZXX",
+    "providerCode": "2559001",
+    "countryCode": "TZ"
+  },
+  {
+    "bankName": "BANGKOK BANK PUBLIC COMPANY LIMITED",
+    "bankCode": "BKKBTHBK",
+    "providerCode": "669001",
+    "countryCode": "TH"
+  },
+  {
+    "bankName": "NATIONAL BANK OF TIMOR-LESTE",
+    "bankCode": "NATLTLXX",
+    "providerCode": "6709001",
+    "countryCode": "TL"
+  },
+  {
+    "bankName": "NATIONAL BANK OF TOGO",
+    "bankCode": "NATLTGXX",
+    "providerCode": "2289001",
+    "countryCode": "TG"
+  },
+  {
+    "bankName": "NATIONAL BANK OF TONGA",
+    "bankCode": "NATLTOXX",
+    "providerCode": "6769001",
+    "countryCode": "TO"
+  },
+  {
+    "bankName": "REPUBLIC BANK LIMITED",
+    "bankCode": "RBNKTTPS",
+    "providerCode": "18689001",
+    "countryCode": "TT"
+  },
+  {
+    "bankName": "NATIONAL BANK OF TUNISIA",
+    "bankCode": "NATLTNXX",
+    "providerCode": "2169001",
+    "countryCode": "TN"
+  },
+  {
+    "bankName": "TURKIYE IS BANKASI",
+    "bankCode": "ISBKTRIS",
+    "providerCode": "909001",
+    "countryCode": "TR"
+  },
+  {
+    "bankName": "NATIONAL BANK OF TURKS AND CAICOS ISLANDS",
+    "bankCode": "NATLTCXX",
+    "providerCode": "16499001",
+    "countryCode": "TC"
+  },
+  {
+    "bankName": "NATIONAL BANK OF UGANDA",
+    "bankCode": "NATLUGXX",
+    "providerCode": "2569001",
+    "countryCode": "UG"
+  },
+  {
+    "bankName": "PRIVATBANK",
+    "bankCode": "PBANUA2X",
+    "providerCode": "3809001",
+    "countryCode": "UA"
+  },
+  {
+    "bankName": "FIRST ABU DHABI BANK",
+    "bankCode": "NBADAEAA",
+    "providerCode": "9719001",
+    "countryCode": "AE"
+  },
+  {
+    "bankName": "BARCLAYS BANK PLC",
+    "bankCode": "BARCGB22",
+    "providerCode": "449001",
+    "countryCode": "UK"
+  },
+  {
+    "bankName": "BANK OF AMERICA N.A.",
+    "bankCode": "BOFAUS3N",
+    "providerCode": "19001",
+    "countryCode": "US"
+  },
+  {
+    "bankName": "BANCO REPUBLICA ORIENTAL DEL URUGUAY",
+    "bankCode": "BROUUYMM",
+    "providerCode": "5989001",
+    "countryCode": "UY"
+  },
+  {
+    "bankName": "NATIONAL BANK OF UZBEKISTAN",
+    "bankCode": "NATLUZXX",
+    "providerCode": "9989001",
+    "countryCode": "UZ"
+  },
+  {
+    "bankName": "NATIONAL BANK OF VANUATU",
+    "bankCode": "NATLVUXX",
+    "providerCode": "6789001",
+    "countryCode": "VU"
+  },
+  {
+    "bankName": "BANCO DE VENEZUELA S.A.",
+    "bankCode": "VZLAVECA",
+    "providerCode": "589001",
+    "countryCode": "VE"
+  },
+  {
+    "bankName": "VIETCOMBANK",
+    "bankCode": "BFTVVNVX",
+    "providerCode": "849001",
+    "countryCode": "VN"
+  },
+  {
+    "bankName": "NATIONAL BANK OF VIRGIN ISLANDS US",
+    "bankCode": "NATLVIXX",
+    "providerCode": "13409001",
+    "countryCode": "VI"
+  },
+  {
+    "bankName": "NATIONAL BANK OF YEMEN",
+    "bankCode": "NATLYEXX",
+    "providerCode": "9679001",
+    "countryCode": "YE"
+  },
+  {
+    "bankName": "NATIONAL BANK OF ZAMBIA",
+    "bankCode": "NATLZMXX",
+    "providerCode": "2609001",
+    "countryCode": "ZM"
+  },
+  {
+    "bankName": "NATIONAL BANK OF ZIMBABWE",
+    "bankCode": "NATLZWXX",
+    "providerCode": "2639001",
+    "countryCode": "ZW"
+  }
+]

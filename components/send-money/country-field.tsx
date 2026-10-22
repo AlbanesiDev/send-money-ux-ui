@@ -6,8 +6,7 @@ import countriesCatalog from "@/public/catalogs/catalog-countries.json";
 
 const COUNTRY_OPTIONS = Array.from(
   new Set(
-    countriesCatalog.result.items
-      .filter((item) => item.country.ctyActive)
+    countriesCatalog.items
       .map((item) => item.country.ctyName.trim())
       .filter((name) => name !== ""),
   ),

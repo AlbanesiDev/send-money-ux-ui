@@ -107,7 +107,7 @@ export function PromoCodeField({
           </button>
         </div>
         <p id="promo-code-help" className="mt-1 text-xs text-muted-foreground">
-          Aplica a Western Union y RIA. Se valida al cotizar.
+          Demo: PROMO10, RIAFREE, WU5OFF
         </p>
       </div>
     );

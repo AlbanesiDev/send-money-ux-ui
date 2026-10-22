@@ -96,14 +96,6 @@ export const MONEYGRAM_COMPANY_OPTIONS = [
   "Remesas Andinas",
 ];
 
-export const TERRAPAY_BANK_OPTIONS = [
-  "Banco Nacional",
-  "Banco Mercantil",
-  "Banco Unión",
-];
-
-export const TERRAPAY_WALLET_OPTIONS = ["Tigo Money", "Yape", "Mercado Pago"];
-
 const SHARED_PROVIDER_STEP_LABELS = [PARTIES_STEP_LABEL, REVIEW_STEP_LABEL];
 
 export const providerFlows: Record<ProviderId, ProviderFlow> = {

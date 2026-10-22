@@ -39,6 +39,7 @@ export function GuestClientLookupNotice({
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
+            data-autofill-accept
             onClick={onAcceptAutofill}
             className="h-9 rounded-lg bg-brand-strong px-3 text-sm font-bold text-white hover:bg-brand/90 focus:outline-none focus:ring-4 focus:ring-brand/20"
           >

@@ -384,10 +384,11 @@ export function DateField({
               return;
             }
             if (event.key !== "Enter") return;
-            event.preventDefault();
             setOpen(false);
             setCalendarPanel("day");
-            nextRef?.current?.focus();
+            if (nextRef === undefined) return;
+            event.preventDefault();
+            nextRef.current?.focus();
           }}
           className={inputClassName}
         />

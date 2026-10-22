@@ -19,7 +19,7 @@ import {
 import { Notice } from "./search-operation-step";
 
 const countryIsoByName = new Map(
-  countriesCatalog.result.items.map((item) => [
+  countriesCatalog.items.map((item) => [
     item.country.ctyName.trim(),
     item.country.ctyIsoCode.toUpperCase(),
   ]),
@@ -59,6 +59,7 @@ const NAME_GENERATOR_COUNTRIES = new Set([
  * (e.g. Chile → Argentina) so distractors still sound plausible.
  */
 const NAME_GENERATOR_ISO_SUBSTITUTE: Record<string, string> = {
+  AD: "ES",
   AT: "BE",
   AU: "NZ",
   BO: "AR",

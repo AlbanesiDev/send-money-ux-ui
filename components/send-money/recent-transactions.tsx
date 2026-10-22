@@ -96,7 +96,7 @@ const PROVIDER_LABELS: Record<ProviderId, string> = {
   TERRAPAY: "TerraPay",
 };
 
-const COUNTRY_OPTIONS = countriesCatalog.result.items
+const COUNTRY_OPTIONS = countriesCatalog.items
   .filter((item) => item.country.ctyActive)
   .map((item) => item.country.ctyName);
 const PROVIDER_FILTER_OPTIONS = PROVIDER_IDS.map((id) => PROVIDER_LABELS[id]);

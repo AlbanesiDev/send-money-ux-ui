@@ -6,8 +6,6 @@ import {
   DELIVERY_TYPE_OPTIONS,
   deliveryTypeLabel,
   providersForDeliveryType,
-  TERRAPAY_BANK_OPTIONS,
-  TERRAPAY_WALLET_OPTIONS,
 } from "@/components/send-money/provider-flows";
 import { PromoCodeField } from "@/components/send-money/promo-code-field";
 import { QuoteResults } from "@/components/send-money/quote-results";
@@ -17,7 +15,9 @@ import type {
   ProviderQuote,
 } from "@/components/send-money/types";
 import { SearchableSelect } from "@/components/ui/searchable-select";
+import banksCatalog from "@/public/catalogs/catalog-banks.json";
 import countriesCatalog from "@/public/catalogs/catalog-countries.json";
+import walletsCatalog from "@/public/catalogs/catalog-wallets.json";
 import payoutPartnersCatalog from "@/public/catalogs/catalog-payout-partners.json";
 import payoutPartnerLocationsCatalog from "@/public/catalogs/catalog-payout-partner-locations.json";
 import { AsyncDataHandler, STATUS } from "@/components/async-data-handler";
@@ -29,9 +29,14 @@ const uniqueSorted = (values: string[]) =>
   );
 
 const destinationCountryOptions = uniqueSorted(
-  countriesCatalog.result.items
-    .filter((item) => item.country.ctyActive)
-    .map((item) => item.country.ctyName),
+  countriesCatalog.items.map((item) => item.country.ctyName),
+);
+
+const countryIsoByName = new Map(
+  countriesCatalog.items.map((item) => [
+    item.country.ctyName,
+    item.country.ctyIsoCode,
+  ]),
 );
 const payoutPartnerOptions = uniqueSorted(
   payoutPartnersCatalog.result.payoutPartners.map((partner) => partner.name),
@@ -293,6 +298,22 @@ export function QuoteStep({
   const quoteSkeletonCount =
     deliveryType === "" ? 0 : providersForDeliveryType(deliveryType).length;
 
+  let bankOptions: string[] = [];
+  let walletOptions: string[] = [];
+  const destinationCountryIso = countryIsoByName.get(destinationCountry);
+  if (destinationCountryIso !== undefined) {
+    bankOptions = uniqueSorted(
+      banksCatalog
+        .filter((bank) => bank.countryCode === destinationCountryIso)
+        .map((bank) => bank.bankName),
+    );
+    walletOptions = uniqueSorted(
+      walletsCatalog
+        .filter((wallet) => wallet.countryCode === destinationCountryIso)
+        .map((wallet) => wallet.walletName),
+    );
+  }
+
   return (
     <div className="space-y-3">
       <div className="card">
@@ -488,7 +509,7 @@ export function QuoteStep({
               <SearchableSelect
                 label="Banco"
                 value={terraPayBank}
-                options={TERRAPAY_BANK_OPTIONS}
+                options={bankOptions}
                 fieldRef={terraPayBankRef}
                 nextRef={cbuRef}
                 error={terraPayBankError}
@@ -526,7 +547,7 @@ export function QuoteStep({
               <SearchableSelect
                 label="Wallet"
                 value={terraPayWallet}
-                options={TERRAPAY_WALLET_OPTIONS}
+                options={walletOptions}
                 fieldRef={terraPayWalletRef}
                 nextRef={aliasRef}
                 error={terraPayWalletError}
@@ -558,7 +579,7 @@ export function QuoteStep({
             </>
           )}
           {showPromoCode && (
-            <div className="flex flex-col sm:col-span-2">
+            <div className="flex flex-col sm:col-span-2 mt-2">
               <PromoCodeField
                 promoCode={promoCode}
                 onPromoCodeChange={onPromoCodeChange}

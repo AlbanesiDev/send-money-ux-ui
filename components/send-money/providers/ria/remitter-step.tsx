@@ -46,14 +46,16 @@ export function RiaRemitterStep({
             onChange={(value) => onFormChange("documentType", value)}
           />
         </div>
-        <Field
-          label="Número de documento"
-          value={documentNumber}
-          required
-          numericOnly
-          maxLength={7}
-          onChange={onDocumentNumberChange}
-        />
+        <div data-document-lookup-field>
+          <Field
+            label="Número de documento"
+            value={documentNumber}
+            required
+            numericOnly
+            maxLength={7}
+            onChange={onDocumentNumberChange}
+          />
+        </div>
       </div>
       {afterDocumentFields}
       <div className="grid gap-3 sm:grid-cols-2">

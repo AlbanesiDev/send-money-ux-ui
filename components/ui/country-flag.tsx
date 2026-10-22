@@ -1,7 +1,7 @@
 import countriesCatalog from "@/public/catalogs/catalog-countries.json";
 
 const countryIsoByName = new Map(
-  countriesCatalog.result.items.map((item) => [
+  countriesCatalog.items.map((item) => [
     item.country.ctyName.trim(),
     item.country.ctyIsoCode.toLowerCase(),
   ]),

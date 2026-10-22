@@ -134,8 +134,9 @@ export function Field({
           }}
           onKeyDown={(event) => {
             if (event.key !== "Enter") return;
+            if (nextRef === undefined) return;
             event.preventDefault();
-            nextRef?.current?.focus();
+            nextRef.current?.focus();
           }}
           className={inputClassName}
         />

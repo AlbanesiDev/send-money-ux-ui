@@ -173,9 +173,10 @@ export function IdentifySenderStep({
   }
 
   useEffect(() => {
-    if (result === "success" || result === "empty") {
+    if (result !== "success" && result !== "empty") return;
+    window.requestAnimationFrame(() => {
       continueRef.current?.focus();
-    }
+    });
   }, [result, continueRef]);
 
   useEffect(() => {
@@ -247,7 +248,12 @@ export function IdentifySenderStep({
                 <input
                   ref={documentNumberInputRef}
                   autoFocus
-                  onKeyDown={trapDocumentFocus}
+                  onKeyDown={(event) => {
+                    trapDocumentFocus(event);
+                    if (event.key !== "Enter") return;
+                    event.preventDefault();
+                    searchClient();
+                  }}
                   inputMode="numeric"
                   maxLength={7}
                   value={documentNumber}
@@ -289,7 +295,9 @@ export function IdentifySenderStep({
               </span>
             </label>
             <button
+              type="button"
               disabled={!documentNumber || loading}
+              onClick={searchClient}
               className={`mt-1 h-10 w-full flex items-center justify-center gap-2 rounded-lg text-sm font-bold  disabled:bg-secondary disabled:text-muted-foreground ${result ? "border border-brand text-brand hover:bg-brand/10" : "bg-brand-strong text-white hover:bg-brand/90"}`}
             >
               {loading ? (
@@ -397,11 +405,7 @@ export function IdentifySenderStep({
               type="button"
               ref={continueRef}
               onClick={onContinue}
-              disabled={
-                transactionsStatus !== STATUS.SUCCESS &&
-                transactionsStatus !== STATUS.EMPTY
-              }
-              className="flex h-12 w-full self-end mt-6 items-center justify-center gap-2 hover:bg-brand/95 rounded-lg bg-brand-strong px-6 py-2 text-sm font-bold text-white"
+              className="flex h-12 w-full self-end mt-6 items-center justify-center gap-2 hover:bg-brand/95 rounded-lg bg-brand-strong px-6 py-2 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-brand/30"
             >
               Continuar
               <ArrowRightIcon className="size-4" />

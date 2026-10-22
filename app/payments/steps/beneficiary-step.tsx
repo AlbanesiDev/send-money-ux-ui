@@ -38,7 +38,7 @@ import {
 } from "../payment-rules";
 import { Notice } from "./search-operation-step";
 
-const COUNTRY_OPTIONS = countriesCatalog.result.items.map((item) =>
+const COUNTRY_OPTIONS = countriesCatalog.items.map((item) =>
   item.country.ctyName.trim(),
 );
 const DOCUMENT_TYPE_OPTIONS = documentTypesCatalog.map((item) => item.name);

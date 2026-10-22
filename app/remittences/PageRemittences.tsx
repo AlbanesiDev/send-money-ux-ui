@@ -90,9 +90,26 @@ function useAltFieldNavigation() {
       )
         return;
       const target = event.target as HTMLElement;
-      if (!target.matches("input, select")) return;
+      const isListboxTrigger = target.matches(
+        'button[aria-haspopup="listbox"]',
+      );
+      if (isListboxTrigger) {
+        if (target.getAttribute("aria-expanded") === "true") return;
+      } else if (!target.matches("input, select")) {
+        return;
+      }
       const container = target.closest("[data-enter-advance]");
       if (!container) return;
+      if (target.closest("[data-document-lookup-field]")) {
+        const autofillAccept = container.querySelector<HTMLButtonElement>(
+          "[data-autofill-accept]",
+        );
+        if (autofillAccept) {
+          event.preventDefault();
+          autofillAccept.focus();
+          return;
+        }
+      }
       const fields = Array.from(
         container.querySelectorAll<HTMLElement>(
           'input:not([disabled]):not([readonly]):not([type=hidden]), select:not([disabled]), textarea:not([disabled]):not([readonly]), button[aria-haspopup="listbox"]:not([disabled])',
@@ -254,8 +271,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const showMoneygramCompany = Boolean(quoteFields?.showMoneygramCompany);
   const showTerraPayBank = Boolean(quoteFields?.showTerraPayBank);
   const showTerraPayWallet = Boolean(quoteFields?.showTerraPayWallet);
-  const showPromoCode =
-    deliveryType !== "" && promoCodeAvailable(deliveryType);
+  const showPromoCode = deliveryType !== "" && promoCodeAvailable(deliveryType);
   const amountUnlocked = deliveryType !== "";
 
   const clearDeliveryExtras = () => {
@@ -1264,7 +1280,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       setProcessing(false);
     });
   }
-  function startAnotherQuote() {
+  function startAnotherQuote(keepBeneficiary: boolean) {
     isRepeatFlowRef.current = false;
     setRepeatProvider(null);
     clearAmount();
@@ -1272,6 +1288,19 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setPaymentMethod("Pago en efectivo");
     setPrimaryCurrency("USD");
     setExtraPayments([]);
+    if (!keepBeneficiary) {
+      setSelectedBeneficiary(-1);
+      setGuestBeneficiaryChosen(false);
+      setRegisterBeneficiaryError("");
+      if (customer !== null) {
+        const emptyDraft = createEmptyBeneficiaryDraft(customer.id);
+        setBeneficiaryForm(emptyDraft);
+        setOriginalBeneficiaryForm(emptyDraft);
+      } else {
+        setBeneficiaryForm(createEmptyBeneficiaryDraft());
+        setOriginalBeneficiaryForm(null);
+      }
+    }
     window.clearTimeout(processingTimeoutRef.current);
     setProcessing(false);
     setSent(false);
@@ -1426,7 +1455,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   return (
     <div className="relative flex h-full min-h-0 w-full min-w-0 flex-1 flex-col">
       <section
-        className={`relative flex h-full min-h-0 w-full min-w-0 flex-1 flex-col gap-4 overflow-hidden rounded-[14px] text-foreground ${processing || sent || (step !== 2 && step !== 3) ? "bg-card shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none" : ""}`}
+        className={`relative flex h-full min-h-0 w-full min-w-0 flex-1 flex-col gap-4 overflow-hidden rounded-[14px] text-foreground ${processing || sent || (!isReviewStep && step !== 2 && step !== 3) ? "bg-card shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none" : ""}`}
       >
         {processing ? (
           <RemittanceProcessing
@@ -1437,8 +1466,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
             operationNumber={completedOperationNumber}
             amountReceived={formatUsd(quote ? quoteAmountReceived(quote) : 0)}
             onNewTransaction={onReset}
-            onRepeatClient={startAnotherQuote}
-            onSameBeneficiary={startAnotherQuote}
+            onRepeatClient={() => startAnotherQuote(false)}
+            onSameBeneficiary={() => startAnotherQuote(true)}
           />
         ) : (
           <>

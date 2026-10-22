@@ -221,6 +221,21 @@ const paymentMethodOptions = [
   "Pago QR",
 ];
 
+export type RemittanceFlowSeed = {
+  documentType: string;
+  documentNumber: string;
+  result: ClientSearchResult;
+  isGuestFlow: boolean;
+  repeatTransaction?: RecentTransaction;
+  beneficiariesSnapshot?: Beneficiary[];
+  recentTransactionsSnapshot?: StoredTransaction[];
+};
+
+export type TransactionFlowProps = {
+  onReset: () => void;
+  seed?: RemittanceFlowSeed;
+};
+
 function PageRemittences() {
   const [flowKey, setFlowKey] = useState(0);
   return (
@@ -231,15 +246,23 @@ function PageRemittences() {
   );
 }
 
-function TransactionFlow({ onReset }: { onReset: () => void }) {
+export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
   useAltFieldNavigation();
+  const flowSeed = seed === undefined ? null : seed;
+  const seededFromHub = flowSeed !== null;
   const { partiesAboveShipping } = useOutletContext<DemoQuoteLayoutContext>();
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(() => (seededFromHub ? 2 : 1));
   const [activeSteps, setActiveSteps] = useState<string[]>(() =>
     buildQuoteLoadingSteps(false),
   );
-  const [documentType, setDocumentType] = useState("Cédula");
-  const [documentNumber, setDocumentNumber] = useState("");
+  const [documentType, setDocumentType] = useState(() => {
+    if (flowSeed === null) return "Cédula";
+    return flowSeed.documentType;
+  });
+  const [documentNumber, setDocumentNumber] = useState(() => {
+    if (flowSeed === null) return "";
+    return flowSeed.documentNumber;
+  });
   const [selectedProvider, setSelectedProvider] = useState<ProviderId | null>(
     null,
   );
@@ -441,8 +464,15 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setStep((current) => Math.min(current, 2));
     setQuoteLoading(false);
   };
-  const [result, setResult] = useState<ClientSearchResult>(null);
-  const [isGuestFlow, setIsGuestFlow] = useState(false);
+  const [result, setResult] = useState<ClientSearchResult>(() => {
+    if (flowSeed === null) return null;
+    return flowSeed.result;
+  });
+  const [isGuestFlow, setIsGuestFlow] = useState(() => {
+    if (flowSeed === null) return false;
+    return flowSeed.isGuestFlow;
+  });
+  const repeatSeedAppliedRef = useRef(false);
   const [guestLookupStatus, setGuestLookupStatus] =
     useState<GuestClientLookupStatus>("idle");
   const [guestFoundCustomer, setGuestFoundCustomer] = useState<Customer | null>(
@@ -459,7 +489,11 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   );
   const [originalRemitterForm, setOriginalRemitterForm] =
     useState<CustomerRegistrationDraft | null>(null);
-  const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>([]);
+  const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>(() => {
+    if (flowSeed === null) return [];
+    if (flowSeed.beneficiariesSnapshot === undefined) return [];
+    return flowSeed.beneficiariesSnapshot;
+  });
   const [beneficiaryForm, setBeneficiaryForm] =
     useState<BeneficiaryRegistrationDraft>(() => createEmptyBeneficiaryDraft());
   const [originalBeneficiaryForm, setOriginalBeneficiaryForm] =
@@ -470,7 +504,11 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(-1);
   const [recentTransactions, setRecentTransactions] = useState<
     StoredTransaction[]
-  >([]);
+  >(() => {
+    if (flowSeed === null) return [];
+    if (flowSeed.recentTransactionsSnapshot === undefined) return [];
+    return flowSeed.recentTransactionsSnapshot;
+  });
   const guestLookupTimeoutRef = useRef<number | null>(null);
   const guestLookupRequestRef = useRef(0);
   const remitterFormSyncedCustomerIdRef = useRef<string | null>(null);
@@ -497,6 +535,23 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     customer = matchedCustomer;
   } else if (isGuestFlow) {
     customer = guestAutofillCustomer;
+  }
+
+  if (
+    flowSeed !== null &&
+    customer !== null &&
+    flowSeed.beneficiariesSnapshot !== undefined &&
+    beneficiariesLoadedForCustomerIdRef.current === null
+  ) {
+    beneficiariesLoadedForCustomerIdRef.current = customer.id;
+  }
+  if (
+    flowSeed !== null &&
+    customer !== null &&
+    flowSeed.recentTransactionsSnapshot !== undefined &&
+    transactionsLoadedForCustomerIdRef.current === null
+  ) {
+    transactionsLoadedForCustomerIdRef.current = customer.id;
   }
 
   useEffect(() => {
@@ -534,6 +589,13 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
 
   useEffect(() => {
     if (customer === null) {
+      if (
+        flowSeed !== null &&
+        result === "success" &&
+        flowSeed.beneficiariesSnapshot !== undefined
+      ) {
+        return;
+      }
       beneficiariesLoadedForCustomerIdRef.current = null;
       transactionsLoadedForCustomerIdRef.current = null;
       setBeneficiaries([]);
@@ -563,7 +625,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
         setRecentTransactions(items);
       });
     }
-  }, [customer]);
+  }, [customer, flowSeed, result]);
 
   const isKnownClient =
     result === "success" || (isGuestFlow && guestAutofillCustomer !== null);
@@ -788,8 +850,23 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setPaymentMethod("Pago en efectivo");
     setPrimaryCurrency("USD");
     setExtraPayments([]);
+    if (seededFromHub) {
+      onReset();
+      return;
+    }
     setStep(1);
   }
+
+  useEffect(() => {
+    if (flowSeed === null) return;
+    if (flowSeed.repeatTransaction === undefined) return;
+    if (repeatSeedAppliedRef.current) return;
+    if (result !== "success") return;
+    if (customer === null) return;
+    repeatSeedAppliedRef.current = true;
+    repeatTransaction(flowSeed.repeatTransaction);
+    setStep(2);
+  }, [flowSeed, result, customer]);
 
   useEffect(() => {
     if (isGuestFlow) {
@@ -1170,10 +1247,18 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setStep((current) => Math.min(lastStep, current + 1));
   }
   function back() {
+    if (seededFromHub && step === 2) {
+      onReset();
+      return;
+    }
     setStep((current) => Math.max(1, current - 1));
   }
   function goToStep(target: number) {
     if (target < 1 || target > lastStep) return;
+    if (seededFromHub && target < 2) {
+      onReset();
+      return;
+    }
     if (target > 2 && !canContinueFromQuote) return;
     if (
       target > step &&

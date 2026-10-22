@@ -3,6 +3,7 @@
 import { useState, type MouseEvent } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
+  ArrowLeftRight,
   ArrowRightCircle,
   BadgeDollarSign,
   BadgePercent,
@@ -79,6 +80,12 @@ const menuItems: MenuItem[] = [
         label: "Pagos",
         icon: BanknoteArrowDown,
         href: "/payments",
+      },
+      {
+        key: "operations",
+        label: "Envío y pago",
+        icon: ArrowLeftRight,
+        href: "/operations",
       },
       {
         key: "transactions-history",

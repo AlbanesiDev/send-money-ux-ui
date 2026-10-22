@@ -1,0 +1,207 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { PaymentFlow } from "@/app/payments/PagePayments";
+import type { PaymentOperation } from "@/app/payments/payment-data";
+import type { OperationSearchResult } from "@/app/payments/steps/search-operation-step";
+import {
+  TransactionFlow,
+  type RemittanceFlowSeed,
+} from "@/app/remittences/PageRemittences";
+import type { ClientSearchResult } from "@/app/remittences/steps";
+import type { RecentTransaction } from "@/components/send-money/recent-transactions";
+import type { Beneficiary, Customer } from "@/components/send-money/types";
+import {
+  ensureBeneficiariesSeeded,
+  listBeneficiariesByCustomer,
+} from "@/lib/simulated-api/beneficiaries-api";
+import {
+  ensureCustomersSeeded,
+  findCustomerByDocument,
+} from "@/lib/simulated-api/customers-api";
+import { readAllCustomers } from "@/lib/simulated-api/customers-store";
+import {
+  ensureTransactionsSeeded,
+  listTransactionsByCustomer,
+  type StoredTransaction,
+} from "@/lib/simulated-api/transactions-api";
+import { UnifiedHubStep } from "./steps/unified-hub-step";
+
+const usdFormatter = new Intl.NumberFormat("es-ES", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+const formatUsd = (value: number) => `${usdFormatter.format(value)} USD`;
+
+type HubPhase =
+  | { kind: "hub" }
+  | { kind: "remittance"; seed: RemittanceFlowSeed }
+  | { kind: "payment"; operation: PaymentOperation };
+
+function PageOperations() {
+  const [flowKey, setFlowKey] = useState(0);
+  return (
+    <OperationsFlow
+      key={flowKey}
+      onReset={() => setFlowKey((key) => key + 1)}
+    />
+  );
+}
+
+function OperationsFlow({ onReset }: { onReset: () => void }) {
+  const [phase, setPhase] = useState<HubPhase>({ kind: "hub" });
+  const [documentType, setDocumentType] = useState("Cédula");
+  const [documentNumber, setDocumentNumber] = useState("");
+  const [result, setResult] = useState<ClientSearchResult>(null);
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>([]);
+  const [recentTransactions, setRecentTransactions] = useState<
+    StoredTransaction[]
+  >([]);
+  const [selectedTransactionId, setSelectedTransactionId] = useState<
+    string | null
+  >(null);
+  const [operationNumber, setOperationNumber] = useState("");
+  const [operationResult, setOperationResult] =
+    useState<OperationSearchResult>(null);
+  const continueRef = useRef<HTMLButtonElement>(null);
+  const beneficiariesLoadedForCustomerIdRef = useRef<string | null>(null);
+  const transactionsLoadedForCustomerIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    void ensureCustomersSeeded()
+      .then(() => readAllCustomers())
+      .then((items) => setCustomers(items));
+    void ensureBeneficiariesSeeded();
+    void ensureTransactionsSeeded();
+  }, []);
+
+  const foundByDocument = customers.find((item) =>
+    item.documentNumbers.includes(documentNumber.trim()),
+  );
+  const matchedCustomer =
+    foundByDocument === undefined ? null : foundByDocument;
+  let customer: Customer | null = null;
+  if (result === "success") {
+    customer = matchedCustomer;
+  }
+
+  useEffect(() => {
+    if (result !== "success") return;
+    if (matchedCustomer !== null) return;
+    void findCustomerByDocument(documentNumber).then((found) => {
+      if (found === null) return;
+      setCustomers((current) => {
+        const exists = current.some((item) => item.id === found.id);
+        if (exists) return current;
+        return [...current, found];
+      });
+    });
+  }, [result, documentNumber, matchedCustomer]);
+
+  useEffect(() => {
+    if (customer === null) {
+      beneficiariesLoadedForCustomerIdRef.current = null;
+      transactionsLoadedForCustomerIdRef.current = null;
+      setBeneficiaries([]);
+      setRecentTransactions([]);
+      return;
+    }
+    const customerId = customer.id;
+    if (beneficiariesLoadedForCustomerIdRef.current !== customerId) {
+      beneficiariesLoadedForCustomerIdRef.current = customerId;
+      void listBeneficiariesByCustomer(customerId).then((items) => {
+        if (beneficiariesLoadedForCustomerIdRef.current !== customerId) return;
+        setBeneficiaries(items);
+      });
+    }
+    if (transactionsLoadedForCustomerIdRef.current !== customerId) {
+      transactionsLoadedForCustomerIdRef.current = customerId;
+      void listTransactionsByCustomer(customerId).then((items) => {
+        if (transactionsLoadedForCustomerIdRef.current !== customerId) return;
+        setRecentTransactions(items);
+      });
+    }
+  }, [customer]);
+
+  function enterRemittance(seed: RemittanceFlowSeed) {
+    setPhase({ kind: "remittance", seed });
+  }
+
+  function enterPayment(operation: PaymentOperation) {
+    setPhase({ kind: "payment", operation });
+  }
+
+  if (phase.kind === "remittance") {
+    return <TransactionFlow onReset={onReset} seed={phase.seed} />;
+  }
+
+  if (phase.kind === "payment") {
+    return <PaymentFlow onReset={onReset} initialOperation={phase.operation} />;
+  }
+
+  return (
+    <section className="relative flex h-full min-h-0 w-full min-w-0 flex-1 flex-col gap-4 overflow-hidden rounded-[14px] bg-card text-foreground shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none">
+      <UnifiedHubStep
+        remittance={{
+          documentType,
+          onDocumentTypeChange: setDocumentType,
+          documentNumber,
+          onDocumentNumberChange: setDocumentNumber,
+          result,
+          onResultChange: setResult,
+          onContinue: () => {
+            let isGuestFlow = false;
+            if (result === "empty") {
+              isGuestFlow = true;
+            }
+            enterRemittance({
+              documentType,
+              documentNumber,
+              result,
+              isGuestFlow,
+              beneficiariesSnapshot: beneficiaries,
+              recentTransactionsSnapshot: recentTransactions,
+            });
+          },
+          onGuestContinue: () => {
+            enterRemittance({
+              documentType,
+              documentNumber: "",
+              result: null,
+              isGuestFlow: true,
+            });
+          },
+          continueRef,
+          customer,
+          recentTransactions,
+          beneficiaries,
+          selectedTransactionId,
+          quoteLoading: false,
+          formatUsd,
+          onRepeatTransaction: (transaction: RecentTransaction) => {
+            enterRemittance({
+              documentType,
+              documentNumber,
+              result: "success",
+              isGuestFlow: false,
+              repeatTransaction: transaction,
+              beneficiariesSnapshot: beneficiaries,
+              recentTransactionsSnapshot: recentTransactions,
+            });
+          },
+          onClearRepeatedTransaction: () => {
+            setSelectedTransactionId(null);
+          },
+        }}
+        operationNumber={operationNumber}
+        onOperationNumberChange={setOperationNumber}
+        operationResult={operationResult}
+        onOperationResultChange={setOperationResult}
+        onStartPayment={enterPayment}
+      />
+    </section>
+  );
+}
+
+export default PageOperations;

@@ -21,6 +21,8 @@ type ColorTheme = "light" | "dark";
 const ROUTE_LABELS: Record<string, string> = {
   "/remittences": "Envíos",
   "/payments": "Pagos",
+  "/operations": "Envío y pago",
+  "/transactions-history": "Historial",
 };
 
 export function AppHeader({

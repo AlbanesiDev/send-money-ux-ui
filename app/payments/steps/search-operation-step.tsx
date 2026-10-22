@@ -36,12 +36,14 @@ export function SearchOperationStep({
   result,
   onResultChange,
   onStart,
+  embedded = false,
 }: {
   operationNumber: string;
   onOperationNumberChange: (value: string) => void;
   result: OperationSearchResult;
   onResultChange: (result: OperationSearchResult) => void;
   onStart: (operation: PaymentOperation) => void;
+  embedded?: boolean;
 }) {
   const [loading, setLoading] = useState(false);
   const startRef = useRef<HTMLButtonElement>(null);
@@ -78,19 +80,27 @@ export function SearchOperationStep({
     if (operation?.status === "available") startRef.current?.focus();
   }, [operation]);
 
+  let rootClass = "mx-auto w-full max-w-[760px] px-4 sm:px-6";
+  if (embedded) {
+    rootClass = "relative w-full min-w-0";
+  }
+
   return (
-    <div className="mx-auto w-full max-w-[760px] px-4 sm:px-6">
-      <div className="mb-6 pt-12">
-        <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-blue-600">
-          Pago de remesa
-        </p>
-        <h1 className="text-xl font-bold tracking-[-0.02em] text-foreground">
-          Busca la operación
-        </h1>
-        <p className="mt-1 text-sm leading-5 text-muted-foreground">
-          Pide al beneficiario el número que le compartió quien envió el dinero.
-        </p>
-      </div>
+    <div className={rootClass}>
+      {!embedded && (
+        <div className="mb-6 pt-12">
+          <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-blue-600">
+            Pago de remesa
+          </p>
+          <h1 className="text-xl font-bold tracking-[-0.02em] text-foreground">
+            Busca la operación
+          </h1>
+          <p className="mt-1 text-sm leading-5 text-muted-foreground">
+            Pide al beneficiario el número que le compartió quien envió el
+            dinero.
+          </p>
+        </div>
+      )}
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -105,7 +115,7 @@ export function SearchOperationStep({
           <div className="relative">
             <input
               ref={operationNumberInputRef}
-              autoFocus
+              autoFocus={!embedded}
               inputMode="numeric"
               value={formatOperationNumber(operationNumber)}
               onChange={(event) => {
@@ -229,7 +239,13 @@ export function SearchOperationStep({
           </article>
         )}
       </div>
-      <div className="absolute right-4 bottom-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
+      <div
+        className={
+          embedded
+            ? "mt-6 flex flex-wrap gap-2 text-xs text-muted-foreground"
+            : "absolute right-4 bottom-4 flex flex-wrap gap-2 text-xs text-muted-foreground"
+        }
+      >
         <span className="select-none">Demo:</span>
         {DEMO_OPERATIONS.map((item) => (
           <div key={item.number} className="flex gap-0.5">

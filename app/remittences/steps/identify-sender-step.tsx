@@ -52,6 +52,7 @@ export type IdentifySenderStepProps = {
   formatUsd: (value: number) => string;
   onRepeatTransaction: (transaction: RecentTransaction) => void;
   onClearRepeatedTransaction: () => void;
+  embedded?: boolean;
 };
 
 const DOCUMENT_TYPE_OPTIONS = documentTypesCatalog.map((item) => item.name);
@@ -77,6 +78,7 @@ export function IdentifySenderStep({
   formatUsd,
   onRepeatTransaction,
   onClearRepeatedTransaction,
+  embedded = false,
 }: IdentifySenderStepProps) {
   const [loading, setLoading] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -192,25 +194,29 @@ export function IdentifySenderStep({
 
   const showTransactions = result === "success";
 
+  let layoutClass =
+    "mx-auto grid w-full grid-cols-1 items-start gap-16 lg:grid-cols-2 min-h-148 pt-12";
+  if (embedded) {
+    layoutClass = "grid w-full grid-cols-1 items-start gap-8 min-h-0";
+  }
+
   return (
     <>
-      <div
-        className={
-          "mx-auto grid w-full grid-cols-1 items-start gap-16 lg:grid-cols-2 min-h-148 pt-12"
-        }
-      >
+      <div className={layoutClass}>
         <div className="flex flex-col h-full">
-          <div className="mb-6 select-none">
-            <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-blue-600">
-              Envío de remesas
-            </p>
-            <h1 className="text-xl font-bold tracking-[-0.02em] text-foreground">
-              Identifica al remitente
-            </h1>
-            <p className="mt-1 text-sm leading-5 text-muted-foreground">
-              Completa la información necesaria para continuar.
-            </p>
-          </div>
+          {!embedded && (
+            <div className="mb-6 select-none">
+              <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-blue-600">
+                Envío de remesas
+              </p>
+              <h1 className="text-xl font-bold tracking-[-0.02em] text-foreground">
+                Identifica al remitente
+              </h1>
+              <p className="mt-1 text-sm leading-5 text-muted-foreground">
+                Completa la información necesaria para continuar.
+              </p>
+            </div>
+          )}
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -247,7 +253,7 @@ export function IdentifySenderStep({
               <div className="relative">
                 <input
                   ref={documentNumberInputRef}
-                  autoFocus
+                  autoFocus={!embedded}
                   onKeyDown={(event) => {
                     trapDocumentFocus(event);
                     if (event.key !== "Enter") return;
@@ -426,7 +432,13 @@ export function IdentifySenderStep({
         </aside>
       </div>
 
-      <div className="absolute right-4 bottom-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
+      <div
+        className={
+          embedded
+            ? "mt-6 flex flex-wrap gap-2 text-xs text-muted-foreground"
+            : "absolute right-4 bottom-4 flex flex-wrap gap-2 text-xs text-muted-foreground"
+        }
+      >
         <span className="select-none">Demo:</span>
         {DEMO_CUSTOMERS.flatMap((item) =>
           item.documentNumbers.map((number) => (

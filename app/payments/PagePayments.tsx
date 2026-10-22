@@ -58,27 +58,67 @@ function PagePayments() {
   );
 }
 
-function PaymentFlow({ onReset }: { onReset: () => void }) {
-  const [step, setStep] = useState(1);
-  const [maxStep, setMaxStep] = useState(1);
-  const [operationNumber, setOperationNumber] = useState("");
-  const [searchResult, setSearchResult] = useState<OperationSearchResult>(null);
-  const [operation, setOperation] = useState<PaymentOperation | null>(null);
+export type PaymentFlowProps = {
+  onReset: () => void;
+  initialOperation?: PaymentOperation;
+};
+
+export function PaymentFlow({ onReset, initialOperation }: PaymentFlowProps) {
+  const seededOperation =
+    initialOperation === undefined ? null : initialOperation;
+  const seededFromHub = seededOperation !== null;
+  const [step, setStep] = useState(() => (seededFromHub ? 2 : 1));
+  const [maxStep, setMaxStep] = useState(() => (seededFromHub ? 2 : 1));
+  const [operationNumber, setOperationNumber] = useState(() => {
+    if (seededOperation === null) return "";
+    return seededOperation.number;
+  });
+  const [searchResult, setSearchResult] = useState<OperationSearchResult>(
+    () => {
+      if (seededOperation === null) return null;
+      return { kind: "found", operation: seededOperation };
+    },
+  );
+  const [operation, setOperation] = useState<PaymentOperation | null>(
+    () => seededOperation,
+  );
   const [attemptsLeft, setAttemptsLeft] = useState(MAX_VERIFICATION_ATTEMPTS);
   const [verified, setVerified] = useState(false);
   const [verificationAnswers, setVerificationAnswers] =
     useState<VerificationAnswers>(EMPTY_VERIFICATION_ANSWERS);
   const [documentInput, setDocumentInput] = useState("");
   const [documentCheck, setDocumentCheck] = useState<DocumentCheck>("pending");
-  const [profile, setProfile] = useState<ProfileForm | null>(null);
-  const [flags, setFlags] = useState<ComplianceFlags>({
-    additionalInfo: false,
-    pep: false,
-    pepRelated: false,
-    unusual: false,
+  const [profile, setProfile] = useState<ProfileForm | null>(() => {
+    if (seededOperation === null) return null;
+    return buildInitialProfile(seededOperation);
   });
-  const [uifForm, setUifForm] = useState<UifForm>(EMPTY_UIF);
-  const [knownUifFields, setKnownUifFields] = useState<Set<string>>(new Set());
+  const [flags, setFlags] = useState<ComplianceFlags>(() => {
+    if (seededOperation === null) {
+      return {
+        additionalInfo: false,
+        pep: false,
+        pepRelated: false,
+        unusual: false,
+      };
+    }
+    const customer = seededOperation.existingCustomer;
+    return {
+      additionalInfo: false,
+      pep: customer?.isPep ?? false,
+      pepRelated: customer?.isPepRelated ?? false,
+      unusual: false,
+    };
+  });
+  const [uifForm, setUifForm] = useState<UifForm>(() => {
+    if (seededOperation === null) return EMPTY_UIF;
+    const known = seededOperation.knownUifData ?? {};
+    return { ...EMPTY_UIF, ...known };
+  });
+  const [knownUifFields, setKnownUifFields] = useState<Set<string>>(() => {
+    if (seededOperation === null) return new Set();
+    const known = seededOperation.knownUifData ?? {};
+    return new Set(Object.keys(known));
+  });
   const [showErrors, setShowErrors] = useState(false);
   const [cancelOpen, setCancelOpen] = useState(false);
   const [processing, setProcessing] = useState(false);
@@ -166,6 +206,10 @@ function PaymentFlow({ onReset }: { onReset: () => void }) {
   }
 
   function back() {
+    if (seededFromHub && step === 2) {
+      onReset();
+      return;
+    }
     setStep((current) => Math.max(1, current - 1));
   }
 

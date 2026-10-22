@@ -447,7 +447,7 @@ export function RecentTransactions({
                 aria-label="Buscar operación"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Buscar por nombre, operación..."
+                placeholder="Buscar por beneficiario, operación..."
                 className="w-full border-0 bg-transparent text-xs text-[#243452] outline-none placeholder:text-[#9ba5b6] select-none"
               />
             </label>

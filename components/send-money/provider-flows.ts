@@ -178,8 +178,10 @@ export function buildProviderQuotes(
         (5 * feeMultiplier + amountFeeShare + feeSpread) * feeJitter * 100,
       ) / 100;
     const tax = Math.round(0.91 * ivaMultiplier * ivaJitter * 100) / 100;
-    const itf =
-      Math.round(amountItfShare * itfMultiplier * itfJitter * 100) / 100;
+    let itf = 0;
+    if (item.code === "TERRAPAY") {
+      itf = Math.round(amountItfShare * itfMultiplier * itfJitter * 100) / 100;
+    }
     const rate = Math.round(6.9 * rateMultiplier * rateJitter * 10000) / 10000;
 
     return {

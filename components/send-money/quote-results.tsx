@@ -131,16 +131,18 @@ export function QuoteResults({
                   </dd>
                 )}
               </div>
-              <div className="flex justify-between gap-3">
-                <dt className="text-muted-foreground">ITF</dt>
-                {loading ? (
-                  <dd className="skeleton h-4 w-16 rounded" />
-                ) : (
-                  <dd className="font-semibold tabular-nums text-foreground">
-                    {formatUsd(quote.itf)}
-                  </dd>
-                )}
-              </div>
+              {quote.provider === "TERRAPAY" && (
+                <div className="flex justify-between gap-3">
+                  <dt className="text-muted-foreground">ITF</dt>
+                  {loading ? (
+                    <dd className="skeleton h-4 w-16 rounded" />
+                  ) : (
+                    <dd className="font-semibold tabular-nums text-foreground">
+                      {formatUsd(quote.itf)}
+                    </dd>
+                  )}
+                </div>
+              )}
               <div className="flex justify-between gap-3">
                 <dt className="text-muted-foreground">Subtotal cargos</dt>
                 {loading ? (

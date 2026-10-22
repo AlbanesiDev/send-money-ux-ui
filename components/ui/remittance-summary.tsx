@@ -35,8 +35,10 @@ export function RemittanceSummary({
     { label: "Dinero a enviar", value: amount },
     { label: "Cargo de envío", value: fee },
     { label: "IVA", value: tax },
-    { label: "ITF", value: itf },
   ];
+  if (provider === "TERRAPAY") {
+    rows.push({ label: "ITF", value: itf });
+  }
   const valueClass = `font-semibold tabular-nums transition-opacity ${loading ? "animate-pulse opacity-40" : ""}`;
   let providerLabel = "Sin seleccionar";
   if (provider) providerLabel = provider;

@@ -527,9 +527,12 @@ export function ReviewStep({
             />
             <SummaryRow label="Cargo" value={formatUsd(quote.fee)} />
             <SummaryRow label="IVA" value={formatUsd(quote.tax)} />
+            <SummaryRow label="ITF" value={formatUsd(quote.itf)} />
             <SummaryRow
               label="Recibe el beneficiario"
-              value={formatUsd(quote.amount - quote.fee - quote.tax)}
+              value={formatUsd(
+                quote.amount - quote.fee - quote.tax - quote.itf,
+              )}
               accent
             />
             <SummaryRow

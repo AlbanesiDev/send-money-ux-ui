@@ -21,6 +21,7 @@ export type ProviderQuote = {
   amount: number;
   fee: number;
   tax: number;
+  itf: number;
   rate: number;
   deliveryType: DeliveryTypeId;
   logo: string;

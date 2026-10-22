@@ -138,22 +138,27 @@ export function buildProviderQuotes(
 ): ProviderQuote[] {
   let feeMultiplier = 1;
   let ivaMultiplier = 1;
+  let itfMultiplier = 1;
   let rateMultiplier = 1;
   if (deliveryType === "CASH") {
     feeMultiplier = 1.1;
     ivaMultiplier = 1.08;
+    itfMultiplier = 1.05;
     rateMultiplier = 0.982;
   } else if (deliveryType === "BANK") {
     feeMultiplier = 0.82;
     ivaMultiplier = 0.88;
+    itfMultiplier = 0.92;
     rateMultiplier = 1.018;
   } else if (deliveryType === "WALLET") {
     feeMultiplier = 0.9;
     ivaMultiplier = 0.94;
+    itfMultiplier = 0.96;
     rateMultiplier = 1.01;
   }
 
   const amountFeeShare = amount * 0.0025;
+  const amountItfShare = amount * 0.0003;
   const candidates = providersCatalog.filter((item) =>
     item.sendingTypes.includes(deliveryType),
   );
@@ -165,6 +170,7 @@ export function buildProviderQuotes(
   return candidates.map((item, index) => {
     const feeJitter = 1 + (Math.random() * 0.07 - 0.035);
     const ivaJitter = 1 + (Math.random() * 0.07 - 0.035);
+    const itfJitter = 1 + (Math.random() * 0.07 - 0.035);
     const rateJitter = 1 + (Math.random() * 0.07 - 0.035);
     const feeSpread = ((feeWeights[index] - minWeight) / weightSpan) * 10;
     const fee =
@@ -172,6 +178,8 @@ export function buildProviderQuotes(
         (5 * feeMultiplier + amountFeeShare + feeSpread) * feeJitter * 100,
       ) / 100;
     const tax = Math.round(0.91 * ivaMultiplier * ivaJitter * 100) / 100;
+    const itf =
+      Math.round(amountItfShare * itfMultiplier * itfJitter * 100) / 100;
     const rate = Math.round(6.9 * rateMultiplier * rateJitter * 10000) / 10000;
 
     return {
@@ -180,6 +188,7 @@ export function buildProviderQuotes(
       description: item.description,
       fee,
       tax,
+      itf,
       rate,
       logo: item.logo,
       amount,

@@ -362,7 +362,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       if (requestId !== quoteRequestRef.current) return;
       const quotes = buildProviderQuotes(amount, type);
       const cheapest = [...quotes].sort(
-        (a, b) => b.amount - b.fee - b.tax - (a.amount - a.fee - a.tax),
+        (a, b) =>
+          b.amount - b.fee - b.tax - b.itf - (a.amount - a.fee - a.tax - a.itf),
       )[0];
       // Al repetir una transacción se mantiene su proveedor.
       const preferredProviderId = override?.provider ?? repeatProvider;
@@ -1422,14 +1423,14 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
         {processing ? (
           <RemittanceProcessing
             amountReceived={formatUsd(
-              quote ? quote.amount - quote.fee - quote.tax : 0,
+              quote ? quote.amount - quote.fee - quote.tax - quote.itf : 0,
             )}
           />
         ) : sent ? (
           <RemittanceSuccess
             operationNumber={completedOperationNumber}
             amountReceived={formatUsd(
-              quote ? quote.amount - quote.fee - quote.tax : 0,
+              quote ? quote.amount - quote.fee - quote.tax - quote.itf : 0,
             )}
             onNewTransaction={onReset}
             onRepeatClient={startAnotherQuote}

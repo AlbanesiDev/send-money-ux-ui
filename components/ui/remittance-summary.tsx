@@ -30,10 +30,12 @@ export function RemittanceSummary({
   const amount = quote ? quote.amount : 0;
   const fee = quote ? quote.fee : 0;
   const tax = quote ? quote.tax : 0;
+  const itf = quote ? quote.itf : 0;
   const rows = [
     { label: "Dinero a enviar", value: amount },
     { label: "Cargo de envío", value: fee },
     { label: "IVA", value: tax },
+    { label: "ITF", value: itf },
   ];
   const valueClass = `font-semibold tabular-nums transition-opacity ${loading ? "animate-pulse opacity-40" : ""}`;
   let providerLabel = "Sin seleccionar";
@@ -76,14 +78,14 @@ export function RemittanceSummary({
         ))}
         <div className="flex justify-between">
           <dt className="text-muted-foreground">Subtotal cargos</dt>
-          <dd className={valueClass}>{formatUsd(fee + tax)}</dd>
+          <dd className={valueClass}>{formatUsd(fee + tax + itf)}</dd>
         </div>
         <div className="mt-2.5 flex justify-between border-t border-border pt-2.5 text-base">
           <dt className="font-bold text-foreground">Recibe el beneficiario</dt>
           <dd
             className={`font-bold tabular-nums text-summary-fg ${loading ? "animate-pulse opacity-40" : ""}`}
           >
-            {formatUsd(amount - fee - tax)}
+            {formatUsd(amount - fee - tax - itf)}
           </dd>
         </div>
       </dl>

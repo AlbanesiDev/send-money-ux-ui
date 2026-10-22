@@ -11,7 +11,7 @@ function formatUsd(value: number) {
 }
 
 function amountReceived(quote: ProviderQuote) {
-  return quote.amount - quote.fee - quote.tax;
+  return quote.amount - quote.fee - quote.tax - quote.itf;
 }
 
 export function QuoteResults({
@@ -41,7 +41,7 @@ export function QuoteResults({
         const isBestPrice =
           bestQuote !== undefined && quote.provider === bestQuote.provider;
         const received = amountReceived(quote);
-        const chargesSubtotal = quote.fee + quote.tax;
+        const chargesSubtotal = quote.fee + quote.tax + quote.itf;
         const lessThanBest = bestReceived - received;
 
         let comparison: string | null = null;
@@ -128,6 +128,16 @@ export function QuoteResults({
                 ) : (
                   <dd className="font-semibold tabular-nums text-foreground">
                     {formatUsd(quote.tax)}
+                  </dd>
+                )}
+              </div>
+              <div className="flex justify-between gap-3">
+                <dt className="text-muted-foreground">ITF</dt>
+                {loading ? (
+                  <dd className="skeleton h-4 w-16 rounded" />
+                ) : (
+                  <dd className="font-semibold tabular-nums text-foreground">
+                    {formatUsd(quote.itf)}
                   </dd>
                 )}
               </div>

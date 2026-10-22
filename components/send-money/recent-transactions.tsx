@@ -417,7 +417,7 @@ export function RecentTransactions({
   return (
     <section
       aria-labelledby="recent-transactions-title"
-      className="overflow-hidden rounded-[14px] border border-[#e0e6ef] bg-white/95 shadow-[0_16px_46px_rgba(28,48,84,0.08)] dark:bg-card dark:border-border dark:shadow-none"
+      className="card-glow overflow-hidden rounded-[14px] border border-[#e0e6ef] bg-white/95 shadow-[0_16px_46px_rgba(28,48,84,0.08)] dark:bg-card"
     >
       <div className="flex flex-col gap-5 border-b border-[#edf0f5] px-[26px] pt-[23px] pb-[19px] dark:border-border">
         <div className="flex items-center gap-3">

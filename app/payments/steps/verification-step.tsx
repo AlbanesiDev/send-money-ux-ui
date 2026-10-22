@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useMemo, useState, type ReactNode } from "react";
+import { fullName, Gender } from "full-name-generator";
 import {
   CircleAlertIcon,
   CircleCheckIcon,
@@ -8,14 +9,82 @@ import {
   ShieldXIcon,
   TriangleAlertIcon,
 } from "lucide-react";
+import countriesCatalog from "@/public/catalogs/catalog-countries.json";
 import {
   formatMoney,
   VERIFICATION_DISTRACTOR_AMOUNTS_USD,
   VERIFICATION_DISTRACTOR_COUNTRIES,
-  VERIFICATION_DISTRACTOR_NAMES,
   type PaymentOperation,
 } from "../payment-data";
 import { Notice } from "./search-operation-step";
+
+const countryIsoByName = new Map(
+  countriesCatalog.result.items.map((item) => [
+    item.country.ctyName.trim(),
+    item.country.ctyIsoCode.toUpperCase(),
+  ]),
+);
+
+/** ISO codes shipped by full-name-generator. */
+const NAME_GENERATOR_COUNTRIES = new Set([
+  "AR",
+  "BE",
+  "BR",
+  "CZ",
+  "DK",
+  "FI",
+  "FR",
+  "GB",
+  "IE",
+  "IL",
+  "IS",
+  "IT",
+  "KR",
+  "KZ",
+  "LV",
+  "MX",
+  "NO",
+  "NZ",
+  "PL",
+  "SE",
+  "SI",
+  "ES",
+  "TR",
+  "TW",
+  "US",
+]);
+
+/**
+ * Origin countries without a dataset use a culturally close one
+ * (e.g. Chile → Argentina) so distractors still sound plausible.
+ */
+const NAME_GENERATOR_ISO_SUBSTITUTE: Record<string, string> = {
+  AT: "BE",
+  AU: "NZ",
+  BO: "AR",
+  CA: "US",
+  CH: "FR",
+  CL: "AR",
+  CO: "MX",
+  CR: "MX",
+  CU: "MX",
+  DE: "BE",
+  DO: "MX",
+  EC: "MX",
+  GT: "MX",
+  HN: "MX",
+  NI: "MX",
+  NL: "BE",
+  PA: "MX",
+  PE: "MX",
+  PT: "ES",
+  PY: "AR",
+  SV: "MX",
+  UY: "AR",
+  VE: "MX",
+};
+
+const DOUBLE_SURNAME_ISOS = new Set(["AR", "BR", "ES", "MX"]);
 
 export const MAX_VERIFICATION_ATTEMPTS = 3;
 
@@ -76,20 +145,37 @@ export function VerificationStep({
   const rotateBy = seedDigit % 3;
   const distractorOffset = seedDigit % 5;
 
-  const otherNames: string[] = [];
-  for (
-    let index = 0;
-    index < VERIFICATION_DISTRACTOR_NAMES.length;
-    index += 1
-  ) {
-    const name =
-      VERIFICATION_DISTRACTOR_NAMES[
-        (index + distractorOffset) % VERIFICATION_DISTRACTOR_NAMES.length
-      ];
-    if (name === operation.senderName) continue;
-    otherNames.push(name);
-    if (otherNames.length === 2) break;
-  }
+  const otherNames = useMemo(() => {
+    const originIso = countryIsoByName.get(operation.originCountry);
+    if (originIso === undefined) {
+      throw new Error(`Unknown origin country: ${operation.originCountry}`);
+    }
+
+    let generatorIso = originIso;
+    if (!NAME_GENERATOR_COUNTRIES.has(originIso)) {
+      if (!(originIso in NAME_GENERATOR_ISO_SUBSTITUTE)) {
+        throw new Error(
+          `No name generator dataset for ${operation.originCountry}`,
+        );
+      }
+      generatorIso = NAME_GENERATOR_ISO_SUBSTITUTE[originIso];
+    }
+
+    const lastNameCount = DOUBLE_SURNAME_ISOS.has(generatorIso) ? 2 : 1;
+    const genders = [Gender.Male, Gender.Female];
+    const names: string[] = [];
+    let attempt = 0;
+    while (names.length < 2) {
+      const gender = genders[(attempt + seedDigit) % 2];
+      const name = fullName(generatorIso, gender, 1, lastNameCount);
+      attempt += 1;
+      if (name === operation.senderName) continue;
+      if (names.includes(name)) continue;
+      names.push(name);
+    }
+    return names;
+  }, [operation.originCountry, operation.senderName, seedDigit]);
+
   const senderOptions = [operation.senderName, otherNames[0], otherNames[1]];
   const senderChoices = [
     ...senderOptions.slice(rotateBy),

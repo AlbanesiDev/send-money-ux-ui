@@ -144,35 +144,7 @@ export function ReviewStep({
         Confirma con el cliente el monto, el beneficiario y el lugar de pago
         antes de enviar.
       </p>
-      <div className="grid min-h-0 flex-1 gap-3 overflow-y-auto lg:grid-cols-4 lg:overflow-hidden">
-        <SummarySection
-          title="Confirmar con el cliente"
-          onEdit={onEditQuote}
-          editLabel="Editar cotización"
-          highlight
-        >
-          <SummaryRow
-            label="Tipo de envío"
-            value={deliveryTypeLabel(quote.deliveryType)}
-          />
-          <SummaryRow label="Proveedor" value={provider} />
-          <SummaryRow label="Destino" value={destinationCountry || "—"} />
-          {provider === "TERRAPAY" && quote.deliveryType === "BANK" && (
-            <SummaryRow label="Banco" value={terraPayBank || "—"} />
-          )}
-          {provider === "TERRAPAY" && quote.deliveryType === "WALLET" && (
-            <SummaryRow label="Wallet" value={terraPayWallet || "—"} />
-          )}
-          <SummaryRow label="Monto a enviar" value={formatUsd(quote.amount)} />
-          <SummaryRow label="Cargo" value={formatUsd(quote.fee)} />
-          <SummaryRow label="IVA" value={formatUsd(quote.tax)} />
-          <SummaryRow
-            label="Recibe el beneficiario"
-            value={formatUsd(quote.amount - quote.fee - quote.tax)}
-            accent
-          />
-          <SummaryRow label="Total a cobrar" value={formatUsd(totalToCharge)} />
-        </SummarySection>
+      <div className="grid min-h-0 flex-1 gap-3 overflow-y-auto lg:grid-cols-3 lg:overflow-hidden">
         <SummarySection
           title="Remitente"
           tone="sender"
@@ -530,31 +502,67 @@ export function ReviewStep({
             </>
           )}
         </SummarySection>
-        <SummarySection
-          title="Pago y facturación"
-          onEdit={onEditPayment}
-          editLabel="Editar pago"
-        >
-          {paymentLines.map((line) => (
+        <div className="flex flex-col gap-4">
+          <SummarySection
+            title="Confirmar con el cliente"
+            onEdit={onEditQuote}
+            editLabel="Editar cotización"
+            highlight
+          >
             <SummaryRow
-              key={line.id}
-              label={line.method || "Método de pago"}
-              value={
-                line.currency === "USD"
-                  ? formatUsd(line.amount)
-                  : `${formatAmount(line.amount)} BOB (${formatUsd(line.usdCents / 100)})`
-              }
+              label="Tipo de envío"
+              value={deliveryTypeLabel(quote.deliveryType)}
             />
-          ))}
-          <SummaryRow
-            label="Total cobrado"
-            value={formatUsd(totalToCharge)}
-          />
-          <SummaryRow
-            label="Facturar a"
-            value={`${billingName || "—"} · ${billingNit || "—"}`}
-          />
-        </SummarySection>
+            <SummaryRow label="Proveedor" value={provider} />
+            <SummaryRow label="Destino" value={destinationCountry || "—"} />
+            {provider === "TERRAPAY" && quote.deliveryType === "BANK" && (
+              <SummaryRow label="Banco" value={terraPayBank || "—"} />
+            )}
+            {provider === "TERRAPAY" && quote.deliveryType === "WALLET" && (
+              <SummaryRow label="Wallet" value={terraPayWallet || "—"} />
+            )}
+            <SummaryRow
+              label="Monto a enviar"
+              value={formatUsd(quote.amount)}
+            />
+            <SummaryRow label="Cargo" value={formatUsd(quote.fee)} />
+            <SummaryRow label="IVA" value={formatUsd(quote.tax)} />
+            <SummaryRow
+              label="Recibe el beneficiario"
+              value={formatUsd(quote.amount - quote.fee - quote.tax)}
+              accent
+            />
+            <SummaryRow
+              label="Total a cobrar"
+              value={formatUsd(totalToCharge)}
+            />
+          </SummarySection>
+          <SummarySection
+            title="Pago y facturación"
+            onEdit={onEditPayment}
+            editLabel="Editar pago"
+          >
+            {paymentLines.map((line) => (
+              <SummaryRow
+                key={line.id}
+                label={line.method || "Método de pago"}
+                value={
+                  line.currency === "USD"
+                    ? formatUsd(line.amount)
+                    : `${formatAmount(line.amount)} BOB (${formatUsd(line.usdCents / 100)})`
+                }
+              />
+            ))}
+            <SummaryRow
+              label="Total cobrado"
+              value={formatUsd(totalToCharge)}
+            />
+            <SummaryRow
+              label="Facturar a"
+              value={`${billingName || "—"} · ${billingNit || "—"}`}
+            />
+          </SummarySection>
+        </div>
       </div>
     </div>
   );

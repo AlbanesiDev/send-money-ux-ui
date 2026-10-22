@@ -23,6 +23,9 @@ importers:
       cn:
         specifier: ^0.4.0
         version: 0.4.0
+      full-name-generator:
+        specifier: ^1.1.0
+        version: 1.1.0
       lucide-react:
         specifier: ^1.16.0
         version: 1.55.0(@types/react@19.3.0)(react@19.3.0)
@@ -1041,6 +1044,9 @@ packages:
   fs-extra@11.4.1:
     resolution: {integrity: sha512-KYAb4c9BJQI6QqGKthV68OHe0badztdXJWKo0WtBA9IuCFPTKvE5ZdUBglP833aMjhaSPNO4A5j/EkzZtGlKjA==}
     engines: {node: '>=14.14'}
+
+  full-name-generator@1.1.0:
+    resolution: {integrity: sha512-UHlkj11rum69TgnA65C4Zt95cr9CMYCpW7ZphjH149ZUt3JD6yZ7orcJZ+WQptJ+9/R60FueDU/wQtlXejsExA==}
 
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
@@ -2847,6 +2853,8 @@ snapshots:
       graceful-fs: 4.2.11
       jsonfile: 6.2.1
       universalify: 2.0.1
+
+  full-name-generator@1.1.0: {}
 
   function-bind@1.1.2: {}
 

@@ -148,22 +148,26 @@ html {
   --private-status-ring: #d9f4e3;
   --private-chrome: #0f172a;
   --private-chrome-glow-opacity: 0;
+  --private-chrome-glow-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.1), inset 1px 0 0 rgb(255 255 255 / 0.1),
+    inset 0 -1px 0 rgb(255 255 255 / 0.1),
+    inset -1px 0 0 rgb(255 255 255 / 0.1), inset 0 0 2px rgb(255 255 255 / 0.1);
   --private-content-radius: 1.25rem;
 }
 
 .dark {
   color-scheme: dark;
-  --background: #1f3056;
+  --background: #1e293b;
   --foreground: #f1f5f9;
-  --card: #1e293b;
+  --card: #0b1224;
   --card-foreground: #f1f5f9;
-  --popover: #1e293b;
+  --popover: #0b1224;
   --popover-foreground: #f1f5f9;
   --primary: #7b93d9;
   --primary-foreground: #0f172a;
   --secondary: #334155;
   --secondary-foreground: #f1f5f9;
-  --muted: #0b1224;
+  --muted: #1e293b;
   --muted-foreground: #94a3b8;
   --accent: #1e2a4a;
   --accent-foreground: #a9b9e0;
@@ -181,10 +185,10 @@ html {
   --warning-soft: rgb(120 53 15 / 0.35);
   --warning-border: rgb(217 119 6 / 0.45);
   --warning-foreground: #fde68a;
-  --party-sender: #1e293b;
+  --party-sender: #0b1224;
   --party-sender-border: #7b93d9;
   --party-sender-fg: #c5d0ec;
-  --party-beneficiary: #1e293b;
+  --party-beneficiary: #0b1224;
   --party-beneficiary-border: #4ade80;
   --party-beneficiary-fg: #86efac;
   --summary: #fbbf24;
@@ -216,17 +220,17 @@ html {
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
     color-scheme: dark;
-    --background: #111827;
+    --background: #1e293b;
     --foreground: #f1f5f9;
-    --card: #1e293b;
+    --card: #0b1224;
     --card-foreground: #f1f5f9;
-    --popover: #1e293b;
+    --popover: #0b1224;
     --popover-foreground: #f1f5f9;
     --primary: #7b93d9;
     --primary-foreground: #0f172a;
     --secondary: #334155;
     --secondary-foreground: #f1f5f9;
-    --muted: #0b1224;
+    --muted: #1e293b;
     --muted-foreground: #94a3b8;
     --accent: #1e2a4a;
     --accent-foreground: #a9b9e0;
@@ -244,10 +248,10 @@ html {
     --warning-soft: rgb(120 53 15 / 0.35);
     --warning-border: rgb(217 119 6 / 0.45);
     --warning-foreground: #fde68a;
-    --party-sender: #1e293b;
+    --party-sender: #0b1224;
     --party-sender-border: #7b93d9;
     --party-sender-fg: #c5d0ec;
-    --party-beneficiary: #1e293b;
+    --party-beneficiary: #0b1224;
     --party-beneficiary-border: #4ade80;
     --party-beneficiary-fg: #86efac;
     --summary: #fbbf24;
@@ -376,10 +380,7 @@ html {
   z-index: 2;
   border-top-left-radius: var(--private-content-radius);
   opacity: var(--private-chrome-glow-opacity);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.1),
-    inset 1px 0 0 rgb(255 255 255 / 0.1),
-    inset 0 0 2px rgb(255 255 255 / 0.1);
+  box-shadow: var(--private-chrome-glow-shadow);
 }
 
 .private-nav-button {
@@ -585,8 +586,11 @@ html {
   color: var(--card-foreground);
 }
 
-.dark .card {
-  box-shadow: none;
+.dark .card,
+.dark .card-sm,
+.dark .card-glow {
+  border-color: transparent;
+  box-shadow: var(--private-chrome-glow-shadow);
 }
 
 @keyframes skeleton-shimmer {

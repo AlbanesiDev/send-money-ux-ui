@@ -81,16 +81,6 @@ export const AGENCY_CASH_BOB = 20000;
 export const AGENCY_CASH_USD = 3000;
 
 /** Pools de distractores para las preguntas de verificación. */
-export const VERIFICATION_DISTRACTOR_NAMES = [
-  "Mario Moreno",
-  "Lucía Fernández Vargas",
-  "Pedro Gómez",
-  "Rosa Díaz",
-  "Ana María Quispe",
-  "Carlos Alberto Rojas",
-  "María Fernanda López",
-];
-
 export const VERIFICATION_DISTRACTOR_COUNTRIES = [
   "Spain",
   "United States",

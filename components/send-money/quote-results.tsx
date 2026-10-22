@@ -1,3 +1,8 @@
+import {
+  quoteAmountReceived,
+  quoteCharges,
+  quotePromoDiscount,
+} from "./provider-flows";
 import type { ProviderQuote } from "./types";
 
 const usdFormatter = new Intl.NumberFormat("es-ES", {
@@ -8,10 +13,6 @@ const usdFormatter = new Intl.NumberFormat("es-ES", {
 
 function formatUsd(value: number) {
   return `${usdFormatter.format(value)} USD`;
-}
-
-function amountReceived(quote: ProviderQuote) {
-  return quote.amount - quote.fee - quote.tax - quote.itf;
 }
 
 export function QuoteResults({
@@ -26,13 +27,14 @@ export function QuoteResults({
   loading: boolean;
 }) {
   const sortedQuotes = [...quotes].sort(
-    (a, b) => amountReceived(b) - amountReceived(a),
+    (a, b) => quoteAmountReceived(b) - quoteAmountReceived(a),
   );
   const bestQuote = sortedQuotes[0];
   const nextQuote = sortedQuotes[1];
-  const bestReceived = bestQuote ? amountReceived(bestQuote) : 0;
+  const bestReceived = bestQuote ? quoteAmountReceived(bestQuote) : 0;
   const savingsVsNext =
-    bestQuote && nextQuote ? bestReceived - amountReceived(nextQuote) : 0;
+    bestQuote && nextQuote ? bestReceived - quoteAmountReceived(nextQuote) : 0;
+  const anyPromotion = quotes.some((quote) => quote.promotion !== null);
 
   return (
     <div className="flex flex-row items-stretch gap-2 pt-3">
@@ -40,8 +42,8 @@ export function QuoteResults({
         const selected = !loading && selectedProvider === quote.provider;
         const isBestPrice =
           bestQuote !== undefined && quote.provider === bestQuote.provider;
-        const received = amountReceived(quote);
-        const chargesSubtotal = quote.fee + quote.tax + quote.itf;
+        const received = quoteAmountReceived(quote);
+        const chargesSubtotal = quoteCharges(quote);
         const lessThanBest = bestReceived - received;
 
         let comparison: string | null = null;
@@ -140,6 +142,23 @@ export function QuoteResults({
                     <dd className="font-semibold tabular-nums text-foreground">
                       {formatUsd(quote.itf)}
                     </dd>
+                  )}
+                </div>
+              )}
+              {anyPromotion && (
+                <div className="flex justify-between gap-3">
+                  <dt className="text-muted-foreground">Descuento</dt>
+                  {loading ? (
+                    <dd className="skeleton h-4 w-16 rounded" />
+                  ) : quote.promotion ? (
+                    <dd
+                      className="font-semibold tabular-nums text-success"
+                      title={quote.promotion.description}
+                    >
+                      −{formatUsd(quotePromoDiscount(quote))}
+                    </dd>
+                  ) : (
+                    <dd className="text-muted-foreground">—</dd>
                   )}
                 </div>
               )}

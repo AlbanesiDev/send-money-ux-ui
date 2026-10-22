@@ -9,6 +9,7 @@ import {
   TERRAPAY_BANK_OPTIONS,
   TERRAPAY_WALLET_OPTIONS,
 } from "@/components/send-money/provider-flows";
+import { PromoCodeField } from "@/components/send-money/promo-code-field";
 import { QuoteResults } from "@/components/send-money/quote-results";
 import type {
   DeliveryTypeId,
@@ -103,6 +104,9 @@ export type QuoteStepProps = {
   showMoneygramCompany: boolean;
   showTerraPayBank: boolean;
   showTerraPayWallet: boolean;
+  showPromoCode: boolean;
+  promoCode: string;
+  onPromoCodeChange: (code: string) => void;
 };
 
 export function QuoteStep({
@@ -164,6 +168,9 @@ export function QuoteStep({
   showMoneygramCompany,
   showTerraPayBank,
   showTerraPayWallet,
+  showPromoCode,
+  promoCode,
+  onPromoCodeChange,
 }: QuoteStepProps) {
   const selectedQuote = providerQuotes.find(
     (item) => item.provider === selectedProvider,
@@ -549,6 +556,18 @@ export function QuoteStep({
                 onChange={onTerraPayAliasChange}
               />
             </>
+          )}
+          {showPromoCode && (
+            <div className="flex flex-col sm:col-span-2">
+              <PromoCodeField
+                promoCode={promoCode}
+                onPromoCodeChange={onPromoCodeChange}
+                quoteLoading={quoteLoading}
+                quotesReady={quotesReady}
+                providerQuotes={providerQuotes}
+                formatUsd={formatUsd}
+              />
+            </div>
           )}
         </div>
       </div>

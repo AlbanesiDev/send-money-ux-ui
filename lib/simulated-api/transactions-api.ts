@@ -37,6 +37,9 @@ export type CreateTransactionInput = {
   terraPayWallet: string;
   terraPayAlias: string;
   amount: number;
+  /** Empty when no promotion was applied. */
+  promoCode: string;
+  promoDiscount: number;
   paymentMethod: string;
   service: string;
 };
@@ -190,6 +193,9 @@ export async function createCompletedTransaction(
     amount: input.amount,
     beneficiaryIndex: input.beneficiaryIndex,
     paymentMethod: input.paymentMethod,
+    ...(input.promoCode
+      ? { promoCode: input.promoCode, promoDiscount: input.promoDiscount }
+      : {}),
   };
 
   await writeTransaction(stored);

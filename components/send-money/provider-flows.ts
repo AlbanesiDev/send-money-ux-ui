@@ -1,4 +1,8 @@
 import providersCatalogJson from "@/public/catalogs/catalog-providers.json";
+import {
+  PROMO_CODE_PROVIDERS,
+  resolveQuotePromotion,
+} from "@/lib/simulated-api/promotions-api";
 import type {
   CatalogProvider,
   DeliveryTypeId,
@@ -132,9 +136,30 @@ export function buildActiveSteps(
   return [...BASE_STEPS, ...providerLabels];
 }
 
+export function quotePromoDiscount(quote: ProviderQuote): number {
+  return quote.promotion ? quote.promotion.discount : 0;
+}
+
+/** Fee + IVA + ITF the customer pays, after the promo discount. */
+export function quoteCharges(quote: ProviderQuote): number {
+  return quote.fee - quotePromoDiscount(quote) + quote.tax + quote.itf;
+}
+
+export function quoteAmountReceived(quote: ProviderQuote): number {
+  return quote.amount - quoteCharges(quote);
+}
+
+/** Whether any provider quoting this delivery type accepts a promo code. */
+export function promoCodeAvailable(deliveryType: DeliveryTypeId): boolean {
+  return providersForDeliveryType(deliveryType).some((provider) =>
+    PROMO_CODE_PROVIDERS.includes(provider),
+  );
+}
+
 export function buildProviderQuotes(
   amount: number,
   deliveryType: DeliveryTypeId,
+  promoCode = "",
 ): ProviderQuote[] {
   let feeMultiplier = 1;
   let ivaMultiplier = 1;
@@ -195,6 +220,7 @@ export function buildProviderQuotes(
       logo: item.logo,
       amount,
       deliveryType,
+      promotion: resolveQuotePromotion(item.code, promoCode, fee, amount),
     };
   });
 }

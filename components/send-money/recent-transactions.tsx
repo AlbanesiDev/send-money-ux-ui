@@ -47,6 +47,8 @@ export type RecentTransaction = {
   terraPayWallet?: string;
   terraPayAlias?: string;
   amount: number;
+  promoCode?: string;
+  promoDiscount?: number;
   beneficiaryIndex: number;
   beneficiaryId?: string;
   customerId?: string;

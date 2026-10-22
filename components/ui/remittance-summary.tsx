@@ -1,4 +1,8 @@
-import { deliveryTypeLabel } from "@/components/send-money/provider-flows";
+import {
+  deliveryTypeLabel,
+  quoteAmountReceived,
+  quoteCharges,
+} from "@/components/send-money/provider-flows";
 import type {
   DeliveryTypeId,
   ProviderId,
@@ -31,6 +35,9 @@ export function RemittanceSummary({
   const fee = quote ? quote.fee : 0;
   const tax = quote ? quote.tax : 0;
   const itf = quote ? quote.itf : 0;
+  const promotion = quote ? quote.promotion : null;
+  const charges = quote ? quoteCharges(quote) : 0;
+  const received = quote ? quoteAmountReceived(quote) : 0;
   const rows = [
     { label: "Dinero a enviar", value: amount },
     { label: "Cargo de envío", value: fee },
@@ -78,16 +85,29 @@ export function RemittanceSummary({
             <dd className={valueClass}>{formatUsd(row.value)}</dd>
           </div>
         ))}
+        {promotion && (
+          <div className="flex justify-between gap-4">
+            <dt className="text-muted-foreground">
+              Descuento promocional
+              <span className="ml-1.5 rounded bg-success-soft px-1 text-[0.6875rem] font-bold text-success">
+                {promotion.code}
+              </span>
+            </dt>
+            <dd className={`${valueClass} text-success`}>
+              −{formatUsd(promotion.discount)}
+            </dd>
+          </div>
+        )}
         <div className="flex justify-between">
           <dt className="text-muted-foreground">Subtotal cargos</dt>
-          <dd className={valueClass}>{formatUsd(fee + tax + itf)}</dd>
+          <dd className={valueClass}>{formatUsd(charges)}</dd>
         </div>
         <div className="mt-2.5 flex justify-between border-t border-border pt-2.5 text-base">
           <dt className="font-bold text-foreground">Recibe el beneficiario</dt>
           <dd
             className={`font-bold tabular-nums text-summary-fg ${loading ? "animate-pulse opacity-40" : ""}`}
           >
-            {formatUsd(amount - fee - tax - itf)}
+            {formatUsd(received)}
           </dd>
         </div>
       </dl>

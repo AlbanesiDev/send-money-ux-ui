@@ -14,6 +14,15 @@ export type CatalogProvider = {
   sendingTypes: DeliveryTypeId[];
 };
 
+/** Promotion the provider applied to the quote for the entered promo code. */
+export type QuotePromotion = {
+  code: string;
+  name: string;
+  description: string;
+  /** Discount applied to the provider fee, in USD. */
+  discount: number;
+};
+
 export type ProviderQuote = {
   provider: ProviderId;
   label: string;
@@ -25,6 +34,7 @@ export type ProviderQuote = {
   rate: number;
   deliveryType: DeliveryTypeId;
   logo: string;
+  promotion: QuotePromotion | null;
 };
 
 export type ProviderStepKey = "parties" | "review";

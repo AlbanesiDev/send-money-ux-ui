@@ -22,6 +22,8 @@ import {
   deliveryTypeLabel,
   getStepKey,
   PARTIES_STEP_LABEL,
+  promoCodeAvailable,
+  quoteAmountReceived,
   quoteFieldVisibility,
 } from "@/components/send-money/provider-flows";
 import type { GuestClientLookupStatus } from "@/components/send-money/guest-client-lookup-notice";
@@ -237,6 +239,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const [terraPayAlias, setTerraPayAlias] = useState("");
   const [sendAmount, setSendAmount] = useState("");
   const [amountExceedsBalance, setAmountExceedsBalance] = useState(false);
+  const [promoCode, setPromoCode] = useState("");
   const deliveryTypeRef = useRef<HTMLButtonElement>(null);
   const wuServiceRef = useRef<HTMLButtonElement>(null);
   const moneygramCompanyRef = useRef<HTMLButtonElement>(null);
@@ -251,6 +254,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
   const showMoneygramCompany = Boolean(quoteFields?.showMoneygramCompany);
   const showTerraPayBank = Boolean(quoteFields?.showTerraPayBank);
   const showTerraPayWallet = Boolean(quoteFields?.showTerraPayWallet);
+  const showPromoCode =
+    deliveryType !== "" && promoCodeAvailable(deliveryType);
   const amountUnlocked = deliveryType !== "";
 
   const clearDeliveryExtras = () => {
@@ -360,10 +365,9 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setStep((current) => Math.min(current, 2));
     window.setTimeout(() => {
       if (requestId !== quoteRequestRef.current) return;
-      const quotes = buildProviderQuotes(amount, type);
+      const quotes = buildProviderQuotes(amount, type, promoCode);
       const cheapest = [...quotes].sort(
-        (a, b) =>
-          b.amount - b.fee - b.tax - b.itf - (a.amount - a.fee - a.tax - a.itf),
+        (a, b) => quoteAmountReceived(b) - quoteAmountReceived(a),
       )[0];
       // Al repetir una transacción se mantiene su proveedor.
       const preferredProviderId = override?.provider ?? repeatProvider;
@@ -754,6 +758,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     setDeliveryType("");
     clearDeliveryExtras();
     clearAmount();
+    setPromoCode("");
     setSelectedBeneficiary(-1);
     setGuestBeneficiaryChosen(false);
     if (customer !== null) {
@@ -1239,6 +1244,8 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
         terraPayWallet,
         terraPayAlias,
         amount: quote.amount,
+        promoCode: quote.promotion ? quote.promotion.code : "",
+        promoDiscount: quote.promotion ? quote.promotion.discount : 0,
         paymentMethod,
         service: deliveryTypeLabel(deliveryType),
       });
@@ -1261,6 +1268,7 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
     isRepeatFlowRef.current = false;
     setRepeatProvider(null);
     clearAmount();
+    setPromoCode("");
     setPaymentMethod("Pago en efectivo");
     setPrimaryCurrency("USD");
     setExtraPayments([]);
@@ -1422,16 +1430,12 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
       >
         {processing ? (
           <RemittanceProcessing
-            amountReceived={formatUsd(
-              quote ? quote.amount - quote.fee - quote.tax - quote.itf : 0,
-            )}
+            amountReceived={formatUsd(quote ? quoteAmountReceived(quote) : 0)}
           />
         ) : sent ? (
           <RemittanceSuccess
             operationNumber={completedOperationNumber}
-            amountReceived={formatUsd(
-              quote ? quote.amount - quote.fee - quote.tax - quote.itf : 0,
-            )}
+            amountReceived={formatUsd(quote ? quoteAmountReceived(quote) : 0)}
             onNewTransaction={onReset}
             onRepeatClient={startAnotherQuote}
             onSameBeneficiary={startAnotherQuote}
@@ -1571,6 +1575,12 @@ function TransactionFlow({ onReset }: { onReset: () => void }) {
                       showMoneygramCompany={showMoneygramCompany}
                       showTerraPayBank={showTerraPayBank}
                       showTerraPayWallet={showTerraPayWallet}
+                      showPromoCode={showPromoCode}
+                      promoCode={promoCode}
+                      onPromoCodeChange={(code) => {
+                        setPromoCode(code);
+                        resetQuoteSelection();
+                      }}
                     />
                   </div>
                   {summaryAside}

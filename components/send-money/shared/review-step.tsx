@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
 import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
-import { deliveryTypeLabel } from "../provider-flows";
+import { deliveryTypeLabel, quoteAmountReceived } from "../provider-flows";
 import type { PaymentLine, ProviderId, ProviderQuote } from "../types";
 
 function SummarySection({
@@ -530,11 +530,15 @@ export function ReviewStep({
             {provider === "TERRAPAY" && (
               <SummaryRow label="ITF" value={formatUsd(quote.itf)} />
             )}
+            {quote.promotion && (
+              <SummaryRow
+                label={`Descuento (${quote.promotion.code})`}
+                value={`−${formatUsd(quote.promotion.discount)}`}
+              />
+            )}
             <SummaryRow
               label="Recibe el beneficiario"
-              value={formatUsd(
-                quote.amount - quote.fee - quote.tax - quote.itf,
-              )}
+              value={formatUsd(quoteAmountReceived(quote))}
               accent
             />
             <SummaryRow

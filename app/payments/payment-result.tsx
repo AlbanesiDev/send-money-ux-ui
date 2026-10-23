@@ -36,10 +36,10 @@ export function PaymentSummaryAside({
   const deliverAmount = resolvePayoutAmount(operation.amount, payoutCurrency);
   return (
     <aside className="sticky top-0 flex flex-col gap-3 self-start">
-      <div className="rounded-xl border border-border bg-card p-4">
+      <div className="rounded-xl border border-border border-l-4 border-l-summary-border bg-card p-4 shadow-sm">
         <div className="flex items-center justify-between border-b border-border pb-2.5">
-          <h2 className="font-bold text-foreground">Detalle del pago</h2>
-          <span className="rounded-full bg-accent px-2 py-0.5 text-[0.6875rem] font-bold text-brand-strong">
+          <h2 className="font-bold text-summary-fg">Detalle del pago</h2>
+          <span className="rounded-full bg-summary-soft px-2 py-0.5 text-[0.6875rem] font-bold text-summary-fg">
             {operation.provider}
           </span>
         </div>

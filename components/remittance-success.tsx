@@ -150,7 +150,7 @@ export function RemittanceSuccess({
         <div className="mt-7 flex flex-wrap justify-center gap-3">
           <button type="button" className={secondaryButton}>
             <Eye className="h-4 w-4" aria-hidden="true" />
-            Ver comprobantes
+            Ver comprobante
           </button>
           <button
             type="button"
@@ -158,11 +158,11 @@ export function RemittanceSuccess({
             className={secondaryButton}
           >
             <Printer className="h-4 w-4" aria-hidden="true" />
-            Imprimir
+            Imprimir comprobante
           </button>
           <button type="button" className={secondaryButton}>
             <Download className="h-4 w-4" aria-hidden="true" />
-            Descargar
+            Descargar comprobante
           </button>
         </div>
         <button type="button" className={`mt-4 ${secondaryButton}`}>

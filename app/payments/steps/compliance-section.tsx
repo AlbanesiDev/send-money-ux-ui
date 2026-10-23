@@ -1,6 +1,7 @@
 "use client";
 
 import { ShieldCheckIcon } from "lucide-react";
+import { DateField } from "@/components/send-money/date-field";
 import {
   CheckOption,
   FieldGrid,
@@ -106,7 +107,11 @@ const ADDITIONAL_GROUPS: { title: string; fields: UifField[] }[] = [
 ];
 
 const PEP_FIELDS: UifField[] = ["publicOffice", "nit"];
-const PEP_RELATED_FIELDS: UifField[] = ["pepRelation", "pepName", "pepPosition"];
+const PEP_RELATED_FIELDS: UifField[] = [
+  "pepRelation",
+  "pepName",
+  "pepPosition",
+];
 const UNUSUAL_FIELDS: UifField[] = ["unusualReason"];
 
 export function ComplianceSection({
@@ -141,17 +146,38 @@ export function ComplianceSection({
     const config = UIF_FIELDS[field];
     const hint =
       knownFields.has(field) && form[field] ? "De la ficha" : undefined;
-    return config.options ? (
-      <SelectInput
-        key={field}
-        label={config.label}
-        value={form[field]}
-        options={config.options}
-        onChange={set(field)}
-        required
-        hint={hint}
-      />
-    ) : (
+    if (config.options) {
+      return (
+        <SelectInput
+          key={field}
+          label={config.label}
+          value={form[field]}
+          options={config.options}
+          onChange={set(field)}
+          required
+          hint={hint}
+        />
+      );
+    }
+    if (config.type === "date") {
+      const required = field !== "nit";
+      let error: string | undefined;
+      if (showErrors && required && form[field].trim() === "") {
+        error = "Este campo es requerido";
+      }
+      return (
+        <DateField
+          key={field}
+          label={config.label}
+          value={form[field]}
+          onChange={set(field)}
+          required={required}
+          disableFutureDates
+          error={error}
+        />
+      );
+    }
+    return (
       <TextInput
         key={field}
         label={config.label}

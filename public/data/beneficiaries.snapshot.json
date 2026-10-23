@@ -70,5 +70,23 @@
     "address": "Calle Sucre 50",
     "phone": "765432109",
     "email": "c***@example.com"
+  },
+  {
+    "id": "ben-eliana-3344556",
+    "customerId": "eliana-antezana",
+    "firstName": "Sofía",
+    "middleName": "",
+    "lastName": "Mendoza",
+    "secondLastName": "",
+    "name": "Sofía Mendoza",
+    "documentType": "Cédula",
+    "document": "3344556",
+    "nationality": "Bolivia",
+    "state": "Santa Cruz",
+    "city": "Santa Cruz de la Sierra",
+    "street": "Av. San Martín",
+    "address": "Av. San Martín 200",
+    "phone": "77889900",
+    "email": "sofia.mendoza@example.com"
   }
 ]

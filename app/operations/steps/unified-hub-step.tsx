@@ -1,80 +1,662 @@
 "use client";
 
+import { STATUS } from "@/components/async-data-handler";
 import {
-  IdentifySenderStep,
-  type IdentifySenderStepProps,
-} from "@/app/remittences/steps/identify-sender-step";
+  RecentTransactions,
+  type RecentTransaction,
+} from "@/components/send-money/recent-transactions";
+import type { Beneficiary, Customer } from "@/components/send-money/types";
+import { CountryFlag } from "@/components/ui/country-flag";
+import { SearchableSelect } from "@/components/ui/searchable-select";
 import {
-  SearchOperationStep,
-  type OperationSearchResult,
-} from "@/app/payments/steps/search-operation-step";
-import type { PaymentOperation } from "@/app/payments/payment-data";
+  formatMoney,
+  formatOperationNumber,
+  loadPaymentOperationByNumber,
+  maskName,
+  type PaymentOperation,
+} from "@/app/payments/payment-data";
+import { Notice } from "@/app/payments/steps/search-operation-step";
+import type { ClientSearchResult } from "@/app/remittences/steps";
+import { ClientProfileDialog } from "@/app/remittences/dialogs";
+import documentTypesCatalog from "@/public/catalogs/catalog-document-types.json";
+import customersSnapshot from "@/public/data/customers.snapshot.json";
+import { findCustomerByDocument } from "@/lib/simulated-api/customers-api";
+import {
+  ArrowRightIcon,
+  CircleAlertIcon,
+  CircleCheckIcon,
+  Loader2Icon,
+  SearchIcon,
+  ShieldAlertIcon,
+  UserIcon,
+  XIcon,
+} from "lucide-react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type RefObject,
+} from "react";
+
+const DOCUMENT_TYPE_OPTIONS = documentTypesCatalog.map((item) => item.name);
+const DEMO_CUSTOMERS = customersSnapshot as Customer[];
+const SEARCH_ERROR_DOCUMENT = "0000000";
+const DEMO_NEW_CLIENT_DOCUMENT = "1234567";
+const OPERATION_MIN_LENGTH = 8;
+const OPERATION_MAX_LENGTH = 12;
+const DEMO_OPERATIONS = [
+  { number: "12030070712", label: "disponible" },
+  { number: "12030070901", label: "cliente nuevo" },
+  { number: "12030070431", label: "en revisión" },
+  { number: "12030070592", label: "ya pagada" },
+] as const;
+
+export type UnifiedSearchHit =
+  | { kind: "client"; result: Exclude<ClientSearchResult, null> }
+  | { kind: "operation"; operation: PaymentOperation }
+  | { kind: "operationNotFound" }
+  | null;
 
 export type UnifiedHubStepProps = {
-  remittance: IdentifySenderStepProps;
-  operationNumber: string;
-  onOperationNumberChange: (value: string) => void;
-  operationResult: OperationSearchResult;
-  onOperationResultChange: (result: OperationSearchResult) => void;
+  documentType: string;
+  onDocumentTypeChange: (value: string) => void;
+  query: string;
+  onQueryChange: (value: string) => void;
+  hit: UnifiedSearchHit;
+  onHitChange: (hit: UnifiedSearchHit) => void;
+  onContinueRemittance: () => void;
+  onGuestContinue: () => void;
   onStartPayment: (operation: PaymentOperation) => void;
+  continueRef: RefObject<HTMLButtonElement | null>;
+  customer: Customer | null;
+  recentTransactions: RecentTransaction[];
+  beneficiaries: Beneficiary[];
+  selectedTransactionId: string | null;
+  formatUsd: (value: number) => string;
+  onRepeatTransaction: (transaction: RecentTransaction) => void;
+  onClearRepeatedTransaction: () => void;
 };
 
 export function UnifiedHubStep({
-  remittance,
-  operationNumber,
-  onOperationNumberChange,
-  operationResult,
-  onOperationResultChange,
+  documentType,
+  onDocumentTypeChange,
+  query,
+  onQueryChange,
+  hit,
+  onHitChange,
+  onContinueRemittance,
+  onGuestContinue,
   onStartPayment,
+  continueRef,
+  customer,
+  recentTransactions,
+  beneficiaries,
+  selectedTransactionId,
+  formatUsd,
+  onRepeatTransaction,
+  onClearRepeatedTransaction,
 }: UnifiedHubStepProps) {
+  const [loading, setLoading] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [transactionsStatus, setTransactionsStatus] = useState<STATUS>(() => {
+    if (hit?.kind === "client" && hit.result === "success") {
+      return STATUS.SUCCESS;
+    }
+    if (hit !== null) return STATUS.EMPTY;
+    return STATUS.IDLE;
+  });
+  const documentTypeRef = useRef<HTMLButtonElement>(null);
+  const queryInputRef = useRef<HTMLInputElement>(null);
+  const startPaymentRef = useRef<HTMLButtonElement>(null);
+  const searchTimeoutRef = useRef<number | null>(null);
+  const transactionsTimeoutRef = useRef<number | null>(null);
+
+  const looksLikeOperation = query.length >= OPERATION_MIN_LENGTH;
+  const clientResult = hit?.kind === "client" ? hit.result : null;
+  const operation = hit?.kind === "operation" ? hit.operation : null;
+  const displayValue = looksLikeOperation
+    ? formatOperationNumber(query)
+    : query;
+
+  function clearSearchTimers() {
+    if (searchTimeoutRef.current !== null) {
+      window.clearTimeout(searchTimeoutRef.current);
+      searchTimeoutRef.current = null;
+    }
+    if (transactionsTimeoutRef.current !== null) {
+      window.clearTimeout(transactionsTimeoutRef.current);
+      transactionsTimeoutRef.current = null;
+    }
+  }
+
+  function trapDocumentFocus(event: ReactKeyboardEvent<HTMLInputElement>) {
+    if (event.key !== "Tab") return;
+    const form = event.currentTarget.form;
+    if (!form) return;
+    const focusable = Array.from(
+      form.querySelectorAll<HTMLElement>(
+        'button, input, select, [tabindex]:not([tabindex="-1"])',
+      ),
+    ).filter((element) => !element.hasAttribute("disabled"));
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first?.focus();
+    }
+  }
+
+  function fillDemoQuery(value: string) {
+    clearSearchTimers();
+    onQueryChange(value);
+    onClearRepeatedTransaction();
+    onHitChange(null);
+    setLoading(false);
+    setTransactionsStatus(STATUS.IDLE);
+    queryInputRef.current?.focus();
+  }
+
+  function searchClient(value: string) {
+    setLoading(true);
+    setTransactionsStatus(STATUS.LOADING);
+    onHitChange(null);
+
+    if (value === SEARCH_ERROR_DOCUMENT) {
+      searchTimeoutRef.current = window.setTimeout(() => {
+        onHitChange({ kind: "client", result: "error" });
+        setLoading(false);
+        setTransactionsStatus(STATUS.EMPTY);
+      }, 550);
+      return;
+    }
+
+    void findCustomerByDocument(value).then((found) => {
+      let nextResult: Exclude<ClientSearchResult, null>;
+      if (found === null) {
+        nextResult = "empty";
+      } else if (found.status === "blocked") {
+        nextResult = "blocked";
+      } else {
+        nextResult = "success";
+      }
+      onHitChange({ kind: "client", result: nextResult });
+      setLoading(false);
+      if (nextResult === "success") {
+        transactionsTimeoutRef.current = window.setTimeout(() => {
+          setTransactionsStatus(STATUS.SUCCESS);
+        }, 900);
+      } else {
+        setTransactionsStatus(STATUS.EMPTY);
+      }
+    });
+  }
+
+  function searchOperation(value: string) {
+    setLoading(true);
+    setTransactionsStatus(STATUS.EMPTY);
+    onHitChange(null);
+    void loadPaymentOperationByNumber(value)
+      .then((found) => {
+        if (found === null) {
+          onHitChange({ kind: "operationNotFound" });
+        } else {
+          onHitChange({ kind: "operation", operation: found });
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        onHitChange({ kind: "operationNotFound" });
+        setLoading(false);
+      });
+  }
+
+  function search() {
+    const value = query.trim();
+    if (!value || loading) return;
+    clearSearchTimers();
+    if (value.length >= OPERATION_MIN_LENGTH) {
+      searchOperation(value);
+      return;
+    }
+    searchClient(value);
+  }
+
+  useEffect(() => {
+    if (clientResult !== "success" && clientResult !== "empty") return;
+    window.requestAnimationFrame(() => {
+      continueRef.current?.focus();
+    });
+  }, [clientResult, continueRef]);
+
+  useEffect(() => {
+    if (operation?.status !== "available") return;
+    window.requestAnimationFrame(() => {
+      startPaymentRef.current?.focus();
+    });
+  }, [operation]);
+
+  useEffect(() => {
+    return () => {
+      clearSearchTimers();
+    };
+  }, []);
+
+  let searchButtonLabel = "Buscar";
+  if (loading && looksLikeOperation) {
+    searchButtonLabel = "Buscando operación…";
+  } else if (loading) {
+    searchButtonLabel = "Buscando cliente…";
+  }
+
   return (
-    <div className="relative flex min-h-0 flex-1 flex-col overflow-y-auto">
-      <div className="mx-auto w-full max-w-7xl px-4 pb-8 pt-10 sm:px-6">
-        <div className="mb-8 select-none">
-          <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-blue-600">
-            Operaciones
-          </p>
-          <h1 className="text-xl font-bold tracking-[-0.02em] text-foreground">
-            Envío y pago de remesas
-          </h1>
-          <p className="mt-1 text-sm leading-5 text-muted-foreground">
-            Identifica al remitente para un envío, o busca el número de
-            operación para cobrar una remesa.
-          </p>
-        </div>
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
-          <section className="min-w-0 rounded-xl border border-border bg-card p-5 sm:p-6">
-            <div className="mb-5 select-none">
-              <h2 className="text-base font-bold tracking-[-0.02em] text-foreground">
-                Envío
-              </h2>
-              <p className="mt-1 text-sm leading-5 text-muted-foreground">
-                Busca al cliente por documento para cotizar y enviar.
-              </p>
+    <>
+      <div className="mx-auto grid w-full max-w-280 grid-cols-1 items-start gap-16 px-4 pt-12 sm:px-6 lg:grid-cols-2 min-h-148">
+        <div className="flex flex-col h-full">
+          <div className="mb-6 select-none">
+            <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-blue-600">
+              Operaciones
+            </p>
+            <h1 className="text-xl font-bold tracking-[-0.02em] text-foreground">
+              Envío y pago de remesas
+            </h1>
+            <p className="mt-1 text-sm leading-5 text-muted-foreground">
+              Busca por documento del remitente para enviar, o por PIN / MTCN
+              para cobrar.
+            </p>
+          </div>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              search();
+            }}
+            className="space-y-3"
+          >
+            {!looksLikeOperation && (
+              <div className="block">
+                <span className="mb-1 block text-sm font-semibold text-foreground select-none">
+                  Tipo de documento <span className="text-destructive">*</span>
+                </span>
+                <SearchableSelect
+                  fieldRef={documentTypeRef}
+                  nextRef={queryInputRef}
+                  label="Tipo de documento"
+                  hideLabel
+                  value={documentType}
+                  options={DOCUMENT_TYPE_OPTIONS}
+                  onChange={(value) => {
+                    const item = documentTypesCatalog.find(
+                      (entry) => entry.name === value,
+                    );
+                    if (!item) {
+                      throw new Error(`Unknown document type: ${value}`);
+                    }
+                    onDocumentTypeChange(item.name);
+                  }}
+                />
+              </div>
+            )}
+            <label className="block">
+              <span className="mb-1 block text-sm font-semibold text-foreground select-none">
+                Documento o PIN / MTCN{" "}
+                <span className="text-destructive">*</span>
+              </span>
+              <div className="relative">
+                <input
+                  ref={queryInputRef}
+                  autoFocus
+                  onKeyDown={(event) => {
+                    trapDocumentFocus(event);
+                    if (event.key !== "Enter") return;
+                    event.preventDefault();
+                    search();
+                  }}
+                  inputMode="numeric"
+                  value={displayValue}
+                  onChange={(event) => {
+                    const nextValue = event.target.value
+                      .replace(/\D/g, "")
+                      .slice(0, OPERATION_MAX_LENGTH);
+                    onQueryChange(nextValue);
+                    onClearRepeatedTransaction();
+                    clearSearchTimers();
+                    setLoading(false);
+                    setTransactionsStatus(STATUS.IDLE);
+                    onHitChange(null);
+                  }}
+                  placeholder="Documento (7 dígitos) o PIN / MTCN"
+                  className={`h-10 w-full rounded-lg border border-input bg-card px-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-brand focus:ring-4 focus:ring-brand/10 ${query ? "pr-9" : ""} ${looksLikeOperation ? "font-mono tracking-wider" : ""}`}
+                />
+                {query && (
+                  <button
+                    type="button"
+                    aria-label="Limpiar búsqueda"
+                    onClick={() => fillDemoQuery("")}
+                    className="absolute top-1/2 right-3 grid size-5 -translate-y-1/2 place-items-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-brand/20"
+                  >
+                    <XIcon className="h-3.5 w-3.5" />
+                  </button>
+                )}
+              </div>
+              <span className="mt-1 block text-xs text-muted-foreground select-none">
+                Hasta 7 dígitos busca cliente · 8 a 12 busca operación de pago.
+              </span>
+            </label>
+            <button
+              type="button"
+              disabled={!query || loading}
+              onClick={search}
+              className={`mt-1 h-10 w-full flex items-center justify-center gap-2 rounded-lg text-sm font-bold disabled:bg-secondary disabled:text-muted-foreground ${hit ? "border border-brand text-brand hover:bg-brand/10" : "bg-brand-strong text-white hover:bg-brand/90"}`}
+            >
+              {loading ? (
+                <Loader2Icon className="size-4 animate-spin" />
+              ) : (
+                <SearchIcon className="size-4" />
+              )}
+              {searchButtonLabel}
+            </button>
+            {hit === null && (
+              <>
+                <hr className="my-3 border-border" />
+                <button
+                  type="button"
+                  className="mt-1 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-summary-soft text-sm font-bold text-summary-fg hover:bg-summary/20 focus:outline-none focus:ring-4 focus:ring-summary/20"
+                  onClick={onGuestContinue}
+                >
+                  <ArrowRightIcon className="size-4" />
+                  Realizar cotización como invitado
+                </button>
+              </>
+            )}
+            <div
+              aria-live="polite"
+              className={hit ? "mt-2 border-t border-border pt-6" : undefined}
+            >
+              {clientResult === "success" && customer !== null && (
+                <div className="flex flex-col gap-4 rounded-xl border border-brand p-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex flex-col">
+                    <p className="text-xs font-bold uppercase text-success">
+                      ✓ Cliente encontrado · Envío
+                    </p>
+                    <h2 className="mt-2 text-xl font-bold">
+                      {customer.fullName}
+                    </h2>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      Documento: {query} · {customer.emailMasked}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap justify-end gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setProfileOpen(true)}
+                      className="flex h-10 items-center gap-2 rounded-lg border border-brand px-4 py-2 text-sm font-bold text-brand hover:bg-brand/10"
+                    >
+                      <UserIcon className="size-4" />
+                      Ver perfil
+                    </button>
+                  </div>
+                </div>
+              )}
+              {clientResult === "empty" && (
+                <div className="rounded-xl border border-[#eadcae] bg-[#fffaf0] p-5 dark:border-amber-700/50 dark:bg-amber-950/40">
+                  <p className="font-bold text-[#5d4b19] dark:text-amber-200">
+                    No encontramos un cliente asociado a este documento.
+                  </p>
+                  <p className="mt-1 text-sm text-[#8a7740] dark:text-amber-200/80">
+                    Puedes registrar un nuevo cliente para continuar el envío.
+                  </p>
+                </div>
+              )}
+              {clientResult === "error" && (
+                <div
+                  role="alert"
+                  className="rounded-xl border border-destructive/30 bg-destructive/10 p-5"
+                >
+                  <p className="font-bold text-destructive">
+                    No pudimos completar la búsqueda
+                  </p>
+                  <p className="mt-1 text-sm text-destructive/80">
+                    Ocurrió un problema temporal. Verifica tu conexión e
+                    inténtalo nuevamente.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={search}
+                    className="mt-4 rounded-lg bg-destructive px-4 py-2 text-sm font-bold text-white"
+                  >
+                    Reintentar
+                  </button>
+                </div>
+              )}
+              {clientResult === "blocked" && (
+                <div
+                  role="alert"
+                  className="rounded-xl border border-destructive/30 bg-destructive/10 p-5"
+                >
+                  <p className="font-bold text-destructive">
+                    Cliente bloqueado
+                  </p>
+                  <p className="mt-1 text-sm text-destructive/80">
+                    Este cliente no puede continuar con la transacción. Contacta
+                    a un supervisor si necesitas asistencia.
+                  </p>
+                </div>
+              )}
+              {hit?.kind === "operationNotFound" && (
+                <Notice
+                  tone="error"
+                  icon={<CircleAlertIcon className="size-5" />}
+                  title="No encontramos esa operación"
+                  text="Revisa el PIN / MTCN con el beneficiario. Si lo confirma, puede que la operación aún no esté disponible para pago."
+                />
+              )}
+              {operation && (
+                <article className="rounded-xl border border-border bg-card p-5 shadow-[0_12px_35px_rgba(24,37,73,0.06)]">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                        Pago · {operation.provider} ·{" "}
+                        {formatOperationNumber(operation.number)}
+                      </p>
+                      <p className="mt-1 text-3xl font-bold tabular-nums tracking-[-0.02em] text-foreground">
+                        {formatMoney(operation.amount, operation.currency)}
+                      </p>
+                    </div>
+                    <OperationStatusBadge status={operation.status} />
+                  </div>
+                  <dl className="mt-4 grid gap-3 border-t border-border pt-4 text-sm sm:grid-cols-3">
+                    <div>
+                      <dt className="text-xs text-muted-foreground">
+                        Beneficiario
+                      </dt>
+                      <dd className="font-semibold text-foreground">
+                        {operation.beneficiaryName}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs text-muted-foreground">
+                        Remitente
+                      </dt>
+                      <dd className="font-semibold text-foreground">
+                        {maskName(operation.senderName)}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs text-muted-foreground">Origen</dt>
+                      <dd className="flex items-center gap-2 font-semibold text-foreground">
+                        <CountryFlag country={operation.originCountry} />
+                        {operation.originCountry}
+                      </dd>
+                    </div>
+                  </dl>
+                  {operation.status === "available" && (
+                    <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
+                      <p className="text-xs text-muted-foreground">
+                        Siguiente: verificar al beneficiario con preguntas de
+                        seguridad.
+                      </p>
+                      <button
+                        ref={startPaymentRef}
+                        type="button"
+                        onClick={() => onStartPayment(operation)}
+                        className="flex items-center gap-2 rounded-lg bg-brand-strong px-5 py-2.5 text-sm font-bold text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/30"
+                      >
+                        Iniciar pago
+                        <ArrowRightIcon className="size-4" />
+                      </button>
+                    </div>
+                  )}
+                  {operation.status === "onHold" && (
+                    <div className="mt-5">
+                      <Notice
+                        tone="warning"
+                        icon={<ShieldAlertIcon className="size-5" />}
+                        title="Retenida por Cumplimiento"
+                        text="No se puede pagar por ahora. Indica al beneficiario que la operación está en revisión."
+                      />
+                    </div>
+                  )}
+                  {operation.status === "paid" && (
+                    <div className="mt-5">
+                      <Notice
+                        tone="error"
+                        icon={<CircleAlertIcon className="size-5" />}
+                        title="Esta operación ya fue pagada"
+                        text={`Pagada el ${operation.paidAt}. Si el beneficiario no la recibió, deriva el caso a Atención al Cliente.`}
+                      />
+                    </div>
+                  )}
+                </article>
+              )}
             </div>
-            <IdentifySenderStep {...remittance} embedded />
-          </section>
-          <section className="min-w-0 rounded-xl border border-border bg-card p-5 sm:p-6">
-            <div className="mb-5 select-none">
-              <h2 className="text-base font-bold tracking-[-0.02em] text-foreground">
-                Pago
-              </h2>
-              <p className="mt-1 text-sm leading-5 text-muted-foreground">
-                Ingresa el número de operación que compartió quien envió el
-                dinero.
-              </p>
-            </div>
-            <SearchOperationStep
-              embedded
-              operationNumber={operationNumber}
-              onOperationNumberChange={onOperationNumberChange}
-              result={operationResult}
-              onResultChange={onOperationResultChange}
-              onStart={onStartPayment}
-            />
-          </section>
+          </form>
+          {(clientResult === "success" || clientResult === "empty") && (
+            <button
+              type="button"
+              ref={continueRef}
+              onClick={onContinueRemittance}
+              className="flex h-12 w-full self-end mt-6 items-center justify-center gap-2 hover:bg-brand/95 rounded-lg bg-brand-strong px-6 py-2 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-brand/30"
+            >
+              Continuar envío
+              <ArrowRightIcon className="size-4" />
+            </button>
+          )}
         </div>
+        <aside className="self-start h-full">
+          <RecentTransactions
+            transactions={recentTransactions}
+            beneficiaries={beneficiaries}
+            selectedId={selectedTransactionId}
+            disabled={false}
+            status={transactionsStatus}
+            formatUsd={formatUsd}
+            onSelect={onRepeatTransaction}
+            onClear={onClearRepeatedTransaction}
+          />
+        </aside>
       </div>
-    </div>
+
+      <div className="absolute right-4 bottom-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
+        <span className="select-none">Demo:</span>
+        {DEMO_CUSTOMERS.flatMap((item) =>
+          item.documentNumbers.map((number) => (
+            <div key={number} className="flex gap-0.5">
+              <button
+                type="button"
+                onClick={() => fillDemoQuery(number)}
+                className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
+              >
+                {number}
+              </button>
+              <span className="select-none">
+                {item.status === "blocked"
+                  ? "(cliente bloqueado)"
+                  : "(cliente)"}
+              </span>
+            </div>
+          )),
+        )}
+        <div className="flex gap-0.5">
+          <button
+            type="button"
+            onClick={() => fillDemoQuery(DEMO_NEW_CLIENT_DOCUMENT)}
+            className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
+          >
+            {DEMO_NEW_CLIENT_DOCUMENT}
+          </button>
+          <span className="select-none">(cliente nuevo)</span>
+        </div>
+        <div className="flex gap-0.5">
+          <button
+            type="button"
+            onClick={() => fillDemoQuery(SEARCH_ERROR_DOCUMENT)}
+            className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
+          >
+            {SEARCH_ERROR_DOCUMENT}
+          </button>
+          <span className="select-none">(error)</span>
+        </div>
+        {DEMO_OPERATIONS.map((item) => (
+          <div key={item.number} className="flex gap-0.5">
+            <button
+              type="button"
+              onClick={() => fillDemoQuery(item.number)}
+              className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
+            >
+              {item.number}
+            </button>
+            <span className="select-none">({item.label})</span>
+          </div>
+        ))}
+      </div>
+
+      {customer !== null && (
+        <ClientProfileDialog
+          open={profileOpen}
+          onOpenChange={setProfileOpen}
+          profile={{
+            fullName: customer.fullName,
+            documentType,
+            documentNumber: query,
+            email: customer.email,
+            phone: customer.phone,
+            country: customer.country,
+            state: customer.state,
+            city: customer.city,
+            address: customer.address,
+          }}
+        />
+      )}
+    </>
+  );
+}
+
+function OperationStatusBadge({
+  status,
+}: {
+  status: PaymentOperation["status"];
+}) {
+  if (status === "available") {
+    return (
+      <span className="flex items-center gap-1.5 rounded-full border border-success-border bg-success-soft px-3 py-1 text-xs font-bold text-success">
+        <CircleCheckIcon className="size-3.5" />
+        Disponible para pagar
+      </span>
+    );
+  }
+  if (status === "onHold") {
+    return (
+      <span className="rounded-full border border-warning-border bg-warning-soft px-3 py-1 text-xs font-bold text-warning-foreground">
+        En revisión
+      </span>
+    );
+  }
+  return (
+    <span className="rounded-full border border-border bg-muted px-3 py-1 text-xs font-bold text-muted-foreground">
+      Pagada
+    </span>
   );
 }

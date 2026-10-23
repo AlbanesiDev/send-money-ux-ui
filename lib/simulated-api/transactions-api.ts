@@ -111,7 +111,9 @@ export async function ensureTransactionsSeeded(): Promise<void> {
     const items = await readAllTransactions();
     let needsWrite = false;
     const patched: StoredTransaction[] = [];
+    const existingIds = new Set<string>();
     for (const item of items) {
+      existingIds.add(item.id);
       let collectionStatus = resolveCollectionStatus(item);
       if (item.collectionStatus === undefined) {
         for (const seed of SEED_TRANSACTIONS) {
@@ -139,6 +141,11 @@ export async function ensureTransactionsSeeded(): Promise<void> {
       }
       needsWrite = true;
       patched.push({ ...item, collectionStatus, paidAt });
+    }
+    for (const seed of SEED_TRANSACTIONS) {
+      if (existingIds.has(seed.id)) continue;
+      needsWrite = true;
+      patched.push(seed);
     }
     if (needsWrite) {
       await writeTransactions(patched);

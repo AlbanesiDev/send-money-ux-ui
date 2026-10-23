@@ -119,5 +119,29 @@
     "beneficiaryIndex": 2,
     "paymentMethod": "Transferencia bancaria",
     "collectionStatus": "onHold"
+  },
+  {
+    "customerId": "eliana-antezana",
+    "beneficiaryId": "ben-eliana-3344556",
+    "id": "12030070901",
+    "date": "22 oct 2026",
+    "time": "10:15",
+    "status": "Completada",
+    "provider": "WU",
+    "destinationCountry": "Spain",
+    "deliveryType": "CASH",
+    "wuService": "Dinero en minutos (000)",
+    "moneygramCompany": "",
+    "service": "Dinero en minutos",
+    "payingPartner": "Banco Ganadero",
+    "location": "Av.Beni edif TorreEmpresarial Cubo Santa ",
+    "terraPayBank": "",
+    "terraPayCbu": "",
+    "terraPayWallet": "",
+    "terraPayAlias": "",
+    "amount": 250,
+    "beneficiaryIndex": 4,
+    "paymentMethod": "Pago en efectivo",
+    "collectionStatus": "available"
   }
 ]

@@ -12,6 +12,7 @@ import {
   findTransactionByOperationNumber,
   markTransactionAsPaid,
 } from "@/lib/simulated-api/transactions-api";
+import countriesCatalog from "@/public/catalogs/catalog-countries.json";
 
 export type OperationStatus = "available" | "onHold" | "paid";
 
@@ -75,6 +76,13 @@ export type PaymentOperation = {
   paidAt: string;
 };
 
+/**
+ * Operaciones demo cuyo beneficiario no está en CIS: el cajero debe darlo de
+ * alta. Solo nombre y apellido vienen de la operación; el documento se completa
+ * al escanearlo o introducirlo.
+ */
+const NEW_CUSTOMER_OPERATION_NUMBERS = new Set(["12030070901"]);
+
 export const AGENCY_COUNTRY = "Bolivia";
 export const AGENCY_PHONE_CODE = "+591";
 export const AGENCY_CASH_BOB = 20000;
@@ -133,13 +141,13 @@ export async function loadPaymentOperationByNumber(
     documentType: beneficiary.documentType,
     documentNumber: beneficiary.document,
     documentCountry: AGENCY_COUNTRY,
-    documentIssueDate: "2020-01-01",
-    documentExpiryDate: "2030-01-01",
+    documentIssueDate: "01/01/2020",
+    documentExpiryDate: "01/01/2030",
     firstName: beneficiary.firstName,
     middleName: beneficiary.middleName,
     lastName: beneficiary.lastName,
     secondLastName: beneficiary.secondLastName,
-    birthDate: "1990-01-01",
+    birthDate: "01/01/1990",
     birthCountry: AGENCY_COUNTRY,
     nationality: AGENCY_COUNTRY,
     gender: "Masculino",
@@ -158,6 +166,32 @@ export async function loadPaymentOperationByNumber(
     isPepRelated: false,
   };
 
+  const isNewCustomer = NEW_CUSTOMER_OPERATION_NUMBERS.has(stored.id);
+
+  let transactionData: Partial<CustomerProfile> = {
+    firstName: beneficiary.firstName,
+    middleName: beneficiary.middleName,
+    lastName: beneficiary.lastName,
+    secondLastName: beneficiary.secondLastName,
+    documentType: beneficiary.documentType,
+    documentNumber: beneficiary.document,
+    documentCountry: AGENCY_COUNTRY,
+    street: beneficiary.street,
+    phone: beneficiary.phone,
+    email: beneficiary.email,
+    city: beneficiary.city,
+    department: beneficiary.state,
+  };
+  let existingCustomer: CustomerProfile | null = beneficiaryProfile;
+
+  if (isNewCustomer) {
+    transactionData = {
+      firstName: beneficiary.firstName,
+      lastName: beneficiary.lastName,
+    };
+    existingCustomer = null;
+  }
+
   return {
     number: stored.id,
     provider: stored.provider,
@@ -173,21 +207,8 @@ export async function loadPaymentOperationByNumber(
       country: AGENCY_COUNTRY,
       number: beneficiary.document,
     },
-    transactionData: {
-      firstName: beneficiary.firstName,
-      middleName: beneficiary.middleName,
-      lastName: beneficiary.lastName,
-      secondLastName: beneficiary.secondLastName,
-      documentType: beneficiary.documentType,
-      documentNumber: beneficiary.document,
-      documentCountry: AGENCY_COUNTRY,
-      street: beneficiary.street,
-      phone: beneficiary.phone,
-      email: beneficiary.email,
-      city: beneficiary.city,
-      department: beneficiary.state,
-    },
-    existingCustomer: beneficiaryProfile,
+    transactionData,
+    existingCustomer,
     paidAt,
   };
 }
@@ -251,7 +272,28 @@ export const BOLIVIA_DEPARTMENTS: Record<string, string[]> = {
 };
 
 export const GENDER_OPTIONS = ["Femenino", "Masculino"];
-export const PHONE_CODE_OPTIONS = ["+591", "+54", "+56", "+51", "+34", "+1"];
+export type PhoneCodeOption = {
+  value: string;
+  label: string;
+  flagCountry: string;
+  keywords: string;
+};
+export const PHONE_CODE_OPTIONS: PhoneCodeOption[] = countriesCatalog.items
+  .map((item) => {
+    const code = `+${item.country.ctyPhoneCode}`;
+    const country = item.country.ctyName.trim();
+    return {
+      value: code,
+      label: `${code} ${country}`,
+      flagCountry: country,
+      keywords: `${country} ${item.country.ctyNameEnglish} ${code} ${item.country.ctyPhoneCode}`,
+    };
+  })
+  .sort((a, b) => {
+    const codeDiff = Number(a.value.slice(1)) - Number(b.value.slice(1));
+    if (codeDiff !== 0) return codeDiff;
+    return a.flagCountry.localeCompare(b.flagCountry, "es");
+  });
 export const OCCUPATION_OPTIONS = [
   "Abogado/a",
   "Administrador/a",
@@ -370,7 +412,9 @@ export function normalizeText(value: string) {
 export function splitPhone(raw: string | undefined) {
   if (!raw) return { phoneCode: AGENCY_PHONE_CODE, phone: "" };
   const digits = raw.replace(/\D/g, "");
-  const code = PHONE_CODE_OPTIONS.map((item) => item.slice(1))
+  const code = [
+    ...new Set(PHONE_CODE_OPTIONS.map((item) => item.value.slice(1))),
+  ]
     .sort((a, b) => b.length - a.length)
     .find((item) => digits.startsWith(item) && digits.length > item.length + 6);
   if (!code) return { phoneCode: AGENCY_PHONE_CODE, phone: digits };

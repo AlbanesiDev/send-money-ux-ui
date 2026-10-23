@@ -26,6 +26,7 @@ export type OperationSearchResult =
 
 const DEMO_OPERATIONS = [
   { number: "12030070712", label: "disponible" },
+  { number: "12030070901", label: "cliente nuevo" },
   { number: "12030070431", label: "en revisión" },
   { number: "12030070592", label: "ya pagada" },
 ] as const;

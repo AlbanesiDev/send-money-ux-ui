@@ -139,7 +139,11 @@ export function ConfirmStep({
       </section>
 
       <div className="grid gap-3 lg:grid-cols-2">
-        <SummaryCard title="Beneficiario" onEdit={onEditBeneficiary}>
+        <SummaryCard
+          title="Beneficiario"
+          onEdit={onEditBeneficiary}
+          tone="beneficiary"
+        >
           <Row label="Nombre" value={fullName} emphasis />
           <Row
             label="Documento"
@@ -200,21 +204,35 @@ function Item({ label, children }: { label: string; children: ReactNode }) {
 function SummaryCard({
   title,
   onEdit,
+  tone = "default",
   children,
 }: {
   title: string;
   onEdit: () => void;
+  tone?: "default" | "beneficiary";
   children: ReactNode;
 }) {
+  let sectionClass =
+    "rounded-lg border border-border border-l-border bg-card px-3.5 py-2.5 shadow-sm";
+  let titleClass = "text-sm font-bold text-foreground";
+  let editClass =
+    "rounded-md px-1.5 py-0.5 text-xs font-semibold text-brand-strong hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-strong";
+  if (tone === "beneficiary") {
+    sectionClass =
+      "rounded-lg border border-border border-l-4 border-l-party-beneficiary-border bg-card px-3.5 py-2.5 shadow-sm";
+    titleClass = "text-sm font-bold text-party-beneficiary-fg";
+    editClass =
+      "rounded-md px-1.5 py-0.5 text-xs font-semibold text-party-beneficiary-fg hover:bg-success-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-party-beneficiary-border";
+  }
   return (
-    <section className="rounded-lg border border-border bg-card px-3.5 py-2.5">
+    <section className={sectionClass}>
       <div className="flex items-center justify-between gap-3">
-        <h2 className="text-sm font-bold text-foreground">{title}</h2>
+        <h2 className={titleClass}>{title}</h2>
         <button
           type="button"
           onClick={onEdit}
           aria-label={`Editar ${title.toLowerCase()}`}
-          className="rounded-md px-1.5 py-0.5 text-xs font-semibold text-brand-strong hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-strong"
+          className={editClass}
         >
           Editar
         </button>

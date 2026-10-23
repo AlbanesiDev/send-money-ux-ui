@@ -1,7 +1,10 @@
 "use client";
 
 import { useRef, type ReactNode, type RefObject } from "react";
-import { SearchableSelect } from "@/components/ui/searchable-select";
+import {
+  SearchableSelect,
+  type SearchableSelectOption,
+} from "@/components/ui/searchable-select";
 
 const inputClass =
   "h-10 w-full rounded-lg border border-input bg-card px-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus:border-brand focus:ring-4 focus:ring-brand/10 disabled:bg-muted disabled:text-muted-foreground aria-invalid:border-destructive";
@@ -86,16 +89,18 @@ export function SelectInput({
   required = false,
   disabled = false,
   showFlags = false,
+  menuMinWidth,
   hint,
   nextRef,
 }: {
   label: string;
   value: string;
-  options: string[];
+  options: Array<string | SearchableSelectOption>;
   onChange: (value: string) => void;
   required?: boolean;
   disabled?: boolean;
   showFlags?: boolean;
+  menuMinWidth?: number;
   hint?: string;
   nextRef?: RefObject<HTMLElement | null>;
 }) {
@@ -113,6 +118,7 @@ export function SelectInput({
         fieldRef={ref}
         nextRef={nextRef}
         showFlags={showFlags}
+        menuMinWidth={menuMinWidth}
       />
     </div>
   );
@@ -146,7 +152,9 @@ export function CheckOption({
         className="mt-0.5 h-4 w-4 shrink-0 accent-brand-strong"
       />
       <span>
-        <span className="block font-semibold text-foreground">{label}</span>
+        <span className="block font-semibold text-foreground select-none">
+          {label}
+        </span>
         {description && (
           <span className="mt-0.5 block text-xs text-muted-foreground">
             {description}

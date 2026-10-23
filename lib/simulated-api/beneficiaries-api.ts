@@ -66,6 +66,7 @@ export async function ensureBeneficiariesSeeded(): Promise<void> {
     const seedById = new Map(
       SEED_BENEFICIARIES.map((item) => [item.id, item] as const),
     );
+    const existingIds = new Set(existing.map((item) => item.id));
     let changed = false;
     const next = existing.map((item) => {
       if (typeof item.nationality === "string") return item;
@@ -76,6 +77,11 @@ export async function ensureBeneficiariesSeeded(): Promise<void> {
       }
       return { ...item, nationality: "" };
     });
+    for (const seed of SEED_BENEFICIARIES) {
+      if (existingIds.has(seed.id)) continue;
+      changed = true;
+      next.push(seed);
+    }
     if (changed) {
       await writeBeneficiaries(next);
     }

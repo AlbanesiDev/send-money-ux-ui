@@ -13,6 +13,7 @@ import {
   UserPlusIcon,
   XIcon,
 } from "lucide-react";
+import { DateField } from "@/components/send-money/date-field";
 import countriesCatalog from "@/public/catalogs/catalog-countries.json";
 import documentTypesCatalog from "@/public/catalogs/catalog-document-types.json";
 import {
@@ -77,9 +78,20 @@ export function BeneficiaryStep({
   const fromTransaction = fieldsFromTransaction(operation);
   const highlightMissing = showErrors || editErrors;
 
+  function applyDocumentToProfile(value: string) {
+    if (existing) return;
+    onProfileChange({
+      ...profile,
+      documentNumber: value,
+    });
+  }
+
   function validateDocument(value = documentInput) {
-    if (!value.trim()) return;
-    onDocumentCheck(value.trim() === declared.number ? "matched" : "mismatch");
+    const trimmed = value.trim();
+    if (!trimmed) return;
+    const matched = trimmed === declared.number;
+    onDocumentCheck(matched ? "matched" : "mismatch");
+    if (matched) applyDocumentToProfile(trimmed);
   }
 
   // Simula la lectura del código de barras / MRZ del documento.
@@ -106,9 +118,29 @@ export function BeneficiaryStep({
       ? "De la operación"
       : undefined;
 
+  let issueMaxDate = "";
+  if (profile.documentExpiryDate.length === 10) {
+    const expiryDay = Number(profile.documentExpiryDate.slice(0, 2));
+    const expiryMonth = Number(profile.documentExpiryDate.slice(3, 5));
+    const expiryYear = Number(profile.documentExpiryDate.slice(6, 10));
+    const maxIssueDate = new Date(expiryYear, expiryMonth - 1, expiryDay);
+    maxIssueDate.setDate(maxIssueDate.getDate() - 1);
+    issueMaxDate = `${String(maxIssueDate.getDate()).padStart(2, "0")}/${String(maxIssueDate.getMonth() + 1).padStart(2, "0")}/${String(maxIssueDate.getFullYear()).padStart(4, "0")}`;
+  }
+
+  let expiryMinDate = "";
+  if (profile.documentIssueDate.length === 10) {
+    const issueDay = Number(profile.documentIssueDate.slice(0, 2));
+    const issueMonth = Number(profile.documentIssueDate.slice(3, 5));
+    const issueYear = Number(profile.documentIssueDate.slice(6, 10));
+    const minExpiryDate = new Date(issueYear, issueMonth - 1, issueDay);
+    minExpiryDate.setDate(minExpiryDate.getDate() + 1);
+    expiryMinDate = `${String(minExpiryDate.getDate()).padStart(2, "0")}/${String(minExpiryDate.getMonth() + 1).padStart(2, "0")}/${String(minExpiryDate.getFullYear()).padStart(4, "0")}`;
+  }
+
   const text = (
     field: keyof ProfileForm,
-    options: { type?: "text" | "email" | "date"; inputMode?: "numeric" } = {},
+    options: { type?: "text" | "email"; inputMode?: "numeric" } = {},
   ) => (
     <TextInput
       key={field}
@@ -116,10 +148,6 @@ export function BeneficiaryStep({
       value={String(profile[field])}
       onChange={set(field) as (value: string) => void}
       required={isRequiredProfileField(field, profile)}
-      disabled={
-        (field === "documentIssueDate" && profile.noIssueDate) ||
-        (field === "documentExpiryDate" && profile.noExpiryDate)
-      }
       type={options.type}
       inputMode={options.inputMode}
       hint={hintFor(field)}
@@ -127,10 +155,40 @@ export function BeneficiaryStep({
     />
   );
 
+  const dateField = (
+    field: "birthDate" | "documentIssueDate" | "documentExpiryDate",
+  ) => {
+    const required = isRequiredProfileField(field, profile);
+    const empty = String(profile[field]).trim() === "";
+    let error: string | undefined;
+    if (highlightMissing && required && empty) {
+      error = "Este campo es requerido";
+    }
+    return (
+      <DateField
+        key={field}
+        label={PROFILE_LABELS[field]}
+        value={String(profile[field])}
+        onChange={set(field) as (value: string) => void}
+        required={required}
+        disabled={
+          (field === "documentIssueDate" && profile.noIssueDate) ||
+          (field === "documentExpiryDate" && profile.noExpiryDate)
+        }
+        minimumAgeYears={field === "birthDate" ? 18 : undefined}
+        disableFutureDates={field !== "documentExpiryDate"}
+        maxDate={field === "documentIssueDate" ? issueMaxDate : ""}
+        minDate={field === "documentExpiryDate" ? expiryMinDate : ""}
+        error={error}
+      />
+    );
+  };
+
   const select = (
     field: keyof ProfileForm,
-    options: string[],
+    options: Parameters<typeof SelectInput>[0]["options"],
     showFlags = false,
+    menuMinWidth?: number,
   ) => (
     <SelectInput
       key={field}
@@ -140,6 +198,7 @@ export function BeneficiaryStep({
       onChange={set(field) as (value: string) => void}
       required={isRequiredProfileField(field, profile)}
       showFlags={showFlags}
+      menuMinWidth={menuMinWidth}
       hint={hintFor(field)}
     />
   );
@@ -156,7 +215,7 @@ export function BeneficiaryStep({
       case "gender":
         return select(field, GENDER_OPTIONS);
       case "phoneCode":
-        return select(field, PHONE_CODE_OPTIONS);
+        return select(field, PHONE_CODE_OPTIONS, true, 280);
       case "department":
         return profile.residenceCountry === "Bolivia"
           ? select(field, DEPARTMENT_OPTIONS)
@@ -168,7 +227,7 @@ export function BeneficiaryStep({
       case "documentIssueDate":
       case "documentExpiryDate":
       case "birthDate":
-        return text(field, { type: "date" });
+        return dateField(field);
       case "phone":
       case "houseNumber":
         return text(field, { inputMode: "numeric" });
@@ -215,7 +274,7 @@ export function BeneficiaryStep({
             renderField,
           )}
           <div />
-          <div className="space-y-2">
+          <div className="space-y-5">
             {renderField("documentIssueDate")}
             <CheckOption
               label="El documento no tiene fecha de emisión"
@@ -229,7 +288,7 @@ export function BeneficiaryStep({
               }
             />
           </div>
-          <div className="space-y-2">
+          <div className="space-y-5">
             {renderField("documentExpiryDate")}
             <CheckOption
               label="El documento no tiene fecha de vigencia"
@@ -252,7 +311,7 @@ export function BeneficiaryStep({
       </FormSection>
       <FormSection title="Contacto y dirección">
         <FieldGrid>
-          <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-2">
+          <div className="grid grid-cols-[9rem_minmax(0,1fr)] gap-2">
             {renderField("phoneCode")}
             {renderField("phone")}
           </div>
@@ -337,11 +396,11 @@ export function BeneficiaryStep({
               <Notice
                 tone="success"
                 icon={<IdCardIcon className="size-5" />}
-                title="Documento validado contra la operación"
+                title="Documento validado"
                 text={
                   existing
                     ? "Encontramos la ficha del cliente en CIS."
-                    : "Cliente nuevo: completamos lo que trae la operación."
+                    : "Cliente nuevo: nombre y apellido vienen de la operación; el documento se cargó al validarlo. Completa el resto del alta."
                 }
               />
             )}
@@ -418,7 +477,7 @@ export function BeneficiaryStep({
             tone="info"
             icon={<UserPlusIcon className="size-5" />}
             title="Alta de cliente"
-            text="Los campos marcados «De la operación» ya vienen cargados; confírmalos con el beneficiario."
+            text="Nombre, apellido y número de documento ya están cargados; completa el resto con el beneficiario."
           />
           {profileFormFields}
         </>
@@ -687,6 +746,5 @@ function ProfileDetail({ label, value }: { label: string; value: string }) {
 
 export function formatDate(value: string) {
   if (!value) return "—";
-  const [year, month, day] = value.split("-");
-  return `${day}/${month}/${year}`;
+  return value;
 }

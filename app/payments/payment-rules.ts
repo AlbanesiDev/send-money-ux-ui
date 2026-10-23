@@ -77,12 +77,24 @@ export function isRequiredProfileField(
   ].includes(field);
 }
 
-const today = () => new Date().toISOString().slice(0, 10);
-
-export const isExpired = (form: ProfileForm) =>
-  !form.noExpiryDate &&
-  form.documentExpiryDate !== "" &&
-  form.documentExpiryDate < today();
+export const isExpired = (form: ProfileForm) => {
+  if (form.noExpiryDate) return false;
+  if (form.documentExpiryDate.length !== 10) return false;
+  const day = Number(form.documentExpiryDate.slice(0, 2));
+  const month = Number(form.documentExpiryDate.slice(3, 5));
+  const year = Number(form.documentExpiryDate.slice(6, 10));
+  const expiry = new Date(year, month - 1, day);
+  if (
+    expiry.getFullYear() !== year ||
+    expiry.getMonth() !== month - 1 ||
+    expiry.getDate() !== day
+  ) {
+    return false;
+  }
+  const todayDate = new Date();
+  todayDate.setHours(0, 0, 0, 0);
+  return expiry < todayDate;
+};
 
 /** Campos obligatorios vacíos o vencidos que bloquean el pago. */
 export function missingProfileFields(form: ProfileForm) {
@@ -99,17 +111,21 @@ export function missingProfileFields(form: ProfileForm) {
 /**
  * Ficha inicial: la del cliente si ya existe en CIS; si no, los datos que
  * trae la transacción más los valores por defecto de la agencia.
+ * En alta de cliente el documento no se precarga: se completa al escanearlo
+ * o introducirlo.
  */
 export function buildInitialProfile(operation: PaymentOperation): ProfileForm {
-  const source: Partial<CustomerProfile> = operation.existingCustomer ?? {
-    documentType: operation.declaredDocument.type,
-    documentNumber: operation.declaredDocument.number,
-    documentCountry: operation.declaredDocument.country,
-    birthCountry: AGENCY_COUNTRY,
-    nationality: AGENCY_COUNTRY,
-    residenceCountry: AGENCY_COUNTRY,
-    ...operation.transactionData,
-  };
+  let source: Partial<CustomerProfile>;
+  if (operation.existingCustomer !== null) {
+    source = operation.existingCustomer;
+  } else {
+    source = {
+      birthCountry: AGENCY_COUNTRY,
+      nationality: AGENCY_COUNTRY,
+      residenceCountry: AGENCY_COUNTRY,
+      ...operation.transactionData,
+    };
+  }
   const phone = source.phoneCode
     ? { phoneCode: source.phoneCode, phone: source.phone ?? "" }
     : splitPhone(source.phone);
@@ -147,9 +163,11 @@ export function buildInitialProfile(operation: PaymentOperation): ProfileForm {
 export function fieldsFromTransaction(operation: PaymentOperation) {
   const fields = new Set<string>(Object.keys(operation.transactionData));
   if (operation.transactionData.phone) fields.add("phoneCode");
-  fields.add("documentType");
-  fields.add("documentNumber");
-  fields.add("documentCountry");
+  if (operation.existingCustomer !== null) {
+    fields.add("documentType");
+    fields.add("documentNumber");
+    fields.add("documentCountry");
+  }
   return fields;
 }
 

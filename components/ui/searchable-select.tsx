@@ -16,10 +16,17 @@ const REQUIRED_MESSAGE = "Este campo es requerido";
 const MENU_GAP_PX = 4;
 const MENU_Z_INDEX = 200;
 
+export type SearchableSelectOption = {
+  value: string;
+  label: string;
+  flagCountry: string;
+  keywords: string;
+};
+
 export type SearchableSelectProps = {
   label: string;
   value: string;
-  options: string[];
+  options: Array<string | SearchableSelectOption>;
   onChange: (value: string) => void;
   disabled?: boolean;
   loading?: boolean;
@@ -28,6 +35,8 @@ export type SearchableSelectProps = {
   showFlags?: boolean;
   hideLabel?: boolean;
   dropdownSide?: "top" | "bottom";
+  /** Ancho mínimo del menú en px (útil cuando el trigger es más angosto que las opciones). */
+  menuMinWidth?: number;
   clearable?: boolean;
   error?: string;
   onBlur?: () => void;
@@ -46,6 +55,7 @@ export function SearchableSelect({
   showFlags = false,
   hideLabel = false,
   dropdownSide = "bottom",
+  menuMinWidth,
   clearable = false,
   error,
   onBlur,
@@ -60,8 +70,27 @@ export function SearchableSelect({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const filterRef = useRef<HTMLInputElement>(null);
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const filteredOptions = options.filter((option) =>
-    option.toLowerCase().includes(filter.toLowerCase()),
+  const normalizedOptions: SearchableSelectOption[] = options.map((option) => {
+    if (typeof option === "string") {
+      return {
+        value: option,
+        label: option,
+        flagCountry: option,
+        keywords: option,
+      };
+    }
+    return option;
+  });
+  const query = filter.toLowerCase();
+  const filteredOptions = normalizedOptions.filter((option) => {
+    if (option.label.toLowerCase().includes(query)) return true;
+    if (option.value.toLowerCase().includes(query)) return true;
+    if (option.flagCountry.toLowerCase().includes(query)) return true;
+    if (option.keywords.toLowerCase().includes(query)) return true;
+    return false;
+  });
+  const selectedOption = normalizedOptions.find(
+    (option) => option.value === value,
   );
 
   const markTouched = () => {
@@ -69,8 +98,8 @@ export function SearchableSelect({
     if (onBlur !== undefined) onBlur();
   };
 
-  const choose = (option: string) => {
-    onChange(option);
+  const choose = (option: SearchableSelectOption) => {
+    onChange(option.value);
     setTouched(true);
     setOpen(false);
     setFilter("");
@@ -85,11 +114,15 @@ export function SearchableSelect({
     const trigger = fieldRef.current;
     if (trigger === null) return;
     const rect = trigger.getBoundingClientRect();
+    const width =
+      menuMinWidth !== undefined && menuMinWidth > rect.width
+        ? menuMinWidth
+        : rect.width;
     if (dropdownSide === "top") {
       setMenuStyle({
         position: "fixed",
         left: rect.left,
-        width: rect.width,
+        width,
         bottom: window.innerHeight - rect.top + MENU_GAP_PX,
         zIndex: MENU_Z_INDEX,
       });
@@ -98,7 +131,7 @@ export function SearchableSelect({
     setMenuStyle({
       position: "fixed",
       left: rect.left,
-      width: rect.width,
+      width,
       top: rect.bottom + MENU_GAP_PX,
       zIndex: MENU_Z_INDEX,
     });
@@ -119,11 +152,13 @@ export function SearchableSelect({
       window.removeEventListener("resize", handleReposition);
       window.removeEventListener("scroll", handleReposition, true);
     };
-  }, [open, dropdownSide]);
+  }, [open, dropdownSide, menuMinWidth]);
 
   useEffect(() => {
     if (!open) return;
-    const selectedIndex = filteredOptions.indexOf(value);
+    const selectedIndex = filteredOptions.findIndex(
+      (option) => option.value === value,
+    );
     setHighlightedIndex(selectedIndex >= 0 ? selectedIndex : 0);
     window.requestAnimationFrame(() => filterRef.current?.focus());
   }, [open]);
@@ -253,26 +288,26 @@ export function SearchableSelect({
             >
               {filteredOptions.map((option, index) => (
                 <button
-                  key={option}
+                  key={`${option.value}-${option.flagCountry}-${index}`}
                   id={`select-option-${index}`}
                   ref={(node) => {
                     optionRefs.current[index] = node;
                   }}
                   type="button"
                   role="option"
-                  aria-selected={value === option}
+                  aria-selected={value === option.value}
                   onMouseEnter={() => setHighlightedIndex(index)}
                   onClick={() => choose(option)}
                   className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm hover:bg-accent ${
                     index === highlightedIndex
                       ? "bg-accent font-semibold text-brand-strong"
-                      : value === option
+                      : value === option.value
                         ? "font-semibold text-brand-strong"
                         : ""
                   }`}
                 >
-                  {showFlags && <CountryFlag country={option} />}
-                  <span className="truncate">{option}</span>
+                  {showFlags && <CountryFlag country={option.flagCountry} />}
+                  <span className="truncate">{option.label}</span>
                 </button>
               ))}
               {filteredOptions.length === 0 && (
@@ -352,9 +387,13 @@ export function SearchableSelect({
             <span
               className={`flex min-w-0 items-center gap-2 ${value ? "" : "text-muted-foreground"}`}
             >
-              {showFlags && value && <CountryFlag country={value} />}
+              {showFlags && selectedOption !== undefined && (
+                <CountryFlag country={selectedOption.flagCountry} />
+              )}
               <span className="truncate">
-                {value || `Selecciona ${label.toLowerCase()}`}
+                {selectedOption !== undefined
+                  ? selectedOption.value
+                  : value || `Selecciona ${label.toLowerCase()}`}
               </span>
             </span>
           )}

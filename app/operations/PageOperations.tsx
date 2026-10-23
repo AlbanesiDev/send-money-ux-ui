@@ -3,12 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { PaymentFlow } from "@/app/payments/PagePayments";
 import type { PaymentOperation } from "@/app/payments/payment-data";
-import type { OperationSearchResult } from "@/app/payments/steps/search-operation-step";
 import {
   TransactionFlow,
   type RemittanceFlowSeed,
 } from "@/app/remittences/PageRemittences";
-import type { ClientSearchResult } from "@/app/remittences/steps";
 import type { RecentTransaction } from "@/components/send-money/recent-transactions";
 import type { Beneficiary, Customer } from "@/components/send-money/types";
 import {
@@ -25,7 +23,10 @@ import {
   listTransactionsByCustomer,
   type StoredTransaction,
 } from "@/lib/simulated-api/transactions-api";
-import { UnifiedHubStep } from "./steps/unified-hub-step";
+import {
+  UnifiedHubStep,
+  type UnifiedSearchHit,
+} from "./steps/unified-hub-step";
 
 const usdFormatter = new Intl.NumberFormat("es-ES", {
   minimumFractionDigits: 2,
@@ -51,8 +52,8 @@ function PageOperations() {
 function OperationsFlow({ onReset }: { onReset: () => void }) {
   const [phase, setPhase] = useState<HubPhase>({ kind: "hub" });
   const [documentType, setDocumentType] = useState("Cédula");
-  const [documentNumber, setDocumentNumber] = useState("");
-  const [result, setResult] = useState<ClientSearchResult>(null);
+  const [query, setQuery] = useState("");
+  const [hit, setHit] = useState<UnifiedSearchHit>(null);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>([]);
   const [recentTransactions, setRecentTransactions] = useState<
@@ -61,9 +62,6 @@ function OperationsFlow({ onReset }: { onReset: () => void }) {
   const [selectedTransactionId, setSelectedTransactionId] = useState<
     string | null
   >(null);
-  const [operationNumber, setOperationNumber] = useState("");
-  const [operationResult, setOperationResult] =
-    useState<OperationSearchResult>(null);
   const continueRef = useRef<HTMLButtonElement>(null);
   const beneficiariesLoadedForCustomerIdRef = useRef<string | null>(null);
   const transactionsLoadedForCustomerIdRef = useRef<string | null>(null);
@@ -76,20 +74,21 @@ function OperationsFlow({ onReset }: { onReset: () => void }) {
     void ensureTransactionsSeeded();
   }, []);
 
+  const clientHit = hit?.kind === "client" ? hit : null;
   const foundByDocument = customers.find((item) =>
-    item.documentNumbers.includes(documentNumber.trim()),
+    item.documentNumbers.includes(query.trim()),
   );
   const matchedCustomer =
     foundByDocument === undefined ? null : foundByDocument;
   let customer: Customer | null = null;
-  if (result === "success") {
+  if (clientHit?.result === "success") {
     customer = matchedCustomer;
   }
 
   useEffect(() => {
-    if (result !== "success") return;
+    if (clientHit?.result !== "success") return;
     if (matchedCustomer !== null) return;
-    void findCustomerByDocument(documentNumber).then((found) => {
+    void findCustomerByDocument(query).then((found) => {
       if (found === null) return;
       setCustomers((current) => {
         const exists = current.some((item) => item.id === found.id);
@@ -97,7 +96,7 @@ function OperationsFlow({ onReset }: { onReset: () => void }) {
         return [...current, found];
       });
     });
-  }, [result, documentNumber, matchedCustomer]);
+  }, [clientHit, query, matchedCustomer]);
 
   useEffect(() => {
     if (customer === null) {
@@ -142,64 +141,60 @@ function OperationsFlow({ onReset }: { onReset: () => void }) {
 
   return (
     <section className="relative flex h-full min-h-0 w-full min-w-0 flex-1 flex-col gap-4 overflow-hidden rounded-[14px] bg-card text-foreground shadow-[0_12px_35px_rgba(24,37,73,0.06)] dark:shadow-none">
-      <UnifiedHubStep
-        remittance={{
-          documentType,
-          onDocumentTypeChange: setDocumentType,
-          documentNumber,
-          onDocumentNumberChange: setDocumentNumber,
-          result,
-          onResultChange: setResult,
-          onContinue: () => {
+      <div className="relative min-h-0 flex-1 overflow-y-auto">
+        <UnifiedHubStep
+          documentType={documentType}
+          onDocumentTypeChange={setDocumentType}
+          query={query}
+          onQueryChange={setQuery}
+          hit={hit}
+          onHitChange={setHit}
+          onContinueRemittance={() => {
+            if (clientHit === null) return;
             let isGuestFlow = false;
-            if (result === "empty") {
+            if (clientHit.result === "empty") {
               isGuestFlow = true;
             }
             enterRemittance({
               documentType,
-              documentNumber,
-              result,
+              documentNumber: query,
+              result: clientHit.result,
               isGuestFlow,
               beneficiariesSnapshot: beneficiaries,
               recentTransactionsSnapshot: recentTransactions,
             });
-          },
-          onGuestContinue: () => {
+          }}
+          onGuestContinue={() => {
             enterRemittance({
               documentType,
               documentNumber: "",
               result: null,
               isGuestFlow: true,
             });
-          },
-          continueRef,
-          customer,
-          recentTransactions,
-          beneficiaries,
-          selectedTransactionId,
-          quoteLoading: false,
-          formatUsd,
-          onRepeatTransaction: (transaction: RecentTransaction) => {
+          }}
+          onStartPayment={enterPayment}
+          continueRef={continueRef}
+          customer={customer}
+          recentTransactions={recentTransactions}
+          beneficiaries={beneficiaries}
+          selectedTransactionId={selectedTransactionId}
+          formatUsd={formatUsd}
+          onRepeatTransaction={(transaction: RecentTransaction) => {
             enterRemittance({
               documentType,
-              documentNumber,
+              documentNumber: query,
               result: "success",
               isGuestFlow: false,
               repeatTransaction: transaction,
               beneficiariesSnapshot: beneficiaries,
               recentTransactionsSnapshot: recentTransactions,
             });
-          },
-          onClearRepeatedTransaction: () => {
+          }}
+          onClearRepeatedTransaction={() => {
             setSelectedTransactionId(null);
-          },
-        }}
-        operationNumber={operationNumber}
-        onOperationNumberChange={setOperationNumber}
-        operationResult={operationResult}
-        onOperationResultChange={setOperationResult}
-        onStartPayment={enterPayment}
-      />
+          }}
+        />
+      </div>
     </section>
   );
 }

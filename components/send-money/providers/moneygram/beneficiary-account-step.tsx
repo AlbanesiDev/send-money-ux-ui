@@ -1,10 +1,18 @@
+import type { MoneygramAccountDraft } from "@/lib/simulated-api/moneygram-accounts-api";
 import { Field } from "../../field";
 
+export type MoneygramAccountFormChangeHandler = (
+  field: keyof MoneygramAccountDraft,
+  value: string,
+) => void;
+
 export function MoneygramBeneficiaryAccountStep({
-  known,
+  form,
+  onFormChange,
   destinationCountry,
 }: {
-  known: (value?: string) => string | undefined;
+  form: MoneygramAccountDraft;
+  onFormChange: MoneygramAccountFormChangeHandler;
   destinationCountry: string;
 }) {
   let stateCityRequired = false;
@@ -24,24 +32,63 @@ export function MoneygramBeneficiaryAccountStep({
         persona.
       </p>
       <div className="grid gap-3 sm:grid-cols-2">
-        <Field label="Compañía" value={known("Sol & Luna Pagos")} />
-        <Field label="Nro de cuenta" value={known("001234567890")} required />
-        <Field label="Codigo de Localidad" value={known("LPZ-001")} />
-        <Field label="Referencia" value={known("REF-77821")} required />
-        <Field label="Atención" value={known("Caja central")} required />
-        <Field label="Calle/Numero" value={known("Av. Camacho 450")} />
-        <Field label="Dirección" value={known("Av. Camacho 450, piso 2")} />
+        <Field
+          label="Compañía"
+          value={form.company}
+          onChange={(value) => onFormChange("company", value)}
+        />
+        <Field
+          label="Nro de cuenta"
+          value={form.accountNumber}
+          required
+          numericOnly
+          onChange={(value) => onFormChange("accountNumber", value)}
+        />
+        <Field
+          label="Codigo de Localidad"
+          value={form.locationCode}
+          onChange={(value) => onFormChange("locationCode", value)}
+        />
+        <Field
+          label="Referencia"
+          value={form.reference}
+          required
+          onChange={(value) => onFormChange("reference", value)}
+        />
+        <Field
+          label="Atención"
+          value={form.attention}
+          required
+          onChange={(value) => onFormChange("attention", value)}
+        />
+        <Field
+          label="Calle/Numero"
+          value={form.street}
+          onChange={(value) => onFormChange("street", value)}
+        />
+        <Field
+          label="Dirección"
+          value={form.address}
+          onChange={(value) => onFormChange("address", value)}
+        />
         <Field
           label="Estado"
-          value={known("La Paz")}
+          value={form.state}
           required={stateCityRequired}
+          onChange={(value) => onFormChange("state", value)}
         />
         <Field
           label="Ciudad"
-          value={known("La Paz")}
+          value={form.city}
           required={stateCityRequired}
+          onChange={(value) => onFormChange("city", value)}
         />
-        <Field label="Nro. Teléfono" value={known("22123456")} numericOnly />
+        <Field
+          label="Nro. Teléfono"
+          value={form.phone}
+          numericOnly
+          onChange={(value) => onFormChange("phone", value)}
+        />
       </div>
     </div>
   );

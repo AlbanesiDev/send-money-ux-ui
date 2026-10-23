@@ -1,9 +1,10 @@
 const DB_NAME = "send-money-ux-ui";
-const DB_VERSION = 3;
+const DB_VERSION = 4;
 
 export const CUSTOMERS_STORE = "customers";
 export const BENEFICIARIES_STORE = "beneficiaries";
 export const TRANSACTIONS_STORE = "transactions";
+export const MONEYGRAM_ACCOUNTS_STORE = "moneygramAccounts";
 
 export function openSendMoneyDb(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
@@ -31,6 +32,17 @@ export function openSendMoneyDb(): Promise<IDBDatabase> {
           keyPath: "id",
         });
         transactionsStore.createIndex("customerId", "customerId", {
+          unique: false,
+        });
+      }
+      if (!db.objectStoreNames.contains(MONEYGRAM_ACCOUNTS_STORE)) {
+        const moneygramAccountsStore = db.createObjectStore(
+          MONEYGRAM_ACCOUNTS_STORE,
+          {
+            keyPath: "id",
+          },
+        );
+        moneygramAccountsStore.createIndex("customerId", "customerId", {
           unique: false,
         });
       }

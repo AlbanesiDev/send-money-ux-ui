@@ -3,13 +3,17 @@
 import type { ReactNode } from "react";
 import { Dialog } from "@base-ui/react/dialog";
 import { XIcon } from "lucide-react";
-import { MoneygramBeneficiaryAccountStep } from "@/components/send-money/providers/moneygram/beneficiary-account-step";
+import {
+  MoneygramBeneficiaryAccountStep,
+  type MoneygramAccountFormChangeHandler,
+} from "@/components/send-money/providers/moneygram/beneficiary-account-step";
 import { RiaBeneficiaryStep } from "@/components/send-money/providers/ria/beneficiary-step";
 import { TerrapayBeneficiaryStep } from "@/components/send-money/providers/terrapay/beneficiary-step";
 import { WuBeneficiaryStep } from "@/components/send-money/providers/wu/beneficiary-step";
 import type { BeneficiaryFormChangeHandler } from "@/components/send-money/providers/wu/beneficiary-step";
 import type { ProviderId } from "@/components/send-money/types";
 import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
+import type { MoneygramAccountDraft } from "@/lib/simulated-api/moneygram-accounts-api";
 
 export type EditBeneficiaryDialogProps = {
   open: boolean;
@@ -17,9 +21,9 @@ export type EditBeneficiaryDialogProps = {
   provider: ProviderId;
   form: BeneficiaryRegistrationDraft;
   onFormChange: BeneficiaryFormChangeHandler;
+  moneygramAccountForm: MoneygramAccountDraft;
+  onMoneygramAccountFormChange: MoneygramAccountFormChangeHandler;
   destinationCountry: string;
-  known: (value?: string) => string | undefined;
-  fillBeneficiaryFields: boolean;
   onSave: () => void;
   onCancel: () => void;
 };
@@ -30,9 +34,9 @@ export function EditBeneficiaryDialog({
   provider,
   form,
   onFormChange,
+  moneygramAccountForm,
+  onMoneygramAccountFormChange,
   destinationCountry,
-  known,
-  fillBeneficiaryFields,
   onSave,
   onCancel,
 }: EditBeneficiaryDialogProps) {
@@ -43,18 +47,21 @@ export function EditBeneficiaryDialog({
   };
 
   let content: ReactNode;
+  let title = "Editar beneficiario";
+  let description =
+    "Actualiza los datos del beneficiario y confirma para volver a la revisión.";
   if (provider === "RIA") {
     content = <RiaBeneficiaryStep {...beneficiaryProps} />;
   } else if (provider === "WU") {
     content = <WuBeneficiaryStep {...beneficiaryProps} />;
   } else if (provider === "MONEYGRAM") {
-    let moneygramKnown = known;
-    if (!fillBeneficiaryFields) {
-      moneygramKnown = () => undefined;
-    }
+    title = "Editar cuenta";
+    description =
+      "Actualiza los datos de la cuenta Moneygram y confirma para volver a la revisión.";
     content = (
       <MoneygramBeneficiaryAccountStep
-        known={moneygramKnown}
+        form={moneygramAccountForm}
+        onFormChange={onMoneygramAccountFormChange}
         destinationCountry={destinationCountry}
       />
     );
@@ -82,11 +89,10 @@ export function EditBeneficiaryDialog({
             <div className="flex items-start justify-between gap-4 border-b border-border px-6 py-4">
               <div>
                 <Dialog.Title className="text-lg font-bold tracking-[-0.02em] text-foreground">
-                  Editar beneficiario
+                  {title}
                 </Dialog.Title>
                 <Dialog.Description className="mt-0.5 text-sm text-muted-foreground">
-                  Actualiza los datos del beneficiario y confirma para volver a
-                  la revisión.
+                  {description}
                 </Dialog.Description>
               </div>
               <button

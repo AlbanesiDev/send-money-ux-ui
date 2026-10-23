@@ -3,11 +3,13 @@
 import type { ReactNode } from "react";
 import type { GuestClientLookupStatus } from "@/components/send-money/guest-client-lookup-notice";
 import { ProviderStepContent } from "@/components/send-money/provider-step-content";
+import type { MoneygramAccountFormChangeHandler } from "@/components/send-money/providers/moneygram/beneficiary-account-step";
 import type { BeneficiaryFormChangeHandler } from "@/components/send-money/providers/wu/beneficiary-step";
 import type { RemitterFormChangeHandler } from "@/components/send-money/providers/wu/remitter-step";
 import type {
   Beneficiary,
   Customer,
+  MoneygramAccount,
   PaymentLine,
   ProviderId,
   ProviderQuote,
@@ -15,6 +17,7 @@ import type {
 import { BillingSummary } from "@/components/ui/billing-summary";
 import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
 import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
+import type { MoneygramAccountDraft } from "@/lib/simulated-api/moneygram-accounts-api";
 
 export type ProviderFlowStepProps = {
   provider: ProviderId;
@@ -26,14 +29,17 @@ export type ProviderFlowStepProps = {
   onRemitterFormChange: RemitterFormChangeHandler;
   beneficiaryForm: BeneficiaryRegistrationDraft;
   onBeneficiaryFormChange: BeneficiaryFormChangeHandler;
-  known: (value?: string) => string | undefined;
+  moneygramAccountForm: MoneygramAccountDraft;
+  onMoneygramAccountFormChange: MoneygramAccountFormChangeHandler;
   isKnownClient: boolean;
   showFrequentBeneficiaries: boolean;
-  fillBeneficiaryFields: boolean;
   beneficiaries: Beneficiary[];
   selectedBeneficiary: number;
   onSelectBeneficiary: (index: number) => void;
   onCreateBeneficiary?: () => void;
+  moneygramAccounts: MoneygramAccount[];
+  selectedMoneygramAccount: number;
+  onSelectMoneygramAccount: (index: number) => void;
   additionalChecks: Record<string, boolean>;
   onAdditionalCheckChange: (label: string, checked: boolean) => void;
   quote: ProviderQuote;

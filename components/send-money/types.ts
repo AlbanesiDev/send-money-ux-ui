@@ -120,6 +120,21 @@ export type Beneficiary = {
   email: string;
 };
 
+export type MoneygramAccount = {
+  id: string;
+  customerId: string;
+  company: string;
+  accountNumber: string;
+  locationCode: string;
+  reference: string;
+  attention: string;
+  street: string;
+  address: string;
+  state: string;
+  city: string;
+  phone: string;
+};
+
 export type PaymentCurrency = "USD" | "BOB";
 
 export type PaymentLine = {

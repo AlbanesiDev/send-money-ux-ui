@@ -1,0 +1,30 @@
+[
+  {
+    "id": "mg-eliana-001",
+    "customerId": "eliana-antezana",
+    "company": "Sol & Luna Pagos",
+    "accountNumber": "001234567890",
+    "locationCode": "LPZ-001",
+    "reference": "REF-77821",
+    "attention": "Caja central",
+    "street": "Av. Camacho 450",
+    "address": "Av. Camacho 450, piso 2",
+    "state": "La Paz",
+    "city": "La Paz",
+    "phone": "22123456"
+  },
+  {
+    "id": "mg-eliana-002",
+    "customerId": "eliana-antezana",
+    "company": "Envíos Andinos",
+    "accountNumber": "009988776655",
+    "locationCode": "CBB-014",
+    "reference": "REF-44012",
+    "attention": "Atención al cliente",
+    "street": "Av. Heroínas 120",
+    "address": "Av. Heroínas 120, local 3",
+    "state": "Cochabamba",
+    "city": "Cochabamba",
+    "phone": "44223344"
+  }
+]

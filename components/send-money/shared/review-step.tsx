@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
 import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
+import type { MoneygramAccountDraft } from "@/lib/simulated-api/moneygram-accounts-api";
 import { deliveryTypeLabel, quoteAmountReceived } from "../provider-flows";
 import type { PaymentLine, ProviderId, ProviderQuote } from "../types";
 
@@ -104,6 +105,7 @@ export function ReviewStep({
   remitterForm,
   documentNumber,
   beneficiaryForm,
+  moneygramAccountForm,
   paymentLines,
   formatAmount,
   billingName,
@@ -128,6 +130,7 @@ export function ReviewStep({
   remitterForm: CustomerRegistrationDraft;
   documentNumber: string;
   beneficiaryForm: BeneficiaryRegistrationDraft;
+  moneygramAccountForm: MoneygramAccountDraft;
   paymentLines: PaymentLine[];
   formatAmount: (value: number) => string;
   billingName: string;
@@ -363,16 +366,47 @@ export function ReviewStep({
         >
           {provider === "MONEYGRAM" ? (
             <>
-              <SummaryRow label="Compañía" value="Sol & Luna Pagos" emphasis />
-              <SummaryRow label="Nro de cuenta" value="001234567890" />
-              <SummaryRow label="Codigo de Localidad" value="LPZ-001" />
-              <SummaryRow label="Referencia" value="REF-77821" />
-              <SummaryRow label="Atención" value="Caja central" />
-              <SummaryRow label="Calle/Numero" value="Av. Camacho 450" />
-              <SummaryRow label="Dirección" value="Av. Camacho 450, piso 2" />
-              <SummaryRow label="Estado" value="La Paz" />
-              <SummaryRow label="Ciudad" value="La Paz" />
-              <SummaryRow label="Nro. Teléfono" value="22123456" />
+              <SummaryRow
+                label="Compañía"
+                value={moneygramAccountForm.company || "—"}
+                emphasis
+              />
+              <SummaryRow
+                label="Nro de cuenta"
+                value={moneygramAccountForm.accountNumber || "—"}
+              />
+              <SummaryRow
+                label="Codigo de Localidad"
+                value={moneygramAccountForm.locationCode || "—"}
+              />
+              <SummaryRow
+                label="Referencia"
+                value={moneygramAccountForm.reference || "—"}
+              />
+              <SummaryRow
+                label="Atención"
+                value={moneygramAccountForm.attention || "—"}
+              />
+              <SummaryRow
+                label="Calle/Numero"
+                value={moneygramAccountForm.street || "—"}
+              />
+              <SummaryRow
+                label="Dirección"
+                value={moneygramAccountForm.address || "—"}
+              />
+              <SummaryRow
+                label="Estado"
+                value={moneygramAccountForm.state || "—"}
+              />
+              <SummaryRow
+                label="Ciudad"
+                value={moneygramAccountForm.city || "—"}
+              />
+              <SummaryRow
+                label="Nro. Teléfono"
+                value={moneygramAccountForm.phone || "—"}
+              />
             </>
           ) : provider === "RIA" ? (
             <>

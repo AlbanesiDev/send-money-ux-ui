@@ -721,13 +721,7 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     });
     isRemitterFormDirty = currentSnapshot !== originalSnapshot;
   }
-  const isUpdatingExistingClient =
-    customer !== null ||
-    customers.some(
-      (item) =>
-        item.documentType === remitterForm.documentType.trim() &&
-        item.documentNumbers.includes(documentNumber.trim()),
-    );
+  const isUpdatingExistingClient = customer !== null;
   const showSaveClientButton =
     isGuestFlow || customer === null || isRemitterFormDirty;
   let isBeneficiaryFormDirty = false;
@@ -1482,7 +1476,9 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                 showPartyCardsAboveShipping ? "" : "mt-1"
               }`}
             >
-              Doc: {beneficiary.document} · {beneficiary.city}
+              {beneficiary.document !== ""
+                ? `Doc: ${beneficiary.document} · ${beneficiary.city}`
+                : beneficiary.city}
             </p>
             <p
               className={`min-w-0 truncate text-xs text-muted-foreground ${
@@ -1883,6 +1879,7 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                   provider={selectedProvider}
                   form={beneficiaryForm}
                   onFormChange={handleBeneficiaryFormChange}
+                  destinationCountry={destinationCountry}
                   known={known}
                   fillBeneficiaryFields={fillBeneficiaryFields}
                   onSave={() => {

@@ -28,51 +28,44 @@ export function TerrapayBeneficiaryStep({
           required
           onChange={(value) => onFormChange("lastName", value)}
         />
-        <Field label="Tipo ID beneficiario" value="Cédula" disabled required />
+        <Field label="Tipo ID beneficiario" value="Cédula" disabled />
         <Field
           label="Nro. ID beneficiario"
           value={form.document}
-          required
           numericOnly
           onChange={(value) => onFormChange("document", value)}
         />
         <CountryField
           label="Nacionalidad"
           value={form.nationality}
-          required
           onChange={(value) => onFormChange("nationality", value)}
         />
         <Field label="Código Postal" value="0000" disabled />
-        <Field label="Cód. Móvil" value="+591" disabled required />
+        <Field label="Cód. Móvil" value="+591" disabled />
         <Field
           label="Nro. Teléfono"
           value={form.phone}
-          required
           numericOnly
           onChange={(value) => onFormChange("phone", value)}
         />
         <Field
           label="Calle/Numero"
           value={form.street}
-          required
           onChange={(value) => onFormChange("street", value)}
         />
         <Field
           label="Dirección"
           value={form.address}
-          required
           onChange={(value) => onFormChange("address", value)}
         />
         <Field
           label="Estado"
           value={form.state}
-          required
           onChange={(value) => onFormChange("state", value)}
         />
         <Field
           label="Ciudad"
           value={form.city}
-          required
           onChange={(value) => onFormChange("city", value)}
         />
       </div>

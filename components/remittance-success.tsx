@@ -69,7 +69,7 @@ type RemittanceSuccessProps = {
 };
 
 const secondaryButton =
-  "inline-flex cursor-pointer items-center gap-2 rounded-lg border border-border bg-card px-5 py-3 text-sm font-bold text-foreground transition-colors hover:border-amount hover:bg-accent hover:text-amount focus:outline-none focus-visible:ring-4 focus-visible:ring-amount/20";
+  "flex cursor-pointer items-center flex-nowrap gap-2 rounded-lg border border-border bg-card px-5 py-3 text-sm font-bold text-foreground transition-colors hover:border-amount hover:bg-accent hover:text-amount focus:outline-none focus-visible:ring-4 focus-visible:ring-amount/20";
 
 export function RemittanceSuccess({
   operationNumber,
@@ -93,7 +93,7 @@ export function RemittanceSuccess({
 
   return (
     <div className="flex min-h-0 flex-1 items-center justify-center overflow-y-auto bg-card p-6 sm:p-12">
-      <div className="flex w-full max-w-[620px] flex-col items-center text-center">
+      <div className="flex w-full max-w-[620px]  flex-col items-center text-center">
         <div
           className="flex h-20 w-20 items-center justify-center rounded-full bg-success-soft text-success"
           aria-hidden="true"
@@ -147,7 +147,7 @@ export function RemittanceSuccess({
           {copied ? "Número de operación copiado" : ""}
         </p>
 
-        <div className="mt-7 flex flex-wrap justify-center gap-3">
+        <div className="mt-7 flex flex-nowrap justify-center gap-3">
           <button type="button" className={secondaryButton}>
             <Eye className="h-4 w-4" aria-hidden="true" />
             Ver comprobante

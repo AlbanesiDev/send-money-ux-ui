@@ -330,7 +330,7 @@ export function SearchableSelect({
             : "mb-1 block text-sm font-semibold text-foreground"
         }
       >
-        {label}
+        {label} {required && <span className="text-destructive">*</span>}
       </span>
       <div className="relative">
         <button

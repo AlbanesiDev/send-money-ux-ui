@@ -17,6 +17,7 @@ export type EditBeneficiaryDialogProps = {
   provider: ProviderId;
   form: BeneficiaryRegistrationDraft;
   onFormChange: BeneficiaryFormChangeHandler;
+  destinationCountry: string;
   known: (value?: string) => string | undefined;
   fillBeneficiaryFields: boolean;
   onSave: () => void;
@@ -29,6 +30,7 @@ export function EditBeneficiaryDialog({
   provider,
   form,
   onFormChange,
+  destinationCountry,
   known,
   fillBeneficiaryFields,
   onSave,
@@ -37,6 +39,7 @@ export function EditBeneficiaryDialog({
   const beneficiaryProps = {
     form,
     onFormChange,
+    destinationCountry,
   };
 
   let content: ReactNode;
@@ -49,9 +52,16 @@ export function EditBeneficiaryDialog({
     if (!fillBeneficiaryFields) {
       moneygramKnown = () => undefined;
     }
-    content = <MoneygramBeneficiaryAccountStep known={moneygramKnown} />;
+    content = (
+      <MoneygramBeneficiaryAccountStep
+        known={moneygramKnown}
+        destinationCountry={destinationCountry}
+      />
+    );
   } else {
-    content = <TerrapayBeneficiaryStep {...beneficiaryProps} />;
+    content = (
+      <TerrapayBeneficiaryStep form={form} onFormChange={onFormChange} />
+    );
   }
 
   return (

@@ -377,14 +377,6 @@ export function ReviewStep({
           ) : provider === "RIA" ? (
             <>
               <SummaryRow
-                label="Tipo de documento"
-                value={beneficiaryForm.documentType || "—"}
-              />
-              <SummaryRow
-                label="Nro. de Documento"
-                value={beneficiaryForm.document || "—"}
-              />
-              <SummaryRow
                 label="Nombre"
                 value={beneficiaryForm.firstName || "—"}
                 emphasis
@@ -480,10 +472,6 @@ export function ReviewStep({
               <SummaryRow
                 label="Segundo Apellido"
                 value={beneficiaryForm.secondLastName || "—"}
-              />
-              <SummaryRow
-                label="Nro. de Documento"
-                value={beneficiaryForm.document || "—"}
               />
               <SummaryRow label="Estado" value={beneficiaryForm.state || "—"} />
               <SummaryRow label="Ciudad" value={beneficiaryForm.city || "—"} />

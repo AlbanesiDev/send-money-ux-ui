@@ -11,10 +11,21 @@ export type BeneficiaryFormChangeHandler = (
 export function WuBeneficiaryStep({
   form,
   onFormChange,
+  destinationCountry,
 }: {
   form: BeneficiaryRegistrationDraft;
   onFormChange: BeneficiaryFormChangeHandler;
+  destinationCountry: string;
 }) {
+  let stateCityRequired = false;
+  if (
+    destinationCountry === "Mexico" ||
+    destinationCountry === "United States" ||
+    destinationCountry === "Canada"
+  ) {
+    stateCityRequired = true;
+  }
+
   return (
     <div data-beneficiary-form className="space-y-6">
       <h2 className="font-bold">Datos del beneficiario</h2>
@@ -42,40 +53,30 @@ export function WuBeneficiaryStep({
           onChange={(value) => onFormChange("secondLastName", value)}
         />
         <Field
-          label="Nro. de Documento"
-          value={form.document}
-          required
-          numericOnly
-          onChange={(value) => onFormChange("document", value)}
-        />
-        <Field
           label="Estado"
           value={form.state}
-          required
+          required={stateCityRequired}
           onChange={(value) => onFormChange("state", value)}
         />
         <Field
           label="Ciudad"
           value={form.city}
-          required
+          required={stateCityRequired}
           onChange={(value) => onFormChange("city", value)}
         />
         <Field
           label="Calle/Numero"
           value={form.street}
-          required
           onChange={(value) => onFormChange("street", value)}
         />
         <Field
           label="Dirección"
           value={form.address}
-          required
           onChange={(value) => onFormChange("address", value)}
         />
         <Field
           label="Nro. Teléfono"
           value={form.phone}
-          required
           numericOnly
           onChange={(value) => onFormChange("phone", value)}
         />

@@ -112,11 +112,11 @@ export async function registerBeneficiary(
   await wait(API_LATENCY_MS);
 
   const customerId = draft.customerId.trim();
-  const document = draft.document.trim();
-  if (customerId === "" || document === "") {
-    throw new Error("Cliente y documento del beneficiario son obligatorios.");
+  if (customerId === "") {
+    throw new Error("Cliente del beneficiario es obligatorio.");
   }
 
+  const document = draft.document.trim();
   const existingForCustomer = await readBeneficiariesByCustomerId(customerId);
   let existing: Beneficiary | null = null;
   if (draft.id.trim() !== "") {
@@ -127,7 +127,7 @@ export async function registerBeneficiary(
       }
     }
   }
-  if (existing === null) {
+  if (existing === null && document !== "") {
     for (const item of existingForCustomer) {
       if (item.document === document) {
         existing = item;
@@ -162,7 +162,7 @@ export async function registerBeneficiary(
   }
 
   const beneficiary: Beneficiary = {
-    id: `beneficiary-${customerId}-${document}-${Date.now()}`,
+    id: `beneficiary-${customerId}-${Date.now()}`,
     customerId,
     firstName: draft.firstName,
     middleName: draft.middleName,

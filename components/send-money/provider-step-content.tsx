@@ -168,6 +168,7 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
     const beneficiaryFormProps = {
       form: props.beneficiaryForm,
       onFormChange: props.onBeneficiaryFormChange,
+      destinationCountry: props.destinationCountry,
     };
 
     const usesFrequentBeneficiaries = props.provider !== "MONEYGRAM";
@@ -184,10 +185,20 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       if (!props.fillBeneficiaryFields) {
         moneygramKnown = () => undefined;
       }
-      beneficiary = <MoneygramBeneficiaryAccountStep known={moneygramKnown} />;
+      beneficiary = (
+        <MoneygramBeneficiaryAccountStep
+          known={moneygramKnown}
+          destinationCountry={props.destinationCountry}
+        />
+      );
     } else {
       remitter = <TerrapayRemitterStep {...remitterDocumentProps} />;
-      beneficiary = <TerrapayBeneficiaryStep {...beneficiaryFormProps} />;
+      beneficiary = (
+        <TerrapayBeneficiaryStep
+          form={props.beneficiaryForm}
+          onFormChange={props.onBeneficiaryFormChange}
+        />
+      );
     }
 
     let beneficiaryButtonLabel = "Guardar beneficiario";

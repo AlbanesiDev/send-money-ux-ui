@@ -1,49 +1,37 @@
 "use client";
 
-import { useRef } from "react";
-import { SearchableSelect } from "@/components/ui/searchable-select";
-import documentTypesCatalog from "@/public/catalogs/catalog-document-types.json";
 import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
 import { CountryField } from "../../country-field";
 import { Field } from "../../field";
 import type { BeneficiaryFormChangeHandler } from "../wu/beneficiary-step";
 
-const DOCUMENT_TYPE_OPTIONS = documentTypesCatalog.map((item) => item.name);
-
 export function RiaBeneficiaryStep({
   form,
   onFormChange,
+  destinationCountry,
 }: {
   form: BeneficiaryRegistrationDraft;
   onFormChange: BeneficiaryFormChangeHandler;
+  destinationCountry: string;
 }) {
-  const documentTypeRef = useRef<HTMLButtonElement>(null);
+  let stateCityRequired = false;
+  if (
+    destinationCountry === "Mexico" ||
+    destinationCountry === "United States" ||
+    destinationCountry === "Canada"
+  ) {
+    stateCityRequired = true;
+  }
+
+  let streetRequired = false;
+  if (destinationCountry === "Paraguay") {
+    streetRequired = true;
+  }
 
   return (
     <div data-beneficiary-form className="space-y-6">
       <h2 className="font-bold">Datos personales</h2>
       <div className="grid gap-3 sm:grid-cols-2">
-        <div className="block">
-          <span className="mb-1 block text-sm font-semibold text-foreground">
-            Tipo de documento <span className="text-destructive">*</span>
-          </span>
-          <SearchableSelect
-            fieldRef={documentTypeRef}
-            label="Tipo de documento"
-            hideLabel
-            value={form.documentType}
-            options={DOCUMENT_TYPE_OPTIONS}
-            required
-            onChange={(value) => onFormChange("documentType", value)}
-          />
-        </div>
-        <Field
-          label="Nro. de Documento"
-          value={form.document}
-          required
-          numericOnly
-          onChange={(value) => onFormChange("document", value)}
-        />
         <Field
           label="Nombre"
           value={form.firstName}
@@ -92,31 +80,29 @@ export function RiaBeneficiaryStep({
         <Field
           label="Calle/Numero"
           value={form.street}
-          required
+          required={streetRequired}
           onChange={(value) => onFormChange("street", value)}
         />
         <Field
           label="Dirección"
           value={form.address}
-          required
           onChange={(value) => onFormChange("address", value)}
         />
         <Field
           label="Estado"
           value={form.state}
-          required
+          required={stateCityRequired}
           onChange={(value) => onFormChange("state", value)}
         />
         <Field
           label="Ciudad"
           value={form.city}
-          required
+          required={stateCityRequired}
           onChange={(value) => onFormChange("city", value)}
         />
         <Field
           label="Nro. Teléfono"
           value={form.phone}
-          required
           numericOnly
           onChange={(value) => onFormChange("phone", value)}
         />

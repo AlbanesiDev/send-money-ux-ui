@@ -147,6 +147,10 @@ export function ComplianceSection({
     const hint =
       knownFields.has(field) && form[field] ? "De la ficha" : undefined;
     if (config.options) {
+      let error: string | undefined;
+      if (showErrors && form[field].trim() === "") {
+        error = "Este campo es requerido";
+      }
       return (
         <SelectInput
           key={field}
@@ -156,6 +160,8 @@ export function ComplianceSection({
           onChange={set(field)}
           required
           hint={hint}
+          missing={showErrors}
+          error={error}
         />
       );
     }
@@ -177,6 +183,11 @@ export function ComplianceSection({
         />
       );
     }
+    const required = field !== "nit";
+    let error: string | undefined;
+    if (showErrors && required && form[field].trim() === "") {
+      error = "Este campo es requerido";
+    }
     return (
       <TextInput
         key={field}
@@ -184,9 +195,10 @@ export function ComplianceSection({
         value={form[field]}
         onChange={set(field)}
         type={config.type}
-        required={field !== "nit"}
+        required={required}
         hint={hint}
         missing={showErrors}
+        error={error}
       />
     );
   };

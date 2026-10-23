@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { flushSync } from "react-dom";
 import { Dialog } from "@base-ui/react/dialog";
 import {
   CheckIcon,
@@ -141,19 +142,28 @@ export function BeneficiaryStep({
   const text = (
     field: keyof ProfileForm,
     options: { type?: "text" | "email"; inputMode?: "numeric" } = {},
-  ) => (
-    <TextInput
-      key={field}
-      label={PROFILE_LABELS[field]}
-      value={String(profile[field])}
-      onChange={set(field) as (value: string) => void}
-      required={isRequiredProfileField(field, profile)}
-      type={options.type}
-      inputMode={options.inputMode}
-      hint={hintFor(field)}
-      missing={highlightMissing}
-    />
-  );
+  ) => {
+    const required = isRequiredProfileField(field, profile);
+    const empty = String(profile[field]).trim() === "";
+    let error: string | undefined;
+    if (highlightMissing && required && empty) {
+      error = "Este campo es requerido";
+    }
+    return (
+      <TextInput
+        key={field}
+        label={PROFILE_LABELS[field]}
+        value={String(profile[field])}
+        onChange={set(field) as (value: string) => void}
+        required={required}
+        type={options.type}
+        inputMode={options.inputMode}
+        hint={hintFor(field)}
+        missing={highlightMissing}
+        error={error}
+      />
+    );
+  };
 
   const dateField = (
     field: "birthDate" | "documentIssueDate" | "documentExpiryDate",
@@ -161,7 +171,13 @@ export function BeneficiaryStep({
     const required = isRequiredProfileField(field, profile);
     const empty = String(profile[field]).trim() === "";
     let error: string | undefined;
-    if (highlightMissing && required && empty) {
+    if (
+      highlightMissing &&
+      field === "documentExpiryDate" &&
+      isExpired(profile)
+    ) {
+      error = "El documento está vencido. Pide un documento vigente.";
+    } else if (highlightMissing && required && empty) {
       error = "Este campo es requerido";
     }
     return (
@@ -189,19 +205,29 @@ export function BeneficiaryStep({
     options: Parameters<typeof SelectInput>[0]["options"],
     showFlags = false,
     menuMinWidth?: number,
-  ) => (
-    <SelectInput
-      key={field}
-      label={PROFILE_LABELS[field]}
-      value={String(profile[field])}
-      options={options}
-      onChange={set(field) as (value: string) => void}
-      required={isRequiredProfileField(field, profile)}
-      showFlags={showFlags}
-      menuMinWidth={menuMinWidth}
-      hint={hintFor(field)}
-    />
-  );
+  ) => {
+    const required = isRequiredProfileField(field, profile);
+    const empty = String(profile[field]).trim() === "";
+    let error: string | undefined;
+    if (highlightMissing && required && empty) {
+      error = "Este campo es requerido";
+    }
+    return (
+      <SelectInput
+        key={field}
+        label={PROFILE_LABELS[field]}
+        value={String(profile[field])}
+        options={options}
+        onChange={set(field) as (value: string) => void}
+        required={required}
+        showFlags={showFlags}
+        menuMinWidth={menuMinWidth}
+        hint={hintFor(field)}
+        missing={highlightMissing}
+        error={error}
+      />
+    );
+  };
 
   const renderField = (field: keyof ProfileForm) => {
     switch (field) {
@@ -330,7 +356,7 @@ export function BeneficiaryStep({
   );
 
   return (
-    <div className="flex flex-col gap-4">
+    <div data-payment-step="beneficiary" className="flex flex-col gap-4">
       <div
         className={showProfileSummary ? "grid gap-4 lg:grid-cols-2" : undefined}
       >
@@ -400,7 +426,7 @@ export function BeneficiaryStep({
                 text={
                   existing
                     ? "Encontramos la ficha del cliente en CIS."
-                    : "Cliente nuevo: nombre y apellido vienen de la operación; el documento se cargó al validarlo. Completa el resto del alta."
+                    : "Cliente nuevo"
                 }
               />
             )}
@@ -477,7 +503,7 @@ export function BeneficiaryStep({
             tone="info"
             icon={<UserPlusIcon className="size-5" />}
             title="Alta de cliente"
-            text="Nombre, apellido y número de documento ya están cargados; completa el resto con el beneficiario."
+            text=""
           />
           {profileFormFields}
         </>
@@ -704,7 +730,28 @@ export function BeneficiaryStep({
                   type="button"
                   onClick={() => {
                     if (missing.length > 0) {
-                      setEditErrors(true);
+                      flushSync(() => {
+                        setEditErrors(true);
+                      });
+                      const dialog = document.querySelector(
+                        '[data-payment-step="beneficiary"] [role="dialog"]',
+                      );
+                      let root: ParentNode | Document = document;
+                      if (dialog !== null) {
+                        root = dialog;
+                      }
+                      const firstInvalid = root.querySelector(
+                        '[aria-invalid="true"]',
+                      );
+                      if (firstInvalid instanceof HTMLElement) {
+                        firstInvalid.scrollIntoView({
+                          block: "center",
+                          behavior: "smooth",
+                        });
+                        window.requestAnimationFrame(() => {
+                          firstInvalid.focus();
+                        });
+                      }
                       return;
                     }
                     setEditErrors(false);

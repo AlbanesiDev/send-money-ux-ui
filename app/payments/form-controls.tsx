@@ -43,6 +43,7 @@ export function TextInput({
   placeholder,
   hint,
   missing = false,
+  error,
   fieldRef,
   autoFocus = false,
 }: {
@@ -58,25 +59,44 @@ export function TextInput({
   hint?: string;
   /** Resalta el campo cuando es obligatorio y está vacío. */
   missing?: boolean;
+  error?: string;
   fieldRef?: RefObject<HTMLInputElement | null>;
   autoFocus?: boolean;
 }) {
+  let resolvedError = "";
+  if (error !== undefined && error !== "") {
+    resolvedError = error;
+  } else if (missing && required && value.trim() === "") {
+    resolvedError = "Este campo es requerido";
+  }
+  const hasError = resolvedError !== "";
+
   return (
     <label className="block min-w-0">
       <FieldLabel label={label} required={required} hint={hint} />
-      <input
-        ref={fieldRef}
-        type={type}
-        inputMode={inputMode}
-        value={value}
-        required={required}
-        disabled={disabled}
-        placeholder={placeholder}
-        autoFocus={autoFocus}
-        aria-invalid={missing && required && !value.trim() ? true : undefined}
-        onChange={(event) => onChange(event.target.value)}
-        className={inputClass}
-      />
+      <span className="relative block">
+        <input
+          ref={fieldRef}
+          type={type}
+          inputMode={inputMode}
+          value={value}
+          required={required}
+          disabled={disabled}
+          placeholder={placeholder}
+          autoFocus={autoFocus}
+          aria-invalid={hasError || undefined}
+          onChange={(event) => onChange(event.target.value)}
+          className={inputClass}
+        />
+        {hasError && (
+          <span
+            role="alert"
+            className="pointer-events-none absolute top-[calc(100%+0.125rem)] left-0 z-1 text-[0.6875rem] leading-none text-destructive"
+          >
+            {resolvedError}
+          </span>
+        )}
+      </span>
     </label>
   );
 }
@@ -91,6 +111,8 @@ export function SelectInput({
   showFlags = false,
   menuMinWidth,
   hint,
+  missing = false,
+  error,
   nextRef,
 }: {
   label: string;
@@ -102,9 +124,18 @@ export function SelectInput({
   showFlags?: boolean;
   menuMinWidth?: number;
   hint?: string;
+  missing?: boolean;
+  error?: string;
   nextRef?: RefObject<HTMLElement | null>;
 }) {
   const ref = useRef<HTMLButtonElement>(null);
+  let resolvedError = "";
+  if (error !== undefined && error !== "") {
+    resolvedError = error;
+  } else if (missing && required && value.trim() === "") {
+    resolvedError = "Este campo es requerido";
+  }
+
   return (
     <div className="min-w-0">
       <FieldLabel label={label} required={required} hint={hint} />
@@ -119,6 +150,8 @@ export function SelectInput({
         nextRef={nextRef}
         showFlags={showFlags}
         menuMinWidth={menuMinWidth}
+        required={required}
+        error={resolvedError}
       />
     </div>
   );

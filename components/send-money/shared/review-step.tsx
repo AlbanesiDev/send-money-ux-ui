@@ -2,8 +2,12 @@ import type { ReactNode } from "react";
 import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
 import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
 import type { MoneygramAccountDraft } from "@/lib/simulated-api/moneygram-accounts-api";
+import { CountryFlag } from "@/components/ui/country-flag";
 import { deliveryTypeLabel, quoteAmountReceived } from "../provider-flows";
 import type { PaymentLine, ProviderId, ProviderQuote } from "../types";
+import { ArrowRightIcon, MoveRightIcon } from "lucide-react";
+
+const ORIGIN_COUNTRY = "Bolivia";
 
 function SummarySection({
   title,
@@ -141,12 +145,94 @@ export function ReviewStep({
   onEditPayment: () => void;
   billingSlot: ReactNode;
 }) {
+  const remitterName = [
+    remitterForm.firstName,
+    remitterForm.middleName,
+    remitterForm.lastName,
+    remitterForm.secondLastName,
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const remitterDocument = [remitterForm.documentType, documentNumber]
+    .filter(Boolean)
+    .join(" ");
+  let beneficiaryName = [
+    beneficiaryForm.firstName,
+    beneficiaryForm.middleName,
+    beneficiaryForm.lastName,
+    beneficiaryForm.secondLastName,
+  ]
+    .filter(Boolean)
+    .join(" ");
+  if (provider === "MONEYGRAM") {
+    beneficiaryName = moneygramAccountForm.company;
+  }
+  const amountReceived = quoteAmountReceived(quote);
+
   return (
     <div className="flex h-full min-h-0 flex-col gap-3">
       <p className="shrink-0 rounded-md border border-warning-border bg-warning-soft px-3 py-2 text-xs text-warning-foreground">
         Confirma con el cliente el monto, el beneficiario y el lugar de pago
         antes de enviar.
       </p>
+
+      <section className="shrink-0 rounded-xl border border-brand/40 bg-white p-4">
+        <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-start lg:gap-8">
+          <div>
+            <dt className="text-xs font-bold uppercase tracking-[0.12em] text-brand-strong">
+              Monto que recibe
+            </dt>
+            <dd className="mt-1 text-3xl font-bold tabular-nums tracking-[-0.02em] text-foreground">
+              {formatUsd(amountReceived)}
+            </dd>
+            <dd className="mt-1 text-xs text-muted-foreground">
+              Total a cobrar:{" "}
+              <span className="text-sm font-semibold text-foreground">
+                {formatUsd(totalToCharge)}
+              </span>
+            </dd>
+          </div>
+
+          <div className="flex flex-wrap items-start gap-x-4 gap-y-1">
+            <div>
+              <dt className="text-xs text-party-sender-fg">Remitente</dt>
+              <dd className="font-semibold text-foreground">{remitterName}</dd>
+              <dd className="text-xs text-muted-foreground">
+                {remitterDocument}
+              </dd>
+            </div>
+            <span className="text-muted-foreground self-center" aria-hidden>
+              <MoveRightIcon />
+            </span>
+            <div>
+              <dt className="text-xs text-party-beneficiary-fg">
+                Beneficiario
+              </dt>
+              <dd className="font-semibold text-foreground">
+                {beneficiaryName}
+              </dd>
+            </div>
+          </div>
+
+          <div className="ml-12">
+            <dt className="text-xs text-muted-foreground">Origen y destino</dt>
+            <dd className="flex flex-wrap items-center gap-x-2 gap-y-1 font-semibold text-foreground">
+              <span className="inline-flex items-center gap-1.5">
+                <CountryFlag country={ORIGIN_COUNTRY} />
+                {ORIGIN_COUNTRY}
+              </span>
+              <span className="text-muted-foreground" aria-hidden>
+                <MoveRightIcon />
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <CountryFlag country={destinationCountry} />
+                {destinationCountry}
+              </span>
+            </dd>
+          </div>
+        </dl>
+      </section>
+
       <div className="grid min-h-0 flex-1 gap-3 overflow-y-auto lg:grid-cols-3 lg:overflow-hidden">
         <SummarySection
           title="Remitente"
@@ -526,7 +612,7 @@ export function ReviewStep({
         </SummarySection>
         <div className="flex flex-col gap-4">
           <SummarySection
-            title="Confirmar con el cliente"
+            title="Datos de envío"
             onEdit={onEditQuote}
             editLabel="Editar cotización"
             highlight

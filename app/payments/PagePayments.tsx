@@ -1,9 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { flushSync } from "react-dom";
 import { ArrowLeftIcon, ArrowRightIcon, BanknoteIcon } from "lucide-react";
 import { CancelOperationDialog } from "@/app/remittences/dialogs";
 import { Stepper } from "@/components/ui/stepper";
+import {
+  EMPTY_PEP,
+  registerCustomer,
+  type CustomerRegistrationDraft,
+} from "@/lib/simulated-api/customers-api";
 import {
   AGENCY_CASH_BOB,
   AGENCY_CASH_USD,
@@ -184,24 +190,98 @@ export function PaymentFlow({ onReset, initialOperation }: PaymentFlowProps) {
     if (step === 2 && verified) return goTo(3);
     if (step === 3) {
       if (!beneficiaryReady) {
-        setShowErrors(true);
+        flushSync(() => {
+          setShowErrors(true);
+        });
+        const firstInvalid = document.querySelector(
+          '[data-payment-step="beneficiary"] [aria-invalid="true"]',
+        );
+        if (firstInvalid instanceof HTMLElement) {
+          firstInvalid.scrollIntoView({ block: "center", behavior: "smooth" });
+          window.requestAnimationFrame(() => {
+            firstInvalid.focus();
+          });
+        }
         return;
       }
       return goTo(4);
     }
-    if (step === 4 && !cashShort && !processing && operation !== null) {
+    if (
+      step === 4 &&
+      !cashShort &&
+      !processing &&
+      operation !== null &&
+      profile !== null
+    ) {
       setProcessing(true);
-      void collectPaymentOperation(operation.number)
-        .then((paidOperation) => {
-          setOperation(paidOperation);
-          processingTimeoutRef.current = window.setTimeout(() => {
-            setProcessing(false);
-            setPaid(true);
-          }, 1200);
-        })
-        .catch(() => {
+      void (async () => {
+        if (operation.existingCustomer === null) {
+          let documentIssueDate = profile.documentIssueDate;
+          if (profile.noIssueDate) {
+            documentIssueDate = "";
+          }
+          let documentExpiryDate = profile.documentExpiryDate;
+          if (profile.noExpiryDate) {
+            documentExpiryDate = "";
+          }
+          const draft: CustomerRegistrationDraft = {
+            documentNumber: profile.documentNumber,
+            documentType: profile.documentType,
+            documentIssueCountry: profile.documentCountry,
+            documentIssueDate,
+            documentExpiryDate,
+            firstName: profile.firstName,
+            middleName: profile.middleName,
+            lastName: profile.lastName,
+            secondLastName: profile.secondLastName,
+            birthDate: profile.birthDate,
+            birthCountry: profile.birthCountry,
+            nationality: profile.nationality,
+            gender: profile.gender,
+            civilStatus: uifForm.civilStatus,
+            spouseName: uifForm.spouseName,
+            email: profile.email,
+            phone: profile.phone,
+            mobile: profile.phone,
+            street: profile.street,
+            address: `${profile.street} ${profile.houseNumber}`.trim(),
+            state: profile.department,
+            city: profile.city,
+            houseNumber: profile.houseNumber,
+            address2: profile.address2,
+            zone: profile.zone,
+            postalCode: profile.postalCode,
+            isPep: flags.pep,
+            pep: {
+              ...EMPTY_PEP,
+              position: uifForm.position,
+              occupation: uifForm.occupation,
+              economicActivity: uifForm.economicActivity,
+              employmentLevel: uifForm.employmentLevel,
+              employer: uifForm.employer,
+              jobTitle: uifForm.position,
+              workAddress: uifForm.workAddress,
+              monthlyIncome: uifForm.monthlyIncome,
+              fundsOrigin: uifForm.fundsOrigin,
+              resourceDestination: uifForm.resourcesDestination,
+              transactionPurpose: uifForm.purpose,
+              senderRelation: uifForm.senderRelation,
+              relationType: uifForm.pepRelation,
+              publicPositions: uifForm.publicOffice,
+              suspiciousReason: uifForm.unusualReason,
+            },
+          };
+          await registerCustomer(draft);
+        }
+        const paidOperation = await collectPaymentOperation(operation.number);
+        setOperation(paidOperation);
+        processingTimeoutRef.current = window.setTimeout(() => {
           setProcessing(false);
-        });
+          setPaid(true);
+        }, 1200);
+      })().catch(() => {
+        setProcessing(false);
+      });
     }
   }
 

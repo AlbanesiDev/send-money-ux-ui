@@ -739,6 +739,7 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
   const [completedOperationNumber, setCompletedOperationNumber] = useState("");
   const [processing, setProcessing] = useState(false);
   const [cancelConfirmOpen, setCancelConfirmOpen] = useState(false);
+  const [clientDataConfirmed, setClientDataConfirmed] = useState(false);
   const processingTimeoutRef = useRef<number | undefined>(undefined);
   useEffect(() => () => window.clearTimeout(processingTimeoutRef.current), []);
   const [additionalChecks, setAdditionalChecks] = useState<
@@ -1369,6 +1370,8 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     }
     if (isReviewStep) {
       window.requestAnimationFrame(() => nextButtonRef.current?.blur());
+    } else {
+      setClientDataConfirmed(false);
     }
   }, [step, isReviewStep, selectedProvider, activeSteps]);
 
@@ -2238,17 +2241,37 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                 onConfirm={onReset}
               />
             </div>
-            <button
-              type="button"
-              ref={nextButtonRef}
-              data-next-button
-              onClick={handleContinue}
-              disabled={step === 2 && !canContinueFromQuote}
-              className="flex items-center gap-2 rounded-md bg-brand-strong px-4 py-1 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-amount/30 disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground"
-            >
-              {isReviewStep ? "Confirmar y enviar" : "Siguiente"}
-              {isReviewStep !== true && <ArrowRightIcon className="size-4" />}
-            </button>
+            <div className="flex items-center gap-3">
+              {/* {isReviewStep && (
+                  <label className="flex cursor-pointer items-center gap-2 text-sm text-foreground">
+                    <input
+                      type="checkbox"
+                      checked={clientDataConfirmed}
+                      onChange={(event) =>
+                        setClientDataConfirmed(event.target.checked)
+                      }
+                      className="h-4 w-4 shrink-0 accent-brand-strong"
+                    />
+                    <span className="select-none">
+                      Confirmo que leí los datos con el cliente
+                    </span>
+                  </label>
+                )} */}
+              <button
+                type="button"
+                ref={nextButtonRef}
+                data-next-button
+                onClick={handleContinue}
+                // disabled={
+                //   (step === 2 && !canContinueFromQuote) ||
+                //   (isReviewStep && !clientDataConfirmed)
+                // }
+                className="flex min-w-[8.3rem] items-center justify-center gap-2 rounded-md bg-brand-strong px-4 py-1 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-amount/30 disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground"
+              >
+                {isReviewStep ? "Enviar" : "Siguiente"}
+                {isReviewStep !== true && <ArrowRightIcon className="size-4" />}
+              </button>
+            </div>
           </div>
         </div>
       )}

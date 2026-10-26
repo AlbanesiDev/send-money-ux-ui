@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { SearchableSelect } from "@/components/ui/searchable-select";
 import countriesCatalog from "@/public/catalogs/catalog-countries.json";
+import foundSourcesCatalog from "@/public/catalogs/catalog-found-sources.json";
 import maritalStatusCatalog from "@/public/catalogs/catalog-marital-status.json";
 import { Field } from "../field";
 
@@ -87,6 +88,9 @@ export function isAdditionalInfoFormComplete(
 const CIVIL_STATUS_OPTIONS = maritalStatusCatalog.items.map(
   (item) => item.maritalStatus.description,
 );
+const FUNDS_ORIGIN_OPTIONS = foundSourcesCatalog.result.items.map(
+  (item) => item.foundSource.description,
+);
 const MARRIED_CIVIL_STATUS = "Casado";
 
 export type AdditionalInfoFormChangeHandler = (
@@ -102,6 +106,7 @@ export function AdditionalInfoForm({
   onChange: AdditionalInfoFormChangeHandler;
 }) {
   const civilStatusRef = useRef<HTMLButtonElement>(null);
+  const fundsOriginRef = useRef<HTMLButtonElement>(null);
   const showSpouseName = form.civilStatus === MARRIED_CIVIL_STATUS;
 
   return (
@@ -118,9 +123,11 @@ export function AdditionalInfoForm({
         required
         onChange={(value) => onChange("economicActivity", value)}
       />
-      <Field
+      <SearchableSelect
+        fieldRef={fundsOriginRef}
         label="Origen de los Fondos"
         value={form.fundsOrigin}
+        options={FUNDS_ORIGIN_OPTIONS}
         required
         onChange={(value) => onChange("fundsOrigin", value)}
       />
@@ -128,6 +135,7 @@ export function AdditionalInfoForm({
         label="Destino recursos"
         value={form.resourceDestination}
         required
+        maxLength={50}
         onChange={(value) => onChange("resourceDestination", value)}
       />
       <Field

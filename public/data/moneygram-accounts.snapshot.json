@@ -1,7 +1,7 @@
 [
   {
-    "id": "mg-eliana-001",
-    "customerId": "eliana-antezana",
+    "id": "mg-jorge-001",
+    "customerId": "jorge-jimenez",
     "company": "Sol & Luna Pagos",
     "accountNumber": "001234567890",
     "locationCode": "LPZ-001",
@@ -14,8 +14,8 @@
     "phone": "22123456"
   },
   {
-    "id": "mg-eliana-002",
-    "customerId": "eliana-antezana",
+    "id": "mg-jorge-002",
+    "customerId": "jorge-jimenez",
     "company": "Envíos Andinos",
     "accountNumber": "009988776655",
     "locationCode": "CBB-014",

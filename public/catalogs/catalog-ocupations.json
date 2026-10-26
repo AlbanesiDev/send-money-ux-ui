@@ -1,0 +1,418 @@
+{
+  "result": {
+    "totalCount": 29,
+    "items": [
+      {
+        "occupation": {
+          "code": "38",
+          "description": "Agente Inmobiliario/De Seguros/De Ventas",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1256
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "32",
+          "description": "Asistente Doméstico ",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1250
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "33",
+          "description": "Conductor ",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1251
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "52",
+          "description": "Desempleado",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1269
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "35",
+          "description": "Educador/Profesor",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1253
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "55",
+          "description": "Empleado De Servicio Marítimo/Aerolínea",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1272
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "40",
+          "description": "Empleado De Servicios De Ocio/Restaurante/Hotel",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1258
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "29",
+          "description": "Empleado Público/Gubernamental ",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1247
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "58",
+          "description": "Es Profesional De Servicios Profesionales",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1275
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "51",
+          "description": "Estudiante",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1268
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "30",
+          "description": "Fuerzas Y Cuerpos De Seguridad/Militar",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1248
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "46",
+          "description": "Independiente",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1263
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "39",
+          "description": "Investigador/Científico",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1257
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "45",
+          "description": "Jornalero-Agricultor",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1262
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "37",
+          "description": "Jubilado",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1255
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "31",
+          "description": "Oficinista ",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1249
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "48",
+          "description": "Oficio Especializado/Especialista",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1265
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "49",
+          "description": "Operario-Industria ",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1266
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "50",
+          "description": "Operario-Industria Forestal/Minera/Gas/Aceite",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1267
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "34",
+          "description": "Párroco/Religioso",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1252
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "47",
+          "description": "Peón-Construcción",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1264
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "53",
+          "description": "Profesional De Medicina Y Salud ",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1270
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "54",
+          "description": "Profesional De Medios De Arte/Entretenimiento/Comunicación/Deportes",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1271
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "43",
+          "description": "Profesional Técnico Y De Ti",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1261
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "42",
+          "description": "Responsable De Cuidado De Los Niños/Tareas Del Hogar",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1260
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "57",
+          "description": "Servicios De Atención Personalizada/Cosméticos ",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1274
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "36",
+          "description": "Ventas Al Por Menor ",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1254
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "41",
+          "description": "Vigilante De Seguridad",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1259
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      },
+      {
+        "occupation": {
+          "code": "56",
+          "description": "Voluntario, Sin Ánimo De Lucro",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 1273
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "WU"
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

@@ -1,0 +1,84 @@
+{
+  "result": {
+    "totalCount": 6,
+    "items": [
+      {
+        "senderReceiverRelationship": {
+          "code": "8",
+          "description": "Amigos",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 12
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "senderReceiverRelationship": {
+          "code": "12",
+          "description": "Comprador/Vendedor",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 16
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "senderReceiverRelationship": {
+          "code": "11",
+          "description": "Donante/Destinatario De Donaciones",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 15
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "senderReceiverRelationship": {
+          "code": "10",
+          "description": "Empleado/Empleador",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 14
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "senderReceiverRelationship": {
+          "code": "7",
+          "description": "Familia",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 11
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "senderReceiverRelationship": {
+          "code": "9",
+          "description": "Socio Comercial",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 13
+        },
+        "cisCountryName": "Bolivia"
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

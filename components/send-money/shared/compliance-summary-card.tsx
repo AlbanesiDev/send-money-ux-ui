@@ -1,44 +1,45 @@
 "use client";
 
+import { useRef } from "react";
 import { FlagIcon, ShieldAlertIcon } from "lucide-react";
+import { SearchableSelect } from "@/components/ui/searchable-select";
+import foundSourcesCatalog from "@/public/catalogs/catalog-found-sources.json";
+import { Field } from "../field";
 import type { AdditionalInfoFormState } from "./additional-info-form";
 
+const FUNDS_ORIGIN_OPTIONS = foundSourcesCatalog.result.items.map(
+  (item) => item.foundSource.description,
+);
+
 export function ComplianceSummaryCard({
+  fundsOrigin,
+  resourceDestination,
+  onFundsOriginChange,
+  onResourceDestinationChange,
   additionalInfoMarked,
   suspiciousMarked,
   additionalInfo,
   additionalInfoRequired = false,
   additionalInfoError = "",
-  onAdditionalInfoMarkedChange,
   onEditAdditionalInfo,
   onSuspiciousMarkedChange,
   onEditSuspicious,
 }: {
+  fundsOrigin: string;
+  resourceDestination: string;
+  onFundsOriginChange: (value: string) => void;
+  onResourceDestinationChange: (value: string) => void;
   additionalInfoMarked: boolean;
   suspiciousMarked: boolean;
   additionalInfo: AdditionalInfoFormState;
   additionalInfoRequired?: boolean;
   additionalInfoError?: string;
-  onAdditionalInfoMarkedChange: (marked: boolean) => void;
   onEditAdditionalInfo: () => void;
   onSuspiciousMarkedChange: (marked: boolean) => void;
   onEditSuspicious: () => void;
 }) {
-  const additionalLocked = additionalInfoRequired && additionalInfoMarked;
-
-  let additionalLabelClass =
-    "mt-2 flex cursor-pointer items-center gap-2.5 rounded-md border px-2.5 py-2 text-sm transition-colors border-border bg-card";
-  if (additionalInfoMarked) {
-    additionalLabelClass =
-      "mt-2 flex cursor-pointer items-center gap-2.5 rounded-md border px-2.5 py-2 text-sm transition-colors border-brand/40 bg-accent";
-  }
-  if (additionalInfoError !== "") {
-    additionalLabelClass =
-      "mt-2 flex cursor-pointer items-center gap-2.5 rounded-md border px-2.5 py-2 text-sm transition-colors border-destructive/40 bg-destructive/5";
-  }
-  if (additionalLocked) {
-    additionalLabelClass = `${additionalLabelClass} cursor-default`;
-  }
+  const fundsOriginRef = useRef<HTMLButtonElement>(null);
+  const resourceDestinationRef = useRef<HTMLInputElement>(null);
 
   return (
     <section className="shrink-0 rounded-lg border border-border border-l-4 border-l-brand bg-card px-3.5 py-2.5 shadow-sm">
@@ -61,30 +62,42 @@ export function ComplianceSummaryCard({
       {additionalInfoRequired && (
         <div className="mt-2 flex items-start gap-2 rounded-md border border-warning-border bg-warning-soft px-2.5 py-2 text-warning-foreground">
           <ShieldAlertIcon className="mt-0.5 size-3.5 shrink-0" aria-hidden />
-          <p className="text-xs font-semibold">
-            El país destino es considerado de alto riesgo por GAFI. Se requiere
-            información adicional.
-          </p>
+          <div className="min-w-0 flex-1">
+            <p className="text-xs font-semibold">
+              El país destino es considerado de alto riesgo por GAFI. Se requiere
+              información adicional.
+            </p>
+            {!additionalInfoMarked && (
+              <button
+                type="button"
+                onClick={onEditAdditionalInfo}
+                className="mt-1.5 text-xs font-bold underline underline-offset-2 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warning-border"
+              >
+                Completar información adicional
+              </button>
+            )}
+          </div>
         </div>
       )}
 
-      <label className={additionalLabelClass}>
-        <input
-          type="checkbox"
-          checked={additionalInfoMarked}
-          disabled={additionalLocked}
-          onChange={(event) =>
-            onAdditionalInfoMarkedChange(event.target.checked)
-          }
-          className="h-4 w-4 shrink-0 accent-brand-strong disabled:cursor-not-allowed"
+      <div className="mt-2 grid gap-2.5">
+        <SearchableSelect
+          fieldRef={fundsOriginRef}
+          label="Origen de los Fondos"
+          value={fundsOrigin}
+          options={FUNDS_ORIGIN_OPTIONS}
+          required
+          onChange={onFundsOriginChange}
         />
-        <span className="font-semibold text-foreground">
-          Información adicional
-          {additionalInfoRequired && (
-            <span className="text-destructive"> *</span>
-          )}
-        </span>
-      </label>
+        <Field
+          inputRef={resourceDestinationRef}
+          label="Destino recursos"
+          value={resourceDestination}
+          required
+          maxLength={50}
+          onChange={onResourceDestinationChange}
+        />
+      </div>
 
       {additionalInfoError !== "" && (
         <p role="alert" className="mt-1.5 text-xs font-semibold text-destructive">

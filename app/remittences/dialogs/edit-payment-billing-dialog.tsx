@@ -12,6 +12,180 @@ import { SearchableSelect } from "@/components/ui/searchable-select";
 
 const CURRENCIES: PaymentCurrency[] = ["USD", "BOB"];
 
+function ExtraPaymentEditRow({
+  line,
+  maxUsdCents,
+  bobPerUsd,
+  methodOptions,
+  currencyOptions,
+  isCombinationTaken,
+  formatUsd,
+  formatAmount,
+  amountDraft,
+  sanitizeAmount,
+  parseAmount,
+  toCents,
+  onAmountDraftChange,
+  onAmountDraftClear,
+  onUpdate,
+  onRemove,
+}: {
+  line: PaymentLine;
+  maxUsdCents: number;
+  bobPerUsd: number;
+  methodOptions: string[];
+  currencyOptions: PaymentCurrency[];
+  isCombinationTaken: (
+    method: string,
+    currency: PaymentCurrency,
+  ) => boolean;
+  formatUsd: (value: number) => string;
+  formatAmount: (value: number) => string;
+  amountDraft: string | undefined;
+  sanitizeAmount: (value: string) => string;
+  parseAmount: (value: string) => number;
+  toCents: (value: number) => number;
+  onAmountDraftChange: (value: string) => void;
+  onAmountDraftClear: () => void;
+  onUpdate: (patch: Omit<PaymentLine, "id">) => void;
+  onRemove: () => void;
+}) {
+  const methodRef = useRef<HTMLButtonElement>(null);
+  const currencyRef = useRef<HTMLButtonElement>(null);
+
+  const applyCurrency = (
+    method: string,
+    currency: PaymentCurrency,
+  ) => {
+    if (!(line.amount > 0) || line.usdCents === 0) {
+      onUpdate({ method, currency, amount: 0, usdCents: 0 });
+      return;
+    }
+    const max =
+      currency === "USD"
+        ? maxUsdCents / 100
+        : Math.floor(maxUsdCents * bobPerUsd) / 100;
+    const amount =
+      currency === "USD"
+        ? line.usdCents / 100
+        : (line.usdCents * bobPerUsd) / 100;
+    const next = amount > max ? max : amount;
+    const nextUsdCents =
+      currency === "USD"
+        ? toCents(next)
+        : Math.round(toCents(next) / bobPerUsd);
+    onUpdate({
+      method,
+      currency,
+      amount: next,
+      usdCents: Math.min(nextUsdCents, maxUsdCents),
+    });
+  };
+
+  return (
+    <li>
+      <div className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,0.7fr)_minmax(0,0.9fr)_auto] items-start gap-1.5">
+        <SearchableSelect
+          label="Forma de pago"
+          options={methodOptions}
+          value={line.method}
+          onChange={(method) => {
+            if (!isCombinationTaken(method, line.currency)) {
+              onUpdate({ ...line, method });
+              return;
+            }
+            const freeCurrency = CURRENCIES.find(
+              (currency) => !isCombinationTaken(method, currency),
+            );
+            if (freeCurrency === undefined) return;
+            applyCurrency(method, freeCurrency);
+          }}
+          fieldRef={methodRef}
+          nextRef={currencyRef}
+          hideLabel
+        />
+        <SearchableSelect
+          label="Moneda"
+          options={currencyOptions}
+          value={line.currency}
+          onChange={(value) =>
+            applyCurrency(line.method, value as PaymentCurrency)
+          }
+          fieldRef={currencyRef}
+          hideLabel
+        />
+        <div className="min-w-0">
+          <input
+            value={
+              amountDraft !== undefined
+                ? amountDraft
+                : formatAmount(line.amount)
+            }
+            inputMode="decimal"
+            autoComplete="off"
+            aria-label={`Monto en ${line.currency} de ${line.method}`}
+            onFocus={(e) => e.currentTarget.select()}
+            onChange={(e) =>
+              onAmountDraftChange(sanitizeAmount(e.target.value))
+            }
+            onBlur={() => {
+              if (amountDraft === undefined) return;
+              const amount = parseAmount(amountDraft);
+              const max =
+                line.currency === "USD"
+                  ? maxUsdCents / 100
+                  : Math.floor(maxUsdCents * bobPerUsd) / 100;
+              const usdCents =
+                line.currency === "USD"
+                  ? toCents(amount)
+                  : Math.round(toCents(amount) / bobPerUsd);
+              const next = usdCents > maxUsdCents ? max : amount;
+              onAmountDraftClear();
+              if (!(next > 0)) return;
+              const nextUsdCents =
+                line.currency === "USD"
+                  ? toCents(next)
+                  : Math.round(toCents(next) / bobPerUsd);
+              onUpdate({
+                method: line.method,
+                currency: line.currency,
+                amount: next,
+                usdCents: Math.min(nextUsdCents, maxUsdCents),
+              });
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") {
+                onAmountDraftClear();
+                return;
+              }
+              if (
+                e.key !== "Enter" ||
+                e.nativeEvent.isComposing ||
+                e.keyCode === 229
+              )
+                return;
+              e.preventDefault();
+              e.currentTarget.blur();
+            }}
+            className="h-10 w-full rounded-lg border border-input bg-card px-2 text-right text-sm font-semibold text-foreground outline-none transition focus:border-brand focus:ring-4 focus:ring-brand/10"
+          />
+          <p className="mt-0.5 text-right text-xs text-muted-foreground">
+            {formatUsd(line.usdCents / 100)}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={onRemove}
+          aria-label={`Quitar ${line.method}`}
+          className="flex h-10 w-8 shrink-0 items-center justify-center rounded-lg text-destructive transition hover:bg-destructive/10 focus:outline-none focus:ring-4 focus:ring-destructive/15"
+        >
+          <Trash2 aria-hidden="true" className="h-3.5 w-3.5" />
+        </button>
+      </div>
+    </li>
+  );
+}
+
 export type EditPaymentBillingDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -79,14 +253,38 @@ export function EditPaymentBillingDialog({
     { id: -1, method: primaryMethod, currency: primaryCurrency },
     ...extraPayments,
   ];
-
-  const availableMethods = paymentMethodOptions.filter(
-    (method) =>
-      !usedLines.some(
-        (line) => line.method === method && line.currency === "USD",
-      ),
-  );
-  const canAddPayment = primaryCents > 0 && availableMethods.length > 0;
+  const isTaken = (
+    method: string,
+    currency: PaymentCurrency,
+    excludeId: number,
+  ) =>
+    usedLines.some(
+      (line) =>
+        line.id !== excludeId &&
+        line.method === method &&
+        line.currency === currency,
+    );
+  const methodOptionsFor = (id: number) =>
+    paymentMethodOptions.filter((method) =>
+      CURRENCIES.some((currency) => !isTaken(method, currency, id)),
+    );
+  const currencyOptionsFor = (method: string, id: number) =>
+    CURRENCIES.filter((currency) => !isTaken(method, currency, id));
+  const freeCombo = (() => {
+    for (const method of paymentMethodOptions) {
+      for (const currency of CURRENCIES) {
+        if (
+          !usedLines.some(
+            (line) => line.method === method && line.currency === currency,
+          )
+        ) {
+          return { method, currency };
+        }
+      }
+    }
+    return null;
+  })();
+  const canAddPayment = primaryCents > 0 && freeCombo !== null;
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -112,32 +310,27 @@ export function EditPaymentBillingDialog({
                 <div className="mt-2 grid grid-cols-[minmax(0,1.6fr)_minmax(0,0.7fr)_minmax(0,0.9fr)] items-start gap-2">
                   <SearchableSelect
                     label="Método de pago"
-                    options={paymentMethodOptions.filter(
-                      (method) =>
-                        !usedLines.some(
-                          (line) =>
-                            line.id !== -1 &&
-                            line.method === method &&
-                            line.currency === primaryCurrency,
-                        ),
-                    )}
+                    options={methodOptionsFor(-1)}
                     value={primaryMethod}
-                    onChange={onPrimaryMethodChange}
+                    onChange={(method) => {
+                      if (!isTaken(method, primaryCurrency, -1)) {
+                        onPrimaryMethodChange(method);
+                        return;
+                      }
+                      const freeCurrency = CURRENCIES.find(
+                        (currency) => !isTaken(method, currency, -1),
+                      );
+                      if (freeCurrency === undefined) return;
+                      onPrimaryCurrencyChange(freeCurrency);
+                      onPrimaryMethodChange(method);
+                    }}
                     fieldRef={primaryMethodRef}
                     nextRef={primaryCurrencyRef}
                     hideLabel
                   />
                   <SearchableSelect
                     label="Moneda"
-                    options={CURRENCIES.filter(
-                      (currency) =>
-                        !usedLines.some(
-                          (line) =>
-                            line.id !== -1 &&
-                            line.method === primaryMethod &&
-                            line.currency === currency,
-                        ),
-                    )}
+                    options={currencyOptionsFor(primaryMethod, -1)}
                     value={primaryCurrency}
                     onChange={(value) =>
                       onPrimaryCurrencyChange(value as PaymentCurrency)
@@ -160,166 +353,43 @@ export function EditPaymentBillingDialog({
 
                 {extraPayments.length > 0 && (
                   <ul className="mt-3 space-y-2 border-t border-border pt-3">
-                    {extraPayments.map((line) => {
-                      const maxUsdCents = primaryCents + line.usdCents;
-                      const amountDraft = amountDrafts[line.id];
-
-                      return (
-                        <li key={line.id}>
-                          <div className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,0.7fr)_minmax(0,0.9fr)_auto] items-start gap-1.5">
-                            <SearchableSelect
-                              label="Forma de pago"
-                              options={paymentMethodOptions.filter(
-                                (method) =>
-                                  !usedLines.some(
-                                    (used) =>
-                                      used.id !== line.id &&
-                                      used.method === method &&
-                                      used.currency === line.currency,
-                                  ),
-                              )}
-                              value={line.method}
-                              onChange={(method) =>
-                                onUpdatePayment(line.id, { ...line, method })
-                              }
-                              hideLabel
-                            />
-                            <SearchableSelect
-                              label="Moneda"
-                              options={CURRENCIES.filter(
-                                (currency) =>
-                                  !usedLines.some(
-                                    (used) =>
-                                      used.id !== line.id &&
-                                      used.method === line.method &&
-                                      used.currency === currency,
-                                  ),
-                              )}
-                              value={line.currency}
-                              onChange={(value) => {
-                                const currency = value as PaymentCurrency;
-                                const max =
-                                  currency === "USD"
-                                    ? maxUsdCents / 100
-                                    : Math.floor(maxUsdCents * bobPerUsd) /
-                                      100;
-                                const usdCents =
-                                  currency === "USD"
-                                    ? toCents(line.amount)
-                                    : Math.round(
-                                        toCents(line.amount) / bobPerUsd,
-                                      );
-                                const next =
-                                  usdCents > maxUsdCents ? max : line.amount;
-                                if (!(next > 0)) return;
-                                const nextUsdCents =
-                                  currency === "USD"
-                                    ? toCents(next)
-                                    : Math.round(toCents(next) / bobPerUsd);
-                                onUpdatePayment(line.id, {
-                                  method: line.method,
-                                  currency,
-                                  amount: next,
-                                  usdCents: Math.min(
-                                    nextUsdCents,
-                                    maxUsdCents,
-                                  ),
-                                });
-                              }}
-                              hideLabel
-                            />
-                            <div className="min-w-0">
-                              <input
-                                value={
-                                  amountDraft !== undefined
-                                    ? amountDraft
-                                    : formatAmount(line.amount)
-                                }
-                                inputMode="decimal"
-                                autoComplete="off"
-                                aria-label={`Monto en ${line.currency} de ${line.method}`}
-                                onFocus={(e) => e.currentTarget.select()}
-                                onChange={(e) =>
-                                  setAmountDrafts((current) => ({
-                                    ...current,
-                                    [line.id]: sanitizeAmount(e.target.value),
-                                  }))
-                                }
-                                onBlur={() => {
-                                  if (amountDraft === undefined) return;
-                                  const amount = parseAmount(amountDraft);
-                                  const max =
-                                    line.currency === "USD"
-                                      ? maxUsdCents / 100
-                                      : Math.floor(maxUsdCents * bobPerUsd) /
-                                        100;
-                                  const usdCents =
-                                    line.currency === "USD"
-                                      ? toCents(amount)
-                                      : Math.round(
-                                          toCents(amount) / bobPerUsd,
-                                        );
-                                  const next =
-                                    usdCents > maxUsdCents ? max : amount;
-                                  setAmountDrafts((current) => {
-                                    const nextDrafts = { ...current };
-                                    delete nextDrafts[line.id];
-                                    return nextDrafts;
-                                  });
-                                  if (!(next > 0)) return;
-                                  const nextUsdCents =
-                                    line.currency === "USD"
-                                      ? toCents(next)
-                                      : Math.round(toCents(next) / bobPerUsd);
-                                  onUpdatePayment(line.id, {
-                                    method: line.method,
-                                    currency: line.currency,
-                                    amount: next,
-                                    usdCents: Math.min(
-                                      nextUsdCents,
-                                      maxUsdCents,
-                                    ),
-                                  });
-                                }}
-                                onKeyDown={(e) => {
-                                  if (e.key === "Escape") {
-                                    setAmountDrafts((current) => {
-                                      const nextDrafts = { ...current };
-                                      delete nextDrafts[line.id];
-                                      return nextDrafts;
-                                    });
-                                    return;
-                                  }
-                                  if (
-                                    e.key !== "Enter" ||
-                                    e.nativeEvent.isComposing ||
-                                    e.keyCode === 229
-                                  )
-                                    return;
-                                  e.preventDefault();
-                                  e.currentTarget.blur();
-                                }}
-                                className="h-10 w-full rounded-lg border border-input bg-card px-2 text-right text-sm font-semibold text-foreground outline-none transition focus:border-brand focus:ring-4 focus:ring-brand/10"
-                              />
-                              <p className="mt-0.5 text-right text-xs text-muted-foreground">
-                                {formatUsd(line.usdCents / 100)}
-                              </p>
-                            </div>
-                            <button
-                              type="button"
-                              onClick={() => onRemovePayment(line.id)}
-                              aria-label={`Quitar ${line.method}`}
-                              className="flex h-10 w-8 shrink-0 items-center justify-center rounded-lg text-destructive transition hover:bg-destructive/10 focus:outline-none focus:ring-4 focus:ring-destructive/15"
-                            >
-                              <Trash2
-                                aria-hidden="true"
-                                className="h-3.5 w-3.5"
-                              />
-                            </button>
-                          </div>
-                        </li>
-                      );
-                    })}
+                    {extraPayments.map((line) => (
+                      <ExtraPaymentEditRow
+                        key={line.id}
+                        line={line}
+                        maxUsdCents={primaryCents + line.usdCents}
+                        bobPerUsd={bobPerUsd}
+                        methodOptions={methodOptionsFor(line.id)}
+                        currencyOptions={currencyOptionsFor(
+                          line.method,
+                          line.id,
+                        )}
+                        isCombinationTaken={(method, currency) =>
+                          isTaken(method, currency, line.id)
+                        }
+                        formatUsd={formatUsd}
+                        formatAmount={formatAmount}
+                        amountDraft={amountDrafts[line.id]}
+                        sanitizeAmount={sanitizeAmount}
+                        parseAmount={parseAmount}
+                        toCents={toCents}
+                        onAmountDraftChange={(value) =>
+                          setAmountDrafts((current) => ({
+                            ...current,
+                            [line.id]: value,
+                          }))
+                        }
+                        onAmountDraftClear={() =>
+                          setAmountDrafts((current) => {
+                            const nextDrafts = { ...current };
+                            delete nextDrafts[line.id];
+                            return nextDrafts;
+                          })
+                        }
+                        onUpdate={(patch) => onUpdatePayment(line.id, patch)}
+                        onRemove={() => onRemovePayment(line.id)}
+                      />
+                    ))}
                   </ul>
                 )}
 
@@ -327,11 +397,10 @@ export function EditPaymentBillingDialog({
                   <button
                     type="button"
                     onClick={() => {
-                      const method = availableMethods[0];
-                      if (!method) return;
+                      if (freeCombo === null) return;
                       onAddPayment({
-                        method,
-                        currency: "USD",
+                        method: freeCombo.method,
+                        currency: freeCombo.currency,
                         amount: 0,
                         usdCents: 0,
                       });
@@ -358,9 +427,18 @@ export function EditPaymentBillingDialog({
               <Dialog.Close className="rounded-md border border-border px-4 py-2 text-sm font-bold text-muted-foreground hover:bg-muted focus:outline-none focus:ring-4 focus:ring-brand/20">
                 Cancelar
               </Dialog.Close>
-              <Dialog.Close className="rounded-md bg-brand-strong px-4 py-2 text-sm font-bold text-white hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-brand/30">
+              <button
+                type="button"
+                onClick={() => {
+                  for (const line of extraPayments) {
+                    if (!(line.usdCents > 0)) onRemovePayment(line.id);
+                  }
+                  onOpenChange(false);
+                }}
+                className="rounded-md bg-brand-strong px-4 py-2 text-sm font-bold text-white hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-brand/30"
+              >
                 Guardar
-              </Dialog.Close>
+              </button>
             </div>
           </Dialog.Popup>
         </Dialog.Viewport>

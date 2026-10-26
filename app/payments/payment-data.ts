@@ -216,12 +216,20 @@ export async function loadPaymentOperationByNumber(
 export async function collectPaymentOperation(
   operationNumber: string,
 ): Promise<PaymentOperation> {
-  await markTransactionAsPaid(operationNumber);
+  const paidStored = await markTransactionAsPaid(operationNumber);
   const operation = await loadPaymentOperationByNumber(operationNumber);
   if (operation === null) {
     throw new Error(`Operation ${operationNumber} was not found after payment`);
   }
-  return operation;
+  let paidAt = "";
+  if (paidStored.paidAt !== undefined) {
+    paidAt = paidStored.paidAt;
+  }
+  return {
+    ...operation,
+    status: "paid",
+    paidAt,
+  };
 }
 
 /** Umbral  (Valor envío / Monto a pagar >= 13.720 BOB, ~2.000 USD). */

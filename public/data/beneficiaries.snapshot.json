@@ -1,14 +1,14 @@
 [
   {
-    "id": "ben-eliana-78073652",
-    "customerId": "eliana-antezana",
+    "id": "ben-jorge-7807365",
+    "customerId": "jorge-jimenez",
     "firstName": "Alvaro",
     "middleName": "",
     "lastName": "Bazán",
     "secondLastName": "",
     "name": "Alvaro Bazán",
     "documentType": "Cédula",
-    "document": "78073652",
+    "document": "7807365",
     "nationality": "Bolivia",
     "state": "La Paz",
     "city": "Acerani",
@@ -18,8 +18,8 @@
     "email": "beneficiario@example.com"
   },
   {
-    "id": "ben-eliana-6543210",
-    "customerId": "eliana-antezana",
+    "id": "ben-jorge-6543210",
+    "customerId": "jorge-jimenez",
     "firstName": "María",
     "middleName": "Fernanda",
     "lastName": "López",
@@ -36,8 +36,8 @@
     "email": "m***@example.com"
   },
   {
-    "id": "ben-eliana-9876543",
-    "customerId": "eliana-antezana",
+    "id": "ben-jorge-9876543",
+    "customerId": "jorge-jimenez",
     "firstName": "Carlos",
     "middleName": "Alberto",
     "lastName": "Rojas",
@@ -54,8 +54,8 @@
     "email": "c***@example.com"
   },
   {
-    "id": "ben-eliana-8876545",
-    "customerId": "eliana-antezana",
+    "id": "ben-jorge-8876545",
+    "customerId": "jorge-jimenez",
     "firstName": "Elena",
     "middleName": "",
     "lastName": "Pérez",
@@ -72,8 +72,8 @@
     "email": "c***@example.com"
   },
   {
-    "id": "ben-eliana-3344556",
-    "customerId": "eliana-antezana",
+    "id": "ben-jorge-3344556",
+    "customerId": "jorge-jimenez",
     "firstName": "Sofía",
     "middleName": "",
     "lastName": "Mendoza",

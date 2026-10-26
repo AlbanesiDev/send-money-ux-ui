@@ -1,0 +1,276 @@
+{
+  "result": {
+    "totalCount": 22,
+    "items": [
+      {
+        "economicActivity": {
+          "code": "AIMP",
+          "description": "Actividades De Impresion Y De Servicios Conexos",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 23
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "INMO",
+          "description": "Actividades Inmobiliarias, Empresariales Y De Alquiler",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 24
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "ADPU",
+          "description": "Adm. Publica Y Defensa; Planes De Seg. Social Afiliacion Obligatoria",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 25
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "AGCE",
+          "description": "Agricultura, Ganaderia, Caza, Extraccion De Madera Y Actividades De Servicios Conexas",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 26
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "COME",
+          "description": "Comercio Al Por Mayor Y Menor (Representacion, Venta, Automotores/enseres Domesticos Y Otros Productos)",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 27
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "CAEC",
+          "description": "Consejo De Administracion De Edificios Y Condominios",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 28
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "CONS",
+          "description": "Construccion",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 29
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "EEDU",
+          "description": "Ense?anza, Educacion",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 30
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "EXMC",
+          "description": "Explotacion De Minas, Canteras Y Actividades Relacionadas",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 31
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "SCPP",
+          "description": "Explt. De Criaderos De Peces, Pesca Extractiva Y Servicios Relacionados",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 32
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "EXPG",
+          "description": "Extraccion De Petroleo Crudo Y Gas Natural; Actividades Relacionadas",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 33
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "FMGE",
+          "description": "Fabricacion De Maquinaria De Uso General O Especial(Muebles,vehiculos Automotores,instrumentos Medicos,aparatos De Audio/video)",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 34
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "HORE",
+          "description": "Hoteles Y Restaurantes (Hospedaje Temporal, Bares Y Cantinas)",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 35
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "IMME",
+          "description": "Industrias Manufactureras Metalicas (Metales Preciosos,fundiciones, Para Uso Estructural, )",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 36
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "INME",
+          "description": "Industrias Manufactureras No Metalicas (Alimentos, Bebidas, Textiles, Cuero, Madera, Papel, Plastico, Vidrio)",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 37
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "INTR",
+          "description": "Intermediacion Financiera ",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 38
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "ONGF",
+          "description": "Organizaciones No Gubernamentales, Fundaciones Y Organos Extraterritoriales",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 39
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "ASOC",
+          "description": "Otras Actividades De Servicio Comunitario,social Y Personal(Empresariales,profesionales,de Empleadores,sindicatos Y De Otras Org.)",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 40
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "OTRO",
+          "description": "Otro",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 41
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "SEGA",
+          "description": "Servicio De Suministro De Electricidad, Gas Y Agua (Fabricacion De Gas, Distribucion De Combustibles)",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 42
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "SSDS",
+          "description": "Servicios Sociales Y De Salud",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 43
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "economicActivity": {
+          "code": "TACO",
+          "description": "Transporte, Almacenamiento Y Comunicaciones",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 44
+        },
+        "cisCountryName": "Bolivia"
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

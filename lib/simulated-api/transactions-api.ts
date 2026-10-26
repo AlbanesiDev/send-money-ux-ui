@@ -115,21 +115,26 @@ export async function ensureTransactionsSeeded(): Promise<void> {
     for (const item of items) {
       existingIds.add(item.id);
       let collectionStatus = resolveCollectionStatus(item);
-      if (item.collectionStatus === undefined) {
-        for (const seed of SEED_TRANSACTIONS) {
-          if (seed.id !== item.id) continue;
-          collectionStatus = seed.collectionStatus;
-          break;
-        }
-      }
       let paidAt = item.paidAt;
-      if (item.collectionStatus === undefined) {
-        for (const seed of SEED_TRANSACTIONS) {
-          if (seed.id !== item.id) continue;
-          if (seed.paidAt !== undefined) {
-            paidAt = seed.paidAt;
+      let matchingSeed: StoredTransaction | undefined;
+      for (const seed of SEED_TRANSACTIONS) {
+        if (seed.id !== item.id) continue;
+        matchingSeed = seed;
+        break;
+      }
+      // Demo payments with seed status "available" must stay repeatable.
+      if (
+        matchingSeed !== undefined &&
+        matchingSeed.collectionStatus === "available"
+      ) {
+        collectionStatus = "available";
+        paidAt = matchingSeed.paidAt;
+      } else if (item.collectionStatus === undefined) {
+        if (matchingSeed !== undefined) {
+          collectionStatus = matchingSeed.collectionStatus;
+          if (matchingSeed.paidAt !== undefined) {
+            paidAt = matchingSeed.paidAt;
           }
-          break;
         }
       }
       if (
@@ -247,6 +252,16 @@ export async function markTransactionAsPaid(
     collectionStatus: "paid",
     paidAt: `${formatTransactionDate(now)} · ${formatTransactionTime(now)}`,
   };
+
+  // Seed demos that start as available must remain repeatable across demos.
+  for (const seed of SEED_TRANSACTIONS) {
+    if (seed.id !== stored.id) continue;
+    if (seed.collectionStatus === "available") {
+      return paid;
+    }
+    break;
+  }
+
   await writeTransaction(paid);
   return paid;
 }

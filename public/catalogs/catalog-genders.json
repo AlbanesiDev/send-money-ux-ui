@@ -1,0 +1,40 @@
+{
+  "result": {
+    "totalCount": 2,
+    "items": [
+      {
+        "gender": {
+          "description": "Femenino",
+          "code": "F",
+          "isDefault": false,
+          "erpCodeId": null,
+          "equivalenceCode": "F",
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 8
+        },
+        "cisCountryIsoCode": "BO",
+        "providerDescription": "WU"
+      },
+      {
+        "gender": {
+          "description": "Masculino",
+          "code": "M",
+          "isDefault": false,
+          "erpCodeId": null,
+          "equivalenceCode": "M",
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 7
+        },
+        "cisCountryIsoCode": "BO",
+        "providerDescription": "WU"
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

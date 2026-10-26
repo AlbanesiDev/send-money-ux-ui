@@ -1,0 +1,89 @@
+{
+  "result": {
+    "totalCount": 7,
+    "items": [
+      {
+        "montlyIncome": {
+          "code": "1",
+          "description": "0 - 500 boliviano",
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 8
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "montlyIncome": {
+          "code": "2",
+          "description": "500.01 - 1000 bolivianos",
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 9
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "montlyIncome": {
+          "code": "3",
+          "description": "1000.01 - 1500 bolivianos",
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 10
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "montlyIncome": {
+          "code": "4",
+          "description": "1500.01 - 2000 bolivianos",
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 11
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "montlyIncome": {
+          "code": "5",
+          "description": "2000.01 - 2500 bolivianos",
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 12
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "montlyIncome": {
+          "code": "6",
+          "description": "2500.01 - 3000 bolivianos",
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 13
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "montlyIncome": {
+          "code": "7",
+          "description": "3000.01 bolivianos y más",
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 14
+        },
+        "cisCountryName": "Bolivia"
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

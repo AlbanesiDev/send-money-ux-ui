@@ -1,0 +1,56 @@
+{
+  "result": {
+    "totalCount": 4,
+    "items": [
+      {
+        "pepRelationship": {
+          "description": "Comercial",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 11
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "pepRelationship": {
+          "description": "Contractual",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 54
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "pepRelationship": {
+          "description": "Familiar",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 13
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "pepRelationship": {
+          "description": "Laboral",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 14
+        },
+        "cisCountryName": "Bolivia"
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

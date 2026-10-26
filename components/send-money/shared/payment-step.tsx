@@ -36,6 +36,7 @@ function ExtraPaymentRow({
   bobPerUsd,
   methodOptions,
   currencyOptions,
+  isCombinationTaken,
   renderSelect,
   formatUsd,
   formatAmount,
@@ -52,6 +53,10 @@ function ExtraPaymentRow({
   /** Opciones sin las combinaciones método + moneda ya usadas en otras líneas. */
   methodOptions: string[];
   currencyOptions: PaymentCurrency[];
+  isCombinationTaken: (
+    method: string,
+    currency: PaymentCurrency,
+  ) => boolean;
   renderSelect: SelectRenderer;
   formatUsd: (value: number) => string;
   formatAmount: (value: number) => string;
@@ -72,11 +77,38 @@ function ExtraPaymentRow({
       ? maxUsdCents / 100
       : Math.floor(maxUsdCents * bobPerUsd) / 100;
 
-  // Recalcula el equivalente USD y, si supera lo disponible, ajusta al máximo.
-  const commit = (amount: number, currency: PaymentCurrency) => {
+  const applyCurrency = (method: string, currency: PaymentCurrency) => {
+    if (!(line.amount > 0) || line.usdCents === 0) {
+      onUpdate({ method, currency, amount: 0, usdCents: 0 });
+      setAmountDraft(null);
+      setClamped(false);
+      return;
+    }
     const max = maxIn(currency);
+    const amount =
+      currency === "USD"
+        ? line.usdCents / 100
+        : (line.usdCents * bobPerUsd) / 100;
+    const exceeds = amount > max;
+    const next = exceeds ? max : amount;
+    setClamped(exceeds);
+    onUpdate({
+      method,
+      currency,
+      amount: next,
+      usdCents: Math.min(
+        toUsdCents(next, currency, bobPerUsd, toCents),
+        maxUsdCents,
+      ),
+    });
+    setAmountDraft(null);
+  };
+
+  // Recalcula el equivalente USD y, si supera lo disponible, ajusta al máximo.
+  const commitAmount = (amount: number) => {
+    const max = maxIn(line.currency);
     const exceeds =
-      toUsdCents(amount, currency, bobPerUsd, toCents) > maxUsdCents;
+      toUsdCents(amount, line.currency, bobPerUsd, toCents) > maxUsdCents;
     const next = exceeds ? max : amount;
     setClamped(exceeds);
     if (!(next > 0)) {
@@ -85,10 +117,10 @@ function ExtraPaymentRow({
     }
     onUpdate({
       method: line.method,
-      currency,
+      currency: line.currency,
       amount: next,
       usdCents: Math.min(
-        toUsdCents(next, currency, bobPerUsd, toCents),
+        toUsdCents(next, line.currency, bobPerUsd, toCents),
         maxUsdCents,
       ),
     });
@@ -104,7 +136,17 @@ function ExtraPaymentRow({
           label: "Forma de pago",
           options: methodOptions,
           value: line.method,
-          onChange: (method) => onUpdate({ ...line, method }),
+          onChange: (method) => {
+            if (!isCombinationTaken(method, line.currency)) {
+              onUpdate({ ...line, method });
+              return;
+            }
+            const freeCurrency = CURRENCIES.find(
+              (currency) => !isCombinationTaken(method, currency),
+            );
+            if (freeCurrency === undefined) return;
+            applyCurrency(method, freeCurrency);
+          },
           fieldRef: methodRef,
           nextRef: currencyRef,
           hideLabel: true,
@@ -115,7 +157,8 @@ function ExtraPaymentRow({
           label: "Moneda",
           options: currencyOptions,
           value: line.currency,
-          onChange: (value) => commit(line.amount, value as PaymentCurrency),
+          onChange: (value) =>
+            applyCurrency(line.method, value as PaymentCurrency),
           fieldRef: currencyRef,
           nextRef: amountRef,
           hideLabel: true,
@@ -136,8 +179,7 @@ function ExtraPaymentRow({
             setAmountDraft(sanitizeAmount(e.target.value));
           }}
           onBlur={() => {
-            if (amountDraft !== null)
-              commit(parseAmount(amountDraft), line.currency);
+            if (amountDraft !== null) commitAmount(parseAmount(amountDraft));
           }}
           onKeyDown={(e) => {
             if (e.key === "Escape") {
@@ -151,8 +193,7 @@ function ExtraPaymentRow({
             )
               return;
             e.preventDefault();
-            if (amountDraft !== null)
-              commit(parseAmount(amountDraft), line.currency);
+            if (amountDraft !== null) commitAmount(parseAmount(amountDraft));
           }}
           className="h-10 w-36 rounded-lg border border-input bg-card px-3 text-right text-sm font-semibold text-foreground outline-none transition focus:border-brand focus:ring-4 focus:ring-brand/10 sm:w-full"
         />
@@ -265,8 +306,10 @@ export function StandardPaymentStep({
         line.method === method &&
         line.currency === currency,
     );
-  const methodOptionsFor = (currency: PaymentCurrency, id: number) =>
-    paymentMethodOptions.filter((method) => !isTaken(method, currency, id));
+  const methodOptionsFor = (id: number) =>
+    paymentMethodOptions.filter((method) =>
+      CURRENCIES.some((currency) => !isTaken(method, currency, id)),
+    );
   const currencyOptionsFor = (method: string, id: number) =>
     CURRENCIES.filter((currency) => !isTaken(method, currency, id));
   const draftDuplicate =
@@ -338,9 +381,20 @@ export function StandardPaymentStep({
             <div>
               {renderSelect({
                 label: "Método de pago",
-                options: methodOptionsFor(primaryCurrency, -1),
+                options: methodOptionsFor(-1),
                 value: primaryMethod,
-                onChange: onPrimaryMethodChange,
+                onChange: (method) => {
+                  if (!isTaken(method, primaryCurrency, -1)) {
+                    onPrimaryMethodChange(method);
+                    return;
+                  }
+                  const freeCurrency = CURRENCIES.find(
+                    (currency) => !isTaken(method, currency, -1),
+                  );
+                  if (freeCurrency === undefined) return;
+                  onPrimaryCurrencyChange(freeCurrency);
+                  onPrimaryMethodChange(method);
+                },
                 fieldRef: primaryMethodRef,
                 nextRef: primaryCurrencyRef,
                 hideLabel: true,
@@ -381,8 +435,11 @@ export function StandardPaymentStep({
               line={line}
               maxUsdCents={primaryCents + line.usdCents}
               bobPerUsd={bobPerUsd}
-              methodOptions={methodOptionsFor(line.currency, line.id)}
+              methodOptions={methodOptionsFor(line.id)}
               currencyOptions={currencyOptionsFor(line.method, line.id)}
+              isCombinationTaken={(method, currency) =>
+                isTaken(method, currency, line.id)
+              }
               renderSelect={renderSelect}
               formatUsd={formatUsd}
               formatAmount={formatAmount}

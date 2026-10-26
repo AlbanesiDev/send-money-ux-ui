@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
 import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
-import type { MoneygramAccountDraft } from "@/lib/simulated-api/moneygram-accounts-api";
 import { CountryFlag } from "@/components/ui/country-flag";
 import { deliveryTypeLabel, quoteAmountReceived } from "../provider-flows";
 import type { PaymentLine, ProviderId, ProviderQuote } from "../types";
@@ -49,9 +48,9 @@ function SummarySection({
   }
   return (
     <section
-      className={`flex max-h-[min(70vh,36rem)] min-h-0 flex-col overflow-hidden rounded-lg border border-l-4 px-3.5 py-2.5 lg:max-h-none ${toneClass}`}
+      className={`flex flex-col rounded-lg border border-l-4 px-3.5 py-2.5 ${toneClass}`}
     >
-      <div className="flex shrink-0 items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-3">
         <h2 className={`text-sm font-bold ${titleClass}`}>{title}</h2>
         {onEdit && editLabel && (
           <button
@@ -64,7 +63,7 @@ function SummarySection({
           </button>
         )}
       </div>
-      <dl className="mt-1.5 min-h-0 flex-1 overflow-y-auto pr-1 flex flex-col divide-y divide-border">
+      <dl className="mt-1.5 flex flex-col divide-y divide-border">
         {children}
       </dl>
     </section>
@@ -111,7 +110,6 @@ export function ReviewStep({
   remitterForm,
   documentNumber,
   beneficiaryForm,
-  moneygramAccountForm,
   paymentLines,
   formatAmount,
   billingName,
@@ -126,7 +124,8 @@ export function ReviewStep({
   additionalInfo,
   additionalInfoRequired,
   additionalInfoError,
-  onAdditionalInfoMarkedChange,
+  onFundsOriginChange,
+  onResourceDestinationChange,
   onEditAdditionalInfo,
   onSuspiciousMarkedChange,
   onEditSuspicious,
@@ -145,7 +144,6 @@ export function ReviewStep({
   remitterForm: CustomerRegistrationDraft;
   documentNumber: string;
   beneficiaryForm: BeneficiaryRegistrationDraft;
-  moneygramAccountForm: MoneygramAccountDraft;
   paymentLines: PaymentLine[];
   formatAmount: (value: number) => string;
   billingName: string;
@@ -160,7 +158,8 @@ export function ReviewStep({
   additionalInfo: AdditionalInfoFormState;
   additionalInfoRequired: boolean;
   additionalInfoError: string;
-  onAdditionalInfoMarkedChange: (marked: boolean) => void;
+  onFundsOriginChange: (value: string) => void;
+  onResourceDestinationChange: (value: string) => void;
   onEditAdditionalInfo: () => void;
   onSuspiciousMarkedChange: (marked: boolean) => void;
   onEditSuspicious: () => void;
@@ -176,7 +175,7 @@ export function ReviewStep({
   const remitterDocument = [remitterForm.documentType, documentNumber]
     .filter(Boolean)
     .join(" ");
-  let beneficiaryName = [
+  const beneficiaryName = [
     beneficiaryForm.firstName,
     beneficiaryForm.middleName,
     beneficiaryForm.lastName,
@@ -184,21 +183,18 @@ export function ReviewStep({
   ]
     .filter(Boolean)
     .join(" ");
-  if (provider === "MONEYGRAM") {
-    beneficiaryName = moneygramAccountForm.company;
-  }
   const amountReceived = quoteAmountReceived(quote);
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-3">
+    <div className="flex h-full min-h-0 flex-col gap-3 overflow-y-auto pb-12">
       <p className="shrink-0 rounded-md border border-warning-border bg-warning-soft px-3 py-2 text-xs text-warning-foreground">
         Confirma con el cliente el monto, el beneficiario y el lugar de pago
         antes de enviar.
       </p>
 
       <section className="shrink-0 rounded-xl border border-brand/40 bg-white p-4">
-        <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-start lg:gap-8">
-          <div>
+        <dl className="grid grid-cols-1 gap-4 [grid-template-areas:'amount'_'parties'_'route'] md:grid-cols-[auto_auto] md:items-start md:gap-x-8 md:gap-y-3 md:[grid-template-areas:'amount_parties'_'amount_route'] lg:grid-cols-[auto_auto_auto] lg:justify-start lg:gap-x-10 lg:gap-y-0 lg:[grid-template-areas:'amount_parties_route']">
+          <div className="min-w-0 [grid-area:amount]">
             <dt className="text-xs font-bold uppercase tracking-[0.12em] text-brand-strong">
               Monto que recibe
             </dt>
@@ -213,28 +209,30 @@ export function ReviewStep({
             </dd>
           </div>
 
-          <div className="flex flex-wrap items-start gap-x-4 gap-y-1">
-            <div>
+          <div className="flex min-w-0 items-start gap-x-3 [grid-area:parties]">
+            <div className="min-w-0 shrink">
               <dt className="text-xs text-party-sender-fg">Remitente</dt>
-              <dd className="font-semibold text-foreground">{remitterName}</dd>
-              <dd className="text-xs text-muted-foreground">
+              <dd className="break-words font-semibold text-foreground">
+                {remitterName}
+              </dd>
+              <dd className="break-words text-xs text-muted-foreground">
                 {remitterDocument}
               </dd>
             </div>
-            <span className="text-muted-foreground self-center" aria-hidden>
+            <span className="mt-4 shrink-0 text-muted-foreground" aria-hidden>
               <MoveRightIcon />
             </span>
-            <div>
+            <div className="min-w-0 shrink">
               <dt className="text-xs text-party-beneficiary-fg">
                 Beneficiario
               </dt>
-              <dd className="font-semibold text-foreground">
+              <dd className="break-words font-semibold text-foreground">
                 {beneficiaryName}
               </dd>
             </div>
           </div>
 
-          <div className="ml-12">
+          <div className="min-w-0 [grid-area:route]">
             <dt className="text-xs text-muted-foreground">Origen y destino</dt>
             <dd className="flex flex-wrap items-center gap-x-2 gap-y-1 font-semibold text-foreground">
               <span className="inline-flex items-center gap-1.5">
@@ -253,7 +251,7 @@ export function ReviewStep({
         </dl>
       </section>
 
-      <div className="grid min-h-0 flex-1 gap-3 overflow-y-auto lg:grid-cols-3 lg:overflow-hidden">
+      <div className="grid items-start gap-3 lg:grid-cols-3">
         <SummarySection
           title="Remitente"
           tone="sender"
@@ -470,51 +468,7 @@ export function ReviewStep({
           onEdit={onEditBeneficiary}
           editLabel={onEditBeneficiary ? "Editar beneficiario" : undefined}
         >
-          {provider === "MONEYGRAM" ? (
-            <>
-              <SummaryRow
-                label="Compañía"
-                value={moneygramAccountForm.company || "—"}
-                emphasis
-              />
-              <SummaryRow
-                label="Nro de cuenta"
-                value={moneygramAccountForm.accountNumber || "—"}
-              />
-              <SummaryRow
-                label="Codigo de Localidad"
-                value={moneygramAccountForm.locationCode || "—"}
-              />
-              <SummaryRow
-                label="Referencia"
-                value={moneygramAccountForm.reference || "—"}
-              />
-              <SummaryRow
-                label="Atención"
-                value={moneygramAccountForm.attention || "—"}
-              />
-              <SummaryRow
-                label="Calle/Numero"
-                value={moneygramAccountForm.street || "—"}
-              />
-              <SummaryRow
-                label="Dirección"
-                value={moneygramAccountForm.address || "—"}
-              />
-              <SummaryRow
-                label="Estado"
-                value={moneygramAccountForm.state || "—"}
-              />
-              <SummaryRow
-                label="Ciudad"
-                value={moneygramAccountForm.city || "—"}
-              />
-              <SummaryRow
-                label="Nro. Teléfono"
-                value={moneygramAccountForm.phone || "—"}
-              />
-            </>
-          ) : provider === "RIA" ? (
+          {provider === "RIA" ? (
             <>
               <SummaryRow
                 label="Nombre"
@@ -700,12 +654,15 @@ export function ReviewStep({
             />
           </SummarySection>
           <ComplianceSummaryCard
+            fundsOrigin={additionalInfo.fundsOrigin}
+            resourceDestination={additionalInfo.resourceDestination}
+            onFundsOriginChange={onFundsOriginChange}
+            onResourceDestinationChange={onResourceDestinationChange}
             additionalInfoMarked={additionalInfoMarked}
             suspiciousMarked={suspiciousMarked}
             additionalInfo={additionalInfo}
             additionalInfoRequired={additionalInfoRequired}
             additionalInfoError={additionalInfoError}
-            onAdditionalInfoMarkedChange={onAdditionalInfoMarkedChange}
             onEditAdditionalInfo={onEditAdditionalInfo}
             onSuspiciousMarkedChange={onSuspiciousMarkedChange}
             onEditSuspicious={onEditSuspicious}

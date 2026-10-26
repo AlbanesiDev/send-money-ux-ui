@@ -48,7 +48,11 @@ export function RemittanceSummary({
   }
   const valueClass = `font-semibold tabular-nums transition-opacity ${loading ? "animate-pulse opacity-40" : ""}`;
   let providerLabel = "Sin seleccionar";
-  if (provider) providerLabel = provider;
+  if (quote) {
+    providerLabel = quote.label;
+  } else if (provider) {
+    providerLabel = provider;
+  }
   let deliveryLabel = "Sin seleccionar";
   if (deliveryType) deliveryLabel = deliveryTypeLabel(deliveryType);
   return (

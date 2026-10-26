@@ -1,0 +1,444 @@
+{
+  "result": {
+    "totalCount": 36,
+    "items": [
+      {
+        "publicEmployment": {
+          "code": "1",
+          "description": "Alcalde",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 84
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "2",
+          "description": "Analista",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 85
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "3",
+          "description": "Apoderado",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 86
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "4",
+          "description": "Asesor / Consultor",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 87
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "5",
+          "description": "Asistente",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 88
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "6",
+          "description": "Auditor",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 89
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "7",
+          "description": "Auxiliar / Ayudante",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 90
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "8",
+          "description": "Congresista",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 91
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "9",
+          "description": "Contralor General",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 92
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "10",
+          "description": "Decano",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 93
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "11",
+          "description": "Diplomático",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 94
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "12",
+          "description": "Directivo De Asociación Deportiva",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 95
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "13",
+          "description": "Director, Subdirector, Gerente, Jefe Del Sector Privado",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 96
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "14",
+          "description": "Docente",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 97
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "15",
+          "description": "Inspector",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 98
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "16",
+          "description": "Intendente, Director, Gerente, Jefe De La Administración Publica",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 99
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "17",
+          "description": "Interventor General De Economía De La Administración Publica",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 100
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "18",
+          "description": "Juez",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 101
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "26",
+          "description": "Ministro / Viceministro",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 109
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "98",
+          "description": "No Declara",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 118
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "19",
+          "description": "Notario Público",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 102
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "99",
+          "description": "Otros (Señalar)",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 119
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "20",
+          "description": "Practicante",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 103
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "21",
+          "description": "Prefecto",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 104
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "22",
+          "description": "Presidente De Gobierno Regional",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 105
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "23",
+          "description": "Presidente De La Corte Suprema",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 106
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "24",
+          "description": "Presidente De La Republica",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 107
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "25",
+          "description": "Presidente, Tribunal De Justicia",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 108
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "27",
+          "description": "Procurador",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 110
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "28",
+          "description": "Procurador General",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 111
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "29",
+          "description": "Rector",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 112
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "30",
+          "description": "Regidores De Municipalidades",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 113
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "31",
+          "description": "Sub-prefecto",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 114
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "32",
+          "description": "Superintendente De La Administración Pública",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 115
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "33",
+          "description": "Vice-presidente De La Republica",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 116
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "publicEmployment": {
+          "code": "34",
+          "description": "Vocal De La Corte Superior O Suprema",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 117
+        },
+        "cisCountryName": "Bolivia"
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

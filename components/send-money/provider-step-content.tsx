@@ -4,14 +4,10 @@ import {
   type GuestClientLookupStatus,
 } from "./guest-client-lookup-notice";
 import { FrequentBeneficiaries } from "./frequent-beneficiaries";
-// import { FrequentMoneygramAccounts } from "./frequent-moneygram-accounts";
 import { RiaAdditionalInfoStep } from "./providers/ria/additional-info-step";
 import { RiaBeneficiaryStep } from "./providers/ria/beneficiary-step";
 import { RiaRemitterStep } from "./providers/ria/remitter-step";
-import {
-  MoneygramBeneficiaryAccountStep,
-  type MoneygramAccountFormChangeHandler,
-} from "./providers/moneygram/beneficiary-account-step";
+import { MoneygramBeneficiaryStep } from "./providers/moneygram/beneficiary-step";
 import { MoneygramRemitterStep } from "./providers/moneygram/remitter-step";
 import { TerrapayBeneficiaryStep } from "./providers/terrapay/beneficiary-step";
 import { TerrapayRemitterStep } from "./providers/terrapay/remitter-step";
@@ -23,11 +19,9 @@ import type { AdditionalInfoFormState } from "./shared/additional-info-form";
 import { getStepKey } from "./provider-flows";
 import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
 import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
-import type { MoneygramAccountDraft } from "@/lib/simulated-api/moneygram-accounts-api";
 import type {
   Beneficiary,
   Customer,
-  MoneygramAccount,
   PaymentLine,
   ProviderId,
   ProviderQuote,
@@ -46,17 +40,12 @@ export type ProviderStepContentProps = {
   onRemitterFormChange: RemitterFormChangeHandler;
   beneficiaryForm: BeneficiaryRegistrationDraft;
   onBeneficiaryFormChange: BeneficiaryFormChangeHandler;
-  moneygramAccountForm: MoneygramAccountDraft;
-  onMoneygramAccountFormChange: MoneygramAccountFormChangeHandler;
   isKnownClient: boolean;
   showFrequentBeneficiaries: boolean;
   beneficiaries: Beneficiary[];
   selectedBeneficiary: number;
   onSelectBeneficiary: (index: number) => void;
   onCreateBeneficiary?: () => void;
-  moneygramAccounts: MoneygramAccount[];
-  selectedMoneygramAccount: number;
-  onSelectMoneygramAccount: (index: number) => void;
   additionalChecks: Record<string, boolean>;
   onAdditionalCheckChange: (label: string, checked: boolean) => void;
   quote: ProviderQuote;
@@ -84,7 +73,8 @@ export type ProviderStepContentProps = {
   additionalInfo: AdditionalInfoFormState;
   additionalInfoRequired: boolean;
   additionalInfoError: string;
-  onAdditionalInfoMarkedChange: (marked: boolean) => void;
+  onFundsOriginChange: (value: string) => void;
+  onResourceDestinationChange: (value: string) => void;
   onEditAdditionalInfo: () => void;
   onSuspiciousMarkedChange: (marked: boolean) => void;
   onEditSuspicious: () => void;
@@ -196,13 +186,7 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       beneficiary = <WuBeneficiaryStep {...beneficiaryFormProps} />;
     } else if (props.provider === "MONEYGRAM") {
       remitter = <MoneygramRemitterStep {...remitterDocumentProps} />;
-      beneficiary = (
-        <MoneygramBeneficiaryAccountStep
-          form={props.moneygramAccountForm}
-          onFormChange={props.onMoneygramAccountFormChange}
-          destinationCountry={props.destinationCountry}
-        />
-      );
+      beneficiary = <MoneygramBeneficiaryStep {...beneficiaryFormProps} />;
     } else {
       remitter = <TerrapayRemitterStep {...remitterDocumentProps} />;
       beneficiary = (
@@ -213,23 +197,15 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       );
     }
 
-    let beneficiarySectionTitle = "Beneficiario";
+    const beneficiarySectionTitle = "Beneficiario";
     let beneficiaryButtonLabel = "Guardar beneficiario";
-    if (props.provider === "MONEYGRAM") {
-      beneficiarySectionTitle = "Cuenta / compañía";
-      beneficiaryButtonLabel = "Guardar cuenta";
-    }
     if (props.isRegisteringBeneficiary === true) {
       beneficiaryButtonLabel =
         props.isUpdatingExistingBeneficiary === true
           ? "Actualizando…"
           : "Guardando…";
     } else if (props.isUpdatingExistingBeneficiary === true) {
-      if (props.provider === "MONEYGRAM") {
-        beneficiaryButtonLabel = "Actualizar cuenta";
-      } else {
-        beneficiaryButtonLabel = "Actualizar beneficiario";
-      }
+      beneficiaryButtonLabel = "Actualizar beneficiario";
     }
 
     return (
@@ -260,22 +236,14 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
             )}
         </section>
         <div className="flex min-h-0 flex-col gap-4">
-          {/* {props.showFrequentBeneficiaries && props.provider === "MONEYGRAM" && (
-            <FrequentMoneygramAccounts
-              accounts={props.moneygramAccounts}
-              selectedAccount={props.selectedMoneygramAccount}
-              onSelectAccount={props.onSelectMoneygramAccount}
+          {props.showFrequentBeneficiaries && (
+            <FrequentBeneficiaries
+              beneficiaries={props.beneficiaries}
+              selectedBeneficiary={props.selectedBeneficiary}
+              onSelectBeneficiary={props.onSelectBeneficiary}
+              onCreateNew={props.onCreateBeneficiary}
             />
-          )} */}
-          {props.showFrequentBeneficiaries &&
-            props.provider !== "MONEYGRAM" && (
-              <FrequentBeneficiaries
-                beneficiaries={props.beneficiaries}
-                selectedBeneficiary={props.selectedBeneficiary}
-                onSelectBeneficiary={props.onSelectBeneficiary}
-                onCreateNew={props.onCreateBeneficiary}
-              />
-            )}
+          )}
           <section className="flex max-h-[min(70vh,36rem)] min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-border border-l-4 border-l-party-beneficiary-border bg-card p-5 shadow-sm lg:max-h-none">
             <h2 className="mb-4 shrink-0 font-bold text-party-beneficiary-fg">
               {beneficiarySectionTitle}
@@ -324,7 +292,6 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       remitterForm={props.remitterForm}
       documentNumber={props.documentNumber}
       beneficiaryForm={props.beneficiaryForm}
-      moneygramAccountForm={props.moneygramAccountForm}
       paymentLines={props.paymentLines}
       formatAmount={props.formatAmount}
       billingName={props.billingName}
@@ -339,7 +306,8 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       additionalInfo={props.additionalInfo}
       additionalInfoRequired={props.additionalInfoRequired}
       additionalInfoError={props.additionalInfoError}
-      onAdditionalInfoMarkedChange={props.onAdditionalInfoMarkedChange}
+      onFundsOriginChange={props.onFundsOriginChange}
+      onResourceDestinationChange={props.onResourceDestinationChange}
       onEditAdditionalInfo={props.onEditAdditionalInfo}
       onSuspiciousMarkedChange={props.onSuspiciousMarkedChange}
       onEditSuspicious={props.onEditSuspicious}

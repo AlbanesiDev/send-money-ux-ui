@@ -66,8 +66,10 @@ export function PaymentMethodPanel({
         line.method === method &&
         line.currency === currency,
     );
-  const methodOptionsFor = (currency: PaymentCurrency, id: number) =>
-    paymentMethodOptions.filter((method) => !isTaken(method, currency, id));
+  const methodOptionsFor = (id: number) =>
+    paymentMethodOptions.filter((method) =>
+      CURRENCIES.some((currency) => !isTaken(method, currency, id)),
+    );
   const currencyOptionsFor = (method: string, id: number) =>
     CURRENCIES.filter((currency) => !isTaken(method, currency, id));
 
@@ -85,9 +87,20 @@ export function PaymentMethodPanel({
       <div className="mt-2 grid grid-cols-[minmax(0,1.6fr)_minmax(0,0.7fr)_minmax(0,0.9fr)] items-start gap-2">
         <SearchableSelect
           label="Método de pago"
-          options={methodOptionsFor(primaryCurrency, -1)}
+          options={methodOptionsFor(-1)}
           value={primaryMethod}
-          onChange={onPrimaryMethodChange}
+          onChange={(method) => {
+            if (!isTaken(method, primaryCurrency, -1)) {
+              onPrimaryMethodChange(method);
+              return;
+            }
+            const freeCurrency = CURRENCIES.find(
+              (currency) => !isTaken(method, currency, -1),
+            );
+            if (freeCurrency === undefined) return;
+            onPrimaryCurrencyChange(freeCurrency);
+            onPrimaryMethodChange(method);
+          }}
           fieldRef={primaryMethodRef}
           nextRef={primaryCurrencyRef}
           hideLabel
@@ -122,8 +135,11 @@ export function PaymentMethodPanel({
               line={line}
               maxUsdCents={primaryCents + line.usdCents}
               bobPerUsd={bobPerUsd}
-              methodOptions={methodOptionsFor(line.currency, line.id)}
+              methodOptions={methodOptionsFor(line.id)}
               currencyOptions={currencyOptionsFor(line.method, line.id)}
+              isCombinationTaken={(method, currency) =>
+                isTaken(method, currency, line.id)
+              }
               formatUsd={formatUsd}
               formatAmount={formatAmount}
               sanitizeAmount={sanitizeAmount}
@@ -156,6 +172,7 @@ function ExtraPaymentCompactRow({
   bobPerUsd,
   methodOptions,
   currencyOptions,
+  isCombinationTaken,
   formatUsd,
   formatAmount,
   sanitizeAmount,
@@ -169,6 +186,10 @@ function ExtraPaymentCompactRow({
   bobPerUsd: number;
   methodOptions: string[];
   currencyOptions: PaymentCurrency[];
+  isCombinationTaken: (
+    method: string,
+    currency: PaymentCurrency,
+  ) => boolean;
   formatUsd: (value: number) => string;
   formatAmount: (value: number) => string;
   sanitizeAmount: (value: string) => string;
@@ -186,10 +207,35 @@ function ExtraPaymentCompactRow({
       ? maxUsdCents / 100
       : Math.floor(maxUsdCents * bobPerUsd) / 100;
 
-  const commit = (amount: number, currency: PaymentCurrency) => {
+  const applyCurrency = (method: string, currency: PaymentCurrency) => {
+    if (!(line.amount > 0) || line.usdCents === 0) {
+      onUpdate({ method, currency, amount: 0, usdCents: 0 });
+      setAmountDraft(null);
+      return;
+    }
     const max = maxIn(currency);
-    const usdCents =
+    const amount =
       currency === "USD"
+        ? line.usdCents / 100
+        : (line.usdCents * bobPerUsd) / 100;
+    const next = amount > max ? max : amount;
+    const nextUsdCents =
+      currency === "USD"
+        ? toCents(next)
+        : Math.round(toCents(next) / bobPerUsd);
+    onUpdate({
+      method,
+      currency,
+      amount: next,
+      usdCents: Math.min(nextUsdCents, maxUsdCents),
+    });
+    setAmountDraft(null);
+  };
+
+  const commitAmount = (amount: number) => {
+    const max = maxIn(line.currency);
+    const usdCents =
+      line.currency === "USD"
         ? toCents(amount)
         : Math.round(toCents(amount) / bobPerUsd);
     const exceeds = usdCents > maxUsdCents;
@@ -199,12 +245,12 @@ function ExtraPaymentCompactRow({
       return;
     }
     const nextUsdCents =
-      currency === "USD"
+      line.currency === "USD"
         ? toCents(next)
         : Math.round(toCents(next) / bobPerUsd);
     onUpdate({
       method: line.method,
-      currency,
+      currency: line.currency,
       amount: next,
       usdCents: Math.min(nextUsdCents, maxUsdCents),
     });
@@ -218,7 +264,17 @@ function ExtraPaymentCompactRow({
           label="Forma de pago"
           options={methodOptions}
           value={line.method}
-          onChange={(method) => onUpdate({ ...line, method })}
+          onChange={(method) => {
+            if (!isCombinationTaken(method, line.currency)) {
+              onUpdate({ ...line, method });
+              return;
+            }
+            const freeCurrency = CURRENCIES.find(
+              (currency) => !isCombinationTaken(method, currency),
+            );
+            if (freeCurrency === undefined) return;
+            applyCurrency(method, freeCurrency);
+          }}
           fieldRef={methodRef}
           nextRef={currencyRef}
           hideLabel
@@ -228,7 +284,9 @@ function ExtraPaymentCompactRow({
           label="Moneda"
           options={currencyOptions}
           value={line.currency}
-          onChange={(value) => commit(line.amount, value as PaymentCurrency)}
+          onChange={(value) =>
+            applyCurrency(line.method, value as PaymentCurrency)
+          }
           fieldRef={currencyRef}
           hideLabel
           dropdownSide="top"
@@ -242,8 +300,7 @@ function ExtraPaymentCompactRow({
             onFocus={(e) => e.currentTarget.select()}
             onChange={(e) => setAmountDraft(sanitizeAmount(e.target.value))}
             onBlur={() => {
-              if (amountDraft !== null)
-                commit(parseAmount(amountDraft), line.currency);
+              if (amountDraft !== null) commitAmount(parseAmount(amountDraft));
             }}
             onKeyDown={(e) => {
               if (e.key === "Escape") {
@@ -257,8 +314,7 @@ function ExtraPaymentCompactRow({
               )
                 return;
               e.preventDefault();
-              if (amountDraft !== null)
-                commit(parseAmount(amountDraft), line.currency);
+              if (amountDraft !== null) commitAmount(parseAmount(amountDraft));
             }}
             className="h-10 w-full rounded-lg border border-input bg-card px-2 text-right text-sm font-semibold text-foreground outline-none transition focus:border-brand focus:ring-4 focus:ring-brand/10"
           />

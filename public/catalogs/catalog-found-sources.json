@@ -1,0 +1,132 @@
+{
+  "result": {
+    "totalCount": 10,
+    "items": [
+      {
+        "foundSource": {
+          "code": "02",
+          "description": "Ahorros",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 46
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "foundSource": {
+          "code": "07",
+          "description": "Donaciones Benéficas",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 47
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "foundSource": {
+          "code": "03",
+          "description": "Fondos/Préstamos Tomados",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 48
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "foundSource": {
+          "code": "06",
+          "description": "Herencia",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 49
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "foundSource": {
+          "code": "10",
+          "description": "Ingresos Por Inversiones",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 50
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "foundSource": {
+          "code": "05",
+          "description": "Pensión/Asistencia Social",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 51
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "foundSource": {
+          "code": "08",
+          "description": "Propinas En Efectivo",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 52
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "foundSource": {
+          "code": "04",
+          "description": "Regalo",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 53
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "foundSource": {
+          "code": "01",
+          "description": "Salario",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 54
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "foundSource": {
+          "code": "09",
+          "description": "Venta De Bienes/Propiedades/Servicios",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 55
+        },
+        "cisCountryName": "Bolivia"
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

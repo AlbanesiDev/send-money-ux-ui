@@ -1,0 +1,60 @@
+{
+  "result": {
+    "totalCount": 4,
+    "items": [
+      {
+        "employmentPosition": {
+          "code": "6",
+          "description": "Mando medio/Supervisión/Gerencia",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 5
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "employmentPosition": {
+          "code": "5",
+          "description": "Nivel Inicial",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 4
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "employmentPosition": {
+          "code": "7",
+          "description": "Nivel sénior/Ejecutivo",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 6
+        },
+        "cisCountryName": "Bolivia"
+      },
+      {
+        "employmentPosition": {
+          "code": "8",
+          "description": "Propietario",
+          "fromWU": true,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "id": 7
+        },
+        "cisCountryName": "Bolivia"
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

@@ -1,0 +1,152 @@
+{
+  "result": {
+    "totalCount": 10,
+    "items": [
+      {
+        "transactionPurpose": {
+          "code": "Savings - 1211",
+          "description": "Ahorros",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 157
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "RIA"
+      },
+      {
+        "transactionPurpose": {
+          "code": "Family Assistance - 211",
+          "description": "Asistencia Familiar",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 141
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "RIA"
+      },
+      {
+        "transactionPurpose": {
+          "code": "Buy Real Estate - 711",
+          "description": "Compra de Bienes Raíces",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 146
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "RIA"
+      },
+      {
+        "transactionPurpose": {
+          "code": "House Construction - 1111",
+          "description": "Construcción de Vivienda",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 156
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "RIA"
+      },
+      {
+        "transactionPurpose": {
+          "code": "Donation - 811",
+          "description": "Donación",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 147
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "RIA"
+      },
+      {
+        "transactionPurpose": {
+          "code": "Medical Expenses - 311",
+          "description": "Gastos Médicos",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 142
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "RIA"
+      },
+      {
+        "transactionPurpose": {
+          "code": "Investment - 911",
+          "description": "Inversión",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 148
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "RIA"
+      },
+      {
+        "transactionPurpose": {
+          "code": "Other - 511",
+          "description": "Otros",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 144
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "RIA"
+      },
+      {
+        "transactionPurpose": {
+          "code": "Debt/Loan/Mortgages Payment - 611",
+          "description": "Pago de Deudas/Préstamos/Hipotecas",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 145
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "RIA"
+      },
+      {
+        "transactionPurpose": {
+          "code": "Travel - 1011",
+          "description": "Viajes",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "cisCountryId": 4,
+          "providerId": null,
+          "id": 152
+        },
+        "cisCountryName": "Bolivia",
+        "providerDescription": "RIA"
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

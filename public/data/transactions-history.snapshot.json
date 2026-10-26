@@ -1,7 +1,7 @@
 [
   {
-    "customerId": "eliana-antezana",
-    "beneficiaryId": "ben-eliana-78073652",
+    "customerId": "jorge-jimenez",
+    "beneficiaryId": "ben-jorge-7807365",
     "id": "12030070712",
     "date": "08 oct 2026",
     "time": "11:42",
@@ -24,8 +24,8 @@
     "collectionStatus": "available"
   },
   {
-    "customerId": "eliana-antezana",
-    "beneficiaryId": "ben-eliana-6543210",
+    "customerId": "jorge-jimenez",
+    "beneficiaryId": "ben-jorge-6543210",
     "id": "12030070598",
     "date": "21 sep 2026",
     "time": "16:08",
@@ -48,8 +48,8 @@
     "collectionStatus": "available"
   },
   {
-    "customerId": "eliana-antezana",
-    "beneficiaryId": "ben-eliana-9876543",
+    "customerId": "jorge-jimenez",
+    "beneficiaryId": "ben-jorge-9876543",
     "id": "12030070431",
     "date": "30 ago 2026",
     "time": "09:35",
@@ -72,8 +72,8 @@
     "collectionStatus": "onHold"
   },
   {
-    "customerId": "eliana-antezana",
-    "beneficiaryId": "ben-eliana-6543210",
+    "customerId": "jorge-jimenez",
+    "beneficiaryId": "ben-jorge-6543210",
     "id": "12030070592",
     "date": "21 sep 2026",
     "time": "16:08",
@@ -97,8 +97,8 @@
     "paidAt": "14 oct 2026 · 16:20"
   },
   {
-    "customerId": "eliana-antezana",
-    "beneficiaryId": "ben-eliana-9876543",
+    "customerId": "jorge-jimenez",
+    "beneficiaryId": "ben-jorge-9876543",
     "id": "12030070434",
     "date": "30 ago 2026",
     "time": "09:35",
@@ -121,8 +121,8 @@
     "collectionStatus": "onHold"
   },
   {
-    "customerId": "eliana-antezana",
-    "beneficiaryId": "ben-eliana-3344556",
+    "customerId": "jorge-jimenez",
+    "beneficiaryId": "ben-jorge-3344556",
     "id": "12030070901",
     "date": "22 oct 2026",
     "time": "10:15",

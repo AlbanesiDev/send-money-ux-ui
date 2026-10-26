@@ -45,11 +45,11 @@ import {
 import type { GuestClientLookupStatus } from "@/components/send-money/guest-client-lookup-notice";
 import { type RecentTransaction } from "@/components/send-money/recent-transactions";
 import { PaymentMethodPanel } from "@/components/send-money/shared/payment-method-panel";
+import { PaymentMethodSummaryCard } from "@/components/send-money/shared/payment-method-summary-card";
 import type {
   Beneficiary,
   Customer,
   DeliveryTypeId,
-  MoneygramAccount,
   PaymentCurrency,
   PaymentLine,
   ProviderId,
@@ -63,7 +63,6 @@ import {
   QuoteStep,
   type ClientSearchResult,
 } from "@/app/remittences/steps";
-import type { MoneygramAccountFormChangeHandler } from "@/components/send-money/providers/moneygram/beneficiary-account-step";
 import type { BeneficiaryFormChangeHandler } from "@/components/send-money/providers/wu/beneficiary-step";
 import type { RemitterFormChangeHandler } from "@/components/send-money/providers/wu/remitter-step";
 import {
@@ -83,14 +82,6 @@ import {
   type CustomerRegistrationDraft,
 } from "@/lib/simulated-api/customers-api";
 import { readAllCustomers } from "@/lib/simulated-api/customers-store";
-import {
-  createEmptyMoneygramAccountDraft,
-  ensureMoneygramAccountsSeeded,
-  listMoneygramAccountsByCustomer,
-  moneygramAccountToDraft,
-  registerMoneygramAccount,
-  type MoneygramAccountDraft,
-} from "@/lib/simulated-api/moneygram-accounts-api";
 import {
   createCompletedTransaction,
   ensureTransactionsSeeded,
@@ -380,7 +371,6 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
   } | null>(null);
   const beneficiaryEditSnapshotRef =
     useRef<BeneficiaryRegistrationDraft | null>(null);
-  const moneygramEditSnapshotRef = useRef<MoneygramAccountDraft | null>(null);
   const additionalInfoEditSnapshotRef =
     useRef<AdditionalInfoFormState | null>(null);
   const suspiciousEditSnapshotRef =
@@ -482,17 +472,11 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     }
     if (providerChanged && !skipParties) {
       setSelectedBeneficiary(-1);
-      setSelectedMoneygramAccount(-1);
       setGuestBeneficiaryChosen(false);
       setRegisterBeneficiaryError("");
       setBeneficiaryForm((current) => {
         const emptyDraft = createEmptyBeneficiaryDraft(current.customerId);
         setOriginalBeneficiaryForm(emptyDraft);
-        return emptyDraft;
-      });
-      setMoneygramAccountForm((current) => {
-        const emptyDraft = createEmptyMoneygramAccountDraft(current.customerId);
-        setOriginalMoneygramAccountForm(emptyDraft);
         return emptyDraft;
       });
     }
@@ -542,19 +526,10 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     useState<BeneficiaryRegistrationDraft>(() => createEmptyBeneficiaryDraft());
   const [originalBeneficiaryForm, setOriginalBeneficiaryForm] =
     useState<BeneficiaryRegistrationDraft | null>(null);
-  const [moneygramAccounts, setMoneygramAccounts] = useState<
-    MoneygramAccount[]
-  >([]);
-  const [moneygramAccountForm, setMoneygramAccountForm] =
-    useState<MoneygramAccountDraft>(() => createEmptyMoneygramAccountDraft());
-  const [originalMoneygramAccountForm, setOriginalMoneygramAccountForm] =
-    useState<MoneygramAccountDraft | null>(null);
-  const [selectedMoneygramAccount, setSelectedMoneygramAccount] = useState(-1);
   const [isRegisteringBeneficiary, setIsRegisteringBeneficiary] =
     useState(false);
   const [registerBeneficiaryError, setRegisterBeneficiaryError] = useState("");
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(-1);
-  const moneygramAccountsLoadedForCustomerIdRef = useRef<string | null>(null);
   const [recentTransactions, setRecentTransactions] = useState<
     StoredTransaction[]
   >(() => {
@@ -575,7 +550,6 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
       .then(() => readAllCustomers())
       .then((items) => setCustomers(items));
     void ensureBeneficiariesSeeded();
-    void ensureMoneygramAccountsSeeded();
     void ensureTransactionsSeeded();
   }, []);
 
@@ -655,16 +629,11 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
         return;
       }
       beneficiariesLoadedForCustomerIdRef.current = null;
-      moneygramAccountsLoadedForCustomerIdRef.current = null;
       transactionsLoadedForCustomerIdRef.current = null;
       setBeneficiaries([]);
       setSelectedBeneficiary(-1);
       setBeneficiaryForm(createEmptyBeneficiaryDraft());
       setOriginalBeneficiaryForm(null);
-      setMoneygramAccounts([]);
-      setSelectedMoneygramAccount(-1);
-      setMoneygramAccountForm(createEmptyMoneygramAccountDraft());
-      setOriginalMoneygramAccountForm(null);
       setRecentTransactions([]);
       return;
     }
@@ -679,18 +648,6 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
         setBeneficiaryForm(emptyDraft);
         setOriginalBeneficiaryForm(emptyDraft);
         setGuestBeneficiaryChosen(false);
-      });
-    }
-    if (moneygramAccountsLoadedForCustomerIdRef.current !== customerId) {
-      moneygramAccountsLoadedForCustomerIdRef.current = customerId;
-      void listMoneygramAccountsByCustomer(customerId).then((items) => {
-        if (moneygramAccountsLoadedForCustomerIdRef.current !== customerId)
-          return;
-        setMoneygramAccounts(items);
-        const emptyDraft = createEmptyMoneygramAccountDraft(customerId);
-        setSelectedMoneygramAccount(-1);
-        setMoneygramAccountForm(emptyDraft);
-        setOriginalMoneygramAccountForm(emptyDraft);
       });
     }
     if (transactionsLoadedForCustomerIdRef.current !== customerId) {
@@ -795,42 +752,20 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
   const showSaveClientButton =
     isGuestFlow || customer === null || isRemitterFormDirty;
   let isBeneficiaryFormDirty = false;
-  if (selectedProvider === "MONEYGRAM") {
-    if (originalMoneygramAccountForm !== null) {
-      isBeneficiaryFormDirty =
-        JSON.stringify(moneygramAccountForm) !==
-        JSON.stringify(originalMoneygramAccountForm);
-    }
-  } else if (originalBeneficiaryForm !== null) {
+  if (originalBeneficiaryForm !== null) {
     isBeneficiaryFormDirty =
       JSON.stringify(beneficiaryForm) !==
       JSON.stringify(originalBeneficiaryForm);
   }
-  let isUpdatingExistingBeneficiary = false;
-  if (selectedProvider === "MONEYGRAM") {
-    isUpdatingExistingBeneficiary = moneygramAccountForm.id.trim() !== "";
-  } else {
-    isUpdatingExistingBeneficiary = beneficiaryForm.id.trim() !== "";
-  }
+  const isUpdatingExistingBeneficiary = beneficiaryForm.id.trim() !== "";
   const showSaveBeneficiaryButton = customer !== null && isBeneficiaryFormDirty;
   const showFrequentBeneficiaries = customer !== null;
   let carouselSelectedBeneficiary = selectedBeneficiary;
   if (selectedBeneficiary < 0 || (isGuestFlow && !guestBeneficiaryChosen)) {
     carouselSelectedBeneficiary = -1;
   }
-  let carouselSelectedMoneygramAccount = selectedMoneygramAccount;
-  if (
-    selectedMoneygramAccount < 0 ||
-    (isGuestFlow && !guestBeneficiaryChosen)
-  ) {
-    carouselSelectedMoneygramAccount = -1;
-  }
   const beneficiary =
     selectedBeneficiary >= 0 ? beneficiaries[selectedBeneficiary] : undefined;
-  const moneygramAccount =
-    selectedMoneygramAccount >= 0
-      ? moneygramAccounts[selectedMoneygramAccount]
-      : undefined;
 
   // Autocompleta cotización, beneficiario y pago a partir de una transacción
   // previa; los datos del remitente y PEP ya vienen del cliente encontrado.
@@ -924,20 +859,14 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     clearAmount();
     setPromoCode("");
     setSelectedBeneficiary(-1);
-    setSelectedMoneygramAccount(-1);
     setGuestBeneficiaryChosen(false);
     if (customer !== null) {
       const emptyDraft = createEmptyBeneficiaryDraft(customer.id);
       setBeneficiaryForm(emptyDraft);
       setOriginalBeneficiaryForm(emptyDraft);
-      const emptyMoneygramDraft = createEmptyMoneygramAccountDraft(customer.id);
-      setMoneygramAccountForm(emptyMoneygramDraft);
-      setOriginalMoneygramAccountForm(emptyMoneygramDraft);
     } else {
       setBeneficiaryForm(createEmptyBeneficiaryDraft());
       setOriginalBeneficiaryForm(null);
-      setMoneygramAccountForm(createEmptyMoneygramAccountDraft());
-      setOriginalMoneygramAccountForm(null);
     }
     setPaymentMethod("Pago en efectivo");
     setPrimaryCurrency("USD");
@@ -999,7 +928,6 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     setAdditionalInfoForm(EMPTY_ADDITIONAL_INFO_FORM);
     setSuspiciousTransactionForm(EMPTY_SUSPICIOUS_TRANSACTION_FORM);
     setSelectedBeneficiary(-1);
-    setSelectedMoneygramAccount(-1);
     setSelectedTransactionId(null);
     setGuestLookupStatus("idle");
     setGuestFoundCustomer(null);
@@ -1007,16 +935,12 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     setGuestBeneficiaryChosen(false);
     remitterFormSyncedCustomerIdRef.current = null;
     beneficiariesLoadedForCustomerIdRef.current = null;
-    moneygramAccountsLoadedForCustomerIdRef.current = null;
     transactionsLoadedForCustomerIdRef.current = null;
     setRemitterForm(createEmptyCustomerDraft("", documentType));
     setOriginalRemitterForm(null);
     setBeneficiaries([]);
     setBeneficiaryForm(createEmptyBeneficiaryDraft());
     setOriginalBeneficiaryForm(null);
-    setMoneygramAccounts([]);
-    setMoneygramAccountForm(createEmptyMoneygramAccountDraft());
-    setOriginalMoneygramAccountForm(null);
     setRecentTransactions([]);
     setRegisterClientError("");
     setRegisterBeneficiaryError("");
@@ -1120,33 +1044,6 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     setRegisterBeneficiaryError("");
   }
 
-  function selectMoneygramAccount(index: number) {
-    if (selectedMoneygramAccount === index) {
-      setSelectedMoneygramAccount(-1);
-      setGuestBeneficiaryChosen(false);
-      if (customer !== null) {
-        const emptyDraft = createEmptyMoneygramAccountDraft(customer.id);
-        setMoneygramAccountForm(emptyDraft);
-        setOriginalMoneygramAccountForm(emptyDraft);
-      } else {
-        setMoneygramAccountForm(createEmptyMoneygramAccountDraft());
-        setOriginalMoneygramAccountForm(null);
-      }
-      setRegisterBeneficiaryError("");
-      return;
-    }
-    setSelectedMoneygramAccount(index);
-    if (isGuestFlow) {
-      setGuestBeneficiaryChosen(true);
-    }
-    const selected = moneygramAccounts[index];
-    if (selected === undefined) return;
-    const draft = moneygramAccountToDraft(selected);
-    setMoneygramAccountForm(draft);
-    setOriginalMoneygramAccountForm(draft);
-    setRegisterBeneficiaryError("");
-  }
-
   const handleRemitterFormChange: RemitterFormChangeHandler = (
     field,
     value,
@@ -1163,14 +1060,6 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     value,
   ) => {
     setBeneficiaryForm((current) => ({ ...current, [field]: value }));
-    setRegisterBeneficiaryError("");
-  };
-
-  const handleMoneygramAccountFormChange: MoneygramAccountFormChangeHandler = (
-    field,
-    value,
-  ) => {
-    setMoneygramAccountForm((current) => ({ ...current, [field]: value }));
     setRegisterBeneficiaryError("");
   };
 
@@ -1252,41 +1141,6 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     if (!validateRequiredFields("[data-beneficiary-form]")) return;
     setRegisterBeneficiaryError("");
     setIsRegisteringBeneficiary(true);
-
-    if (selectedProvider === "MONEYGRAM") {
-      const draft: MoneygramAccountDraft = {
-        ...moneygramAccountForm,
-        customerId: customer.id,
-      };
-      void registerMoneygramAccount(draft)
-        .then(async (result) => {
-          const items = await listMoneygramAccountsByCustomer(customer.id);
-          setMoneygramAccounts(items);
-          const savedDraft = moneygramAccountToDraft(result.account);
-          setMoneygramAccountForm(savedDraft);
-          setOriginalMoneygramAccountForm(savedDraft);
-          let nextIndex = 0;
-          for (let index = 0; index < items.length; index += 1) {
-            if (items[index].id === result.account.id) {
-              nextIndex = index;
-              break;
-            }
-          }
-          setSelectedMoneygramAccount(nextIndex);
-          setGuestBeneficiaryChosen(true);
-        })
-        .catch((error: unknown) => {
-          if (error instanceof Error) {
-            setRegisterBeneficiaryError(error.message);
-            return;
-          }
-          setRegisterBeneficiaryError("No se pudo guardar la cuenta.");
-        })
-        .finally(() => {
-          setIsRegisteringBeneficiary(false);
-        });
-      return;
-    }
 
     const draft: BeneficiaryRegistrationDraft = {
       ...beneficiaryForm,
@@ -1463,104 +1317,54 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     setProcessing(true);
 
     void (async () => {
-      let beneficiaryId = "";
-      let beneficiaryIndex = -1;
+      let beneficiaryId = beneficiaryForm.id.trim();
+      let beneficiaryIndex = selectedBeneficiary;
 
-      if (selectedProvider === "MONEYGRAM") {
-        let accountId = moneygramAccountForm.id.trim();
-        beneficiaryIndex = selectedMoneygramAccount;
-        if (accountId === "" || originalMoneygramAccountForm === null) {
-          const savedAccount = await registerMoneygramAccount({
-            ...moneygramAccountForm,
-            customerId: customer.id,
-          });
-          accountId = savedAccount.account.id;
-          const items = await listMoneygramAccountsByCustomer(customer.id);
-          setMoneygramAccounts(items);
-          const savedDraft = moneygramAccountToDraft(savedAccount.account);
-          setMoneygramAccountForm(savedDraft);
-          setOriginalMoneygramAccountForm(savedDraft);
-          beneficiaryIndex = 0;
-          for (let index = 0; index < items.length; index += 1) {
-            if (items[index].id === accountId) {
-              beneficiaryIndex = index;
-              break;
-            }
+      if (beneficiaryId === "" || originalBeneficiaryForm === null) {
+        const savedBeneficiary = await registerBeneficiary({
+          ...beneficiaryForm,
+          customerId: customer.id,
+        });
+        beneficiaryId = savedBeneficiary.beneficiary.id;
+        const items = await listBeneficiariesByCustomer(customer.id);
+        setBeneficiaries(items);
+        const savedDraft = beneficiaryToRegistrationDraft(
+          savedBeneficiary.beneficiary,
+        );
+        setBeneficiaryForm(savedDraft);
+        setOriginalBeneficiaryForm(savedDraft);
+        beneficiaryIndex = 0;
+        for (let index = 0; index < items.length; index += 1) {
+          if (items[index].id === beneficiaryId) {
+            beneficiaryIndex = index;
+            break;
           }
-          setSelectedMoneygramAccount(beneficiaryIndex);
-        } else if (
-          JSON.stringify(moneygramAccountForm) !==
-          JSON.stringify(originalMoneygramAccountForm)
-        ) {
-          const savedAccount = await registerMoneygramAccount({
-            ...moneygramAccountForm,
-            customerId: customer.id,
-          });
-          accountId = savedAccount.account.id;
-          const items = await listMoneygramAccountsByCustomer(customer.id);
-          setMoneygramAccounts(items);
-          const savedDraft = moneygramAccountToDraft(savedAccount.account);
-          setMoneygramAccountForm(savedDraft);
-          setOriginalMoneygramAccountForm(savedDraft);
-          beneficiaryIndex = 0;
-          for (let index = 0; index < items.length; index += 1) {
-            if (items[index].id === accountId) {
-              beneficiaryIndex = index;
-              break;
-            }
-          }
-          setSelectedMoneygramAccount(beneficiaryIndex);
         }
-        beneficiaryId = accountId;
-      } else {
-        beneficiaryId = beneficiaryForm.id.trim();
-        beneficiaryIndex = selectedBeneficiary;
-        if (beneficiaryId === "" || originalBeneficiaryForm === null) {
-          const savedBeneficiary = await registerBeneficiary({
-            ...beneficiaryForm,
-            customerId: customer.id,
-          });
-          beneficiaryId = savedBeneficiary.beneficiary.id;
-          const items = await listBeneficiariesByCustomer(customer.id);
-          setBeneficiaries(items);
-          const savedDraft = beneficiaryToRegistrationDraft(
-            savedBeneficiary.beneficiary,
-          );
-          setBeneficiaryForm(savedDraft);
-          setOriginalBeneficiaryForm(savedDraft);
-          beneficiaryIndex = 0;
-          for (let index = 0; index < items.length; index += 1) {
-            if (items[index].id === beneficiaryId) {
-              beneficiaryIndex = index;
-              break;
-            }
+        setSelectedBeneficiary(beneficiaryIndex);
+      } else if (
+        JSON.stringify(beneficiaryForm) !==
+        JSON.stringify(originalBeneficiaryForm)
+      ) {
+        const savedBeneficiary = await registerBeneficiary({
+          ...beneficiaryForm,
+          customerId: customer.id,
+        });
+        beneficiaryId = savedBeneficiary.beneficiary.id;
+        const items = await listBeneficiariesByCustomer(customer.id);
+        setBeneficiaries(items);
+        const savedDraft = beneficiaryToRegistrationDraft(
+          savedBeneficiary.beneficiary,
+        );
+        setBeneficiaryForm(savedDraft);
+        setOriginalBeneficiaryForm(savedDraft);
+        beneficiaryIndex = 0;
+        for (let index = 0; index < items.length; index += 1) {
+          if (items[index].id === beneficiaryId) {
+            beneficiaryIndex = index;
+            break;
           }
-          setSelectedBeneficiary(beneficiaryIndex);
-        } else if (
-          JSON.stringify(beneficiaryForm) !==
-          JSON.stringify(originalBeneficiaryForm)
-        ) {
-          const savedBeneficiary = await registerBeneficiary({
-            ...beneficiaryForm,
-            customerId: customer.id,
-          });
-          beneficiaryId = savedBeneficiary.beneficiary.id;
-          const items = await listBeneficiariesByCustomer(customer.id);
-          setBeneficiaries(items);
-          const savedDraft = beneficiaryToRegistrationDraft(
-            savedBeneficiary.beneficiary,
-          );
-          setBeneficiaryForm(savedDraft);
-          setOriginalBeneficiaryForm(savedDraft);
-          beneficiaryIndex = 0;
-          for (let index = 0; index < items.length; index += 1) {
-            if (items[index].id === beneficiaryId) {
-              beneficiaryIndex = index;
-              break;
-            }
-          }
-          setSelectedBeneficiary(beneficiaryIndex);
         }
+        setSelectedBeneficiary(beneficiaryIndex);
       }
 
       const savedTransaction = await createCompletedTransaction({
@@ -1609,23 +1413,15 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     setExtraPayments([]);
     if (!keepBeneficiary) {
       setSelectedBeneficiary(-1);
-      setSelectedMoneygramAccount(-1);
       setGuestBeneficiaryChosen(false);
       setRegisterBeneficiaryError("");
       if (customer !== null) {
         const emptyDraft = createEmptyBeneficiaryDraft(customer.id);
         setBeneficiaryForm(emptyDraft);
         setOriginalBeneficiaryForm(emptyDraft);
-        const emptyMoneygramDraft = createEmptyMoneygramAccountDraft(
-          customer.id,
-        );
-        setMoneygramAccountForm(emptyMoneygramDraft);
-        setOriginalMoneygramAccountForm(emptyMoneygramDraft);
       } else {
         setBeneficiaryForm(createEmptyBeneficiaryDraft());
         setOriginalBeneficiaryForm(null);
-        setMoneygramAccountForm(createEmptyMoneygramAccountDraft());
-        setOriginalMoneygramAccountForm(null);
       }
     }
     window.clearTimeout(processingTimeoutRef.current);
@@ -1699,80 +1495,42 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
           </p>
         )}
       </div>
-      {isKnownClient &&
-        beneficiary !== undefined &&
-        selectedProvider !== "MONEYGRAM" && (
-          <div
-            className={`w-1/2 rounded-xl border border-border border-l-4 border-l-party-beneficiary-border bg-card p-3 shadow-sm ${
-              showPartyCardsAboveShipping
-                ? "flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1"
-                : ""
+      {isKnownClient && beneficiary !== undefined && (
+        <div
+          className={`w-1/2 rounded-xl border border-border border-l-4 border-l-party-beneficiary-border bg-card p-3 shadow-sm ${
+            showPartyCardsAboveShipping
+              ? "flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1"
+              : ""
+          }`}
+        >
+          <p className="shrink-0 text-[0.75rem] font-bold uppercase tracking-[0.12em] text-party-beneficiary-fg">
+            Beneficiario
+          </p>
+          <p
+            className={`min-w-0 truncate text-sm font-bold text-foreground ${
+              showPartyCardsAboveShipping ? "" : "mt-1.5"
             }`}
           >
-            <p className="shrink-0 text-[0.75rem] font-bold uppercase tracking-[0.12em] text-party-beneficiary-fg">
-              Beneficiario
-            </p>
-            <p
-              className={`min-w-0 truncate text-sm font-bold text-foreground ${
-                showPartyCardsAboveShipping ? "" : "mt-1.5"
-              }`}
-            >
-              {beneficiary.name}
-            </p>
-            <p
-              className={`min-w-0 truncate text-sm text-muted-foreground ${
-                showPartyCardsAboveShipping ? "" : "mt-1"
-              }`}
-            >
-              {beneficiary.document !== ""
-                ? `Doc: ${beneficiary.document} · ${beneficiary.city}`
-                : beneficiary.city}
-            </p>
-            <p
-              className={`min-w-0 truncate text-xs text-muted-foreground ${
-                showPartyCardsAboveShipping ? "" : "mt-1"
-              }`}
-            >
-              {beneficiary.phone} · {beneficiary.email}
-            </p>
-          </div>
-        )}
-      {isKnownClient &&
-        moneygramAccount !== undefined &&
-        selectedProvider === "MONEYGRAM" && (
-          <div
-            className={`w-1/2 rounded-xl border border-border border-l-4 border-l-party-beneficiary-border bg-card p-3 shadow-sm ${
-              showPartyCardsAboveShipping
-                ? "flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1"
-                : ""
+            {beneficiary.name}
+          </p>
+          <p
+            className={`min-w-0 truncate text-sm text-muted-foreground ${
+              showPartyCardsAboveShipping ? "" : "mt-1"
             }`}
           >
-            <p className="shrink-0 text-[0.75rem] font-bold uppercase tracking-[0.12em] text-party-beneficiary-fg">
-              Cuenta Moneygram
-            </p>
-            <p
-              className={`min-w-0 truncate text-sm font-bold text-foreground ${
-                showPartyCardsAboveShipping ? "" : "mt-1.5"
-              }`}
-            >
-              {moneygramAccount.company}
-            </p>
-            <p
-              className={`min-w-0 truncate text-sm text-muted-foreground ${
-                showPartyCardsAboveShipping ? "" : "mt-1"
-              }`}
-            >
-              {moneygramAccount.accountNumber} · {moneygramAccount.city}
-            </p>
-            <p
-              className={`min-w-0 truncate text-xs text-muted-foreground ${
-                showPartyCardsAboveShipping ? "" : "mt-1"
-              }`}
-            >
-              {moneygramAccount.reference} · {moneygramAccount.phone}
-            </p>
-          </div>
-        )}
+            {beneficiary.document !== ""
+              ? `Doc: ${beneficiary.document} · ${beneficiary.city}`
+              : beneficiary.city}
+          </p>
+          <p
+            className={`min-w-0 truncate text-xs text-muted-foreground ${
+              showPartyCardsAboveShipping ? "" : "mt-1"
+            }`}
+          >
+            {beneficiary.phone} · {beneficiary.email}
+          </p>
+        </div>
+      )}
     </div>
   );
 
@@ -1795,15 +1553,6 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
       ...current,
       [SUSPICIOUS_TRANSACTION_CHECK_LABEL]: marked,
     }));
-  };
-  const handleAdditionalInfoMarkedChange = (marked: boolean) => {
-    if (marked) {
-      openAdditionalInfoDialog();
-      return;
-    }
-    if (isGafiHighRiskDestination(destinationCountry)) return;
-    setAdditionalInfoMarked(false);
-    setAdditionalInfoError("");
   };
   const handleSuspiciousMarkedChange = (marked: boolean) => {
     if (marked) {
@@ -1840,12 +1589,25 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     <aside className="sticky top-0 flex flex-col gap-3 self-start">
       {showPartyCardsInAside && partyCards}
       <ComplianceSummaryCard
+        fundsOrigin={additionalInfoForm.fundsOrigin}
+        resourceDestination={additionalInfoForm.resourceDestination}
+        onFundsOriginChange={(value) =>
+          setAdditionalInfoForm((current) => ({
+            ...current,
+            fundsOrigin: value,
+          }))
+        }
+        onResourceDestinationChange={(value) =>
+          setAdditionalInfoForm((current) => ({
+            ...current,
+            resourceDestination: value,
+          }))
+        }
         additionalInfoMarked={additionalInfoMarked}
         suspiciousMarked={suspiciousMarked}
         additionalInfo={additionalInfoForm}
         additionalInfoRequired={additionalInfoRequired}
         additionalInfoError={additionalInfoError}
-        onAdditionalInfoMarkedChange={handleAdditionalInfoMarkedChange}
         onEditAdditionalInfo={openAdditionalInfoDialog}
         onSuspiciousMarkedChange={handleSuspiciousMarkedChange}
         onEditSuspicious={openSuspiciousDialog}
@@ -1856,33 +1618,43 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
         deliveryType={deliveryType}
         loading={quoteLoading}
       />
-      <PaymentMethodPanel
-        formatUsd={formatUsd}
-        formatAmount={formatAmount}
-        bobPerUsd={BOB_PER_USD}
-        primaryMethod={paymentMethod}
-        onPrimaryMethodChange={setPaymentMethod}
-        primaryMethodRef={paymentMethodRef}
-        primaryCurrency={primaryCurrency}
-        onPrimaryCurrencyChange={setPrimaryCurrency}
-        primaryCents={primaryCents}
-        extraPayments={extraPayments}
-        onUpdatePayment={(id, line) =>
-          setExtraPayments((current) =>
-            current.map((item) => (item.id === id ? { ...line, id } : item)),
-          )
-        }
-        onRemovePayment={(id) =>
-          setExtraPayments((current) =>
-            current.filter((line) => line.id !== id),
-          )
-        }
-        onAddPaymentOpen={() => setAddPaymentOpen(true)}
-        paymentMethodOptions={paymentMethodOptions}
-        sanitizeAmount={sanitizeAmount}
-        parseAmount={parseAmount}
-        toCents={toCents}
-      />
+      {isPartiesStep ? (
+        <PaymentMethodSummaryCard
+          paymentLines={paymentLines}
+          totalToCharge={totalToCharge}
+          formatUsd={formatUsd}
+          formatAmount={formatAmount}
+          onEdit={() => setEditPaymentOpen(true)}
+        />
+      ) : (
+        <PaymentMethodPanel
+          formatUsd={formatUsd}
+          formatAmount={formatAmount}
+          bobPerUsd={BOB_PER_USD}
+          primaryMethod={paymentMethod}
+          onPrimaryMethodChange={setPaymentMethod}
+          primaryMethodRef={paymentMethodRef}
+          primaryCurrency={primaryCurrency}
+          onPrimaryCurrencyChange={setPrimaryCurrency}
+          primaryCents={primaryCents}
+          extraPayments={extraPayments}
+          onUpdatePayment={(id, line) =>
+            setExtraPayments((current) =>
+              current.map((item) => (item.id === id ? { ...line, id } : item)),
+            )
+          }
+          onRemovePayment={(id) =>
+            setExtraPayments((current) =>
+              current.filter((line) => line.id !== id),
+            )
+          }
+          onAddPaymentOpen={() => setAddPaymentOpen(true)}
+          paymentMethodOptions={paymentMethodOptions}
+          sanitizeAmount={sanitizeAmount}
+          parseAmount={parseAmount}
+          toCents={toCents}
+        />
+      )}
     </aside>
   );
 
@@ -2061,10 +1833,10 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                 return (
                   <Stepper.Step key={stepLabel} index={stepIndex}>
                     <div
-                      className={`grid min-h-0 flex-1 gap-4 ${stepIsParties || stepIsReview ? "overflow-hidden" : "overflow-y-auto"} ${stepIsReview ? "" : "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]"} ${showFormFooter ? "pb-8" : ""}`}
+                      className={`grid min-h-0 flex-1 gap-4 ${stepIsParties ? "overflow-hidden" : "overflow-y-auto"} ${stepIsReview ? "" : "lg:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]"} ${showFormFooter ? "pb-8" : ""}`}
                     >
                       <div
-                        className={`min-w-0 ${stepIsParties || stepIsReview ? "flex h-full min-h-0 flex-col overflow-hidden" : ""} ${stepIsReview ? "w-full" : ""}`}
+                        className={`min-w-0 ${stepIsParties ? "flex h-full min-h-0 flex-col overflow-hidden" : ""} ${stepIsReview ? "flex h-full min-h-0 w-full flex-col" : ""}`}
                         data-form-fields
                         data-enter-advance={stepIsParties ? "" : undefined}
                       >
@@ -2081,10 +1853,6 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                             onBeneficiaryFormChange={
                               handleBeneficiaryFormChange
                             }
-                            moneygramAccountForm={moneygramAccountForm}
-                            onMoneygramAccountFormChange={
-                              handleMoneygramAccountFormChange
-                            }
                             isKnownClient={isKnownClient}
                             showFrequentBeneficiaries={
                               showFrequentBeneficiaries
@@ -2093,11 +1861,6 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                             selectedBeneficiary={carouselSelectedBeneficiary}
                             onSelectBeneficiary={selectBeneficiary}
                             onCreateBeneficiary={createBeneficiary}
-                            moneygramAccounts={moneygramAccounts}
-                            selectedMoneygramAccount={
-                              carouselSelectedMoneygramAccount
-                            }
-                            onSelectMoneygramAccount={selectMoneygramAccount}
                             additionalChecks={additionalChecks}
                             onAdditionalCheckChange={(checkLabel, checked) =>
                               setAdditionalChecks((current) => ({
@@ -2144,13 +1907,8 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                               setEditRemitterOpen(true);
                             }}
                             onEditBeneficiary={() => {
-                              if (selectedProvider === "MONEYGRAM") {
-                                moneygramEditSnapshotRef.current =
-                                  moneygramAccountForm;
-                              } else {
-                                beneficiaryEditSnapshotRef.current =
-                                  beneficiaryForm;
-                              }
+                              beneficiaryEditSnapshotRef.current =
+                                beneficiaryForm;
                               setEditBeneficiaryOpen(true);
                             }}
                             onEditPayment={() => setEditPaymentOpen(true)}
@@ -2160,8 +1918,17 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                             additionalInfo={additionalInfoForm}
                             additionalInfoRequired={additionalInfoRequired}
                             additionalInfoError={additionalInfoError}
-                            onAdditionalInfoMarkedChange={
-                              handleAdditionalInfoMarkedChange
+                            onFundsOriginChange={(value) =>
+                              setAdditionalInfoForm((current) => ({
+                                ...current,
+                                fundsOrigin: value,
+                              }))
+                            }
+                            onResourceDestinationChange={(value) =>
+                              setAdditionalInfoForm((current) => ({
+                                ...current,
+                                resourceDestination: value,
+                              }))
                             }
                             onEditAdditionalInfo={openAdditionalInfoDialog}
                             onSuspiciousMarkedChange={
@@ -2319,37 +2086,20 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                   provider={selectedProvider}
                   form={beneficiaryForm}
                   onFormChange={handleBeneficiaryFormChange}
-                  moneygramAccountForm={moneygramAccountForm}
-                  onMoneygramAccountFormChange={
-                    handleMoneygramAccountFormChange
-                  }
                   destinationCountry={destinationCountry}
                   onSave={() => {
                     if (!validateRequiredFields("[data-beneficiary-form]"))
                       return;
-                    if (selectedProvider === "MONEYGRAM") {
-                      setOriginalMoneygramAccountForm(moneygramAccountForm);
-                      moneygramEditSnapshotRef.current = null;
-                    } else {
-                      setOriginalBeneficiaryForm(beneficiaryForm);
-                      beneficiaryEditSnapshotRef.current = null;
-                    }
+                    setOriginalBeneficiaryForm(beneficiaryForm);
+                    beneficiaryEditSnapshotRef.current = null;
                     setEditBeneficiaryOpen(false);
                   }}
                   onCancel={() => {
-                    if (selectedProvider === "MONEYGRAM") {
-                      const snapshot = moneygramEditSnapshotRef.current;
-                      if (snapshot !== null) {
-                        setMoneygramAccountForm(snapshot);
-                      }
-                      moneygramEditSnapshotRef.current = null;
-                    } else {
-                      const snapshot = beneficiaryEditSnapshotRef.current;
-                      if (snapshot !== null) {
-                        setBeneficiaryForm(snapshot);
-                      }
-                      beneficiaryEditSnapshotRef.current = null;
+                    const snapshot = beneficiaryEditSnapshotRef.current;
+                    if (snapshot !== null) {
+                      setBeneficiaryForm(snapshot);
                     }
+                    beneficiaryEditSnapshotRef.current = null;
                     setEditBeneficiaryOpen(false);
                   }}
                 />

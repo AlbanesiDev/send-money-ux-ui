@@ -1,0 +1,444 @@
+{
+  "result": {
+    "totalCount": 24,
+    "items": [
+      {
+        "province": {
+          "code": "TF",
+          "description": "Antartida E Islas Del Atlan Tierra Del Fuego",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7317
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "BA",
+          "description": "Buenos Aires",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7295
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "CT",
+          "description": "Catamarca",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7301
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "CC",
+          "description": "Chaco",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7297
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "CH",
+          "description": "Chubut",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7299
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "CF",
+          "description": "Ciudad Autonoma de Buenos Aires",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7298
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "CB",
+          "description": "Cordoba",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7296
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "CN",
+          "description": "Corrientes",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7300
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "ER",
+          "description": "Entre Rios",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7302
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "FM",
+          "description": "Formosa",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7303
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "JY",
+          "description": "Jujuy",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7304
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "LP",
+          "description": "La Pampa",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7305
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "LR",
+          "description": "La Rioja",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7306
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "MZ",
+          "description": "Mendoza",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7308
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "MN",
+          "description": "Misiones",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7307
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "NQ",
+          "description": "Neuquen",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7309
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "RN",
+          "description": "Rio Negro",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7310
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "SA",
+          "description": "Salta",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7311
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "SJ",
+          "description": "San Juan",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7315
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "SL",
+          "description": "San Luis",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7316
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "SC",
+          "description": "Santa Cruz",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7312
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "SF",
+          "description": "Santa Fe",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7314
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "SE",
+          "description": "Santiago Del Estero",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7313
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      },
+      {
+        "province": {
+          "code": "TM",
+          "description": "Tucuman",
+          "fromWU": false,
+          "enabled": true,
+          "isDefault": false,
+          "erpCodeId": null,
+          "cisCountryId": 4,
+          "countryId": 2209,
+          "providerId": null,
+          "id": 7318
+        },
+        "cisCountryName": "Bolivia",
+        "countryCtyName": "Argentina",
+        "countryCtyIsoCode": "AR",
+        "providerDescription": "RIA"
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

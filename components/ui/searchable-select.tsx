@@ -38,6 +38,8 @@ export type SearchableSelectProps = {
   dropdownSide?: "top" | "bottom";
   /** Ancho mínimo del menú en px (útil cuando el trigger es más angosto que las opciones). */
   menuMinWidth?: number;
+  /** Placeholder del buscador dentro del menú. */
+  filterPlaceholder?: string;
   clearable?: boolean;
   error?: string;
   onBlur?: () => void;
@@ -57,6 +59,7 @@ export function SearchableSelect({
   hideLabel = false,
   dropdownSide = "bottom",
   menuMinWidth,
+  filterPlaceholder = "Filtrar opciones",
   clearable = false,
   error,
   onBlur,
@@ -82,12 +85,18 @@ export function SearchableSelect({
     }
     return option;
   });
-  const query = filter.toLowerCase();
+  // Ignora mayúsculas y acentos: "cordoba" encuentra "Córdoba" y viceversa.
+  const fold = (text: string) =>
+    text
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+  const query = fold(filter);
   const filteredOptions = normalizedOptions.filter((option) => {
-    if (option.label.toLowerCase().includes(query)) return true;
-    if (option.value.toLowerCase().includes(query)) return true;
-    if (option.flagCountry.toLowerCase().includes(query)) return true;
-    if (option.keywords.toLowerCase().includes(query)) return true;
+    if (fold(option.label).includes(query)) return true;
+    if (fold(option.value).includes(query)) return true;
+    if (fold(option.flagCountry).includes(query)) return true;
+    if (fold(option.keywords).includes(query)) return true;
     return false;
   });
   const selectedOption = normalizedOptions.find(
@@ -297,7 +306,7 @@ export function SearchableSelect({
                   fieldRef.current?.focus();
                 }
               }}
-              placeholder="Filtrar opciones"
+              placeholder={filterPlaceholder}
               aria-label={`Filtrar ${label.toLowerCase()}`}
               aria-activedescendant={
                 filteredOptions[highlightedIndex]

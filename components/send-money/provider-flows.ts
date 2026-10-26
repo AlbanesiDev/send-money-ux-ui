@@ -141,6 +141,36 @@ export function quoteAmountReceived(quote: ProviderQuote): number {
   return quote.amount - quoteCharges(quote);
 }
 
+/**
+ * La cotización de RIA depende del socio pagador y la locación
+ * (`GetAmountsAndRequirements` exige PayingCorrespID): sin ellos queda en 0, y
+ * con ellos el cargo varía según el socio.
+ */
+export function applyRiaPayout(
+  quote: ProviderQuote,
+  payout: { required: boolean; payingPartner: string; location: string },
+): ProviderQuote {
+  if (quote.provider !== "RIA" || !payout.required) return quote;
+  if (payout.payingPartner === "" || payout.location === "") {
+    return {
+      ...quote,
+      amount: 0,
+      fee: 0,
+      tax: 0,
+      itf: 0,
+      rate: 0,
+      promotion: null,
+      awaitingPayout: true,
+    };
+  }
+  let hash = 0;
+  for (const char of payout.payingPartner) {
+    hash = (hash * 31 + char.charCodeAt(0)) % 1000;
+  }
+  const partnerFactor = 0.9 + (hash % 21) / 100;
+  return { ...quote, fee: Math.round(quote.fee * partnerFactor * 100) / 100 };
+}
+
 /** Whether any provider quoting this delivery type accepts a promo code. */
 export function promoCodeAvailable(deliveryType: DeliveryTypeId): boolean {
   return providersForDeliveryType(deliveryType).some((provider) =>

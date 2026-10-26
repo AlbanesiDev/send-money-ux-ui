@@ -1,0 +1,95 @@
+{
+  "result": {
+    "deliveryMethods": [
+      {
+        "id": 1,
+        "name": "Cash Pick Up",
+        "networkModel": {
+          "model": "Non Open Payment",
+          "requiredFields": []
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": ["ARS"],
+            "productItems": []
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": ["ARS"],
+            "productItems": []
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners",
+            "rel": "PayoutPartners",
+            "action": "GET",
+            "description": "A list of available payout partners for a country and a delivery method."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Bank Deposit",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "BankId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": ["ANG", "ARS"],
+            "productItems": []
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/Products/0/Banks",
+            "rel": "Banks",
+            "action": "GET",
+            "description": "A list of available banks for a country"
+          }
+        ]
+      },
+      {
+        "id": 34,
+        "name": "Mobile Payment",
+        "networkModel": {
+          "model": "Point to Point",
+          "requiredFields": ["CountryTo", "PayoutPartnerId", "PayoutLocationId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": ["ARS"],
+            "productItems": []
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/34/PayoutPartners",
+            "rel": "PayoutPartners",
+            "action": "GET",
+            "description": "A list of available payout partners for a country and a delivery method."
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/MobileWallets/Locations",
+            "rel": "MobileWalletLocations",
+            "action": "GET",
+            "description": "A list of available MobileWallet partners for a country"
+          }
+        ]
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

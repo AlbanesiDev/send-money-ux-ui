@@ -1,0 +1,635 @@
+{
+  "result": {
+    "payoutPartnerLocations": [
+      {
+        "id": 10437311,
+        "name": "Bajo Flores",
+        "number": "AR0015",
+        "address": {
+          "address": "Calle  Cobo No. 1607 Víctor Martínez y Ortiguera ",
+          "zipCode": "00000",
+          "state": "BA",
+          "city": "Buenos Aires",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": "536 63850 - 4923-5258"
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/5924811/Locations/10437311",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 10437011,
+        "name": "Belgrano Ugarte",
+        "number": "AR0010",
+        "address": {
+          "address": "Calle Manuel Ugarte No. 2387  Barrio Belgrano ",
+          "zipCode": "00000",
+          "state": "BA",
+          "city": "Buenos Aires",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": "530 63850 - 4788-9404"
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/5924811/Locations/10437011",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 10436611,
+        "name": "Cordoba",
+        "number": "AR0004",
+        "address": {
+          "address": "Av Colón 1122 Alberdi ",
+          "zipCode": "00000",
+          "state": "CB",
+          "city": "Cordoba",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": "526 63850 - 568 - 0320"
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/5924811/Locations/10436611",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 10437411,
+        "name": "Mar Del Plata Prov. Bsas",
+        "number": "AR0016",
+        "address": {
+          "address": "Peatonal San Martín No.2648 Local 80 1er PisoGaler ias las Americas entre Cordova y San Luis B° ",
+          "zipCode": "00000",
+          "state": "BA",
+          "city": "Mar Del Plata",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": "0223 4923-308"
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/5924811/Locations/10437411",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 10437211,
+        "name": "Mendoza",
+        "number": "AR0013",
+        "address": {
+          "address": "Av San Martin No. 1173 Galeria La Tonsa Local 14 ",
+          "zipCode": "00000",
+          "state": "MZ",
+          "city": "Mendoza",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": "534 63850 - 429-1576"
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/5924811/Locations/10437211",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 10436411,
+        "name": "Munro Zona Norte",
+        "number": "AR0002",
+        "address": {
+          "address": "Tejedor No. 2525 Entre Tejedor   y  Velez Sarfield A 1/2 cdra Estación  Munro Barrio Munro",
+          "zipCode": "0000",
+          "state": "BA",
+          "city": "Munro",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": "(011) - 4762-1213"
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/5924811/Locations/10436411",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 1670014,
+        "name": "Pompeya",
+        "number": "AR0081",
+        "address": {
+          "address": "Av Del Barco Centenera No. 3402 Local 01 Hall Principal del Supermercado Coto",
+          "zipCode": "00000",
+          "state": "BA",
+          "city": "La Noria",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": "550 63850 - 011 49196851"
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/5924811/Locations/1670014",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 10437911,
+        "name": "Rosario Centro",
+        "number": "AR0023",
+        "address": {
+          "address": "Cll 3 de febrro No. 1602 local 6dentro supermercad o coto esquina presidente roca b",
+          "zipCode": "00000",
+          "state": "SF",
+          "city": "Rosario",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": "542 63850 - 4114091"
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/5924811/Locations/10437911",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 10437611,
+        "name": "San Isidro Zona Norte",
+        "number": "AR0020",
+        "address": {
+          "address": "Martin y Omar No. 74 1/2 Cuadra de Estacion San Isidro",
+          "zipCode": "00000",
+          "state": "BA",
+          "city": "San Isidro",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": "540 63850 - 00541-47431362"
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/5924811/Locations/10437611",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 755212,
+        "name": "Villa Celina",
+        "number": "AR0024",
+        "address": {
+          "address": "Olavarria 2358 Entre Chilavert y Barros Pazos Frente al Instituto Corazón de Jesus",
+          "zipCode": "00000",
+          "state": "BA",
+          "city": "Buenos Aires",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": "544 63850 - 44627332"
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/5924811/Locations/755212",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      }
+    ],
+    "links": [
+      {
+        "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/5924811/Locations?PageSize=10&PageNumber=2",
+        "rel": "next",
+        "action": "GET",
+        "description": "Next page."
+      },
+      {
+        "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/5924811/Locations?PageSize=10&PageNumber=4",
+        "rel": "last",
+        "action": "GET",
+        "description": "Last page."
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

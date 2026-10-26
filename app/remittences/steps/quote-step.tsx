@@ -18,8 +18,7 @@ import { SearchableSelect } from "@/components/ui/searchable-select";
 import banksCatalog from "@/public/catalogs/catalog-banks.json";
 import countriesCatalog from "@/public/catalogs/catalog-countries.json";
 import walletsCatalog from "@/public/catalogs/catalog-wallets.json";
-import payoutPartnersCatalog from "@/public/catalogs/catalog-payout-partners.json";
-import payoutPartnerLocationsCatalog from "@/public/catalogs/catalog-payout-partner-locations.json";
+import { RiaPayoutFields } from "@/components/send-money/providers/ria/payout-fields";
 import { AsyncDataHandler, STATUS } from "@/components/async-data-handler";
 import AsyncResult from "@/components/ui/async-result";
 
@@ -37,14 +36,6 @@ const countryIsoByName = new Map(
     item.country.ctyName,
     item.country.ctyIsoCode,
   ]),
-);
-const payoutPartnerOptions = uniqueSorted(
-  payoutPartnersCatalog.result.payoutPartners.map((partner) => partner.name),
-);
-const payoutLocationOptions = uniqueSorted(
-  payoutPartnerLocationsCatalog.result.payoutPartnerLocations.map(
-    (location) => location.address.address,
-  ),
 );
 
 export type QuoteStepProps = {
@@ -94,11 +85,17 @@ export type QuoteStepProps = {
   quotesReady: boolean;
   providerQuotes: ProviderQuote[];
   selectedProvider: ProviderId | null;
-  onSelectProviderQuote: (quote: ProviderQuote) => void;
+  onSelectProviderQuote: (
+    quote: ProviderQuote,
+    options?: { keepFocus?: boolean },
+  ) => void;
   destinationCountryRef: RefObject<HTMLButtonElement | null>;
   deliveryTypeRef: RefObject<HTMLButtonElement | null>;
   payingPartnerRef: RefObject<HTMLButtonElement | null>;
   locationRef: RefObject<HTMLButtonElement | null>;
+  riaPartnerRef: RefObject<HTMLButtonElement | null>;
+  riaPayoutError: boolean;
+  riaQuoteLoading: boolean;
   wuServiceRef: RefObject<HTMLButtonElement | null>;
   moneygramCompanyRef: RefObject<HTMLButtonElement | null>;
   terraPayBankRef: RefObject<HTMLButtonElement | null>;
@@ -163,6 +160,9 @@ export function QuoteStep({
   deliveryTypeRef,
   payingPartnerRef,
   locationRef,
+  riaPartnerRef,
+  riaPayoutError,
+  riaQuoteLoading,
   wuServiceRef,
   moneygramCompanyRef,
   terraPayBankRef,
@@ -313,6 +313,20 @@ export function QuoteStep({
         .map((wallet) => wallet.walletName),
     );
   }
+
+  const riaPayoutSlot = (disabled: boolean) =>
+    showPartnerLocation ? (
+      <RiaPayoutFields
+        countryIso={destinationCountryIso}
+        payingPartner={payingPartner}
+        location={location}
+        onPayingPartnerChange={onPayingPartnerChange}
+        onLocationChange={onLocationChange}
+        showErrors={riaPayoutError}
+        partnerRef={riaPartnerRef}
+        disabled={disabled}
+      />
+    ) : undefined;
 
   return (
     <div className="space-y-3">
@@ -613,6 +627,7 @@ export function QuoteStep({
                 selectedProvider={selectedProvider}
                 onSelect={onSelectProviderQuote}
                 loading
+                riaPayoutSlot={riaPayoutSlot(true)}
               />
             ) : (
               <div className="flex flex-row gap-2 pt-2">
@@ -644,6 +659,8 @@ export function QuoteStep({
               selectedProvider={selectedProvider}
               onSelect={onSelectProviderQuote}
               loading={false}
+              riaPayoutSlot={riaPayoutSlot(false)}
+              riaQuoteLoading={riaQuoteLoading}
             />
           )}
         />

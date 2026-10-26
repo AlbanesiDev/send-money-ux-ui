@@ -1,0 +1,507 @@
+{
+  "result": {
+    "payoutPartnerLocations": [
+      {
+        "id": 96660211,
+        "name": "Burzaco",
+        "number": "2022",
+        "address": {
+          "address": "Eugenio de Burzaco 768 ",
+          "zipCode": "1852",
+          "state": "BA",
+          "city": "Burzaco",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": ""
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/79432811/Locations/96660211",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 96661411,
+        "name": "CartaSur Flores",
+        "number": "2026",
+        "address": {
+          "address": "Avenida Rivadavia 7055 ",
+          "zipCode": "1406",
+          "state": "CF",
+          "city": "Buenos Aires",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": ""
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/79432811/Locations/96661411",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 96660811,
+        "name": "F. Varela",
+        "number": "2025",
+        "address": {
+          "address": "Monteagudo 3082 ",
+          "zipCode": "1888",
+          "state": "BA",
+          "city": "Florencio Varela",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": ""
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/79432811/Locations/96660811",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 96660911,
+        "name": "La Plata",
+        "number": "2028",
+        "address": {
+          "address": "Calle 12 Nro. 1064 ",
+          "zipCode": "1900",
+          "state": "BA",
+          "city": "La Plata",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": ""
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/79432811/Locations/96660911",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 96659711,
+        "name": "Laferrere",
+        "number": "2029",
+        "address": {
+          "address": "Avenida Luro 6025 ",
+          "zipCode": "1757",
+          "state": "BA",
+          "city": "Laferrere",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": ""
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/79432811/Locations/96659711",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 102739611,
+        "name": "Liniers",
+        "number": "2031",
+        "address": {
+          "address": "Avenida Rivadavia 11063 ",
+          "zipCode": "1408",
+          "state": "CF",
+          "city": "Liniers",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": ""
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/79432811/Locations/102739611",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 96661911,
+        "name": "Pompeya",
+        "number": "2039",
+        "address": {
+          "address": "Avenida Sáenz 949 ",
+          "zipCode": "0000",
+          "state": "CF",
+          "city": "Nueva Pompeya",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": ""
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/79432811/Locations/96661911",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      },
+      {
+        "id": 96659511,
+        "name": "San Justo",
+        "number": "2043",
+        "address": {
+          "address": "Arieta 3229 ",
+          "zipCode": "1754",
+          "state": "BA",
+          "city": "San Justo",
+          "country": "AR"
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0,
+                "maxAmount": 120000
+              }
+            ]
+          }
+        ],
+        "contactInformation": {
+          "emailAddress": "",
+          "phones": [
+            {
+              "typeId": 0,
+              "number": {
+                "subscriptionNumber": ""
+              }
+            }
+          ]
+        },
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/79432811/Locations/96659511",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner's location  by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartnerId and PayoutPartnerLocationId"
+          }
+        ]
+      }
+    ],
+    "links": [
+      {
+        "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/79432811/Locations?PageSize=10&PageNumber=1",
+        "rel": "last",
+        "action": "GET",
+        "description": "Last page."
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

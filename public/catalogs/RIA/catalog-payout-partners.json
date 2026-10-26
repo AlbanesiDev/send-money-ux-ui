@@ -1,0 +1,515 @@
+{
+  "result": {
+    "payoutPartners": [
+      {
+        "id": 35147355,
+        "name": "Andreani",
+        "networkModel": {
+          "model": "Point to Point",
+          "requiredFields": ["CountryTo", "PayoutPartnerId", "PayoutLocationId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 500.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 500.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/35147355",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/35147355/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          }
+        ]
+      },
+      {
+        "id": 5924811,
+        "name": "Argenper S.A.",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "PayoutPartnerId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/5924811",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/5924811/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartner"
+          }
+        ]
+      },
+      {
+        "id": 79432811,
+        "name": "CartaSur SA",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "PayoutPartnerId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 120000.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 120000.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/79432811",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/79432811/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartner"
+          }
+        ]
+      },
+      {
+        "id": 102269411,
+        "name": "Claudio Cabrera",
+        "networkModel": {
+          "model": "Point to Point",
+          "requiredFields": ["CountryTo", "PayoutPartnerId", "PayoutLocationId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 2000000.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 2000000.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/102269411",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/102269411/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          }
+        ]
+      },
+      {
+        "id": 69315411,
+        "name": "Cobro Express Global S.A.",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "PayoutPartnerId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/69315411",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/69315411/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartner"
+          }
+        ]
+      },
+      {
+        "id": 108822711,
+        "name": "Karina Irene Lora",
+        "networkModel": {
+          "model": "Point to Point",
+          "requiredFields": ["CountryTo", "PayoutPartnerId", "PayoutLocationId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 2000000.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 2000000.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/108822711",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/108822711/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          }
+        ]
+      },
+      {
+        "id": 46268611,
+        "name": "Latin Express Financial Services Argentina S.A",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "PayoutPartnerId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 720000.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 720000.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/46268611",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/46268611/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartner"
+          }
+        ]
+      },
+      {
+        "id": 104154311,
+        "name": "Leticia Estela Ledda",
+        "networkModel": {
+          "model": "Point to Point",
+          "requiredFields": ["CountryTo", "PayoutPartnerId", "PayoutLocationId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 2000000.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 2000000.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/104154311",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/104154311/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          }
+        ]
+      },
+      {
+        "id": 1080511,
+        "name": "Perucourier-Jet Peru-Jet Argentina",
+        "networkModel": {
+          "model": "Open Network",
+          "requiredFields": ["CountryTo", "PayoutPartnerId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/1080511",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/1080511/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Quotations",
+            "rel": "Quotation",
+            "action": "POST",
+            "description": "Create a Quotation for the selected PayoutPartner"
+          }
+        ]
+      },
+      {
+        "id": 68469311,
+        "name": "Ria Rivadavia (Once)",
+        "networkModel": {
+          "model": "Point to Point",
+          "requiredFields": ["CountryTo", "PayoutPartnerId", "PayoutLocationId"]
+        },
+        "products": [
+          {
+            "id": 111,
+            "name": "Customer to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          },
+          {
+            "id": 118,
+            "name": "Business to Customer",
+            "currencies": [
+              {
+                "code": "ARS",
+                "minAmount": 0.0,
+                "maxAmount": 0.0
+              }
+            ]
+          }
+        ],
+        "links": [
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/68469311",
+            "rel": "self",
+            "action": "GET",
+            "description": "Get a specific payout partner by ID"
+          },
+          {
+            "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners/68469311/Locations",
+            "rel": "PayoutPartnerLocations",
+            "action": "GET",
+            "description": "Get all the payout partner's locations"
+          }
+        ]
+      }
+    ],
+    "links": [
+      {
+        "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners?PageSize=10&PageNumber=2",
+        "rel": "next",
+        "action": "GET",
+        "description": "Next page."
+      },
+      {
+        "href": "https://mt-staging.dandelionpayments.com/Network/Countries/AR/DeliveryMethods/1/PayoutPartners?PageSize=10&PageNumber=2",
+        "rel": "last",
+        "action": "GET",
+        "description": "Last page."
+      }
+    ]
+  },
+  "targetUrl": null,
+  "success": true,
+  "error": null,
+  "unAuthorizedRequest": false,
+  "__abp": true
+}

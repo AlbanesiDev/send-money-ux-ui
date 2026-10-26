@@ -35,6 +35,8 @@ export type ProviderQuote = {
   deliveryType: DeliveryTypeId;
   logo: string;
   promotion: QuotePromotion | null;
+  /** RIA sin socio pagador/locación: la API real no cotiza, montos en 0. */
+  awaitingPayout?: boolean;
 };
 
 export type ProviderStepKey = "parties" | "review";

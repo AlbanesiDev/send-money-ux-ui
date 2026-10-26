@@ -247,6 +247,15 @@ export function ReviewStep({
                 {destinationCountry}
               </span>
             </dd>
+            {provider === "RIA" && payingPartner !== "" && (
+              <dd className="mt-1 text-xs text-muted-foreground">
+                Cobra en{" "}
+                <span className="font-semibold text-foreground">
+                  {payingPartner}
+                </span>
+                {location !== "" && ` · ${location}`}
+              </dd>
+            )}
           </div>
         </dl>
       </section>

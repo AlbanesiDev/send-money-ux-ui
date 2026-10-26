@@ -1,0 +1,3000 @@
+{
+  "partners": [
+    {
+      "id": 35147355,
+      "name": "Andreani",
+      "country": "AR",
+      "openNetwork": false
+    },
+    {
+      "id": 5924811,
+      "name": "Argenper S.A.",
+      "country": "AR",
+      "openNetwork": true
+    },
+    {
+      "id": 12328911,
+      "name": "Banco Economico",
+      "country": "BO",
+      "openNetwork": true
+    },
+    {
+      "id": 104588711,
+      "name": "Banco Fassil (Sub-Agentes)",
+      "country": "BO",
+      "openNetwork": true
+    },
+    {
+      "id": 448312,
+      "name": "Banco FIE S.A.",
+      "country": "BO",
+      "openNetwork": false
+    },
+    {
+      "id": 12394611,
+      "name": "Banco Ganadero",
+      "country": "BO",
+      "openNetwork": true
+    },
+    {
+      "id": 6171811,
+      "name": "Banco Sol- Banco Solidario Bolivia",
+      "country": "BO",
+      "openNetwork": true
+    },
+    {
+      "id": 1065811,
+      "name": "Bancomer",
+      "country": "BO",
+      "openNetwork": true
+    },
+    {
+      "id": 79432811,
+      "name": "CartaSur SA",
+      "country": "AR",
+      "openNetwork": true
+    },
+    {
+      "id": 221393411,
+      "name": "CIS Bolivia",
+      "country": "BO",
+      "openNetwork": true
+    },
+    {
+      "id": 102269411,
+      "name": "Claudio Cabrera",
+      "country": "AR",
+      "openNetwork": false
+    },
+    {
+      "id": 69315411,
+      "name": "Cobro Express Global S.A.",
+      "country": "AR",
+      "openNetwork": true
+    },
+    {
+      "id": 4344411,
+      "name": "Euroenvios",
+      "country": "BO",
+      "openNetwork": true
+    },
+    {
+      "id": 108822711,
+      "name": "Karina Irene Lora",
+      "country": "AR",
+      "openNetwork": false
+    },
+    {
+      "id": 46268611,
+      "name": "Latin Express Financial Services Argentina S.A",
+      "country": "AR",
+      "openNetwork": true
+    },
+    {
+      "id": 104154311,
+      "name": "Leticia Estela Ledda",
+      "country": "AR",
+      "openNetwork": false
+    },
+    {
+      "id": 1080511,
+      "name": "Perucourier-Jet Peru-Jet Argentina",
+      "country": "AR",
+      "openNetwork": true
+    },
+    {
+      "id": 68469311,
+      "name": "Ria Rivadavia (Once)",
+      "country": "AR",
+      "openNetwork": false
+    },
+    {
+      "id": 102071611,
+      "name": "Tigo Money - BG",
+      "country": "BO",
+      "openNetwork": true
+    }
+  ],
+  "locations": [
+    {
+      "id": 90000208,
+      "partnerId": 448312,
+      "name": "Banco FIE El Alto",
+      "address": "Av. Blanco Galindo 111",
+      "city": "El Alto",
+      "state": "LP",
+      "stateName": "La Paz",
+      "country": "BO"
+    },
+    {
+      "id": 90000209,
+      "partnerId": 448312,
+      "name": "Banco FIE La Paz",
+      "address": "Av. Cañoto 955",
+      "city": "La Paz",
+      "state": "LP",
+      "stateName": "La Paz",
+      "country": "BO"
+    },
+    {
+      "id": 90000210,
+      "partnerId": 448312,
+      "name": "Banco FIE La Paz",
+      "address": "Av. 16 de Julio 622",
+      "city": "La Paz",
+      "state": "LP",
+      "stateName": "La Paz",
+      "country": "BO"
+    },
+    {
+      "id": 90000221,
+      "partnerId": 448312,
+      "name": "Banco FIE Cobija",
+      "address": "Calle Comercio 518",
+      "city": "Cobija",
+      "state": "PN",
+      "stateName": "Pando",
+      "country": "BO"
+    },
+    {
+      "id": 90000222,
+      "partnerId": 448312,
+      "name": "Banco FIE Cobija",
+      "address": "Av. Cañoto 819",
+      "city": "Cobija",
+      "state": "PN",
+      "stateName": "Pando",
+      "country": "BO"
+    },
+    {
+      "id": 90000223,
+      "partnerId": 448312,
+      "name": "Banco FIE Cobija",
+      "address": "Calle Comercio 864",
+      "city": "Cobija",
+      "state": "PN",
+      "stateName": "Pando",
+      "country": "BO"
+    },
+    {
+      "id": 90000185,
+      "partnerId": 1065811,
+      "name": "Bancomer Riberalta",
+      "address": "Av. Ballivián 1112",
+      "city": "Riberalta",
+      "state": "BN",
+      "stateName": "Beni",
+      "country": "BO"
+    },
+    {
+      "id": 90000186,
+      "partnerId": 1065811,
+      "name": "Bancomer Trinidad",
+      "address": "Av. Heroínas 1957",
+      "city": "Trinidad",
+      "state": "BN",
+      "stateName": "Beni",
+      "country": "BO"
+    },
+    {
+      "id": 90000187,
+      "partnerId": 1065811,
+      "name": "Bancomer Trinidad",
+      "address": "Av. 16 de Julio 2409",
+      "city": "Trinidad",
+      "state": "BN",
+      "stateName": "Beni",
+      "country": "BO"
+    },
+    {
+      "id": 90000196,
+      "partnerId": 1065811,
+      "name": "Bancomer Sucre",
+      "address": "Calle Junín 2909",
+      "city": "Sucre",
+      "state": "CH",
+      "stateName": "Chuquisaca",
+      "country": "BO"
+    },
+    {
+      "id": 90000206,
+      "partnerId": 1065811,
+      "name": "Bancomer El Alto",
+      "address": "Calle Ayacucho 3624",
+      "city": "El Alto",
+      "state": "LP",
+      "stateName": "La Paz",
+      "country": "BO"
+    },
+    {
+      "id": 90000205,
+      "partnerId": 1065811,
+      "name": "Bancomer La Paz",
+      "address": "Av. Cañoto 3913",
+      "city": "La Paz",
+      "state": "LP",
+      "stateName": "La Paz",
+      "country": "BO"
+    },
+    {
+      "id": 90000207,
+      "partnerId": 1065811,
+      "name": "Bancomer La Paz",
+      "address": "Calle Junín 3527",
+      "city": "La Paz",
+      "state": "LP",
+      "stateName": "La Paz",
+      "country": "BO"
+    },
+    {
+      "id": 90000213,
+      "partnerId": 1065811,
+      "name": "Bancomer Oruro",
+      "address": "Av. Heroínas 743",
+      "city": "Oruro",
+      "state": "OR",
+      "stateName": "Oruro",
+      "country": "BO"
+    },
+    {
+      "id": 90000219,
+      "partnerId": 1065811,
+      "name": "Bancomer Cobija",
+      "address": "Calle Sucre 3617",
+      "city": "Cobija",
+      "state": "PN",
+      "stateName": "Pando",
+      "country": "BO"
+    },
+    {
+      "id": 90000220,
+      "partnerId": 1065811,
+      "name": "Bancomer Cobija",
+      "address": "Calle Ayacucho 3577",
+      "city": "Cobija",
+      "state": "PN",
+      "stateName": "Pando",
+      "country": "BO"
+    },
+    {
+      "id": 90000229,
+      "partnerId": 1065811,
+      "name": "Bancomer Potosí",
+      "address": "Calle Ayacucho 934",
+      "city": "Potosí",
+      "state": "PT",
+      "stateName": "Potosi",
+      "country": "BO"
+    },
+    {
+      "id": 90000230,
+      "partnerId": 1065811,
+      "name": "Bancomer Uyuni",
+      "address": "Calle Sucre 2645",
+      "city": "Uyuni",
+      "state": "PT",
+      "stateName": "Potosi",
+      "country": "BO"
+    },
+    {
+      "id": 90000236,
+      "partnerId": 1065811,
+      "name": "Bancomer Montero",
+      "address": "Av. Cañoto 1540",
+      "city": "Montero",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "BO"
+    },
+    {
+      "id": 90000234,
+      "partnerId": 1065811,
+      "name": "Bancomer Santa Cruz de la Sierra",
+      "address": "Calle Bolívar 2653",
+      "city": "Santa Cruz de la Sierra",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "BO"
+    },
+    {
+      "id": 90000235,
+      "partnerId": 1065811,
+      "name": "Bancomer Santa Cruz de la Sierra",
+      "address": "Calle Junín 488",
+      "city": "Santa Cruz de la Sierra",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "BO"
+    },
+    {
+      "id": 90000039,
+      "partnerId": 1080511,
+      "name": "Perucourier Ciudad Autónoma de Buenos Aires",
+      "address": "Sarmiento 3330",
+      "city": "Ciudad Autónoma de Buenos Aires",
+      "state": "CF",
+      "stateName": "Ciudad Autonoma de Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000040,
+      "partnerId": 1080511,
+      "name": "Perucourier Ciudad Autónoma de Buenos Aires",
+      "address": "Sarmiento 2260",
+      "city": "Ciudad Autónoma de Buenos Aires",
+      "state": "CF",
+      "stateName": "Ciudad Autonoma de Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000056,
+      "partnerId": 1080511,
+      "name": "Perucourier Goya",
+      "address": "Moreno 3419",
+      "city": "Goya",
+      "state": "CN",
+      "stateName": "Corrientes",
+      "country": "AR"
+    },
+    {
+      "id": 90000081,
+      "partnerId": 1080511,
+      "name": "Perucourier La Rioja",
+      "address": "Moreno 564",
+      "city": "La Rioja",
+      "state": "LR",
+      "stateName": "La Rioja",
+      "country": "AR"
+    },
+    {
+      "id": 90000082,
+      "partnerId": 1080511,
+      "name": "Perucourier La Rioja",
+      "address": "Moreno 2848",
+      "city": "La Rioja",
+      "state": "LR",
+      "stateName": "La Rioja",
+      "country": "AR"
+    },
+    {
+      "id": 90000083,
+      "partnerId": 1080511,
+      "name": "Perucourier La Rioja",
+      "address": "Belgrano 2412",
+      "city": "La Rioja",
+      "state": "LR",
+      "stateName": "La Rioja",
+      "country": "AR"
+    },
+    {
+      "id": 90000089,
+      "partnerId": 1080511,
+      "name": "Perucourier Godoy Cruz",
+      "address": "Tucumán 213",
+      "city": "Godoy Cruz",
+      "state": "MZ",
+      "stateName": "Mendoza",
+      "country": "AR"
+    },
+    {
+      "id": 90000101,
+      "partnerId": 1080511,
+      "name": "Perucourier Oberá",
+      "address": "Av. Colón 2100",
+      "city": "Oberá",
+      "state": "MN",
+      "stateName": "Misiones",
+      "country": "AR"
+    },
+    {
+      "id": 90000100,
+      "partnerId": 1080511,
+      "name": "Perucourier Posadas",
+      "address": "Tucumán 3764",
+      "city": "Posadas",
+      "state": "MN",
+      "stateName": "Misiones",
+      "country": "AR"
+    },
+    {
+      "id": 90000129,
+      "partnerId": 1080511,
+      "name": "Perucourier San Juan",
+      "address": "Sarmiento 785",
+      "city": "San Juan",
+      "state": "SJ",
+      "stateName": "San Juan",
+      "country": "AR"
+    },
+    {
+      "id": 90000131,
+      "partnerId": 1080511,
+      "name": "Perucourier San Luis",
+      "address": "Av. del Libertador 1783",
+      "city": "San Luis",
+      "state": "SL",
+      "stateName": "San Luis",
+      "country": "AR"
+    },
+    {
+      "id": 90000130,
+      "partnerId": 1080511,
+      "name": "Perucourier Villa Mercedes",
+      "address": "Mitre 1846",
+      "city": "Villa Mercedes",
+      "state": "SL",
+      "stateName": "San Luis",
+      "country": "AR"
+    },
+    {
+      "id": 90000148,
+      "partnerId": 1080511,
+      "name": "Perucourier Caleta Olivia",
+      "address": "Av. del Libertador 3164",
+      "city": "Caleta Olivia",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "AR"
+    },
+    {
+      "id": 90000147,
+      "partnerId": 1080511,
+      "name": "Perucourier Río Gallegos",
+      "address": "Av. Colón 1622",
+      "city": "Río Gallegos",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "AR"
+    },
+    {
+      "id": 90000168,
+      "partnerId": 1080511,
+      "name": "Perucourier La Banda",
+      "address": "Av. Rivadavia 3735",
+      "city": "La Banda",
+      "state": "SE",
+      "stateName": "Santiago Del Estero",
+      "country": "AR"
+    },
+    {
+      "id": 90000169,
+      "partnerId": 1080511,
+      "name": "Perucourier Santiago del Estero",
+      "address": "Sarmiento 2383",
+      "city": "Santiago del Estero",
+      "state": "SE",
+      "stateName": "Santiago Del Estero",
+      "country": "AR"
+    },
+    {
+      "id": 90000182,
+      "partnerId": 4344411,
+      "name": "Euroenvios Riberalta",
+      "address": "Calle Junín 3337",
+      "city": "Riberalta",
+      "state": "BN",
+      "stateName": "Beni",
+      "country": "BO"
+    },
+    {
+      "id": 90000183,
+      "partnerId": 4344411,
+      "name": "Euroenvios Trinidad",
+      "address": "Calle Potosí 3956",
+      "city": "Trinidad",
+      "state": "BN",
+      "stateName": "Beni",
+      "country": "BO"
+    },
+    {
+      "id": 90000197,
+      "partnerId": 4344411,
+      "name": "Euroenvios Sucre",
+      "address": "Calle Bolívar 3316",
+      "city": "Sucre",
+      "state": "CH",
+      "stateName": "Chuquisaca",
+      "country": "BO"
+    },
+    {
+      "id": 90000240,
+      "partnerId": 4344411,
+      "name": "Euroenvios Santa Cruz de la Sierra",
+      "address": "Calle Potosí 2044",
+      "city": "Santa Cruz de la Sierra",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "BO"
+    },
+    {
+      "id": 90000241,
+      "partnerId": 4344411,
+      "name": "Euroenvios Santa Cruz de la Sierra",
+      "address": "Av. Heroínas 1866",
+      "city": "Santa Cruz de la Sierra",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "BO"
+    },
+    {
+      "id": 90000249,
+      "partnerId": 4344411,
+      "name": "Euroenvios Tarija",
+      "address": "Av. América 1031",
+      "city": "Tarija",
+      "state": "TJ",
+      "stateName": "Tarija",
+      "country": "BO"
+    },
+    {
+      "id": 90000248,
+      "partnerId": 4344411,
+      "name": "Euroenvios Yacuiba",
+      "address": "Calle Junín 2360",
+      "city": "Yacuiba",
+      "state": "TJ",
+      "stateName": "Tarija",
+      "country": "BO"
+    },
+    {
+      "id": 90000250,
+      "partnerId": 4344411,
+      "name": "Euroenvios Yacuiba",
+      "address": "Calle Sucre 3018",
+      "city": "Yacuiba",
+      "state": "TJ",
+      "stateName": "Tarija",
+      "country": "BO"
+    },
+    {
+      "id": 90000001,
+      "partnerId": 5924811,
+      "name": "Argenper Río Grande",
+      "address": "Sarmiento 2117",
+      "city": "Río Grande",
+      "state": "TF",
+      "stateName": "Antartida E Islas Del Atlan Tierra Del Fuego",
+      "country": "AR"
+    },
+    {
+      "id": 10437311,
+      "partnerId": 5924811,
+      "name": "Bajo Flores",
+      "address": "Calle Cobo No. 1607 Víctor Martínez y Ortiguera",
+      "city": "Buenos Aires",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 10437011,
+      "partnerId": 5924811,
+      "name": "Belgrano Ugarte",
+      "address": "Calle Manuel Ugarte No. 2387 Barrio Belgrano",
+      "city": "Buenos Aires",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 755212,
+      "partnerId": 5924811,
+      "name": "Villa Celina",
+      "address": "Olavarria 2358 Entre Chilavert y Barros Pazos Frente al Instituto Corazón de Jesus",
+      "city": "Buenos Aires",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 1670014,
+      "partnerId": 5924811,
+      "name": "Pompeya",
+      "address": "Av Del Barco Centenera No. 3402 Local 01 Hall Principal del Supermercado Coto",
+      "city": "La Noria",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000008,
+      "partnerId": 5924811,
+      "name": "Argenper Mar del Plata",
+      "address": "Tucumán 2656",
+      "city": "Mar del Plata",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 10437411,
+      "partnerId": 5924811,
+      "name": "Mar Del Plata Prov. Bsas",
+      "address": "Peatonal San Martín No.2648 Local 80 1er PisoGaler ias las Americas entre Cordova y San Luis B°",
+      "city": "Mar Del Plata",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 10436411,
+      "partnerId": 5924811,
+      "name": "Munro Zona Norte",
+      "address": "Tejedor No. 2525 Entre Tejedor y Velez Sarfield A 1/2 cdra Estación Munro Barrio Munro",
+      "city": "Munro",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000007,
+      "partnerId": 5924811,
+      "name": "Argenper Quilmes",
+      "address": "Lavalle 2028",
+      "city": "Quilmes",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 10437611,
+      "partnerId": 5924811,
+      "name": "San Isidro Zona Norte",
+      "address": "Martin y Omar No. 74 1/2 Cuadra de Estacion San Isidro",
+      "city": "San Isidro",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000017,
+      "partnerId": 5924811,
+      "name": "Argenper San Fernando del Valle de Catamarca",
+      "address": "Av. Rivadavia 1590",
+      "city": "San Fernando del Valle de Catamarca",
+      "state": "CT",
+      "stateName": "Catamarca",
+      "country": "AR"
+    },
+    {
+      "id": 90000018,
+      "partnerId": 5924811,
+      "name": "Argenper San Fernando del Valle de Catamarca",
+      "address": "Entre Ríos 3066",
+      "city": "San Fernando del Valle de Catamarca",
+      "state": "CT",
+      "stateName": "Catamarca",
+      "country": "AR"
+    },
+    {
+      "id": 90000019,
+      "partnerId": 5924811,
+      "name": "Argenper San Fernando del Valle de Catamarca",
+      "address": "Sarmiento 2597",
+      "city": "San Fernando del Valle de Catamarca",
+      "state": "CT",
+      "stateName": "Catamarca",
+      "country": "AR"
+    },
+    {
+      "id": 90000026,
+      "partnerId": 5924811,
+      "name": "Argenper Presidencia Roque Sáenz Peña",
+      "address": "Belgrano 2333",
+      "city": "Presidencia Roque Sáenz Peña",
+      "state": "CC",
+      "stateName": "Chaco",
+      "country": "AR"
+    },
+    {
+      "id": 90000027,
+      "partnerId": 5924811,
+      "name": "Argenper Presidencia Roque Sáenz Peña",
+      "address": "Moreno 1530",
+      "city": "Presidencia Roque Sáenz Peña",
+      "state": "CC",
+      "stateName": "Chaco",
+      "country": "AR"
+    },
+    {
+      "id": 90000033,
+      "partnerId": 5924811,
+      "name": "Argenper Comodoro Rivadavia",
+      "address": "Belgrano 850",
+      "city": "Comodoro Rivadavia",
+      "state": "CH",
+      "stateName": "Chubut",
+      "country": "AR"
+    },
+    {
+      "id": 90000034,
+      "partnerId": 5924811,
+      "name": "Argenper Trelew",
+      "address": "Av. Pellegrini 1119",
+      "city": "Trelew",
+      "state": "CH",
+      "stateName": "Chubut",
+      "country": "AR"
+    },
+    {
+      "id": 90000044,
+      "partnerId": 5924811,
+      "name": "Argenper Ciudad Autónoma de Buenos Aires",
+      "address": "Entre Ríos 479",
+      "city": "Ciudad Autónoma de Buenos Aires",
+      "state": "CF",
+      "stateName": "Ciudad Autonoma de Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 10436611,
+      "partnerId": 5924811,
+      "name": "Cordoba",
+      "address": "Av Colón 1122 Alberdi",
+      "city": "Cordoba",
+      "state": "CB",
+      "stateName": "Cordoba",
+      "country": "AR"
+    },
+    {
+      "id": 90000050,
+      "partnerId": 5924811,
+      "name": "Argenper Córdoba",
+      "address": "Urquiza 721",
+      "city": "Córdoba",
+      "state": "CB",
+      "stateName": "Cordoba",
+      "country": "AR"
+    },
+    {
+      "id": 90000052,
+      "partnerId": 5924811,
+      "name": "Argenper Corrientes",
+      "address": "9 de Julio 1613",
+      "city": "Corrientes",
+      "state": "CN",
+      "stateName": "Corrientes",
+      "country": "AR"
+    },
+    {
+      "id": 90000051,
+      "partnerId": 5924811,
+      "name": "Argenper Goya",
+      "address": "9 de Julio 1797",
+      "city": "Goya",
+      "state": "CN",
+      "stateName": "Corrientes",
+      "country": "AR"
+    },
+    {
+      "id": 90000073,
+      "partnerId": 5924811,
+      "name": "Argenper San Salvador de Jujuy",
+      "address": "Lavalle 3272",
+      "city": "San Salvador de Jujuy",
+      "state": "JY",
+      "stateName": "Jujuy",
+      "country": "AR"
+    },
+    {
+      "id": 90000084,
+      "partnerId": 5924811,
+      "name": "Argenper Chilecito",
+      "address": "9 de Julio 191",
+      "city": "Chilecito",
+      "state": "LR",
+      "stateName": "La Rioja",
+      "country": "AR"
+    },
+    {
+      "id": 90000085,
+      "partnerId": 5924811,
+      "name": "Argenper Chilecito",
+      "address": "9 de Julio 1126",
+      "city": "Chilecito",
+      "state": "LR",
+      "stateName": "La Rioja",
+      "country": "AR"
+    },
+    {
+      "id": 10437211,
+      "partnerId": 5924811,
+      "name": "Mendoza",
+      "address": "Av San Martin No. 1173 Galeria La Tonsa Local 14",
+      "city": "Mendoza",
+      "state": "MZ",
+      "stateName": "Mendoza",
+      "country": "AR"
+    },
+    {
+      "id": 90000112,
+      "partnerId": 5924811,
+      "name": "Argenper Viedma",
+      "address": "9 de Julio 1491",
+      "city": "Viedma",
+      "state": "RN",
+      "stateName": "Rio Negro",
+      "country": "AR"
+    },
+    {
+      "id": 90000113,
+      "partnerId": 5924811,
+      "name": "Argenper Viedma",
+      "address": "Belgrano 401",
+      "city": "Viedma",
+      "state": "RN",
+      "stateName": "Rio Negro",
+      "country": "AR"
+    },
+    {
+      "id": 90000135,
+      "partnerId": 5924811,
+      "name": "Argenper San Luis",
+      "address": "Mitre 1812",
+      "city": "San Luis",
+      "state": "SL",
+      "stateName": "San Luis",
+      "country": "AR"
+    },
+    {
+      "id": 90000136,
+      "partnerId": 5924811,
+      "name": "Argenper San Luis",
+      "address": "Av. del Libertador 2612",
+      "city": "San Luis",
+      "state": "SL",
+      "stateName": "San Luis",
+      "country": "AR"
+    },
+    {
+      "id": 90000137,
+      "partnerId": 5924811,
+      "name": "Argenper Villa Mercedes",
+      "address": "25 de Mayo 1498",
+      "city": "Villa Mercedes",
+      "state": "SL",
+      "stateName": "San Luis",
+      "country": "AR"
+    },
+    {
+      "id": 10437911,
+      "partnerId": 5924811,
+      "name": "Rosario Centro",
+      "address": "Cll 3 de febrro No. 1602 local 6dentro supermercad o coto esquina presidente roca b",
+      "city": "Rosario",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 90000167,
+      "partnerId": 5924811,
+      "name": "Argenper La Banda",
+      "address": "Entre Ríos 257",
+      "city": "La Banda",
+      "state": "SE",
+      "stateName": "Santiago Del Estero",
+      "country": "AR"
+    },
+    {
+      "id": 90000166,
+      "partnerId": 5924811,
+      "name": "Argenper Santiago del Estero",
+      "address": "9 de Julio 3127",
+      "city": "Santiago del Estero",
+      "state": "SE",
+      "stateName": "Santiago Del Estero",
+      "country": "AR"
+    },
+    {
+      "id": 90000174,
+      "partnerId": 5924811,
+      "name": "Argenper San Miguel de Tucumán",
+      "address": "Av. Pellegrini 3135",
+      "city": "San Miguel de Tucumán",
+      "state": "TM",
+      "stateName": "Tucuman",
+      "country": "AR"
+    },
+    {
+      "id": 90000175,
+      "partnerId": 5924811,
+      "name": "Argenper San Miguel de Tucumán",
+      "address": "Belgrano 2997",
+      "city": "San Miguel de Tucumán",
+      "state": "TM",
+      "stateName": "Tucuman",
+      "country": "AR"
+    },
+    {
+      "id": 90000173,
+      "partnerId": 5924811,
+      "name": "Argenper Yerba Buena",
+      "address": "Av. San Martín 1627",
+      "city": "Yerba Buena",
+      "state": "TM",
+      "stateName": "Tucuman",
+      "country": "AR"
+    },
+    {
+      "id": 90000199,
+      "partnerId": 6171811,
+      "name": "Banco Sol Quillacollo",
+      "address": "Calle Ayacucho 2762",
+      "city": "Quillacollo",
+      "state": "CB",
+      "stateName": "Cochabamba",
+      "country": "BO"
+    },
+    {
+      "id": 90000217,
+      "partnerId": 6171811,
+      "name": "Banco Sol Oruro",
+      "address": "Av. Heroínas 3282",
+      "city": "Oruro",
+      "state": "OR",
+      "stateName": "Oruro",
+      "country": "BO"
+    },
+    {
+      "id": 90000224,
+      "partnerId": 6171811,
+      "name": "Banco Sol Cobija",
+      "address": "Av. 16 de Julio 3538",
+      "city": "Cobija",
+      "state": "PN",
+      "stateName": "Pando",
+      "country": "BO"
+    },
+    {
+      "id": 90000232,
+      "partnerId": 6171811,
+      "name": "Banco Sol Montero",
+      "address": "Av. Ballivián 2753",
+      "city": "Montero",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "BO"
+    },
+    {
+      "id": 90000233,
+      "partnerId": 6171811,
+      "name": "Banco Sol Montero",
+      "address": "Calle Comercio 3467",
+      "city": "Montero",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "BO"
+    },
+    {
+      "id": 90000231,
+      "partnerId": 6171811,
+      "name": "Banco Sol Santa Cruz de la Sierra",
+      "address": "Calle Ayacucho 2937",
+      "city": "Santa Cruz de la Sierra",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "BO"
+    },
+    {
+      "id": 90000198,
+      "partnerId": 12328911,
+      "name": "Banco Economico Cochabamba",
+      "address": "Av. Cañoto 1618",
+      "city": "Cochabamba",
+      "state": "CB",
+      "stateName": "Cochabamba",
+      "country": "BO"
+    },
+    {
+      "id": 90000215,
+      "partnerId": 12328911,
+      "name": "Banco Economico Oruro",
+      "address": "Av. Cañoto 1815",
+      "city": "Oruro",
+      "state": "OR",
+      "stateName": "Oruro",
+      "country": "BO"
+    },
+    {
+      "id": 90000218,
+      "partnerId": 12328911,
+      "name": "Banco Economico Cobija",
+      "address": "Calle Bolívar 163",
+      "city": "Cobija",
+      "state": "PN",
+      "stateName": "Pando",
+      "country": "BO"
+    },
+    {
+      "id": 90000239,
+      "partnerId": 12328911,
+      "name": "Banco Economico Santa Cruz de la Sierra",
+      "address": "Av. 16 de Julio 3385",
+      "city": "Santa Cruz de la Sierra",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "BO"
+    },
+    {
+      "id": 90000247,
+      "partnerId": 12328911,
+      "name": "Banco Economico Tarija",
+      "address": "Av. 16 de Julio 1283",
+      "city": "Tarija",
+      "state": "TJ",
+      "stateName": "Tarija",
+      "country": "BO"
+    },
+    {
+      "id": 90000245,
+      "partnerId": 12328911,
+      "name": "Banco Economico Yacuiba",
+      "address": "Av. América 1156",
+      "city": "Yacuiba",
+      "state": "TJ",
+      "stateName": "Tarija",
+      "country": "BO"
+    },
+    {
+      "id": 90000246,
+      "partnerId": 12328911,
+      "name": "Banco Economico Yacuiba",
+      "address": "Av. 16 de Julio 2955",
+      "city": "Yacuiba",
+      "state": "TJ",
+      "stateName": "Tarija",
+      "country": "BO"
+    },
+    {
+      "id": 90000188,
+      "partnerId": 12394611,
+      "name": "Banco Ganadero Riberalta",
+      "address": "Calle Potosí 1139",
+      "city": "Riberalta",
+      "state": "BN",
+      "stateName": "Beni",
+      "country": "BO"
+    },
+    {
+      "id": 90000189,
+      "partnerId": 12394611,
+      "name": "Banco Ganadero Riberalta",
+      "address": "Av. 16 de Julio 1261",
+      "city": "Riberalta",
+      "state": "BN",
+      "stateName": "Beni",
+      "country": "BO"
+    },
+    {
+      "id": 90000212,
+      "partnerId": 12394611,
+      "name": "Banco Ganadero El Alto",
+      "address": "Calle Sucre 235",
+      "city": "El Alto",
+      "state": "LP",
+      "stateName": "La Paz",
+      "country": "BO"
+    },
+    {
+      "id": 90000211,
+      "partnerId": 12394611,
+      "name": "Banco Ganadero La Paz",
+      "address": "Calle Ayacucho 3150",
+      "city": "La Paz",
+      "state": "LP",
+      "stateName": "La Paz",
+      "country": "BO"
+    },
+    {
+      "id": 90000228,
+      "partnerId": 12394611,
+      "name": "Banco Ganadero Potosí",
+      "address": "Av. 16 de Julio 294",
+      "city": "Potosí",
+      "state": "PT",
+      "stateName": "Potosi",
+      "country": "BO"
+    },
+    {
+      "id": 90000227,
+      "partnerId": 12394611,
+      "name": "Banco Ganadero Uyuni",
+      "address": "Calle Potosí 1480",
+      "city": "Uyuni",
+      "state": "PT",
+      "stateName": "Potosi",
+      "country": "BO"
+    },
+    {
+      "id": 90000243,
+      "partnerId": 12394611,
+      "name": "Banco Ganadero Tarija",
+      "address": "Av. Cañoto 3741",
+      "city": "Tarija",
+      "state": "TJ",
+      "stateName": "Tarija",
+      "country": "BO"
+    },
+    {
+      "id": 90000244,
+      "partnerId": 12394611,
+      "name": "Banco Ganadero Yacuiba",
+      "address": "Av. Ballivián 1567",
+      "city": "Yacuiba",
+      "state": "TJ",
+      "stateName": "Tarija",
+      "country": "BO"
+    },
+    {
+      "id": 31401855,
+      "partnerId": 35147355,
+      "name": "Andreani",
+      "address": "Calle Santo Domingo 3220",
+      "city": "Buenos Aires",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000048,
+      "partnerId": 35147355,
+      "name": "Andreani Córdoba",
+      "address": "Sarmiento 267",
+      "city": "Córdoba",
+      "state": "CB",
+      "stateName": "Cordoba",
+      "country": "AR"
+    },
+    {
+      "id": 90000049,
+      "partnerId": 35147355,
+      "name": "Andreani Córdoba",
+      "address": "25 de Mayo 2125",
+      "city": "Córdoba",
+      "state": "CB",
+      "stateName": "Cordoba",
+      "country": "AR"
+    },
+    {
+      "id": 90000047,
+      "partnerId": 35147355,
+      "name": "Andreani Río Cuarto",
+      "address": "Av. San Martín 2160",
+      "city": "Río Cuarto",
+      "state": "CB",
+      "stateName": "Cordoba",
+      "country": "AR"
+    },
+    {
+      "id": 90000067,
+      "partnerId": 35147355,
+      "name": "Andreani San Salvador de Jujuy",
+      "address": "Belgrano 1398",
+      "city": "San Salvador de Jujuy",
+      "state": "JY",
+      "stateName": "Jujuy",
+      "country": "AR"
+    },
+    {
+      "id": 90000153,
+      "partnerId": 35147355,
+      "name": "Andreani Rafaela",
+      "address": "Moreno 360",
+      "city": "Rafaela",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 90000154,
+      "partnerId": 35147355,
+      "name": "Andreani Rosario",
+      "address": "Moreno 862",
+      "city": "Rosario",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 90000152,
+      "partnerId": 35147355,
+      "name": "Andreani Santa Fe",
+      "address": "Av. del Libertador 299",
+      "city": "Santa Fe",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 90000170,
+      "partnerId": 35147355,
+      "name": "Andreani La Banda",
+      "address": "Mitre 2161",
+      "city": "La Banda",
+      "state": "SE",
+      "stateName": "Santiago Del Estero",
+      "country": "AR"
+    },
+    {
+      "id": 90000003,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Río Grande",
+      "address": "Mitre 1225",
+      "city": "Río Grande",
+      "state": "TF",
+      "stateName": "Antartida E Islas Del Atlan Tierra Del Fuego",
+      "country": "AR"
+    },
+    {
+      "id": 90000004,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Río Grande",
+      "address": "Urquiza 1875",
+      "city": "Río Grande",
+      "state": "TF",
+      "stateName": "Antartida E Islas Del Atlan Tierra Del Fuego",
+      "country": "AR"
+    },
+    {
+      "id": 61307411,
+      "partnerId": 46268611,
+      "name": "Casa Matriz",
+      "address": "Avenida Cordoba 947 CABA",
+      "city": "Buenos Aires",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 61307811,
+      "partnerId": 46268611,
+      "name": "Villa Lugano",
+      "address": "Pola 3983",
+      "city": "Buenos Aires",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 61308611,
+      "partnerId": 46268611,
+      "name": "Locutorio Colon",
+      "address": "Calle 47 N. 1068",
+      "city": "Colon",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 61308311,
+      "partnerId": 46268611,
+      "name": "Viajes Y Turismo",
+      "address": "Restelli 1721",
+      "city": "Esteban Echeverria",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 61307911,
+      "partnerId": 46268611,
+      "name": "Ezpeleta",
+      "address": "Rio de Janeiro 5316",
+      "city": "Ezpeleta",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 61308911,
+      "partnerId": 46268611,
+      "name": "La Plata Horizonte",
+      "address": "Calle 41 N 427 Entre Calle 3 Y Calle 4",
+      "city": "La Plata",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000009,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina La Plata",
+      "address": "Tucumán 3017",
+      "city": "La Plata",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000011,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina La Plata",
+      "address": "Urquiza 3874",
+      "city": "La Plata",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000010,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Mar del Plata",
+      "address": "Av. del Libertador 3635",
+      "city": "Mar del Plata",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 61307111,
+      "partnerId": 46268611,
+      "name": "Mar Del Plata 0044",
+      "address": "Buenos Aires 1949 2 local E/Belgrano y Moreno",
+      "city": "Mar Del Plata",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 61309211,
+      "partnerId": 46268611,
+      "name": "Agencia De Pasajes",
+      "address": "Enrique de la Fuente 5146",
+      "city": "Rafael Castillo",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 61309011,
+      "partnerId": 46268611,
+      "name": "Agencia de viaje 7 de Agosto",
+      "address": "Av. Juan Manuel de Rosas 4327 ( rotonda San Justo )",
+      "city": "San Justo",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 61309111,
+      "partnerId": 46268611,
+      "name": "Casa Ostoich",
+      "address": "25 De Mayo 957",
+      "city": "Comodoro Rivadavia",
+      "state": "CH",
+      "stateName": "Chubut",
+      "country": "AR"
+    },
+    {
+      "id": 90000042,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Ciudad Autónoma de Buenos Aires",
+      "address": "Entre Ríos 2550",
+      "city": "Ciudad Autónoma de Buenos Aires",
+      "state": "CF",
+      "stateName": "Ciudad Autonoma de Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000043,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Ciudad Autónoma de Buenos Aires",
+      "address": "Sarmiento 1830",
+      "city": "Ciudad Autónoma de Buenos Aires",
+      "state": "CF",
+      "stateName": "Ciudad Autonoma de Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000062,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Formosa",
+      "address": "Belgrano 3617",
+      "city": "Formosa",
+      "state": "FM",
+      "stateName": "Formosa",
+      "country": "AR"
+    },
+    {
+      "id": 90000075,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina General Pico",
+      "address": "Av. del Libertador 2963",
+      "city": "General Pico",
+      "state": "LP",
+      "stateName": "La Pampa",
+      "country": "AR"
+    },
+    {
+      "id": 90000074,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Santa Rosa",
+      "address": "Urquiza 3692",
+      "city": "Santa Rosa",
+      "state": "LP",
+      "stateName": "La Pampa",
+      "country": "AR"
+    },
+    {
+      "id": 90000097,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Godoy Cruz",
+      "address": "Urquiza 1052",
+      "city": "Godoy Cruz",
+      "state": "MZ",
+      "stateName": "Mendoza",
+      "country": "AR"
+    },
+    {
+      "id": 90000098,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Mendoza",
+      "address": "Urquiza 1203",
+      "city": "Mendoza",
+      "state": "MZ",
+      "stateName": "Mendoza",
+      "country": "AR"
+    },
+    {
+      "id": 90000096,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina San Rafael",
+      "address": "Entre Ríos 3853",
+      "city": "San Rafael",
+      "state": "MZ",
+      "stateName": "Mendoza",
+      "country": "AR"
+    },
+    {
+      "id": 90000116,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina General Roca",
+      "address": "Tucumán 2823",
+      "city": "General Roca",
+      "state": "RN",
+      "stateName": "Rio Negro",
+      "country": "AR"
+    },
+    {
+      "id": 90000117,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina General Roca",
+      "address": "Av. del Libertador 1025",
+      "city": "General Roca",
+      "state": "RN",
+      "stateName": "Rio Negro",
+      "country": "AR"
+    },
+    {
+      "id": 90000115,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina San Carlos de Bariloche",
+      "address": "Moreno 1505",
+      "city": "San Carlos de Bariloche",
+      "state": "RN",
+      "stateName": "Rio Negro",
+      "country": "AR"
+    },
+    {
+      "id": 90000120,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Orán",
+      "address": "Av. Pellegrini 901",
+      "city": "Orán",
+      "state": "SA",
+      "stateName": "Salta",
+      "country": "AR"
+    },
+    {
+      "id": 90000128,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Rawson",
+      "address": "9 de Julio 3336",
+      "city": "Rawson",
+      "state": "SJ",
+      "stateName": "San Juan",
+      "country": "AR"
+    },
+    {
+      "id": 90000138,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina San Luis",
+      "address": "Av. San Martín 3829",
+      "city": "San Luis",
+      "state": "SL",
+      "stateName": "San Luis",
+      "country": "AR"
+    },
+    {
+      "id": 90000140,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina San Luis",
+      "address": "Urquiza 1596",
+      "city": "San Luis",
+      "state": "SL",
+      "stateName": "San Luis",
+      "country": "AR"
+    },
+    {
+      "id": 90000139,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Villa Mercedes",
+      "address": "Av. Colón 3115",
+      "city": "Villa Mercedes",
+      "state": "SL",
+      "stateName": "San Luis",
+      "country": "AR"
+    },
+    {
+      "id": 90000150,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Caleta Olivia",
+      "address": "Av. del Libertador 1018",
+      "city": "Caleta Olivia",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "AR"
+    },
+    {
+      "id": 90000151,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Caleta Olivia",
+      "address": "Moreno 878",
+      "city": "Caleta Olivia",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "AR"
+    },
+    {
+      "id": 90000165,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina La Banda",
+      "address": "Tucumán 2271",
+      "city": "La Banda",
+      "state": "SE",
+      "stateName": "Santiago Del Estero",
+      "country": "AR"
+    },
+    {
+      "id": 90000164,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Santiago del Estero",
+      "address": "Av. Rivadavia 2746",
+      "city": "Santiago del Estero",
+      "state": "SE",
+      "stateName": "Santiago Del Estero",
+      "country": "AR"
+    },
+    {
+      "id": 90000176,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Yerba Buena",
+      "address": "Urquiza 3180",
+      "city": "Yerba Buena",
+      "state": "TM",
+      "stateName": "Tucuman",
+      "country": "AR"
+    },
+    {
+      "id": 90000177,
+      "partnerId": 46268611,
+      "name": "Latin Express Financial Services Argentina Yerba Buena",
+      "address": "Entre Ríos 1742",
+      "city": "Yerba Buena",
+      "state": "TM",
+      "stateName": "Tucuman",
+      "country": "AR"
+    },
+    {
+      "id": 90000025,
+      "partnerId": 68469311,
+      "name": "Ria Rivadavia Resistencia",
+      "address": "Sarmiento 3520",
+      "city": "Resistencia",
+      "state": "CC",
+      "stateName": "Chaco",
+      "country": "AR"
+    },
+    {
+      "id": 90000045,
+      "partnerId": 68469311,
+      "name": "Ria Rivadavia Villa Carlos Paz",
+      "address": "Belgrano 3533",
+      "city": "Villa Carlos Paz",
+      "state": "CB",
+      "stateName": "Cordoba",
+      "country": "AR"
+    },
+    {
+      "id": 90000046,
+      "partnerId": 68469311,
+      "name": "Ria Rivadavia Villa María",
+      "address": "Av. San Martín 277",
+      "city": "Villa María",
+      "state": "CB",
+      "stateName": "Cordoba",
+      "country": "AR"
+    },
+    {
+      "id": 90000071,
+      "partnerId": 68469311,
+      "name": "Ria Rivadavia Palpalá",
+      "address": "Entre Ríos 3861",
+      "city": "Palpalá",
+      "state": "JY",
+      "stateName": "Jujuy",
+      "country": "AR"
+    },
+    {
+      "id": 90000072,
+      "partnerId": 68469311,
+      "name": "Ria Rivadavia Palpalá",
+      "address": "Mitre 1781",
+      "city": "Palpalá",
+      "state": "JY",
+      "stateName": "Jujuy",
+      "country": "AR"
+    },
+    {
+      "id": 90000106,
+      "partnerId": 68469311,
+      "name": "Ria Rivadavia Oberá",
+      "address": "Av. Rivadavia 1340",
+      "city": "Oberá",
+      "state": "MN",
+      "stateName": "Misiones",
+      "country": "AR"
+    },
+    {
+      "id": 90000105,
+      "partnerId": 68469311,
+      "name": "Ria Rivadavia Posadas",
+      "address": "Av. Colón 3101",
+      "city": "Posadas",
+      "state": "MN",
+      "stateName": "Misiones",
+      "country": "AR"
+    },
+    {
+      "id": 90000119,
+      "partnerId": 68469311,
+      "name": "Ria Rivadavia Salta",
+      "address": "Sarmiento 3061",
+      "city": "Salta",
+      "state": "SA",
+      "stateName": "Salta",
+      "country": "AR"
+    },
+    {
+      "id": 90000149,
+      "partnerId": 68469311,
+      "name": "Ria Rivadavia Río Gallegos",
+      "address": "Urquiza 2784",
+      "city": "Río Gallegos",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "AR"
+    },
+    {
+      "id": 90000015,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global San Fernando del Valle de Catamarca",
+      "address": "Av. Pellegrini 1383",
+      "city": "San Fernando del Valle de Catamarca",
+      "state": "CT",
+      "stateName": "Catamarca",
+      "country": "AR"
+    },
+    {
+      "id": 90000016,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global San Fernando del Valle de Catamarca",
+      "address": "Sarmiento 3874",
+      "city": "San Fernando del Valle de Catamarca",
+      "state": "CT",
+      "stateName": "Catamarca",
+      "country": "AR"
+    },
+    {
+      "id": 90000031,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Presidencia Roque Sáenz Peña",
+      "address": "Belgrano 715",
+      "city": "Presidencia Roque Sáenz Peña",
+      "state": "CC",
+      "stateName": "Chaco",
+      "country": "AR"
+    },
+    {
+      "id": 90000032,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Presidencia Roque Sáenz Peña",
+      "address": "Av. Colón 3986",
+      "city": "Presidencia Roque Sáenz Peña",
+      "state": "CC",
+      "stateName": "Chaco",
+      "country": "AR"
+    },
+    {
+      "id": 90000037,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Comodoro Rivadavia",
+      "address": "Sarmiento 3143",
+      "city": "Comodoro Rivadavia",
+      "state": "CH",
+      "stateName": "Chubut",
+      "country": "AR"
+    },
+    {
+      "id": 90000036,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Rawson",
+      "address": "Tucumán 3597",
+      "city": "Rawson",
+      "state": "CH",
+      "stateName": "Chubut",
+      "country": "AR"
+    },
+    {
+      "id": 90000038,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Trelew",
+      "address": "Av. Colón 1929",
+      "city": "Trelew",
+      "state": "CH",
+      "stateName": "Chubut",
+      "country": "AR"
+    },
+    {
+      "id": 34348255,
+      "partnerId": 69315411,
+      "name": "BA Alta Gracia",
+      "address": "Av. Santa Fe 252",
+      "city": "Alta Gracia",
+      "state": "CB",
+      "stateName": "Cordoba",
+      "country": "AR"
+    },
+    {
+      "id": 34348455,
+      "partnerId": 69315411,
+      "name": "BA Santa Rosa Calamuchita",
+      "address": "Av. Santa Fe 252",
+      "city": "Cordoba",
+      "state": "CB",
+      "stateName": "Cordoba",
+      "country": "AR"
+    },
+    {
+      "id": 34348655,
+      "partnerId": 69315411,
+      "name": "BA Carlos Paz II",
+      "address": "Av. Santa Fe 252",
+      "city": "Villa Carlos Paz",
+      "state": "CB",
+      "stateName": "Cordoba",
+      "country": "AR"
+    },
+    {
+      "id": 90000053,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Corrientes",
+      "address": "Av. Pellegrini 1233",
+      "city": "Corrientes",
+      "state": "CN",
+      "stateName": "Corrientes",
+      "country": "AR"
+    },
+    {
+      "id": 90000055,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Corrientes",
+      "address": "Tucumán 3332",
+      "city": "Corrientes",
+      "state": "CN",
+      "stateName": "Corrientes",
+      "country": "AR"
+    },
+    {
+      "id": 90000054,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Goya",
+      "address": "Sarmiento 2795",
+      "city": "Goya",
+      "state": "CN",
+      "stateName": "Corrientes",
+      "country": "AR"
+    },
+    {
+      "id": 90000061,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Concordia",
+      "address": "Moreno 982",
+      "city": "Concordia",
+      "state": "ER",
+      "stateName": "Entre Rios",
+      "country": "AR"
+    },
+    {
+      "id": 90000076,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global General Pico",
+      "address": "Av. San Martín 3007",
+      "city": "General Pico",
+      "state": "LP",
+      "stateName": "La Pampa",
+      "country": "AR"
+    },
+    {
+      "id": 34348155,
+      "partnerId": 69315411,
+      "name": "BA Aimogasta",
+      "address": "Av. Santa Fe 252",
+      "city": "Aimogasta",
+      "state": "LR",
+      "stateName": "La Rioja",
+      "country": "AR"
+    },
+    {
+      "id": 90000086,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Chilecito",
+      "address": "Av. Colón 3952",
+      "city": "Chilecito",
+      "state": "LR",
+      "stateName": "La Rioja",
+      "country": "AR"
+    },
+    {
+      "id": 90000103,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Posadas",
+      "address": "Av. Rivadavia 2171",
+      "city": "Posadas",
+      "state": "MN",
+      "stateName": "Misiones",
+      "country": "AR"
+    },
+    {
+      "id": 90000104,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Posadas",
+      "address": "Av. Colón 2272",
+      "city": "Posadas",
+      "state": "MN",
+      "stateName": "Misiones",
+      "country": "AR"
+    },
+    {
+      "id": 90000102,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Puerto Iguazú",
+      "address": "Tucumán 2194",
+      "city": "Puerto Iguazú",
+      "state": "MN",
+      "stateName": "Misiones",
+      "country": "AR"
+    },
+    {
+      "id": 90000107,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Cutral Có",
+      "address": "Tucumán 1769",
+      "city": "Cutral Có",
+      "state": "NQ",
+      "stateName": "Neuquen",
+      "country": "AR"
+    },
+    {
+      "id": 90000108,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Neuquén",
+      "address": "Entre Ríos 2136",
+      "city": "Neuquén",
+      "state": "NQ",
+      "stateName": "Neuquen",
+      "country": "AR"
+    },
+    {
+      "id": 90000109,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Neuquén",
+      "address": "Entre Ríos 1474",
+      "city": "Neuquén",
+      "state": "NQ",
+      "stateName": "Neuquen",
+      "country": "AR"
+    },
+    {
+      "id": 90000121,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Orán",
+      "address": "Moreno 1261",
+      "city": "Orán",
+      "state": "SA",
+      "stateName": "Salta",
+      "country": "AR"
+    },
+    {
+      "id": 90000122,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Orán",
+      "address": "Lavalle 2386",
+      "city": "Orán",
+      "state": "SA",
+      "stateName": "Salta",
+      "country": "AR"
+    },
+    {
+      "id": 90000123,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Orán",
+      "address": "Urquiza 874",
+      "city": "Orán",
+      "state": "SA",
+      "stateName": "Salta",
+      "country": "AR"
+    },
+    {
+      "id": 90000127,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global San Juan",
+      "address": "Av. Pellegrini 3870",
+      "city": "San Juan",
+      "state": "SJ",
+      "stateName": "San Juan",
+      "country": "AR"
+    },
+    {
+      "id": 90000141,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global San Luis",
+      "address": "Av. Rivadavia 2429",
+      "city": "San Luis",
+      "state": "SL",
+      "stateName": "San Luis",
+      "country": "AR"
+    },
+    {
+      "id": 90000142,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global San Luis",
+      "address": "Lavalle 1586",
+      "city": "San Luis",
+      "state": "SL",
+      "stateName": "San Luis",
+      "country": "AR"
+    },
+    {
+      "id": 90000143,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global San Luis",
+      "address": "Sarmiento 2098",
+      "city": "San Luis",
+      "state": "SL",
+      "stateName": "San Luis",
+      "country": "AR"
+    },
+    {
+      "id": 34348555,
+      "partnerId": 69315411,
+      "name": "BA Capitan Bermudez",
+      "address": "Av. Santa Fe 252",
+      "city": "Capitan Bermudez",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 34347755,
+      "partnerId": 69315411,
+      "name": "BA Rafaela",
+      "address": "Av. Santa Fe 252",
+      "city": "Rafaela",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 90000161,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Rafaela",
+      "address": "Entre Ríos 3961",
+      "city": "Rafaela",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 34347855,
+      "partnerId": 69315411,
+      "name": "BA Rosario",
+      "address": "Av. Santa Fe 252",
+      "city": "Rosario",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 90000162,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Rosario",
+      "address": "Av. del Libertador 1842",
+      "city": "Rosario",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 90000160,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Santa Fe",
+      "address": "Av. Rivadavia 1304",
+      "city": "Santa Fe",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 34348355,
+      "partnerId": 69315411,
+      "name": "BA Anatuya",
+      "address": "Av. Santa Fe 252",
+      "city": "Anatuya",
+      "state": "SE",
+      "stateName": "Santiago Del Estero",
+      "country": "AR"
+    },
+    {
+      "id": 90000171,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Yerba Buena",
+      "address": "Av. del Libertador 2211",
+      "city": "Yerba Buena",
+      "state": "TM",
+      "stateName": "Tucuman",
+      "country": "AR"
+    },
+    {
+      "id": 90000172,
+      "partnerId": 69315411,
+      "name": "Cobro Express Global Yerba Buena",
+      "address": "Av. San Martín 3313",
+      "city": "Yerba Buena",
+      "state": "TM",
+      "stateName": "Tucuman",
+      "country": "AR"
+    },
+    {
+      "id": 90000005,
+      "partnerId": 79432811,
+      "name": "CartaSur Río Grande",
+      "address": "25 de Mayo 3102",
+      "city": "Río Grande",
+      "state": "TF",
+      "stateName": "Antartida E Islas Del Atlan Tierra Del Fuego",
+      "country": "AR"
+    },
+    {
+      "id": 90000006,
+      "partnerId": 79432811,
+      "name": "CartaSur Río Grande",
+      "address": "Av. Colón 1176",
+      "city": "Río Grande",
+      "state": "TF",
+      "stateName": "Antartida E Islas Del Atlan Tierra Del Fuego",
+      "country": "AR"
+    },
+    {
+      "id": 96660211,
+      "partnerId": 79432811,
+      "name": "Burzaco",
+      "address": "Eugenio de Burzaco 768",
+      "city": "Burzaco",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 96660811,
+      "partnerId": 79432811,
+      "name": "F. Varela",
+      "address": "Monteagudo 3082",
+      "city": "Florencio Varela",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 96660911,
+      "partnerId": 79432811,
+      "name": "La Plata",
+      "address": "Calle 12 Nro. 1064",
+      "city": "La Plata",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000013,
+      "partnerId": 79432811,
+      "name": "CartaSur La Plata",
+      "address": "Av. Pellegrini 3118",
+      "city": "La Plata",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 96659711,
+      "partnerId": 79432811,
+      "name": "Laferrere",
+      "address": "Avenida Luro 6025",
+      "city": "Laferrere",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000014,
+      "partnerId": 79432811,
+      "name": "CartaSur Mar del Plata",
+      "address": "9 de Julio 810",
+      "city": "Mar del Plata",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 96659511,
+      "partnerId": 79432811,
+      "name": "San Justo",
+      "address": "Arieta 3229",
+      "city": "San Justo",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000020,
+      "partnerId": 79432811,
+      "name": "CartaSur San Fernando del Valle de Catamarca",
+      "address": "Belgrano 1986",
+      "city": "San Fernando del Valle de Catamarca",
+      "state": "CT",
+      "stateName": "Catamarca",
+      "country": "AR"
+    },
+    {
+      "id": 90000021,
+      "partnerId": 79432811,
+      "name": "CartaSur San Fernando del Valle de Catamarca",
+      "address": "Av. del Libertador 2144",
+      "city": "San Fernando del Valle de Catamarca",
+      "state": "CT",
+      "stateName": "Catamarca",
+      "country": "AR"
+    },
+    {
+      "id": 90000022,
+      "partnerId": 79432811,
+      "name": "CartaSur San Fernando del Valle de Catamarca",
+      "address": "Av. Colón 1068",
+      "city": "San Fernando del Valle de Catamarca",
+      "state": "CT",
+      "stateName": "Catamarca",
+      "country": "AR"
+    },
+    {
+      "id": 90000030,
+      "partnerId": 79432811,
+      "name": "CartaSur Presidencia Roque Sáenz Peña",
+      "address": "Moreno 124",
+      "city": "Presidencia Roque Sáenz Peña",
+      "state": "CC",
+      "stateName": "Chaco",
+      "country": "AR"
+    },
+    {
+      "id": 96661411,
+      "partnerId": 79432811,
+      "name": "CartaSur Flores",
+      "address": "Avenida Rivadavia 7055",
+      "city": "Buenos Aires",
+      "state": "CF",
+      "stateName": "Ciudad Autonoma de Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000041,
+      "partnerId": 79432811,
+      "name": "CartaSur Ciudad Autónoma de Buenos Aires",
+      "address": "Tucumán 3198",
+      "city": "Ciudad Autónoma de Buenos Aires",
+      "state": "CF",
+      "stateName": "Ciudad Autonoma de Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 102739611,
+      "partnerId": 79432811,
+      "name": "Liniers",
+      "address": "Avenida Rivadavia 11063",
+      "city": "Liniers",
+      "state": "CF",
+      "stateName": "Ciudad Autonoma de Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 96661911,
+      "partnerId": 79432811,
+      "name": "Pompeya",
+      "address": "Avenida Sáenz 949",
+      "city": "Nueva Pompeya",
+      "state": "CF",
+      "stateName": "Ciudad Autonoma de Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000064,
+      "partnerId": 79432811,
+      "name": "CartaSur Clorinda",
+      "address": "Belgrano 243",
+      "city": "Clorinda",
+      "state": "FM",
+      "stateName": "Formosa",
+      "country": "AR"
+    },
+    {
+      "id": 90000065,
+      "partnerId": 79432811,
+      "name": "CartaSur Clorinda",
+      "address": "Moreno 3908",
+      "city": "Clorinda",
+      "state": "FM",
+      "stateName": "Formosa",
+      "country": "AR"
+    },
+    {
+      "id": 90000063,
+      "partnerId": 79432811,
+      "name": "CartaSur Formosa",
+      "address": "Av. San Martín 2573",
+      "city": "Formosa",
+      "state": "FM",
+      "stateName": "Formosa",
+      "country": "AR"
+    },
+    {
+      "id": 90000069,
+      "partnerId": 79432811,
+      "name": "CartaSur Palpalá",
+      "address": "Av. San Martín 951",
+      "city": "Palpalá",
+      "state": "JY",
+      "stateName": "Jujuy",
+      "country": "AR"
+    },
+    {
+      "id": 90000070,
+      "partnerId": 79432811,
+      "name": "CartaSur San Salvador de Jujuy",
+      "address": "Av. Colón 2677",
+      "city": "San Salvador de Jujuy",
+      "state": "JY",
+      "stateName": "Jujuy",
+      "country": "AR"
+    },
+    {
+      "id": 90000077,
+      "partnerId": 79432811,
+      "name": "CartaSur General Pico",
+      "address": "Lavalle 3869",
+      "city": "General Pico",
+      "state": "LP",
+      "stateName": "La Pampa",
+      "country": "AR"
+    },
+    {
+      "id": 90000080,
+      "partnerId": 79432811,
+      "name": "CartaSur Chilecito",
+      "address": "9 de Julio 835",
+      "city": "Chilecito",
+      "state": "LR",
+      "stateName": "La Rioja",
+      "country": "AR"
+    },
+    {
+      "id": 90000114,
+      "partnerId": 79432811,
+      "name": "CartaSur Viedma",
+      "address": "Entre Ríos 3601",
+      "city": "Viedma",
+      "state": "RN",
+      "stateName": "Rio Negro",
+      "country": "AR"
+    },
+    {
+      "id": 90000124,
+      "partnerId": 79432811,
+      "name": "CartaSur Orán",
+      "address": "Av. San Martín 1496",
+      "city": "Orán",
+      "state": "SA",
+      "stateName": "Salta",
+      "country": "AR"
+    },
+    {
+      "id": 90000125,
+      "partnerId": 79432811,
+      "name": "CartaSur Orán",
+      "address": "Tucumán 1234",
+      "city": "Orán",
+      "state": "SA",
+      "stateName": "Salta",
+      "country": "AR"
+    },
+    {
+      "id": 90000132,
+      "partnerId": 79432811,
+      "name": "CartaSur San Luis",
+      "address": "Av. Rivadavia 3117",
+      "city": "San Luis",
+      "state": "SL",
+      "stateName": "San Luis",
+      "country": "AR"
+    },
+    {
+      "id": 90000133,
+      "partnerId": 79432811,
+      "name": "CartaSur San Luis",
+      "address": "Urquiza 3453",
+      "city": "San Luis",
+      "state": "SL",
+      "stateName": "San Luis",
+      "country": "AR"
+    },
+    {
+      "id": 90000134,
+      "partnerId": 79432811,
+      "name": "CartaSur San Luis",
+      "address": "Entre Ríos 3711",
+      "city": "San Luis",
+      "state": "SL",
+      "stateName": "San Luis",
+      "country": "AR"
+    },
+    {
+      "id": 90000156,
+      "partnerId": 79432811,
+      "name": "CartaSur Rafaela",
+      "address": "Sarmiento 3777",
+      "city": "Rafaela",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 90000157,
+      "partnerId": 79432811,
+      "name": "CartaSur Rafaela",
+      "address": "Av. del Libertador 1573",
+      "city": "Rafaela",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 90000155,
+      "partnerId": 79432811,
+      "name": "CartaSur Rosario",
+      "address": "Av. Pellegrini 2511",
+      "city": "Rosario",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 90000163,
+      "partnerId": 79432811,
+      "name": "CartaSur La Banda",
+      "address": "Sarmiento 3958",
+      "city": "La Banda",
+      "state": "SE",
+      "stateName": "Santiago Del Estero",
+      "country": "AR"
+    },
+    {
+      "id": 90000178,
+      "partnerId": 79432811,
+      "name": "CartaSur Yerba Buena",
+      "address": "Belgrano 852",
+      "city": "Yerba Buena",
+      "state": "TM",
+      "stateName": "Tucuman",
+      "country": "AR"
+    },
+    {
+      "id": 90000190,
+      "partnerId": 102071611,
+      "name": "Tigo Money Sucre",
+      "address": "Calle Potosí 916",
+      "city": "Sucre",
+      "state": "CH",
+      "stateName": "Chuquisaca",
+      "country": "BO"
+    },
+    {
+      "id": 90000191,
+      "partnerId": 102071611,
+      "name": "Tigo Money Sucre",
+      "address": "Av. Heroínas 1348",
+      "city": "Sucre",
+      "state": "CH",
+      "stateName": "Chuquisaca",
+      "country": "BO"
+    },
+    {
+      "id": 90000192,
+      "partnerId": 102071611,
+      "name": "Tigo Money Sucre",
+      "address": "Calle Junín 1312",
+      "city": "Sucre",
+      "state": "CH",
+      "stateName": "Chuquisaca",
+      "country": "BO"
+    },
+    {
+      "id": 90000214,
+      "partnerId": 102071611,
+      "name": "Tigo Money Oruro",
+      "address": "Calle Potosí 117",
+      "city": "Oruro",
+      "state": "OR",
+      "stateName": "Oruro",
+      "country": "BO"
+    },
+    {
+      "id": 90000242,
+      "partnerId": 102071611,
+      "name": "Tigo Money Yacuiba",
+      "address": "Calle Sucre 1762",
+      "city": "Yacuiba",
+      "state": "TJ",
+      "stateName": "Tarija",
+      "country": "BO"
+    },
+    {
+      "id": 90000012,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera Quilmes",
+      "address": "Av. San Martín 2870",
+      "city": "Quilmes",
+      "state": "BA",
+      "stateName": "Buenos Aires",
+      "country": "AR"
+    },
+    {
+      "id": 90000023,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera San Fernando del Valle de Catamarca",
+      "address": "Moreno 264",
+      "city": "San Fernando del Valle de Catamarca",
+      "state": "CT",
+      "stateName": "Catamarca",
+      "country": "AR"
+    },
+    {
+      "id": 90000024,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera San Fernando del Valle de Catamarca",
+      "address": "Sarmiento 930",
+      "city": "San Fernando del Valle de Catamarca",
+      "state": "CT",
+      "stateName": "Catamarca",
+      "country": "AR"
+    },
+    {
+      "id": 90000058,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera Gualeguaychú",
+      "address": "Sarmiento 3398",
+      "city": "Gualeguaychú",
+      "state": "ER",
+      "stateName": "Entre Rios",
+      "country": "AR"
+    },
+    {
+      "id": 90000057,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera Paraná",
+      "address": "Av. Colón 843",
+      "city": "Paraná",
+      "state": "ER",
+      "stateName": "Entre Rios",
+      "country": "AR"
+    },
+    {
+      "id": 90000078,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera General Pico",
+      "address": "Mitre 3576",
+      "city": "General Pico",
+      "state": "LP",
+      "stateName": "La Pampa",
+      "country": "AR"
+    },
+    {
+      "id": 90000079,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera General Pico",
+      "address": "Urquiza 825",
+      "city": "General Pico",
+      "state": "LP",
+      "stateName": "La Pampa",
+      "country": "AR"
+    },
+    {
+      "id": 90000091,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera Godoy Cruz",
+      "address": "Av. del Libertador 1146",
+      "city": "Godoy Cruz",
+      "state": "MZ",
+      "stateName": "Mendoza",
+      "country": "AR"
+    },
+    {
+      "id": 90000092,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera Mendoza",
+      "address": "Av. Pellegrini 3965",
+      "city": "Mendoza",
+      "state": "MZ",
+      "stateName": "Mendoza",
+      "country": "AR"
+    },
+    {
+      "id": 90000090,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera San Rafael",
+      "address": "25 de Mayo 597",
+      "city": "San Rafael",
+      "state": "MZ",
+      "stateName": "Mendoza",
+      "country": "AR"
+    },
+    {
+      "id": 90000099,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera Posadas",
+      "address": "Av. Colón 365",
+      "city": "Posadas",
+      "state": "MN",
+      "stateName": "Misiones",
+      "country": "AR"
+    },
+    {
+      "id": 90000110,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera Cutral Có",
+      "address": "Av. Rivadavia 2379",
+      "city": "Cutral Có",
+      "state": "NQ",
+      "stateName": "Neuquen",
+      "country": "AR"
+    },
+    {
+      "id": 90000158,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera Santa Fe",
+      "address": "Urquiza 3271",
+      "city": "Santa Fe",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 90000159,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera Santa Fe",
+      "address": "Urquiza 2296",
+      "city": "Santa Fe",
+      "state": "SF",
+      "stateName": "Santa Fe",
+      "country": "AR"
+    },
+    {
+      "id": 90000179,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera San Miguel de Tucumán",
+      "address": "Urquiza 2343",
+      "city": "San Miguel de Tucumán",
+      "state": "TM",
+      "stateName": "Tucuman",
+      "country": "AR"
+    },
+    {
+      "id": 90000180,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera San Miguel de Tucumán",
+      "address": "Av. Rivadavia 3881",
+      "city": "San Miguel de Tucumán",
+      "state": "TM",
+      "stateName": "Tucuman",
+      "country": "AR"
+    },
+    {
+      "id": 90000181,
+      "partnerId": 102269411,
+      "name": "Claudio Cabrera Yerba Buena",
+      "address": "Tucumán 1395",
+      "city": "Yerba Buena",
+      "state": "TM",
+      "stateName": "Tucuman",
+      "country": "AR"
+    },
+    {
+      "id": 90000028,
+      "partnerId": 104154311,
+      "name": "Leticia Estela Ledda Resistencia",
+      "address": "Av. Pellegrini 590",
+      "city": "Resistencia",
+      "state": "CC",
+      "stateName": "Chaco",
+      "country": "AR"
+    },
+    {
+      "id": 90000029,
+      "partnerId": 104154311,
+      "name": "Leticia Estela Ledda Resistencia",
+      "address": "Mitre 3074",
+      "city": "Resistencia",
+      "state": "CC",
+      "stateName": "Chaco",
+      "country": "AR"
+    },
+    {
+      "id": 90000066,
+      "partnerId": 104154311,
+      "name": "Leticia Estela Ledda Clorinda",
+      "address": "Sarmiento 341",
+      "city": "Clorinda",
+      "state": "FM",
+      "stateName": "Formosa",
+      "country": "AR"
+    },
+    {
+      "id": 90000087,
+      "partnerId": 104154311,
+      "name": "Leticia Estela Ledda La Rioja",
+      "address": "Av. Pellegrini 3757",
+      "city": "La Rioja",
+      "state": "LR",
+      "stateName": "La Rioja",
+      "country": "AR"
+    },
+    {
+      "id": 90000088,
+      "partnerId": 104154311,
+      "name": "Leticia Estela Ledda La Rioja",
+      "address": "Lavalle 579",
+      "city": "La Rioja",
+      "state": "LR",
+      "stateName": "La Rioja",
+      "country": "AR"
+    },
+    {
+      "id": 90000094,
+      "partnerId": 104154311,
+      "name": "Leticia Estela Ledda Godoy Cruz",
+      "address": "Mitre 3688",
+      "city": "Godoy Cruz",
+      "state": "MZ",
+      "stateName": "Mendoza",
+      "country": "AR"
+    },
+    {
+      "id": 90000093,
+      "partnerId": 104154311,
+      "name": "Leticia Estela Ledda San Rafael",
+      "address": "9 de Julio 2144",
+      "city": "San Rafael",
+      "state": "MZ",
+      "stateName": "Mendoza",
+      "country": "AR"
+    },
+    {
+      "id": 90000095,
+      "partnerId": 104154311,
+      "name": "Leticia Estela Ledda San Rafael",
+      "address": "Sarmiento 313",
+      "city": "San Rafael",
+      "state": "MZ",
+      "stateName": "Mendoza",
+      "country": "AR"
+    },
+    {
+      "id": 90000126,
+      "partnerId": 104154311,
+      "name": "Leticia Estela Ledda Salta",
+      "address": "Av. Pellegrini 2332",
+      "city": "Salta",
+      "state": "SA",
+      "stateName": "Salta",
+      "country": "AR"
+    },
+    {
+      "id": 90000184,
+      "partnerId": 104588711,
+      "name": "Banco Fassil Trinidad",
+      "address": "Av. Ballivián 3574",
+      "city": "Trinidad",
+      "state": "BN",
+      "stateName": "Beni",
+      "country": "BO"
+    },
+    {
+      "id": 90000193,
+      "partnerId": 104588711,
+      "name": "Banco Fassil Sucre",
+      "address": "Av. Blanco Galindo 3925",
+      "city": "Sucre",
+      "state": "CH",
+      "stateName": "Chuquisaca",
+      "country": "BO"
+    },
+    {
+      "id": 90000194,
+      "partnerId": 104588711,
+      "name": "Banco Fassil Sucre",
+      "address": "Calle Potosí 2356",
+      "city": "Sucre",
+      "state": "CH",
+      "stateName": "Chuquisaca",
+      "country": "BO"
+    },
+    {
+      "id": 90000195,
+      "partnerId": 104588711,
+      "name": "Banco Fassil Sucre",
+      "address": "Av. 16 de Julio 2518",
+      "city": "Sucre",
+      "state": "CH",
+      "stateName": "Chuquisaca",
+      "country": "BO"
+    },
+    {
+      "id": 90000216,
+      "partnerId": 104588711,
+      "name": "Banco Fassil Oruro",
+      "address": "Calle Potosí 3813",
+      "city": "Oruro",
+      "state": "OR",
+      "stateName": "Oruro",
+      "country": "BO"
+    },
+    {
+      "id": 90000225,
+      "partnerId": 104588711,
+      "name": "Banco Fassil Uyuni",
+      "address": "Calle Comercio 796",
+      "city": "Uyuni",
+      "state": "PT",
+      "stateName": "Potosi",
+      "country": "BO"
+    },
+    {
+      "id": 90000226,
+      "partnerId": 104588711,
+      "name": "Banco Fassil Uyuni",
+      "address": "Av. 16 de Julio 3592",
+      "city": "Uyuni",
+      "state": "PT",
+      "stateName": "Potosi",
+      "country": "BO"
+    },
+    {
+      "id": 90000237,
+      "partnerId": 104588711,
+      "name": "Banco Fassil Montero",
+      "address": "Calle Junín 3703",
+      "city": "Montero",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "BO"
+    },
+    {
+      "id": 90000238,
+      "partnerId": 104588711,
+      "name": "Banco Fassil Santa Cruz de la Sierra",
+      "address": "Calle Ayacucho 3591",
+      "city": "Santa Cruz de la Sierra",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "BO"
+    },
+    {
+      "id": 90000002,
+      "partnerId": 108822711,
+      "name": "Karina Irene Lora Río Grande",
+      "address": "Entre Ríos 1475",
+      "city": "Río Grande",
+      "state": "TF",
+      "stateName": "Antartida E Islas Del Atlan Tierra Del Fuego",
+      "country": "AR"
+    },
+    {
+      "id": 90000035,
+      "partnerId": 108822711,
+      "name": "Karina Irene Lora Rawson",
+      "address": "Av. Pellegrini 516",
+      "city": "Rawson",
+      "state": "CH",
+      "stateName": "Chubut",
+      "country": "AR"
+    },
+    {
+      "id": 90000059,
+      "partnerId": 108822711,
+      "name": "Karina Irene Lora Concordia",
+      "address": "Sarmiento 1510",
+      "city": "Concordia",
+      "state": "ER",
+      "stateName": "Entre Rios",
+      "country": "AR"
+    },
+    {
+      "id": 90000060,
+      "partnerId": 108822711,
+      "name": "Karina Irene Lora Gualeguaychú",
+      "address": "25 de Mayo 3166",
+      "city": "Gualeguaychú",
+      "state": "ER",
+      "stateName": "Entre Rios",
+      "country": "AR"
+    },
+    {
+      "id": 90000068,
+      "partnerId": 108822711,
+      "name": "Karina Irene Lora Palpalá",
+      "address": "Av. Rivadavia 851",
+      "city": "Palpalá",
+      "state": "JY",
+      "stateName": "Jujuy",
+      "country": "AR"
+    },
+    {
+      "id": 90000111,
+      "partnerId": 108822711,
+      "name": "Karina Irene Lora Cutral Có",
+      "address": "Moreno 408",
+      "city": "Cutral Có",
+      "state": "NQ",
+      "stateName": "Neuquen",
+      "country": "AR"
+    },
+    {
+      "id": 90000118,
+      "partnerId": 108822711,
+      "name": "Karina Irene Lora San Carlos de Bariloche",
+      "address": "Av. San Martín 3459",
+      "city": "San Carlos de Bariloche",
+      "state": "RN",
+      "stateName": "Rio Negro",
+      "country": "AR"
+    },
+    {
+      "id": 90000145,
+      "partnerId": 108822711,
+      "name": "Karina Irene Lora Caleta Olivia",
+      "address": "Av. Colón 1009",
+      "city": "Caleta Olivia",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "AR"
+    },
+    {
+      "id": 90000146,
+      "partnerId": 108822711,
+      "name": "Karina Irene Lora Caleta Olivia",
+      "address": "9 de Julio 1914",
+      "city": "Caleta Olivia",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "AR"
+    },
+    {
+      "id": 90000144,
+      "partnerId": 108822711,
+      "name": "Karina Irene Lora Río Gallegos",
+      "address": "Mitre 2969",
+      "city": "Río Gallegos",
+      "state": "SC",
+      "stateName": "Santa Cruz",
+      "country": "AR"
+    },
+    {
+      "id": 90000202,
+      "partnerId": 221393411,
+      "name": "CIS Bolivia Cochabamba",
+      "address": "Av. Cañoto 787",
+      "city": "Cochabamba",
+      "state": "CB",
+      "stateName": "Cochabamba",
+      "country": "BO"
+    },
+    {
+      "id": 90000200,
+      "partnerId": 221393411,
+      "name": "CIS Bolivia Quillacollo",
+      "address": "Calle Sucre 3486",
+      "city": "Quillacollo",
+      "state": "CB",
+      "stateName": "Cochabamba",
+      "country": "BO"
+    },
+    {
+      "id": 90000201,
+      "partnerId": 221393411,
+      "name": "CIS Bolivia Quillacollo",
+      "address": "Av. Ballivián 3601",
+      "city": "Quillacollo",
+      "state": "CB",
+      "stateName": "Cochabamba",
+      "country": "BO"
+    },
+    {
+      "id": 90000203,
+      "partnerId": 221393411,
+      "name": "CIS Bolivia La Paz",
+      "address": "Av. Heroínas 1300",
+      "city": "La Paz",
+      "state": "LP",
+      "stateName": "La Paz",
+      "country": "BO"
+    },
+    {
+      "id": 90000204,
+      "partnerId": 221393411,
+      "name": "CIS Bolivia La Paz",
+      "address": "Av. 16 de Julio 2129",
+      "city": "La Paz",
+      "state": "LP",
+      "stateName": "La Paz",
+      "country": "BO"
+    },
+    {
+      "id": 90000251,
+      "partnerId": 221393411,
+      "name": "CIS Bolivia Yacuiba",
+      "address": "Calle Junín 2928",
+      "city": "Yacuiba",
+      "state": "TJ",
+      "stateName": "Tarija",
+      "country": "BO"
+    }
+  ]
+}

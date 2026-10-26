@@ -32,6 +32,7 @@ import {
   type SuspiciousTransactionFormState,
 } from "@/components/send-money/shared/suspicious-transaction-form";
 import {
+  applyRiaPayout,
   buildActiveSteps,
   buildProviderQuotes,
   buildQuoteLoadingSteps,
@@ -288,6 +289,10 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
   const [deliveryType, setDeliveryType] = useState<DeliveryTypeId | "">("");
   const [payingPartner, setPayingPartner] = useState("");
   const [location, setLocation] = useState("");
+  const [riaPayoutError, setRiaPayoutError] = useState(false);
+  const [riaQuoteLoading, setRiaQuoteLoading] = useState(false);
+  const riaQuoteRequestRef = useRef(0);
+  const riaPartnerRef = useRef<HTMLButtonElement>(null);
   const [wuService, setWuService] = useState("");
   const [moneygramCompany, setMoneygramCompany] = useState("");
   const [terraPayBank, setTerraPayBank] = useState("");
@@ -317,6 +322,9 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
   const clearDeliveryExtras = () => {
     setPayingPartner("");
     setLocation("");
+    setRiaPayoutError(false);
+    riaQuoteRequestRef.current += 1;
+    setRiaQuoteLoading(false);
     setWuService("");
     setMoneygramCompany("");
     setTerraPayBank("");
@@ -340,10 +348,22 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     sendAmount.trim() !== "" &&
     !amountExceedsBalance;
 
+  // RIA no cotiza sin socio pagador y locación (se eligen en su tarjeta); el
+  // resto de los proveedores cotiza igual.
+  const riaPayout = {
+    required: showPartnerLocation,
+    payingPartner,
+    location,
+  };
+  const riaPayoutPending =
+    showPartnerLocation && (payingPartner === "" || location === "");
+  const riaPayoutMissing = riaPayoutPending && selectedProvider === "RIA";
+
   const canContinueFromQuote =
     quoteBasicsComplete &&
     selectedProvider !== null &&
-    quoteDeliveryExtrasComplete;
+    quoteDeliveryExtrasComplete &&
+    !riaPayoutMissing;
   const [selectedTransactionId, setSelectedTransactionId] = useState<
     string | null
   >(null);
@@ -377,7 +397,13 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
   const suspiciousEditSnapshotRef =
     useRef<SuspiciousTransactionFormState | null>(null);
   const paymentIdRef = useRef(0);
-  const [quote, setQuote] = useState<ProviderQuote | null>(null);
+  // Se guardan las cotizaciones sin el ajuste de RIA; lo que se muestra y se
+  // cobra pasa por applyRiaPayout.
+  const [rawQuote, setQuote] = useState<ProviderQuote | null>(null);
+  const quote = rawQuote === null ? null : applyRiaPayout(rawQuote, riaPayout);
+  const displayedQuotes = providerQuotes.map((item) =>
+    applyRiaPayout(item, riaPayout),
+  );
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [quotesReady, setQuotesReady] = useState(false);
   const quoteRequestRef = useRef(0);
@@ -434,14 +460,16 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     window.setTimeout(() => {
       if (requestId !== quoteRequestRef.current) return;
       const quotes = buildProviderQuotes(amount, type, promoCode);
-      const cheapest = [...quotes].sort(
-        (a, b) => quoteAmountReceived(b) - quoteAmountReceived(a),
-      )[0];
+      // RIA sin lugar de pago no tiene montos: no se preselecciona.
+      const cheapest = quotes
+        .map((item) => applyRiaPayout(item, riaPayout))
+        .filter((item) => !item.awaitingPayout)
+        .sort((a, b) => quoteAmountReceived(b) - quoteAmountReceived(a))[0];
       // Al repetir una transacción se mantiene su proveedor.
       const preferredProviderId = override?.provider ?? repeatProvider;
       const preferred =
         quotes.find((item) => item.provider === preferredProviderId) ??
-        cheapest;
+        quotes.find((item) => item.provider === cheapest?.provider);
       setProviderQuotes(quotes);
       setQuotesReady(true);
       setQuoteLoading(false);
@@ -457,7 +485,13 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
       window.requestAnimationFrame(() => nextButtonRef.current?.focus());
     }, 900);
   };
-  const selectProviderQuote = (providerQuote: ProviderQuote) => {
+  const selectProviderQuote = (
+    displayedQuote: ProviderQuote,
+    options?: { keepFocus?: boolean },
+  ) => {
+    const providerQuote =
+      providerQuotes.find((item) => item.provider === displayedQuote.provider) ??
+      displayedQuote;
     const skipParties = isRepeatFlowRef.current;
     const providerChanged =
       selectedProvider !== null && selectedProvider !== providerQuote.provider;
@@ -481,7 +515,29 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
         return emptyDraft;
       });
     }
+    if (options?.keepFocus) return;
     window.requestAnimationFrame(() => nextButtonRef.current?.focus());
+  };
+  // Simula la llamada a RIA con el socio pagador y la locación elegidos.
+  const requoteRia = (nextPartner: string, nextLocation: string) => {
+    const requestId = ++riaQuoteRequestRef.current;
+    if (nextPartner === "" || nextLocation === "") {
+      setRiaQuoteLoading(false);
+      return;
+    }
+    setRiaQuoteLoading(true);
+    window.setTimeout(() => {
+      if (requestId !== riaQuoteRequestRef.current) return;
+      setRiaQuoteLoading(false);
+    }, 700);
+  };
+  const changeRiaPayingPartner = (value: string) => {
+    setPayingPartner(value);
+    requoteRia(value, location);
+  };
+  const changeRiaLocation = (value: string) => {
+    setLocation(value);
+    requoteRia(payingPartner, value);
   };
   const resetQuoteSelection = () => {
     setSelectedTransactionId(null);
@@ -1278,7 +1334,15 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     }
   }, [step, isReviewStep, selectedProvider, activeSteps]);
 
+  function flagRiaPayoutMissing() {
+    setRiaPayoutError(true);
+    window.requestAnimationFrame(() => riaPartnerRef.current?.focus());
+  }
   function next() {
+    if (step === 2 && riaPayoutMissing) {
+      flagRiaPayoutMissing();
+      return;
+    }
     if (step === 2 && !canContinueFromQuote) return;
     if (step >= 2 && !validateAdditionalInfoRequirement()) return;
     if (
@@ -1300,6 +1364,10 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     if (target < 1 || target > lastStep) return;
     if (seededFromHub && target < 2) {
       onReset();
+      return;
+    }
+    if (target > 2 && riaPayoutMissing) {
+      flagRiaPayoutMissing();
       return;
     }
     if (target > 2 && !canContinueFromQuote) return;
@@ -1786,9 +1854,9 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                       resetQuoteSelection={resetQuoteSelection}
                       requestQuote={() => requestQuote()}
                       payingPartner={payingPartner}
-                      onPayingPartnerChange={setPayingPartner}
+                      onPayingPartnerChange={changeRiaPayingPartner}
                       location={location}
-                      onLocationChange={setLocation}
+                      onLocationChange={changeRiaLocation}
                       wuService={wuService}
                       onWuServiceChange={setWuService}
                       terraPayBank={terraPayBank}
@@ -1805,13 +1873,16 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                       setPartnerLoading={setPartnerLoading}
                       setLocationLoading={setLocationLoading}
                       quotesReady={quotesReady}
-                      providerQuotes={providerQuotes}
+                      providerQuotes={displayedQuotes}
                       selectedProvider={selectedProvider}
                       onSelectProviderQuote={selectProviderQuote}
                       destinationCountryRef={destinationCountryRef}
                       deliveryTypeRef={deliveryTypeRef}
                       payingPartnerRef={payingPartnerRef}
                       locationRef={locationRef}
+                      riaPartnerRef={riaPartnerRef}
+                      riaPayoutError={riaPayoutError && riaPayoutMissing}
+                      riaQuoteLoading={riaQuoteLoading}
                       wuServiceRef={wuServiceRef}
                       moneygramCompanyRef={moneygramCompanyRef}
                       terraPayBankRef={terraPayBankRef}

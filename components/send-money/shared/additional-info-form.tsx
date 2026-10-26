@@ -3,8 +3,12 @@
 import { useRef } from "react";
 import { SearchableSelect } from "@/components/ui/searchable-select";
 import countriesCatalog from "@/public/catalogs/catalog-countries.json";
+import economicActivitiesCatalog from "@/public/catalogs/catalog-economic-activities.json";
 import foundSourcesCatalog from "@/public/catalogs/catalog-found-sources.json";
 import maritalStatusCatalog from "@/public/catalogs/catalog-marital-status.json";
+import monthlyIncomesCatalog from "@/public/catalogs/catalog-montly-incomes.json";
+import occupationsCatalog from "@/public/catalogs/catalog-ocupations.json";
+import transactionPurposesCatalog from "@/public/catalogs/catalog-transaction-purposes.json";
 import { Field } from "../field";
 
 export const ADDITIONAL_INFO_CHECK_LABEL = "Información adicional";
@@ -91,6 +95,18 @@ const CIVIL_STATUS_OPTIONS = maritalStatusCatalog.items.map(
 const FUNDS_ORIGIN_OPTIONS = foundSourcesCatalog.result.items.map(
   (item) => item.foundSource.description,
 );
+const OCCUPATION_OPTIONS = occupationsCatalog.result.items.map(
+  (item) => item.occupation.description,
+);
+const ECONOMIC_ACTIVITY_OPTIONS = economicActivitiesCatalog.result.items.map(
+  (item) => item.economicActivity.description,
+);
+const TRANSACTION_PURPOSE_OPTIONS = transactionPurposesCatalog.result.items.map(
+  (item) => item.transactionPurpose.description,
+);
+const MONTHLY_INCOME_OPTIONS = monthlyIncomesCatalog.result.items.map(
+  (item) => item.montlyIncome.description,
+);
 const MARRIED_CIVIL_STATUS = "Casado";
 
 export type AdditionalInfoFormChangeHandler = (
@@ -105,22 +121,33 @@ export function AdditionalInfoForm({
   form: AdditionalInfoFormState;
   onChange: AdditionalInfoFormChangeHandler;
 }) {
-  const civilStatusRef = useRef<HTMLButtonElement>(null);
+  const occupationRef = useRef<HTMLButtonElement>(null);
+  const economicActivityRef = useRef<HTMLButtonElement>(null);
   const fundsOriginRef = useRef<HTMLButtonElement>(null);
+  const resourceDestinationRef = useRef<HTMLInputElement>(null);
+  const transactionPurposeRef = useRef<HTMLButtonElement>(null);
+  const civilStatusRef = useRef<HTMLButtonElement>(null);
+  const monthlyIncomeRef = useRef<HTMLButtonElement>(null);
   const showSpouseName = form.civilStatus === MARRIED_CIVIL_STATUS;
 
   return (
     <div className="grid gap-5 sm:grid-cols-2">
-      <Field
+      <SearchableSelect
+        fieldRef={occupationRef}
         label="Ocupación"
         value={form.occupation}
+        options={OCCUPATION_OPTIONS}
         required
+        clearable
         onChange={(value) => onChange("occupation", value)}
       />
-      <Field
+      <SearchableSelect
+        fieldRef={economicActivityRef}
         label="Actividad Económica"
         value={form.economicActivity}
+        options={ECONOMIC_ACTIVITY_OPTIONS}
         required
+        clearable
         onChange={(value) => onChange("economicActivity", value)}
       />
       <SearchableSelect
@@ -133,16 +160,21 @@ export function AdditionalInfoForm({
         onChange={(value) => onChange("fundsOrigin", value)}
       />
       <Field
+        inputRef={resourceDestinationRef}
         label="Destino recursos"
         value={form.resourceDestination}
         required
+        clearable
         maxLength={50}
         onChange={(value) => onChange("resourceDestination", value)}
       />
-      <Field
+      <SearchableSelect
+        fieldRef={transactionPurposeRef}
         label="Propósito Transacción"
         value={form.transactionPurpose}
+        options={TRANSACTION_PURPOSE_OPTIONS}
         required
+        clearable
         onChange={(value) => onChange("transactionPurpose", value)}
       />
       <SearchableSelect
@@ -151,6 +183,7 @@ export function AdditionalInfoForm({
         value={form.civilStatus}
         options={CIVIL_STATUS_OPTIONS}
         required
+        clearable
         onChange={(value) => {
           onChange("civilStatus", value);
           if (value !== MARRIED_CIVIL_STATUS) {
@@ -166,10 +199,13 @@ export function AdditionalInfoForm({
           onChange={(value) => onChange("spouseName", value)}
         />
       )}
-      <Field
+      <SearchableSelect
+        fieldRef={monthlyIncomeRef}
         label="Ingreso Mensual"
         value={form.monthlyIncome}
+        options={MONTHLY_INCOME_OPTIONS}
         required
+        clearable
         onChange={(value) => onChange("monthlyIncome", value)}
       />
     </div>

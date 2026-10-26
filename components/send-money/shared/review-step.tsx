@@ -48,7 +48,7 @@ function SummarySection({
   }
   return (
     <section
-      className={`flex flex-col rounded-lg border border-l-4 px-3.5 py-2.5 ${toneClass}`}
+      className={`flex h-full flex-col rounded-lg border border-l-4 px-3.5 py-2.5 ${toneClass}`}
     >
       <div className="flex items-center justify-between gap-3">
         <h2 className={`text-sm font-bold ${titleClass}`}>{title}</h2>
@@ -251,7 +251,7 @@ export function ReviewStep({
         </dl>
       </section>
 
-      <div className="grid items-start gap-3 lg:grid-cols-3">
+      <div className="grid items-stretch gap-3 lg:grid-cols-3">
         <SummarySection
           title="Remitente"
           tone="sender"

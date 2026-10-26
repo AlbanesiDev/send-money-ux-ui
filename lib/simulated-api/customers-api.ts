@@ -158,34 +158,17 @@ export async function ensureCustomersSeeded(): Promise<void> {
     const seedById = new Map(
       SEED_CUSTOMERS.map((item) => [item.id, item] as const),
     );
-    let changed = false;
-    const next = existing.map((item) => {
-      const seed = seedById.get(item.id);
-      if (seed === undefined) return item;
-      let nextItem = item;
-      if (typeof item.spouseName !== "string") {
-        changed = true;
-        nextItem = { ...nextItem, spouseName: seed.spouseName };
+    const seedDocumentNumbers = new Set(
+      SEED_CUSTOMERS.flatMap((item) => item.documentNumbers),
+    );
+    const retained = existing.filter((item) => {
+      if (seedById.has(item.id)) return false;
+      for (const documentNumber of item.documentNumbers) {
+        if (seedDocumentNumbers.has(documentNumber)) return false;
       }
-      if (
-        typeof item.pep.publicPositions !== "string" ||
-        (item.pep.publicPositions.trim() === "" &&
-          seed.pep.publicPositions.trim() !== "")
-      ) {
-        changed = true;
-        nextItem = {
-          ...nextItem,
-          pep: {
-            ...nextItem.pep,
-            publicPositions: seed.pep.publicPositions,
-          },
-        };
-      }
-      return nextItem;
+      return true;
     });
-    if (changed) {
-      await writeCustomers(next);
-    }
+    await writeCustomers([...retained, ...SEED_CUSTOMERS]);
   })();
   return seedPromise;
 }

@@ -15,6 +15,7 @@ import { ChevronDownIcon, XIcon } from "lucide-react";
 const REQUIRED_MESSAGE = "Este campo es requerido";
 const MENU_GAP_PX = 4;
 const MENU_Z_INDEX = 200;
+const MENU_ESTIMATED_HEIGHT_PX = 260;
 
 export type SearchableSelectOption = {
   value: string;
@@ -118,7 +119,27 @@ export function SearchableSelect({
       menuMinWidth !== undefined && menuMinWidth > rect.width
         ? menuMinWidth
         : rect.width;
-    if (dropdownSide === "top") {
+    const menuHeight =
+      dropdownRef.current === null
+        ? MENU_ESTIMATED_HEIGHT_PX
+        : dropdownRef.current.offsetHeight;
+    const spaceBelow = window.innerHeight - rect.bottom - MENU_GAP_PX;
+    const spaceAbove = rect.top - MENU_GAP_PX;
+    let side = dropdownSide;
+    if (
+      dropdownSide === "bottom" &&
+      spaceBelow < menuHeight &&
+      spaceAbove > spaceBelow
+    ) {
+      side = "top";
+    } else if (
+      dropdownSide === "top" &&
+      spaceAbove < menuHeight &&
+      spaceBelow > spaceAbove
+    ) {
+      side = "bottom";
+    }
+    if (side === "top") {
       setMenuStyle({
         position: "fixed",
         left: rect.left,
@@ -143,12 +164,16 @@ export function SearchableSelect({
       return;
     }
     updateMenuPosition();
+    const rafId = window.requestAnimationFrame(() => {
+      updateMenuPosition();
+    });
     function handleReposition() {
       updateMenuPosition();
     }
     window.addEventListener("resize", handleReposition);
     window.addEventListener("scroll", handleReposition, true);
     return () => {
+      window.cancelAnimationFrame(rafId);
       window.removeEventListener("resize", handleReposition);
       window.removeEventListener("scroll", handleReposition, true);
     };

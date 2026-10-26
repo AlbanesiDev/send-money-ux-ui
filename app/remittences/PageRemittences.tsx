@@ -368,6 +368,7 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
   const remitterEditSnapshotRef = useRef<{
     form: CustomerRegistrationDraft;
     documentNumber: string;
+    additionalChecks: Record<string, boolean>;
   } | null>(null);
   const beneficiaryEditSnapshotRef =
     useRef<BeneficiaryRegistrationDraft | null>(null);
@@ -615,7 +616,16 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     setDocumentType(draft.documentType);
     setRemitterForm(draft);
     setOriginalRemitterForm(draft);
-    setAdditionalInfoForm(EMPTY_ADDITIONAL_INFO_FORM);
+    setAdditionalInfoForm({
+      occupation: customer.pep.occupation,
+      economicActivity: customer.pep.economicActivity,
+      fundsOrigin: customer.pep.fundsOrigin,
+      resourceDestination: customer.pep.resourceDestination,
+      transactionPurpose: customer.pep.transactionPurpose,
+      civilStatus: customer.civilStatus,
+      spouseName: customer.spouseName,
+      monthlyIncome: customer.pep.monthlyIncome,
+    });
     setSuspiciousTransactionForm(EMPTY_SUSPICIOUS_TRANSACTION_FORM);
   }, [customer, documentNumber, documentType]);
 
@@ -1903,6 +1913,7 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                               remitterEditSnapshotRef.current = {
                                 form: remitterForm,
                                 documentNumber,
+                                additionalChecks: { ...additionalChecks },
                               };
                               setEditRemitterOpen(true);
                             }}
@@ -2057,6 +2068,14 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                   form={remitterForm}
                   onFormChange={handleRemitterFormChange}
                   onDocumentNumberChange={handleGuestDocumentNumberChange}
+                  customer={customer}
+                  additionalChecks={additionalChecks}
+                  onAdditionalCheckChange={(checkLabel, checked) =>
+                    setAdditionalChecks((current) => ({
+                      ...current,
+                      [checkLabel]: checked,
+                    }))
+                  }
                   onSave={() => {
                     if (!validateRequiredFields("[data-remitter-form]")) return;
                     setOriginalRemitterForm({
@@ -2072,6 +2091,7 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                     if (snapshot !== null) {
                       setRemitterForm(snapshot.form);
                       setDocumentNumber(snapshot.documentNumber);
+                      setAdditionalChecks(snapshot.additionalChecks);
                       if (snapshot.form.documentType !== "") {
                         setDocumentType(snapshot.form.documentType);
                       }

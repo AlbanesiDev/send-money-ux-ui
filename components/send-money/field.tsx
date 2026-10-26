@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type RefObject } from "react";
+import { XIcon } from "lucide-react";
 
 const REQUIRED_MESSAGE = "Este campo es requerido";
 const EMAIL_MESSAGE = "Correo electrónico inválido";
@@ -13,6 +14,7 @@ export function Field({
   required = false,
   placeholder = "",
   disabled = false,
+  clearable = false,
   inputRef,
   nextRef,
   onChange,
@@ -28,6 +30,7 @@ export function Field({
   required?: boolean;
   placeholder?: string;
   disabled?: boolean;
+  clearable?: boolean;
   inputRef?: RefObject<HTMLInputElement | null>;
   nextRef?: RefObject<HTMLElement | null>;
   onChange?: (value: string) => void;
@@ -86,8 +89,18 @@ export function Field({
   }
   const hasError = resolvedError !== "";
 
+  const showClear =
+    clearable &&
+    !disabled &&
+    isControlled &&
+    value !== undefined &&
+    value !== "";
+
   let inputClassName =
     "h-10 w-full rounded-lg border bg-card px-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground disabled:bg-muted disabled:text-muted-foreground";
+  if (showClear) {
+    inputClassName += " pr-9";
+  }
   if (hasError) {
     inputClassName +=
       " border-destructive focus:border-destructive focus:ring-4 focus:ring-destructive/15";
@@ -140,6 +153,24 @@ export function Field({
           }}
           className={inputClassName}
         />
+        {showClear && (
+          <button
+            type="button"
+            aria-label={`Limpiar ${label.toLowerCase()}`}
+            onClick={(event) => {
+              event.preventDefault();
+              if (onChange === undefined) return;
+              onChange("");
+              setUncontrolledEmpty(true);
+              window.requestAnimationFrame(() =>
+                resolvedInputRef.current?.focus(),
+              );
+            }}
+            className="absolute top-1/2 right-2.5 grid size-5 -translate-y-1/2 place-items-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-brand/20"
+          >
+            <XIcon className="h-3.5 w-3.5" />
+          </button>
+        )}
         {hasError && (
           <span
             role="alert"

@@ -4,11 +4,13 @@ import type { ReactNode } from "react";
 import { Dialog } from "@base-ui/react/dialog";
 import { XIcon } from "lucide-react";
 import { MoneygramRemitterStep } from "@/components/send-money/providers/moneygram/remitter-step";
+import { RiaAdditionalInfoStep } from "@/components/send-money/providers/ria/additional-info-step";
 import { RiaRemitterStep } from "@/components/send-money/providers/ria/remitter-step";
 import { TerrapayRemitterStep } from "@/components/send-money/providers/terrapay/remitter-step";
 import { WuRemitterStep } from "@/components/send-money/providers/wu/remitter-step";
 import type { RemitterFormChangeHandler } from "@/components/send-money/providers/wu/remitter-step";
-import type { ProviderId } from "@/components/send-money/types";
+import { PepStep } from "@/components/send-money/shared/pep-step";
+import type { Customer, ProviderId } from "@/components/send-money/types";
 import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
 
 export type EditRemitterDialogProps = {
@@ -19,6 +21,9 @@ export type EditRemitterDialogProps = {
   form: CustomerRegistrationDraft;
   onFormChange: RemitterFormChangeHandler;
   onDocumentNumberChange?: (value: string) => void;
+  customer: Customer | null;
+  additionalChecks: Record<string, boolean>;
+  onAdditionalCheckChange: (label: string, checked: boolean) => void;
   onSave: () => void;
   onCancel: () => void;
 };
@@ -31,14 +36,46 @@ export function EditRemitterDialog({
   form,
   onFormChange,
   onDocumentNumberChange,
+  customer,
+  additionalChecks,
+  onAdditionalCheckChange,
   onSave,
   onCancel,
 }: EditRemitterDialogProps) {
+  let pepSlot: ReactNode;
+  if (provider === "RIA") {
+    pepSlot = (
+      <RiaAdditionalInfoStep
+        additionalChecks={additionalChecks}
+        onChange={onAdditionalCheckChange}
+        customer={customer}
+      />
+    );
+  } else if (provider === "WU" || provider === "MONEYGRAM") {
+    pepSlot = (
+      <PepStep
+        customer={customer}
+        additionalChecks={additionalChecks}
+        onChange={onAdditionalCheckChange}
+      />
+    );
+  } else {
+    pepSlot = (
+      <PepStep
+        customer={customer}
+        showTerraPayExtras
+        additionalChecks={additionalChecks}
+        onChange={onAdditionalCheckChange}
+      />
+    );
+  }
+
   const remitterProps = {
     documentNumber,
     form,
     onFormChange,
     onDocumentNumberChange,
+    footerSlot: <div className="space-y-6 pt-6">{pepSlot}</div>,
   };
 
   let content: ReactNode;

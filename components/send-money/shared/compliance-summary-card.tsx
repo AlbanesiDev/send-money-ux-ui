@@ -21,6 +21,7 @@ export function ComplianceSummaryCard({
   additionalInfo,
   additionalInfoRequired = false,
   additionalInfoError = "",
+  showEditAdditionalInfo = false,
   onEditAdditionalInfo,
   onSuspiciousMarkedChange,
   onEditSuspicious,
@@ -34,6 +35,7 @@ export function ComplianceSummaryCard({
   additionalInfo: AdditionalInfoFormState;
   additionalInfoRequired?: boolean;
   additionalInfoError?: string;
+  showEditAdditionalInfo?: boolean;
   onEditAdditionalInfo: () => void;
   onSuspiciousMarkedChange: (marked: boolean) => void;
   onEditSuspicious: () => void;
@@ -47,7 +49,7 @@ export function ComplianceSummaryCard({
         <h2 className="text-sm font-bold text-foreground">
           Declaraciones de cumplimiento
         </h2>
-        {additionalInfoMarked && (
+        {showEditAdditionalInfo && (
           <button
             type="button"
             onClick={onEditAdditionalInfo}
@@ -66,20 +68,11 @@ export function ComplianceSummaryCard({
             <p className="text-xs font-semibold">
               El país destino es considerado de alto riesgo.
             </p>
-            {/* {!additionalInfoMarked && (
-              <button
-                type="button"
-                onClick={onEditAdditionalInfo}
-                className="mt-1.5 text-xs font-bold underline underline-offset-2 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warning-border"
-              >
-                Completar información adicional
-              </button>
-            )} */}
           </div>
         </div>
       )}
 
-      <div className="mt-2 grid gap-2.5">
+      <div className="mt-2 grid grid-cols-2 gap-2.5">
         <SearchableSelect
           fieldRef={fundsOriginRef}
           label="Origen de los Fondos"
@@ -94,6 +87,7 @@ export function ComplianceSummaryCard({
           label="Destino recursos"
           value={resourceDestination}
           required={additionalInfoRequired}
+          clearable
           maxLength={50}
           onChange={onResourceDestinationChange}
         />

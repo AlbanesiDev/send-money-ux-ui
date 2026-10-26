@@ -663,6 +663,7 @@ export function ReviewStep({
             additionalInfo={additionalInfo}
             additionalInfoRequired={additionalInfoRequired}
             additionalInfoError={additionalInfoError}
+            showEditAdditionalInfo
             onEditAdditionalInfo={onEditAdditionalInfo}
             onSuspiciousMarkedChange={onSuspiciousMarkedChange}
             onEditSuspicious={onEditSuspicious}

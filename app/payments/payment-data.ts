@@ -137,6 +137,20 @@ export async function loadPaymentOperationByNumber(
   }
 
   const phoneParts = splitPhone(beneficiary.phone);
+  const addressTokens = beneficiary.address.trim().split(/\s+/);
+  const lastAddressToken = addressTokens[addressTokens.length - 1];
+  let houseNumber = "S/N";
+  if (lastAddressToken !== undefined && /^\d+$/.test(lastAddressToken)) {
+    houseNumber = lastAddressToken;
+  }
+  let zone = "Centro";
+  if (beneficiary.city === "La Paz") {
+    zone = "Sopocachi";
+  } else if (beneficiary.city === "Cochabamba") {
+    zone = "Queru Queru";
+  } else if (beneficiary.city === "Santa Cruz de la Sierra") {
+    zone = "Equipetrol";
+  }
   const beneficiaryProfile: CustomerProfile = {
     documentType: beneficiary.documentType,
     documentNumber: beneficiary.document,
@@ -154,9 +168,9 @@ export async function loadPaymentOperationByNumber(
     email: beneficiary.email,
     residenceCountry: AGENCY_COUNTRY,
     street: beneficiary.street,
-    houseNumber: "S/N",
+    houseNumber,
     address2: "",
-    zone: beneficiary.city,
+    zone,
     department: beneficiary.state,
     city: beneficiary.city,
     postalCode: "",
@@ -420,6 +434,11 @@ export function normalizeText(value: string) {
 export function splitPhone(raw: string | undefined) {
   if (!raw) return { phoneCode: AGENCY_PHONE_CODE, phone: "" };
   const digits = raw.replace(/\D/g, "");
+  // Números locales (hasta 8 dígitos) no llevan código de país; si no, +7
+  // (Kazajistán/Rusia) captura móviles bolivianos que empiezan con 7.
+  if (digits.length <= 8) {
+    return { phoneCode: AGENCY_PHONE_CODE, phone: digits };
+  }
   const code = [
     ...new Set(PHONE_CODE_OPTIONS.map((item) => item.value.slice(1))),
   ]

@@ -1,6 +1,6 @@
 [
   {
-    "id": "ben-jorge-7807365",
+    "id": "ben-jorge-5847291",
     "customerId": "jorge-jimenez",
     "firstName": "Alvaro",
     "middleName": "",
@@ -8,14 +8,14 @@
     "secondLastName": "",
     "name": "Alvaro Bazán",
     "documentType": "Cédula",
-    "document": "7807365",
+    "document": "5847291",
     "nationality": "Bolivia",
     "state": "La Paz",
-    "city": "Acerani",
-    "street": "Calle 123",
-    "address": "Calle 123",
-    "phone": "4554545454",
-    "email": "beneficiario@example.com"
+    "city": "La Paz",
+    "street": "Av. 6 de Agosto",
+    "address": "Av. 6 de Agosto 2145",
+    "phone": "59176789432",
+    "email": "alvaro.bazan@gmail.com"
   },
   {
     "id": "ben-jorge-6543210",
@@ -32,7 +32,7 @@
     "city": "La Paz",
     "street": "Av. Principal",
     "address": "Av. Principal 100",
-    "phone": "712345678",
+    "phone": "591712345678",
     "email": "m***@example.com"
   },
   {
@@ -50,7 +50,7 @@
     "city": "Cochabamba",
     "street": "Calle Sucre",
     "address": "Calle Sucre 50",
-    "phone": "765432109",
+    "phone": "591765432109",
     "email": "c***@example.com"
   },
   {
@@ -68,7 +68,7 @@
     "city": "Cochabamba",
     "street": "Calle Sucre",
     "address": "Calle Sucre 50",
-    "phone": "765432109",
+    "phone": "591765432109",
     "email": "c***@example.com"
   },
   {
@@ -86,7 +86,7 @@
     "city": "Santa Cruz de la Sierra",
     "street": "Av. San Martín",
     "address": "Av. San Martín 200",
-    "phone": "77889900",
+    "phone": "59177889900",
     "email": "sofia.mendoza@example.com"
   }
 ]

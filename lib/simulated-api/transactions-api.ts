@@ -116,6 +116,7 @@ export async function ensureTransactionsSeeded(): Promise<void> {
       existingIds.add(item.id);
       let collectionStatus = resolveCollectionStatus(item);
       let paidAt = item.paidAt;
+      let beneficiaryId = item.beneficiaryId;
       let matchingSeed: StoredTransaction | undefined;
       for (const seed of SEED_TRANSACTIONS) {
         if (seed.id !== item.id) continue;
@@ -137,15 +138,19 @@ export async function ensureTransactionsSeeded(): Promise<void> {
           }
         }
       }
+      if (matchingSeed !== undefined) {
+        beneficiaryId = matchingSeed.beneficiaryId;
+      }
       if (
         item.collectionStatus === collectionStatus &&
-        item.paidAt === paidAt
+        item.paidAt === paidAt &&
+        item.beneficiaryId === beneficiaryId
       ) {
         patched.push(item);
         continue;
       }
       needsWrite = true;
-      patched.push({ ...item, collectionStatus, paidAt });
+      patched.push({ ...item, collectionStatus, paidAt, beneficiaryId });
     }
     for (const seed of SEED_TRANSACTIONS) {
       if (existingIds.has(seed.id)) continue;

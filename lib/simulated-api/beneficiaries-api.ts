@@ -66,25 +66,17 @@ export async function ensureBeneficiariesSeeded(): Promise<void> {
     const seedById = new Map(
       SEED_BENEFICIARIES.map((item) => [item.id, item] as const),
     );
-    const existingIds = new Set(existing.map((item) => item.id));
-    let changed = false;
-    const next = existing.map((item) => {
-      if (typeof item.nationality === "string") return item;
-      changed = true;
-      const seed = seedById.get(item.id);
-      if (seed !== undefined) {
-        return { ...item, nationality: seed.nationality };
-      }
-      return { ...item, nationality: "" };
+    const seedDocuments = new Set(
+      SEED_BENEFICIARIES.map((item) => item.document),
+    );
+    const retained = existing.filter((item) => {
+      if (seedById.has(item.id)) return false;
+      if (seedDocuments.has(item.document)) return false;
+      // Drop superseded demo beneficiary that reused the sender document.
+      if (item.id === "ben-jorge-7807365") return false;
+      return true;
     });
-    for (const seed of SEED_BENEFICIARIES) {
-      if (existingIds.has(seed.id)) continue;
-      changed = true;
-      next.push(seed);
-    }
-    if (changed) {
-      await writeBeneficiaries(next);
-    }
+    await writeBeneficiaries([...retained, ...SEED_BENEFICIARIES]);
   })();
   return seedPromise;
 }

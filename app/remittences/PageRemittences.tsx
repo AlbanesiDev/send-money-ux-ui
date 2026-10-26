@@ -641,22 +641,8 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     setDocumentType(draft.documentType);
     setRemitterForm(draft);
     setOriginalRemitterForm(draft);
-    setAdditionalInfoForm({
-      occupation: customer.pep.occupation,
-      economicActivity: customer.pep.economicActivity,
-      fundsOrigin: customer.pep.fundsOrigin,
-      resourceDestination: customer.pep.resourceDestination,
-      transactionPurpose: customer.pep.transactionPurpose,
-      civilStatus: customer.civilStatus,
-      spouseName: customer.spouseName,
-      monthlyIncome: customer.pep.monthlyIncome,
-    });
-    setSuspiciousTransactionForm({
-      reason: customer.pep.suspiciousReason,
-      referenceName: "",
-      referencePhone: "",
-      nit: "",
-    });
+    setAdditionalInfoForm(EMPTY_ADDITIONAL_INFO_FORM);
+    setSuspiciousTransactionForm(EMPTY_SUSPICIOUS_TRANSACTION_FORM);
   }, [customer, documentNumber, documentType]);
 
   useEffect(() => {

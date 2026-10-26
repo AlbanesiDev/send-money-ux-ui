@@ -18,6 +18,7 @@ import { BillingSummary } from "@/components/ui/billing-summary";
 import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
 import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
 import type { MoneygramAccountDraft } from "@/lib/simulated-api/moneygram-accounts-api";
+import type { AdditionalInfoFormState } from "@/components/send-money/shared/additional-info-form";
 
 export type ProviderFlowStepProps = {
   provider: ProviderId;
@@ -66,6 +67,15 @@ export type ProviderFlowStepProps = {
   onEditBeneficiary?: () => void;
   onEditPayment: () => void;
   formatAmount: (value: number) => string;
+  additionalInfoMarked: boolean;
+  suspiciousMarked: boolean;
+  additionalInfo: AdditionalInfoFormState;
+  additionalInfoRequired: boolean;
+  additionalInfoError: string;
+  onAdditionalInfoMarkedChange: (marked: boolean) => void;
+  onEditAdditionalInfo: () => void;
+  onSuspiciousMarkedChange: (marked: boolean) => void;
+  onEditSuspicious: () => void;
   isGuestFlow?: boolean;
   onDocumentNumberChange?: (value: string) => void;
   onRegisterClient?: () => void;

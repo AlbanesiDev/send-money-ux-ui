@@ -11,10 +11,26 @@ import {
 import {
   AddPaymentMethodDialog,
   CancelOperationDialog,
+  EditAdditionalInfoDialog,
   EditBeneficiaryDialog,
   EditPaymentBillingDialog,
   EditRemitterDialog,
+  MarkSuspiciousTransactionDialog,
 } from "@/app/remittences/dialogs";
+import {
+  ADDITIONAL_INFO_CHECK_LABEL,
+  EMPTY_ADDITIONAL_INFO_FORM,
+  GAFI_HIGH_RISK_COUNTRY_MESSAGE,
+  isAdditionalInfoFormComplete,
+  isGafiHighRiskDestination,
+  type AdditionalInfoFormState,
+} from "@/components/send-money/shared/additional-info-form";
+import { ComplianceSummaryCard } from "@/components/send-money/shared/compliance-summary-card";
+import {
+  EMPTY_SUSPICIOUS_TRANSACTION_FORM,
+  SUSPICIOUS_TRANSACTION_CHECK_LABEL,
+  type SuspiciousTransactionFormState,
+} from "@/components/send-money/shared/suspicious-transaction-form";
 import {
   buildActiveSteps,
   buildProviderQuotes,
@@ -351,6 +367,13 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
   const [editRemitterOpen, setEditRemitterOpen] = useState(false);
   const [editBeneficiaryOpen, setEditBeneficiaryOpen] = useState(false);
   const [editPaymentOpen, setEditPaymentOpen] = useState(false);
+  const [editAdditionalInfoOpen, setEditAdditionalInfoOpen] = useState(false);
+  const [markSuspiciousOpen, setMarkSuspiciousOpen] = useState(false);
+  const [additionalInfoForm, setAdditionalInfoForm] =
+    useState<AdditionalInfoFormState>(EMPTY_ADDITIONAL_INFO_FORM);
+  const [suspiciousTransactionForm, setSuspiciousTransactionForm] =
+    useState<SuspiciousTransactionFormState>(EMPTY_SUSPICIOUS_TRANSACTION_FORM);
+  const [additionalInfoError, setAdditionalInfoError] = useState("");
   const remitterEditSnapshotRef = useRef<{
     form: CustomerRegistrationDraft;
     documentNumber: string;
@@ -358,6 +381,10 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
   const beneficiaryEditSnapshotRef =
     useRef<BeneficiaryRegistrationDraft | null>(null);
   const moneygramEditSnapshotRef = useRef<MoneygramAccountDraft | null>(null);
+  const additionalInfoEditSnapshotRef =
+    useRef<AdditionalInfoFormState | null>(null);
+  const suspiciousEditSnapshotRef =
+    useRef<SuspiciousTransactionFormState | null>(null);
   const paymentIdRef = useRef(0);
   const [quote, setQuote] = useState<ProviderQuote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
@@ -602,6 +629,8 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
         setRemitterForm(
           createEmptyCustomerDraft(documentNumber.trim(), documentType),
         );
+        setAdditionalInfoForm(EMPTY_ADDITIONAL_INFO_FORM);
+        setSuspiciousTransactionForm(EMPTY_SUSPICIOUS_TRANSACTION_FORM);
       }
       return;
     }
@@ -612,6 +641,22 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     setDocumentType(draft.documentType);
     setRemitterForm(draft);
     setOriginalRemitterForm(draft);
+    setAdditionalInfoForm({
+      occupation: customer.pep.occupation,
+      economicActivity: customer.pep.economicActivity,
+      fundsOrigin: customer.pep.fundsOrigin,
+      resourceDestination: customer.pep.resourceDestination,
+      transactionPurpose: customer.pep.transactionPurpose,
+      civilStatus: customer.civilStatus,
+      spouseName: customer.spouseName,
+      monthlyIncome: customer.pep.monthlyIncome,
+    });
+    setSuspiciousTransactionForm({
+      reason: customer.pep.suspiciousReason,
+      referenceName: "",
+      referencePhone: "",
+      nit: "",
+    });
   }, [customer, documentNumber, documentType]);
 
   useEffect(() => {
@@ -949,6 +994,10 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     }
   }, [result, customer, isGuestFlow, guestAutofillCustomer]);
 
+  useEffect(() => {
+    setAdditionalInfoError("");
+  }, [destinationCountry]);
+
   function clearGuestLookupTimeout() {
     if (guestLookupTimeoutRef.current === null) return;
     window.clearTimeout(guestLookupTimeoutRef.current);
@@ -961,6 +1010,8 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     setResult(null);
     setDocumentNumber("");
     setAdditionalChecks({});
+    setAdditionalInfoForm(EMPTY_ADDITIONAL_INFO_FORM);
+    setSuspiciousTransactionForm(EMPTY_SUSPICIOUS_TRANSACTION_FORM);
     setSelectedBeneficiary(-1);
     setSelectedMoneygramAccount(-1);
     setSelectedTransactionId(null);
@@ -1037,6 +1088,8 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     setGuestAutofillCustomer(null);
     setGuestBeneficiaryChosen(false);
     setAdditionalChecks({});
+    setAdditionalInfoForm(EMPTY_ADDITIONAL_INFO_FORM);
+    setSuspiciousTransactionForm(EMPTY_SUSPICIOUS_TRANSACTION_FORM);
     remitterFormSyncedCustomerIdRef.current = null;
     setRemitterForm(createEmptyCustomerDraft(documentNumber, documentType));
     setOriginalRemitterForm(null);
@@ -1377,6 +1430,7 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
 
   function next() {
     if (step === 2 && !canContinueFromQuote) return;
+    if (step >= 2 && !validateAdditionalInfoRequirement()) return;
     if (
       activeSteps[step - 1] === PARTIES_STEP_LABEL &&
       !validatePartiesStep()
@@ -1399,6 +1453,9 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
       return;
     }
     if (target > 2 && !canContinueFromQuote) return;
+    if (target > step && step >= 2 && !validateAdditionalInfoRequirement()) {
+      return;
+    }
     if (
       target > step &&
       activeSteps[step - 1] === PARTIES_STEP_LABEL &&
@@ -1410,6 +1467,7 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
   }
   function handleContinue() {
     if (!isReviewStep) return next();
+    if (!validateAdditionalInfoRequirement()) return;
     if (processing) return;
     if (customer === null) return;
     if (selectedProvider === null) return;
@@ -1732,9 +1790,80 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
     </div>
   );
 
+  const openAdditionalInfoDialog = () => {
+    additionalInfoEditSnapshotRef.current = additionalInfoForm;
+    setEditAdditionalInfoOpen(true);
+  };
+  const openSuspiciousDialog = () => {
+    suspiciousEditSnapshotRef.current = suspiciousTransactionForm;
+    setMarkSuspiciousOpen(true);
+  };
+  const setAdditionalInfoMarked = (marked: boolean) => {
+    setAdditionalChecks((current) => ({
+      ...current,
+      [ADDITIONAL_INFO_CHECK_LABEL]: marked,
+    }));
+  };
+  const setSuspiciousMarked = (marked: boolean) => {
+    setAdditionalChecks((current) => ({
+      ...current,
+      [SUSPICIOUS_TRANSACTION_CHECK_LABEL]: marked,
+    }));
+  };
+  const handleAdditionalInfoMarkedChange = (marked: boolean) => {
+    if (marked) {
+      openAdditionalInfoDialog();
+      return;
+    }
+    if (isGafiHighRiskDestination(destinationCountry)) return;
+    setAdditionalInfoMarked(false);
+    setAdditionalInfoError("");
+  };
+  const handleSuspiciousMarkedChange = (marked: boolean) => {
+    if (marked) {
+      openSuspiciousDialog();
+      return;
+    }
+    setSuspiciousMarked(false);
+  };
+  const additionalInfoMarked = Boolean(
+    additionalChecks[ADDITIONAL_INFO_CHECK_LABEL],
+  );
+  const suspiciousMarked = Boolean(
+    additionalChecks[SUSPICIOUS_TRANSACTION_CHECK_LABEL],
+  );
+  const additionalInfoRequired =
+    isGafiHighRiskDestination(destinationCountry);
+  const additionalInfoComplete =
+    additionalInfoMarked && isAdditionalInfoFormComplete(additionalInfoForm);
+
+  function validateAdditionalInfoRequirement(): boolean {
+    if (!additionalInfoRequired) {
+      setAdditionalInfoError("");
+      return true;
+    }
+    if (additionalInfoComplete) {
+      setAdditionalInfoError("");
+      return true;
+    }
+    setAdditionalInfoError(GAFI_HIGH_RISK_COUNTRY_MESSAGE);
+    return false;
+  }
+
   const summaryAside = (
     <aside className="sticky top-0 flex flex-col gap-3 self-start">
       {showPartyCardsInAside && partyCards}
+      <ComplianceSummaryCard
+        additionalInfoMarked={additionalInfoMarked}
+        suspiciousMarked={suspiciousMarked}
+        additionalInfo={additionalInfoForm}
+        additionalInfoRequired={additionalInfoRequired}
+        additionalInfoError={additionalInfoError}
+        onAdditionalInfoMarkedChange={handleAdditionalInfoMarkedChange}
+        onEditAdditionalInfo={openAdditionalInfoDialog}
+        onSuspiciousMarkedChange={handleSuspiciousMarkedChange}
+        onEditSuspicious={openSuspiciousDialog}
+      />
       <RemittanceSummary
         provider={selectedProvider}
         quote={quote}
@@ -2040,6 +2169,19 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                             }}
                             onEditPayment={() => setEditPaymentOpen(true)}
                             formatAmount={formatAmount}
+                            additionalInfoMarked={additionalInfoMarked}
+                            suspiciousMarked={suspiciousMarked}
+                            additionalInfo={additionalInfoForm}
+                            additionalInfoRequired={additionalInfoRequired}
+                            additionalInfoError={additionalInfoError}
+                            onAdditionalInfoMarkedChange={
+                              handleAdditionalInfoMarkedChange
+                            }
+                            onEditAdditionalInfo={openAdditionalInfoDialog}
+                            onSuspiciousMarkedChange={
+                              handleSuspiciousMarkedChange
+                            }
+                            onEditSuspicious={openSuspiciousDialog}
                             isGuestFlow={isGuestFlow}
                             onDocumentNumberChange={
                               handleGuestDocumentNumberChange
@@ -2091,6 +2233,66 @@ export function TransactionFlow({ onReset, seed }: TransactionFlowProps) {
                   { ...line, id: ++paymentIdRef.current },
                 ])
               }
+            />
+            <EditAdditionalInfoDialog
+              open={editAdditionalInfoOpen}
+              onOpenChange={setEditAdditionalInfoOpen}
+              form={additionalInfoForm}
+              onFormChange={(field, value) =>
+                setAdditionalInfoForm((current) => ({
+                  ...current,
+                  [field]: value,
+                }))
+              }
+              onSave={() => {
+                if (!validateRequiredFields("[data-additional-info-form]"))
+                  return;
+                setAdditionalInfoMarked(true);
+                setAdditionalInfoError("");
+                setRemitterForm((current) => ({
+                  ...current,
+                  civilStatus: additionalInfoForm.civilStatus,
+                  spouseName: additionalInfoForm.spouseName,
+                }));
+                additionalInfoEditSnapshotRef.current = null;
+                setEditAdditionalInfoOpen(false);
+              }}
+              onCancel={() => {
+                const snapshot = additionalInfoEditSnapshotRef.current;
+                if (snapshot !== null) {
+                  setAdditionalInfoForm(snapshot);
+                }
+                additionalInfoEditSnapshotRef.current = null;
+                setEditAdditionalInfoOpen(false);
+              }}
+            />
+            <MarkSuspiciousTransactionDialog
+              open={markSuspiciousOpen}
+              onOpenChange={setMarkSuspiciousOpen}
+              form={suspiciousTransactionForm}
+              onFormChange={(field, value) =>
+                setSuspiciousTransactionForm((current) => ({
+                  ...current,
+                  [field]: value,
+                }))
+              }
+              onSave={() => {
+                if (
+                  !validateRequiredFields("[data-suspicious-transaction-form]")
+                )
+                  return;
+                setSuspiciousMarked(true);
+                suspiciousEditSnapshotRef.current = null;
+                setMarkSuspiciousOpen(false);
+              }}
+              onCancel={() => {
+                const snapshot = suspiciousEditSnapshotRef.current;
+                if (snapshot !== null) {
+                  setSuspiciousTransactionForm(snapshot);
+                }
+                suspiciousEditSnapshotRef.current = null;
+                setMarkSuspiciousOpen(false);
+              }}
             />
             {selectedProvider && (
               <>

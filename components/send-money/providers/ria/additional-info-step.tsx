@@ -1,41 +1,22 @@
 "use client";
 
-import { useRef } from "react";
-import { SearchableSelect } from "@/components/ui/searchable-select";
-import maritalStatusCatalog from "@/public/catalogs/catalog-marital-status.json";
-import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
 import type { Customer } from "../../types";
 import { Field } from "../../field";
-import type { RemitterFormChangeHandler } from "../wu/remitter-step";
 
-const CHECK_LABELS = [
-  "Información adicional",
-  "¿Es una Persona Expuesta Políticamente (PEP)?",
-  "¿Es allegado a una PEP?",
-  "Transacción sospechosa o inusual",
-] as const;
+const PEP_CHECK_LABEL = "¿Es una Persona Expuesta Políticamente (PEP)?";
+const RELATED_CHECK_LABEL = "¿Es allegado a una PEP?";
 
-const CIVIL_STATUS_OPTIONS = maritalStatusCatalog.items.map(
-  (item) => item.maritalStatus.description,
-);
-const MARRIED_CIVIL_STATUS = "Casado";
+const CHECK_LABELS = [PEP_CHECK_LABEL, RELATED_CHECK_LABEL] as const;
 
 export function RiaAdditionalInfoStep({
   additionalChecks,
   onChange,
   customer,
-  remitterForm,
-  onRemitterFormChange,
 }: {
   additionalChecks: Record<string, boolean>;
   onChange: (label: string, checked: boolean) => void;
   customer: Customer | null;
-  remitterForm: CustomerRegistrationDraft;
-  onRemitterFormChange: RemitterFormChangeHandler;
 }) {
-  const civilStatusRef = useRef<HTMLButtonElement>(null);
-  const showSpouseName = remitterForm.civilStatus === MARRIED_CIVIL_STATUS;
-
   return (
     <div className="space-y-5">
       <h2 className="font-bold">Declaraciones de la operación</h2>
@@ -60,89 +41,7 @@ export function RiaAdditionalInfoStep({
             {checked && (
               <div className="rounded-xl border border-border bg-muted p-5">
                 <div className="grid gap-5 sm:grid-cols-2">
-                  {label === "Información adicional" && (
-                    <>
-                      <Field
-                        label="Ocupación"
-                        value={
-                          customer === null
-                            ? undefined
-                            : customer.pep.occupation
-                        }
-                        required
-                      />
-                      <Field
-                        label="Actividad Económica"
-                        value={
-                          customer === null
-                            ? undefined
-                            : customer.pep.economicActivity
-                        }
-                        required
-                      />
-                      <Field
-                        label="Origen de los Fondos"
-                        value={
-                          customer === null
-                            ? undefined
-                            : customer.pep.fundsOrigin
-                        }
-                        required
-                      />
-                      <Field
-                        label="Destino recursos"
-                        value={
-                          customer === null
-                            ? undefined
-                            : customer.pep.resourceDestination
-                        }
-                        required
-                      />
-                      <Field
-                        label="Propósito Transacción"
-                        value={
-                          customer === null
-                            ? undefined
-                            : customer.pep.transactionPurpose
-                        }
-                        required
-                      />
-                      <SearchableSelect
-                        fieldRef={civilStatusRef}
-                        label="Estado Civil"
-                        value={remitterForm.civilStatus}
-                        options={CIVIL_STATUS_OPTIONS}
-                        required
-                        onChange={(value) => {
-                          onRemitterFormChange("civilStatus", value);
-                          if (value !== MARRIED_CIVIL_STATUS) {
-                            onRemitterFormChange("spouseName", "");
-                          }
-                        }}
-                      />
-                      {showSpouseName && (
-                        <Field
-                          label="Nombre(s) y Apellidos del cónyuge"
-                          value={remitterForm.spouseName}
-                          required
-                          onChange={(value) =>
-                            onRemitterFormChange("spouseName", value)
-                          }
-                        />
-                      )}
-                      <Field
-                        label="Ingreso Mensual"
-                        value={
-                          customer === null
-                            ? undefined
-                            : customer.pep.monthlyIncome
-                        }
-                        required
-                      />
-                    </>
-                  )}
-                  {label ===
-                    "¿Es una Persona Expuesta Políticamente (PEP)?" && (
+                  {label === PEP_CHECK_LABEL && (
                     <>
                       <Field
                         label="Nombre de PEP"
@@ -178,7 +77,7 @@ export function RiaAdditionalInfoStep({
                       />
                     </>
                   )}
-                  {label === "¿Es allegado a una PEP?" && (
+                  {label === RELATED_CHECK_LABEL && (
                     <>
                       <Field
                         label="Tipo de Relación con PEP"
@@ -203,20 +102,6 @@ export function RiaAdditionalInfoStep({
                         }
                         required
                       />
-                    </>
-                  )}
-                  {label === "Transacción sospechosa o inusual" && (
-                    <>
-                      <Field
-                        label="Motivo de la sospecha y/o inusualidad"
-                        required
-                      />
-                      <Field
-                        label="Nombres y Apellidos Referencia Personal"
-                        required
-                      />
-                      <Field label="Teléfono Referencia Personal" required />
-                      <Field label="Nro NIT" />
                     </>
                   )}
                 </div>

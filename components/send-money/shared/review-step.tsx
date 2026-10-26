@@ -5,7 +5,9 @@ import type { MoneygramAccountDraft } from "@/lib/simulated-api/moneygram-accoun
 import { CountryFlag } from "@/components/ui/country-flag";
 import { deliveryTypeLabel, quoteAmountReceived } from "../provider-flows";
 import type { PaymentLine, ProviderId, ProviderQuote } from "../types";
-import { ArrowRightIcon, MoveRightIcon } from "lucide-react";
+import { MoveRightIcon } from "lucide-react";
+import type { AdditionalInfoFormState } from "./additional-info-form";
+import { ComplianceSummaryCard } from "./compliance-summary-card";
 
 const ORIGIN_COUNTRY = "Bolivia";
 
@@ -119,6 +121,15 @@ export function ReviewStep({
   onEditBeneficiary,
   onEditPayment,
   billingSlot,
+  additionalInfoMarked,
+  suspiciousMarked,
+  additionalInfo,
+  additionalInfoRequired,
+  additionalInfoError,
+  onAdditionalInfoMarkedChange,
+  onEditAdditionalInfo,
+  onSuspiciousMarkedChange,
+  onEditSuspicious,
 }: {
   provider: ProviderId;
   quote: ProviderQuote;
@@ -144,6 +155,15 @@ export function ReviewStep({
   onEditBeneficiary?: () => void;
   onEditPayment: () => void;
   billingSlot: ReactNode;
+  additionalInfoMarked: boolean;
+  suspiciousMarked: boolean;
+  additionalInfo: AdditionalInfoFormState;
+  additionalInfoRequired: boolean;
+  additionalInfoError: string;
+  onAdditionalInfoMarkedChange: (marked: boolean) => void;
+  onEditAdditionalInfo: () => void;
+  onSuspiciousMarkedChange: (marked: boolean) => void;
+  onEditSuspicious: () => void;
 }) {
   const remitterName = [
     remitterForm.firstName,
@@ -679,6 +699,17 @@ export function ReviewStep({
               value={`${billingName || "—"} · ${billingNit || "—"}`}
             />
           </SummarySection>
+          <ComplianceSummaryCard
+            additionalInfoMarked={additionalInfoMarked}
+            suspiciousMarked={suspiciousMarked}
+            additionalInfo={additionalInfo}
+            additionalInfoRequired={additionalInfoRequired}
+            additionalInfoError={additionalInfoError}
+            onAdditionalInfoMarkedChange={onAdditionalInfoMarkedChange}
+            onEditAdditionalInfo={onEditAdditionalInfo}
+            onSuspiciousMarkedChange={onSuspiciousMarkedChange}
+            onEditSuspicious={onEditSuspicious}
+          />
         </div>
       </div>
     </div>

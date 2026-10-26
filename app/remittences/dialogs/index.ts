@@ -23,3 +23,11 @@ export {
   EditRemitterDialog,
   type EditRemitterDialogProps,
 } from "./edit-remitter-dialog";
+export {
+  EditAdditionalInfoDialog,
+  type EditAdditionalInfoDialogProps,
+} from "./edit-additional-info-dialog";
+export {
+  MarkSuspiciousTransactionDialog,
+  type MarkSuspiciousTransactionDialogProps,
+} from "./mark-suspicious-transaction-dialog";

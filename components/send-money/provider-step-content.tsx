@@ -19,6 +19,7 @@ import { WuBeneficiaryStep } from "./providers/wu/beneficiary-step";
 import { WuRemitterStep } from "./providers/wu/remitter-step";
 import { PepStep } from "./shared/pep-step";
 import { ReviewStep } from "./shared/review-step";
+import type { AdditionalInfoFormState } from "./shared/additional-info-form";
 import { getStepKey } from "./provider-flows";
 import type { BeneficiaryRegistrationDraft } from "@/lib/simulated-api/beneficiaries-api";
 import type { CustomerRegistrationDraft } from "@/lib/simulated-api/customers-api";
@@ -78,6 +79,15 @@ export type ProviderStepContentProps = {
   onEditPayment: () => void;
   formatAmount: (value: number) => string;
   billingSlot: ReactNode;
+  additionalInfoMarked: boolean;
+  suspiciousMarked: boolean;
+  additionalInfo: AdditionalInfoFormState;
+  additionalInfoRequired: boolean;
+  additionalInfoError: string;
+  onAdditionalInfoMarkedChange: (marked: boolean) => void;
+  onEditAdditionalInfo: () => void;
+  onSuspiciousMarkedChange: (marked: boolean) => void;
+  onEditSuspicious: () => void;
   isGuestFlow?: boolean;
   onDocumentNumberChange?: (value: string) => void;
   onRegisterClient?: () => void;
@@ -127,8 +137,6 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
           additionalChecks={props.additionalChecks}
           onChange={props.onAdditionalCheckChange}
           customer={props.customer}
-          remitterForm={props.remitterForm}
-          onRemitterFormChange={props.onRemitterFormChange}
         />
       );
     } else if (props.provider === "WU" || props.provider === "MONEYGRAM") {
@@ -326,6 +334,15 @@ export function ProviderStepContent(props: ProviderStepContentProps) {
       onEditBeneficiary={props.onEditBeneficiary}
       onEditPayment={props.onEditPayment}
       billingSlot={props.billingSlot}
+      additionalInfoMarked={props.additionalInfoMarked}
+      suspiciousMarked={props.suspiciousMarked}
+      additionalInfo={props.additionalInfo}
+      additionalInfoRequired={props.additionalInfoRequired}
+      additionalInfoError={props.additionalInfoError}
+      onAdditionalInfoMarkedChange={props.onAdditionalInfoMarkedChange}
+      onEditAdditionalInfo={props.onEditAdditionalInfo}
+      onSuspiciousMarkedChange={props.onSuspiciousMarkedChange}
+      onEditSuspicious={props.onEditSuspicious}
     />
   );
 }

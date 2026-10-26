@@ -43,6 +43,7 @@ const DOCUMENT_TYPE_OPTIONS = documentTypesCatalog.map((item) => item.name);
 const DEMO_CUSTOMERS = customersSnapshot as Customer[];
 const SEARCH_ERROR_DOCUMENT = "0000000";
 const DEMO_NEW_CLIENT_DOCUMENT = "1234567";
+const DOCUMENT_MAX_LENGTH = 7;
 const OPERATION_MIN_LENGTH = 8;
 const OPERATION_MAX_LENGTH = 12;
 const DEMO_OPERATIONS = [
@@ -61,8 +62,10 @@ export type UnifiedSearchHit =
 export type UnifiedHubStepProps = {
   documentType: string;
   onDocumentTypeChange: (value: string) => void;
-  query: string;
-  onQueryChange: (value: string) => void;
+  documentNumber: string;
+  onDocumentNumberChange: (value: string) => void;
+  pin: string;
+  onPinChange: (value: string) => void;
   hit: UnifiedSearchHit;
   onHitChange: (hit: UnifiedSearchHit) => void;
   onContinueRemittance: () => void;
@@ -81,8 +84,10 @@ export type UnifiedHubStepProps = {
 export function UnifiedHubStep({
   documentType,
   onDocumentTypeChange,
-  query,
-  onQueryChange,
+  documentNumber,
+  onDocumentNumberChange,
+  pin,
+  onPinChange,
   hit,
   onHitChange,
   onContinueRemittance,
@@ -107,17 +112,20 @@ export function UnifiedHubStep({
     return STATUS.IDLE;
   });
   const documentTypeRef = useRef<HTMLButtonElement>(null);
-  const queryInputRef = useRef<HTMLInputElement>(null);
+  const documentNumberInputRef = useRef<HTMLInputElement>(null);
+  const pinInputRef = useRef<HTMLInputElement>(null);
   const startPaymentRef = useRef<HTMLButtonElement>(null);
   const searchTimeoutRef = useRef<number | null>(null);
   const transactionsTimeoutRef = useRef<number | null>(null);
 
-  const looksLikeOperation = query.length >= OPERATION_MIN_LENGTH;
+  const canSearchClient = documentNumber.trim().length > 0;
+  const canSearchOperation = pin.trim().length >= OPERATION_MIN_LENGTH;
   const clientResult = hit?.kind === "client" ? hit.result : null;
   const operation = hit?.kind === "operation" ? hit.operation : null;
-  const displayValue = looksLikeOperation
-    ? formatOperationNumber(query)
-    : query;
+  const loadingClient = loading && canSearchClient;
+  const loadingOperation = loading && canSearchOperation;
+  const showRecentActivity =
+    clientResult === "success" || (loadingClient && !canSearchOperation);
 
   function clearSearchTimers() {
     if (searchTimeoutRef.current !== null) {
@@ -128,6 +136,14 @@ export function UnifiedHubStep({
       window.clearTimeout(transactionsTimeoutRef.current);
       transactionsTimeoutRef.current = null;
     }
+  }
+
+  function resetSearchState() {
+    clearSearchTimers();
+    onClearRepeatedTransaction();
+    onHitChange(null);
+    setLoading(false);
+    setTransactionsStatus(STATUS.IDLE);
   }
 
   function trapDocumentFocus(event: ReactKeyboardEvent<HTMLInputElement>) {
@@ -150,14 +166,18 @@ export function UnifiedHubStep({
     }
   }
 
-  function fillDemoQuery(value: string) {
-    clearSearchTimers();
-    onQueryChange(value);
-    onClearRepeatedTransaction();
-    onHitChange(null);
-    setLoading(false);
-    setTransactionsStatus(STATUS.IDLE);
-    queryInputRef.current?.focus();
+  function fillDemoDocument(value: string) {
+    resetSearchState();
+    onDocumentNumberChange(value);
+    onPinChange("");
+    documentNumberInputRef.current?.focus();
+  }
+
+  function fillDemoPin(value: string) {
+    resetSearchState();
+    onPinChange(value);
+    onDocumentNumberChange("");
+    pinInputRef.current?.focus();
   }
 
   function searchClient(value: string) {
@@ -214,15 +234,22 @@ export function UnifiedHubStep({
       });
   }
 
-  function search() {
-    const value = query.trim();
-    if (!value || loading) return;
+  function runClientSearch() {
+    if (loading) return;
+    const documentValue = documentNumber.trim();
+    if (!documentValue) return;
     clearSearchTimers();
-    if (value.length >= OPERATION_MIN_LENGTH) {
-      searchOperation(value);
-      return;
-    }
-    searchClient(value);
+    onPinChange("");
+    searchClient(documentValue);
+  }
+
+  function runOperationSearch() {
+    if (loading) return;
+    const pinValue = pin.trim();
+    if (pinValue.length < OPERATION_MIN_LENGTH) return;
+    clearSearchTimers();
+    onDocumentNumberChange("");
+    searchOperation(pinValue);
   }
 
   useEffect(() => {
@@ -245,44 +272,50 @@ export function UnifiedHubStep({
     };
   }, []);
 
-  let searchButtonLabel = "Buscar";
-  if (loading && looksLikeOperation) {
-    searchButtonLabel = "Buscando operación…";
-  } else if (loading) {
-    searchButtonLabel = "Buscando cliente…";
+  let clientSearchLabel = "Buscar";
+  if (loadingClient) {
+    clientSearchLabel = "Buscando cliente…";
+  }
+  let operationSearchLabel = "Buscar";
+  if (loadingOperation) {
+    operationSearchLabel = "Buscando operación…";
   }
 
   return (
     <>
-      <div className="mx-auto grid w-full max-w-280 grid-cols-1 items-start gap-16 px-4 pt-12 sm:px-6 lg:grid-cols-2 min-h-148">
-        <div className="flex flex-col h-full">
-          <div className="mb-6 select-none">
-            <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-blue-600">
-              Operaciones
-            </p>
-            <h1 className="text-xl font-bold tracking-[-0.02em] text-foreground">
-              Envío y pago de remesas
-            </h1>
-            <p className="mt-1 text-sm leading-5 text-muted-foreground">
-              Busca por documento del remitente para enviar, o por PIN / MTCN
-              para cobrar.
-            </p>
-          </div>
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              search();
-            }}
-            className="space-y-3"
-          >
-            {!looksLikeOperation && (
+      <div className="mx-auto flex w-full max-w-280 flex-col gap-8 px-4 pt-12 sm:px-6 min-h-148">
+        <div className="select-none">
+          <p className="mb-0.5 text-xs font-bold uppercase tracking-[0.14em] text-blue-600">
+            Operaciones
+          </p>
+          <h1 className="text-xl font-bold tracking-[-0.02em] text-foreground">
+            Envío y pago de remesas
+          </h1>
+          <p className="mt-1 text-sm leading-5 text-muted-foreground">
+            Busca por documento del remitente para enviar, o por PIN / MTCN para
+            cobrar.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-16">
+          <div className="flex flex-col">
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                runClientSearch();
+              }}
+              className="space-y-3"
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-blue-600 select-none">
+                Envío
+              </p>
               <div className="block">
                 <span className="mb-1 block text-sm font-semibold text-foreground select-none">
                   Tipo de documento <span className="text-destructive">*</span>
                 </span>
                 <SearchableSelect
                   fieldRef={documentTypeRef}
-                  nextRef={queryInputRef}
+                  nextRef={documentNumberInputRef}
                   label="Tipo de documento"
                   hideLabel
                   value={documentType}
@@ -298,265 +331,349 @@ export function UnifiedHubStep({
                   }}
                 />
               </div>
-            )}
-            <label className="block">
-              <span className="mb-1 block text-sm font-semibold text-foreground select-none">
-                Documento o PIN / MTCN{" "}
-                <span className="text-destructive">*</span>
-              </span>
-              <div className="relative">
-                <input
-                  ref={queryInputRef}
-                  autoFocus
-                  onKeyDown={(event) => {
-                    trapDocumentFocus(event);
-                    if (event.key !== "Enter") return;
-                    event.preventDefault();
-                    search();
-                  }}
-                  inputMode="numeric"
-                  value={displayValue}
-                  onChange={(event) => {
-                    const nextValue = event.target.value
-                      .replace(/\D/g, "")
-                      .slice(0, OPERATION_MAX_LENGTH);
-                    onQueryChange(nextValue);
-                    onClearRepeatedTransaction();
-                    clearSearchTimers();
-                    setLoading(false);
-                    setTransactionsStatus(STATUS.IDLE);
-                    onHitChange(null);
-                  }}
-                  placeholder="Documento (7 dígitos) o PIN / MTCN"
-                  className={`h-10 w-full rounded-lg border border-input bg-card px-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-brand focus:ring-4 focus:ring-brand/10 ${query ? "pr-9" : ""} ${looksLikeOperation ? "font-mono tracking-wider" : ""}`}
-                />
-                {query && (
-                  <button
-                    type="button"
-                    aria-label="Limpiar búsqueda"
-                    onClick={() => fillDemoQuery("")}
-                    className="absolute top-1/2 right-3 grid size-5 -translate-y-1/2 place-items-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-brand/20"
-                  >
-                    <XIcon className="h-3.5 w-3.5" />
-                  </button>
-                )}
-              </div>
-              <span className="mt-1 block text-xs text-muted-foreground select-none">
-                Hasta 7 dígitos busca cliente · 8 a 12 busca operación de pago.
-              </span>
-            </label>
-            <button
-              type="button"
-              disabled={!query || loading}
-              onClick={search}
-              className={`mt-1 h-10 w-full flex items-center justify-center gap-2 rounded-lg text-sm font-bold disabled:bg-secondary disabled:text-muted-foreground ${hit ? "border border-brand text-brand hover:bg-brand/10" : "bg-brand-strong text-white hover:bg-brand/90"}`}
-            >
-              {loading ? (
-                <Loader2Icon className="size-4 animate-spin" />
-              ) : (
-                <SearchIcon className="size-4" />
-              )}
-              {searchButtonLabel}
-            </button>
-            {hit === null && (
-              <>
-                <hr className="my-3 border-border" />
-                <button
-                  type="button"
-                  className="mt-1 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-summary-soft text-sm font-bold text-summary-fg hover:bg-summary/20 focus:outline-none focus:ring-4 focus:ring-summary/20"
-                  onClick={onGuestContinue}
-                >
-                  <ArrowRightIcon className="size-4" />
-                  Realizar cotización como invitado
-                </button>
-              </>
-            )}
-            <div
-              aria-live="polite"
-              className={hit ? "mt-2 border-t border-border pt-6" : undefined}
-            >
-              {clientResult === "success" && customer !== null && (
-                <div className="flex flex-col gap-4 rounded-xl border border-brand p-5 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex flex-col">
-                    <p className="text-xs font-bold uppercase text-success">
-                      ✓ Cliente encontrado · Envío
-                    </p>
-                    <h2 className="mt-2 text-xl font-bold">
-                      {customer.fullName}
-                    </h2>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      Documento: {query} · {customer.emailMasked}
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap justify-end gap-3">
+              <label className="block">
+                <span className="mb-1 block text-sm font-semibold text-foreground select-none">
+                  Número de documento{" "}
+                  <span className="text-destructive">*</span>
+                </span>
+                <div className="relative">
+                  <input
+                    ref={documentNumberInputRef}
+                    autoFocus
+                    onKeyDown={(event) => {
+                      trapDocumentFocus(event);
+                      if (event.key !== "Enter") return;
+                      event.preventDefault();
+                      runClientSearch();
+                    }}
+                    inputMode="numeric"
+                    maxLength={DOCUMENT_MAX_LENGTH}
+                    value={documentNumber}
+                    onChange={(event) => {
+                      const nextValue = event.target.value
+                        .replace(/\D/g, "")
+                        .slice(0, DOCUMENT_MAX_LENGTH);
+                      onDocumentNumberChange(nextValue);
+                      if (nextValue) {
+                        onPinChange("");
+                      }
+                      resetSearchState();
+                    }}
+                    placeholder="Ingresa el número de documento"
+                    className={`h-10 w-full rounded-lg border border-input bg-card px-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-brand focus:ring-4 focus:ring-brand/10 ${documentNumber ? "pr-9" : ""}`}
+                  />
+                  {documentNumber && (
                     <button
                       type="button"
-                      onClick={() => setProfileOpen(true)}
-                      className="flex h-10 items-center gap-2 rounded-lg border border-brand px-4 py-2 text-sm font-bold text-brand hover:bg-brand/10"
+                      aria-label="Limpiar número de documento"
+                      onClick={() => fillDemoDocument("")}
+                      className="absolute top-1/2 right-3 grid size-5 -translate-y-1/2 place-items-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-brand/20"
                     >
-                      <UserIcon className="size-4" />
-                      Ver perfil
+                      <XIcon className="h-3.5 w-3.5" />
                     </button>
-                  </div>
+                  )}
                 </div>
-              )}
-              {clientResult === "empty" && (
-                <div className="rounded-xl border border-[#eadcae] bg-[#fffaf0] p-5 dark:border-amber-700/50 dark:bg-amber-950/40">
-                  <p className="font-bold text-[#5d4b19] dark:text-amber-200">
-                    No encontramos un cliente asociado a este documento.
-                  </p>
-                  <p className="mt-1 text-sm text-[#8a7740] dark:text-amber-200/80">
-                    Puedes registrar un nuevo cliente para continuar el envío.
-                  </p>
-                </div>
-              )}
-              {clientResult === "error" && (
-                <div
-                  role="alert"
-                  className="rounded-xl border border-destructive/30 bg-destructive/10 p-5"
-                >
-                  <p className="font-bold text-destructive">
-                    No pudimos completar la búsqueda
-                  </p>
-                  <p className="mt-1 text-sm text-destructive/80">
-                    Ocurrió un problema temporal. Verifica tu conexión e
-                    inténtalo nuevamente.
-                  </p>
+                <span className="mt-1 block text-xs text-muted-foreground select-none">
+                  Busca al remitente para iniciar un envío.
+                </span>
+              </label>
+              <button
+                type="submit"
+                disabled={!canSearchClient || loading}
+                className={`mt-1 h-10 w-full flex items-center justify-center gap-2 rounded-lg text-sm font-bold disabled:bg-secondary disabled:text-muted-foreground ${clientResult !== null ? "border border-brand text-brand hover:bg-brand/10" : "bg-brand-strong text-white hover:bg-brand/90"}`}
+              >
+                {loadingClient ? (
+                  <Loader2Icon className="size-4 animate-spin" />
+                ) : (
+                  <SearchIcon className="size-4" />
+                )}
+                {clientSearchLabel}
+              </button>
+              {clientResult === null && (
+                <>
+                  <hr className="my-3 border-border" />
                   <button
                     type="button"
-                    onClick={search}
-                    className="mt-4 rounded-lg bg-destructive px-4 py-2 text-sm font-bold text-white"
+                    className="mt-1 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-summary-soft text-sm font-bold text-summary-fg hover:bg-summary/20 focus:outline-none focus:ring-4 focus:ring-summary/20"
+                    onClick={onGuestContinue}
                   >
-                    Reintentar
+                    <ArrowRightIcon className="size-4" />
+                    Realizar cotización como invitado
                   </button>
-                </div>
+                </>
               )}
-              {clientResult === "blocked" && (
-                <div
-                  role="alert"
-                  className="rounded-xl border border-destructive/30 bg-destructive/10 p-5"
-                >
-                  <p className="font-bold text-destructive">
-                    Cliente bloqueado
-                  </p>
-                  <p className="mt-1 text-sm text-destructive/80">
-                    Este cliente no puede continuar con la transacción. Contacta
-                    a un supervisor si necesitas asistencia.
-                  </p>
-                </div>
-              )}
-              {hit?.kind === "operationNotFound" && (
-                <Notice
-                  tone="error"
-                  icon={<CircleAlertIcon className="size-5" />}
-                  title="No encontramos esa operación"
-                  text="Revisa el PIN / MTCN con el beneficiario. Si lo confirma, puede que la operación aún no esté disponible para pago."
-                />
-              )}
-              {operation && (
-                <article className="rounded-xl border border-border bg-card p-5 shadow-[0_12px_35px_rgba(24,37,73,0.06)]">
-                  <div className="flex flex-wrap items-start justify-between gap-4">
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground">
-                        Pago · {operation.provider} ·{" "}
-                        {formatOperationNumber(operation.number)}
+              <div
+                aria-live="polite"
+                className={
+                  clientResult !== null
+                    ? "mt-2 border-t border-border pt-6"
+                    : undefined
+                }
+              >
+                {clientResult === "success" && customer !== null && (
+                  <div className="flex flex-col gap-4 rounded-xl border border-brand p-5">
+                    <div className="flex flex-col">
+                      <p className="text-xs font-bold uppercase text-success">
+                        ✓ Cliente encontrado · Envío
                       </p>
-                      <p className="mt-1 text-3xl font-bold tabular-nums tracking-[-0.02em] text-foreground">
-                        {formatMoney(operation.amount, operation.currency)}
+                      <h2 className="mt-2 text-xl font-bold">
+                        {customer.fullName}
+                      </h2>
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        Documento: {documentNumber} · {customer.emailMasked}
                       </p>
                     </div>
-                    <OperationStatusBadge status={operation.status} />
-                  </div>
-                  <dl className="mt-4 grid gap-3 border-t border-border pt-4 text-sm sm:grid-cols-3">
-                    <div>
-                      <dt className="text-xs text-muted-foreground">
-                        Beneficiario
-                      </dt>
-                      <dd className="font-semibold text-foreground">
-                        {operation.beneficiaryName}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="text-xs text-muted-foreground">
-                        Remitente
-                      </dt>
-                      <dd className="font-semibold text-foreground">
-                        {maskName(operation.senderName)}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="text-xs text-muted-foreground">Origen</dt>
-                      <dd className="flex items-center gap-2 font-semibold text-foreground">
-                        <CountryFlag country={operation.originCountry} />
-                        {operation.originCountry}
-                      </dd>
-                    </div>
-                  </dl>
-                  {operation.status === "available" && (
-                    <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
-                      <p className="text-xs text-muted-foreground">
-                        Siguiente: verificar al beneficiario con preguntas de
-                        seguridad.
-                      </p>
+                    <div className="flex flex-wrap gap-3">
                       <button
-                        ref={startPaymentRef}
                         type="button"
-                        onClick={() => onStartPayment(operation)}
-                        className="flex items-center gap-2 rounded-lg bg-brand-strong px-5 py-2.5 text-sm font-bold text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/30"
+                        onClick={() => setProfileOpen(true)}
+                        className="flex h-10 items-center gap-2 rounded-lg border border-brand px-4 py-2 text-sm font-bold text-brand hover:bg-brand/10"
                       >
-                        Iniciar pago
-                        <ArrowRightIcon className="size-4" />
+                        <UserIcon className="size-4" />
+                        Ver perfil
                       </button>
                     </div>
+                  </div>
+                )}
+                {clientResult === "empty" && (
+                  <div className="rounded-xl border border-[#eadcae] bg-[#fffaf0] p-5 dark:border-amber-700/50 dark:bg-amber-950/40">
+                    <p className="font-bold text-[#5d4b19] dark:text-amber-200">
+                      No encontramos un cliente asociado a este documento.
+                    </p>
+                    <p className="mt-1 text-sm text-[#8a7740] dark:text-amber-200/80">
+                      Puedes registrar un nuevo cliente para continuar el envío.
+                    </p>
+                  </div>
+                )}
+                {clientResult === "error" && (
+                  <div
+                    role="alert"
+                    className="rounded-xl border border-destructive/30 bg-destructive/10 p-5"
+                  >
+                    <p className="font-bold text-destructive">
+                      No pudimos completar la búsqueda
+                    </p>
+                    <p className="mt-1 text-sm text-destructive/80">
+                      Ocurrió un problema temporal. Verifica tu conexión e
+                      inténtalo nuevamente.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={runClientSearch}
+                      className="mt-4 rounded-lg bg-destructive px-4 py-2 text-sm font-bold text-white"
+                    >
+                      Reintentar
+                    </button>
+                  </div>
+                )}
+                {clientResult === "blocked" && (
+                  <div
+                    role="alert"
+                    className="rounded-xl border border-destructive/30 bg-destructive/10 p-5"
+                  >
+                    <p className="font-bold text-destructive">
+                      Cliente bloqueado
+                    </p>
+                    <p className="mt-1 text-sm text-destructive/80">
+                      Este cliente no puede continuar con la transacción.
+                      Contacta a un supervisor si necesitas asistencia.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </form>
+            {(clientResult === "success" || clientResult === "empty") && (
+              <button
+                type="button"
+                ref={continueRef}
+                onClick={onContinueRemittance}
+                className="flex h-12 w-full self-end mt-6 items-center justify-center gap-2 hover:bg-brand/95 rounded-lg bg-brand-strong px-6 py-2 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-brand/30"
+              >
+                Continuar envío
+                <ArrowRightIcon className="size-4" />
+              </button>
+            )}
+          </div>
+
+          <aside className="self-start h-full min-w-0">
+            {showRecentActivity ? (
+              <RecentTransactions
+                transactions={recentTransactions}
+                beneficiaries={beneficiaries}
+                selectedId={selectedTransactionId}
+                disabled={false}
+                status={transactionsStatus}
+                formatUsd={formatUsd}
+                onSelect={onRepeatTransaction}
+                onClear={onClearRepeatedTransaction}
+              />
+            ) : (
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  runOperationSearch();
+                }}
+                className="space-y-3"
+              >
+                <p className="text-xs font-bold uppercase tracking-[0.12em] text-blue-600 select-none">
+                  Pago
+                </p>
+                <label className="block">
+                  <span className="mb-1 block text-sm font-semibold text-foreground select-none">
+                    PIN / MTCN <span className="text-destructive">*</span>
+                  </span>
+                  <div className="relative">
+                    <input
+                      ref={pinInputRef}
+                      onKeyDown={(event) => {
+                        trapDocumentFocus(event);
+                        if (event.key !== "Enter") return;
+                        event.preventDefault();
+                        runOperationSearch();
+                      }}
+                      inputMode="numeric"
+                      value={formatOperationNumber(pin)}
+                      onChange={(event) => {
+                        const nextValue = event.target.value
+                          .replace(/\D/g, "")
+                          .slice(0, OPERATION_MAX_LENGTH);
+                        onPinChange(nextValue);
+                        if (nextValue) {
+                          onDocumentNumberChange("");
+                        }
+                        resetSearchState();
+                      }}
+                      placeholder="0000 0000 000"
+                      className={`h-10 w-full rounded-lg border border-input bg-card px-3 font-mono text-sm tracking-wider text-foreground outline-none placeholder:text-muted-foreground focus:border-brand focus:ring-4 focus:ring-brand/10 ${pin ? "pr-9" : ""}`}
+                    />
+                    {pin && (
+                      <button
+                        type="button"
+                        aria-label="Limpiar PIN / MTCN"
+                        onClick={() => fillDemoPin("")}
+                        className="absolute top-1/2 right-3 grid size-5 -translate-y-1/2 place-items-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-brand/20"
+                      >
+                        <XIcon className="h-3.5 w-3.5" />
+                      </button>
+                    )}
+                  </div>
+                  <span className="mt-1 block text-xs text-muted-foreground select-none">
+                    8 a 12 dígitos para cobrar una remesa.
+                  </span>
+                </label>
+                <button
+                  type="submit"
+                  disabled={!canSearchOperation || loading}
+                  className={`mt-1 h-10 w-full flex items-center justify-center gap-2 rounded-lg text-sm font-bold disabled:bg-secondary disabled:text-muted-foreground ${hit?.kind === "operation" || hit?.kind === "operationNotFound" ? "border border-brand text-brand hover:bg-brand/10" : "bg-brand-strong text-white hover:bg-brand/90"}`}
+                >
+                  {loadingOperation ? (
+                    <Loader2Icon className="size-4 animate-spin" />
+                  ) : (
+                    <SearchIcon className="size-4" />
                   )}
-                  {operation.status === "onHold" && (
-                    <div className="mt-5">
-                      <Notice
-                        tone="warning"
-                        icon={<ShieldAlertIcon className="size-5" />}
-                        title="Retenida por Cumplimiento"
-                        text="No se puede pagar por ahora. Indica al beneficiario que la operación está en revisión."
-                      />
-                    </div>
+                  {operationSearchLabel}
+                </button>
+                <div
+                  aria-live="polite"
+                  className={
+                    hit?.kind === "operation" || hit?.kind === "operationNotFound"
+                      ? "mt-2 border-t border-border pt-6"
+                      : undefined
+                  }
+                >
+                  {hit?.kind === "operationNotFound" && (
+                    <Notice
+                      tone="error"
+                      icon={<CircleAlertIcon className="size-5" />}
+                      title="No encontramos esa operación"
+                      text="Revisa el PIN / MTCN con el beneficiario. Si lo confirma, puede que la operación aún no esté disponible para pago."
+                    />
                   )}
-                  {operation.status === "paid" && (
-                    <div className="mt-5">
-                      <Notice
-                        tone="error"
-                        icon={<CircleAlertIcon className="size-5" />}
-                        title="Esta operación ya fue pagada"
-                        text={`Pagada el ${operation.paidAt}. Si el beneficiario no la recibió, deriva el caso a Atención al Cliente.`}
-                      />
-                    </div>
+                  {operation && (
+                    <article className="rounded-xl border border-border bg-card p-5 shadow-[0_12px_35px_rgba(24,37,73,0.06)]">
+                      <div className="flex flex-wrap items-start justify-between gap-4">
+                        <div>
+                          <p className="text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                            Pago · {operation.provider} ·{" "}
+                            {formatOperationNumber(operation.number)}
+                          </p>
+                          <p className="mt-1 text-3xl font-bold tabular-nums tracking-[-0.02em] text-foreground">
+                            {formatMoney(operation.amount, operation.currency)}
+                          </p>
+                        </div>
+                        <OperationStatusBadge status={operation.status} />
+                      </div>
+                      <dl className="mt-4 grid gap-3 border-t border-border pt-4 text-sm sm:grid-cols-2">
+                        <div>
+                          <dt className="text-xs text-muted-foreground">
+                            Beneficiario
+                          </dt>
+                          <dd className="font-semibold text-foreground">
+                            {operation.beneficiaryName}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt className="text-xs text-muted-foreground">
+                            Remitente
+                          </dt>
+                          <dd className="font-semibold text-foreground">
+                            {maskName(operation.senderName)}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt className="text-xs text-muted-foreground">
+                            Origen
+                          </dt>
+                          <dd className="flex items-center gap-2 font-semibold text-foreground">
+                            <CountryFlag country={operation.originCountry} />
+                            {operation.originCountry}
+                          </dd>
+                        </div>
+                      </dl>
+                      {operation.status === "available" && (
+                        <div className="mt-5 flex flex-col gap-3 border-t border-border pt-4">
+                          <p className="text-xs text-muted-foreground">
+                            Siguiente: verificar al beneficiario con preguntas
+                            de seguridad.
+                          </p>
+                          <button
+                            ref={startPaymentRef}
+                            type="button"
+                            onClick={() => onStartPayment(operation)}
+                            className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-strong px-5 py-2.5 text-sm font-bold text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/30"
+                          >
+                            Iniciar pago
+                            <ArrowRightIcon className="size-4" />
+                          </button>
+                        </div>
+                      )}
+                      {operation.status === "onHold" && (
+                        <div className="mt-5">
+                          <Notice
+                            tone="warning"
+                            icon={<ShieldAlertIcon className="size-5" />}
+                            title="Retenida por Cumplimiento"
+                            text="No se puede pagar por ahora. Indica al beneficiario que la operación está en revisión."
+                          />
+                        </div>
+                      )}
+                      {operation.status === "paid" && (
+                        <div className="mt-5">
+                          <Notice
+                            tone="error"
+                            icon={<CircleAlertIcon className="size-5" />}
+                            title="Esta operación ya fue pagada"
+                            text={`Pagada el ${operation.paidAt}. Si el beneficiario no la recibió, deriva el caso a Atención al Cliente.`}
+                          />
+                        </div>
+                      )}
+                    </article>
                   )}
-                </article>
-              )}
-            </div>
-          </form>
-          {(clientResult === "success" || clientResult === "empty") && (
-            <button
-              type="button"
-              ref={continueRef}
-              onClick={onContinueRemittance}
-              className="flex h-12 w-full self-end mt-6 items-center justify-center gap-2 hover:bg-brand/95 rounded-lg bg-brand-strong px-6 py-2 text-sm font-bold text-white focus:outline-none focus:ring-4 focus:ring-brand/30"
-            >
-              Continuar envío
-              <ArrowRightIcon className="size-4" />
-            </button>
-          )}
+                </div>
+              </form>
+            )}
+          </aside>
         </div>
-        <aside className="self-start h-full">
-          <RecentTransactions
-            transactions={recentTransactions}
-            beneficiaries={beneficiaries}
-            selectedId={selectedTransactionId}
-            disabled={false}
-            status={transactionsStatus}
-            formatUsd={formatUsd}
-            onSelect={onRepeatTransaction}
-            onClear={onClearRepeatedTransaction}
-          />
-        </aside>
       </div>
 
       <div className="absolute right-4 bottom-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
@@ -566,7 +683,7 @@ export function UnifiedHubStep({
             <div key={number} className="flex gap-0.5">
               <button
                 type="button"
-                onClick={() => fillDemoQuery(number)}
+                onClick={() => fillDemoDocument(number)}
                 className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
               >
                 {number}
@@ -582,7 +699,7 @@ export function UnifiedHubStep({
         <div className="flex gap-0.5">
           <button
             type="button"
-            onClick={() => fillDemoQuery(DEMO_NEW_CLIENT_DOCUMENT)}
+            onClick={() => fillDemoDocument(DEMO_NEW_CLIENT_DOCUMENT)}
             className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
           >
             {DEMO_NEW_CLIENT_DOCUMENT}
@@ -592,7 +709,7 @@ export function UnifiedHubStep({
         <div className="flex gap-0.5">
           <button
             type="button"
-            onClick={() => fillDemoQuery(SEARCH_ERROR_DOCUMENT)}
+            onClick={() => fillDemoDocument(SEARCH_ERROR_DOCUMENT)}
             className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
           >
             {SEARCH_ERROR_DOCUMENT}
@@ -603,7 +720,7 @@ export function UnifiedHubStep({
           <div key={item.number} className="flex gap-0.5">
             <button
               type="button"
-              onClick={() => fillDemoQuery(item.number)}
+              onClick={() => fillDemoPin(item.number)}
               className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
             >
               {item.number}
@@ -620,7 +737,7 @@ export function UnifiedHubStep({
           profile={{
             fullName: customer.fullName,
             documentType,
-            documentNumber: query,
+            documentNumber,
             email: customer.email,
             phone: customer.phone,
             country: customer.country,

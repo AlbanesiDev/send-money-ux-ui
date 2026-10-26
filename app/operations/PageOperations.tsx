@@ -52,7 +52,8 @@ function PageOperations() {
 function OperationsFlow({ onReset }: { onReset: () => void }) {
   const [phase, setPhase] = useState<HubPhase>({ kind: "hub" });
   const [documentType, setDocumentType] = useState("Cédula");
-  const [query, setQuery] = useState("");
+  const [documentNumber, setDocumentNumber] = useState("");
+  const [pin, setPin] = useState("");
   const [hit, setHit] = useState<UnifiedSearchHit>(null);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>([]);
@@ -76,7 +77,7 @@ function OperationsFlow({ onReset }: { onReset: () => void }) {
 
   const clientHit = hit?.kind === "client" ? hit : null;
   const foundByDocument = customers.find((item) =>
-    item.documentNumbers.includes(query.trim()),
+    item.documentNumbers.includes(documentNumber.trim()),
   );
   const matchedCustomer =
     foundByDocument === undefined ? null : foundByDocument;
@@ -88,7 +89,7 @@ function OperationsFlow({ onReset }: { onReset: () => void }) {
   useEffect(() => {
     if (clientHit?.result !== "success") return;
     if (matchedCustomer !== null) return;
-    void findCustomerByDocument(query).then((found) => {
+    void findCustomerByDocument(documentNumber).then((found) => {
       if (found === null) return;
       setCustomers((current) => {
         const exists = current.some((item) => item.id === found.id);
@@ -96,7 +97,7 @@ function OperationsFlow({ onReset }: { onReset: () => void }) {
         return [...current, found];
       });
     });
-  }, [clientHit, query, matchedCustomer]);
+  }, [clientHit, documentNumber, matchedCustomer]);
 
   useEffect(() => {
     if (customer === null) {
@@ -145,8 +146,10 @@ function OperationsFlow({ onReset }: { onReset: () => void }) {
         <UnifiedHubStep
           documentType={documentType}
           onDocumentTypeChange={setDocumentType}
-          query={query}
-          onQueryChange={setQuery}
+          documentNumber={documentNumber}
+          onDocumentNumberChange={setDocumentNumber}
+          pin={pin}
+          onPinChange={setPin}
           hit={hit}
           onHitChange={setHit}
           onContinueRemittance={() => {
@@ -157,7 +160,7 @@ function OperationsFlow({ onReset }: { onReset: () => void }) {
             }
             enterRemittance({
               documentType,
-              documentNumber: query,
+              documentNumber,
               result: clientHit.result,
               isGuestFlow,
               beneficiariesSnapshot: beneficiaries,
@@ -182,7 +185,7 @@ function OperationsFlow({ onReset }: { onReset: () => void }) {
           onRepeatTransaction={(transaction: RecentTransaction) => {
             enterRemittance({
               documentType,
-              documentNumber: query,
+              documentNumber,
               result: "success",
               isGuestFlow: false,
               repeatTransaction: transaction,

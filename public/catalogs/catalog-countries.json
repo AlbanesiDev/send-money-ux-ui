@@ -8,7 +8,8 @@
         "ctyPhoneCode": "355",
         "ctyNationality": "AL",
         "ctyNameEnglish": "Albania",
-        "id": 2205
+        "id": 2205,
+        "isGafiMember": false
       }
     },
     {
@@ -18,7 +19,8 @@
         "ctyPhoneCode": "376",
         "ctyNationality": "AD",
         "ctyNameEnglish": "Andorra",
-        "id": 2206
+        "id": 2206,
+        "isGafiMember": false
       }
     },
     {
@@ -28,7 +30,8 @@
         "ctyPhoneCode": "244",
         "ctyNationality": "AO",
         "ctyNameEnglish": "Angola",
-        "id": 2207
+        "id": 2207,
+        "isGafiMember": false
       }
     },
     {
@@ -38,7 +41,8 @@
         "ctyPhoneCode": "1",
         "ctyNationality": "AG",
         "ctyNameEnglish": "Antigua",
-        "id": 2208
+        "id": 2208,
+        "isGafiMember": false
       }
     },
     {
@@ -48,7 +52,8 @@
         "ctyPhoneCode": "54",
         "ctyNationality": "AR",
         "ctyNameEnglish": "Argentina",
-        "id": 2209
+        "id": 2209,
+        "isGafiMember": true
       }
     },
     {
@@ -58,7 +63,8 @@
         "ctyPhoneCode": "374",
         "ctyNationality": "AM",
         "ctyNameEnglish": "Armenia",
-        "id": 2210
+        "id": 2210,
+        "isGafiMember": false
       }
     },
     {
@@ -68,7 +74,8 @@
         "ctyPhoneCode": "61",
         "ctyNationality": "AU",
         "ctyNameEnglish": "Australia",
-        "id": 2211
+        "id": 2211,
+        "isGafiMember": true
       }
     },
     {
@@ -78,7 +85,8 @@
         "ctyPhoneCode": "43",
         "ctyNationality": "AT",
         "ctyNameEnglish": "Austria",
-        "id": 2212
+        "id": 2212,
+        "isGafiMember": true
       }
     },
     {
@@ -88,7 +96,8 @@
         "ctyPhoneCode": "994",
         "ctyNationality": "AZ",
         "ctyNameEnglish": "Azerbaijan",
-        "id": 2213
+        "id": 2213,
+        "isGafiMember": false
       }
     },
     {
@@ -98,7 +107,8 @@
         "ctyPhoneCode": "1",
         "ctyNationality": "BS",
         "ctyNameEnglish": "Bahamas",
-        "id": 2214
+        "id": 2214,
+        "isGafiMember": false
       }
     },
     {
@@ -108,7 +118,8 @@
         "ctyPhoneCode": "973",
         "ctyNationality": "BH",
         "ctyNameEnglish": "Bahrain",
-        "id": 2215
+        "id": 2215,
+        "isGafiMember": false
       }
     },
     {
@@ -118,7 +129,8 @@
         "ctyPhoneCode": "880",
         "ctyNationality": "BD",
         "ctyNameEnglish": "Bangladesh",
-        "id": 2216
+        "id": 2216,
+        "isGafiMember": false
       }
     },
     {
@@ -128,7 +140,8 @@
         "ctyPhoneCode": "32",
         "ctyNationality": "BE",
         "ctyNameEnglish": "Belgium",
-        "id": 2217
+        "id": 2217,
+        "isGafiMember": true
       }
     },
     {
@@ -138,7 +151,8 @@
         "ctyPhoneCode": "501",
         "ctyNationality": "BZ",
         "ctyNameEnglish": "Belize",
-        "id": 2218
+        "id": 2218,
+        "isGafiMember": false
       }
     },
     {
@@ -148,7 +162,8 @@
         "ctyPhoneCode": "229",
         "ctyNationality": "BJ",
         "ctyNameEnglish": "Benin",
-        "id": 2219
+        "id": 2219,
+        "isGafiMember": false
       }
     },
     {
@@ -158,7 +173,8 @@
         "ctyPhoneCode": "975",
         "ctyNationality": "BT",
         "ctyNameEnglish": "Bhutan",
-        "id": 2220
+        "id": 2220,
+        "isGafiMember": false
       }
     },
     {
@@ -168,7 +184,8 @@
         "ctyPhoneCode": "591",
         "ctyNationality": "BO",
         "ctyNameEnglish": "Bolivia",
-        "id": 2221
+        "id": 2221,
+        "isGafiMember": false
       }
     },
     {
@@ -178,7 +195,8 @@
         "ctyPhoneCode": "387",
         "ctyNationality": "BA",
         "ctyNameEnglish": "Bosnia and Herzegovina",
-        "id": 2222
+        "id": 2222,
+        "isGafiMember": false
       }
     },
     {
@@ -188,7 +206,8 @@
         "ctyPhoneCode": "267",
         "ctyNationality": "BW",
         "ctyNameEnglish": "Botswana",
-        "id": 2223
+        "id": 2223,
+        "isGafiMember": false
       }
     },
     {
@@ -198,7 +217,8 @@
         "ctyPhoneCode": "55",
         "ctyNationality": "BR",
         "ctyNameEnglish": "Brazil",
-        "id": 2224
+        "id": 2224,
+        "isGafiMember": true
       }
     },
     {
@@ -208,7 +228,8 @@
         "ctyPhoneCode": "673",
         "ctyNationality": "BN",
         "ctyNameEnglish": "Brunei Darussalam",
-        "id": 2225
+        "id": 2225,
+        "isGafiMember": false
       }
     },
     {
@@ -218,7 +239,8 @@
         "ctyPhoneCode": "359",
         "ctyNationality": "BG",
         "ctyNameEnglish": "Bulgaria",
-        "id": 2226
+        "id": 2226,
+        "isGafiMember": false
       }
     },
     {
@@ -228,7 +250,8 @@
         "ctyPhoneCode": "226",
         "ctyNationality": "BF",
         "ctyNameEnglish": "Burkina Faso",
-        "id": 2227
+        "id": 2227,
+        "isGafiMember": false
       }
     },
     {
@@ -238,7 +261,8 @@
         "ctyPhoneCode": "257",
         "ctyNationality": "BI",
         "ctyNameEnglish": "Burundi",
-        "id": 2228
+        "id": 2228,
+        "isGafiMember": false
       }
     },
     {
@@ -248,7 +272,8 @@
         "ctyPhoneCode": "855",
         "ctyNationality": "KH",
         "ctyNameEnglish": "Cambodia",
-        "id": 2229
+        "id": 2229,
+        "isGafiMember": false
       }
     },
     {
@@ -258,7 +283,8 @@
         "ctyPhoneCode": "237",
         "ctyNationality": "CM",
         "ctyNameEnglish": "Cameroon",
-        "id": 2230
+        "id": 2230,
+        "isGafiMember": false
       }
     },
     {
@@ -268,7 +294,8 @@
         "ctyPhoneCode": "1",
         "ctyNationality": "CA",
         "ctyNameEnglish": "Canada",
-        "id": 2231
+        "id": 2231,
+        "isGafiMember": true
       }
     },
     {
@@ -278,7 +305,8 @@
         "ctyPhoneCode": "238",
         "ctyNationality": "CV",
         "ctyNameEnglish": "Cape Verde",
-        "id": 2232
+        "id": 2232,
+        "isGafiMember": false
       }
     },
     {
@@ -288,7 +316,8 @@
         "ctyPhoneCode": "236",
         "ctyNationality": "CF",
         "ctyNameEnglish": "Central African Republic",
-        "id": 2233
+        "id": 2233,
+        "isGafiMember": false
       }
     },
     {
@@ -298,7 +327,8 @@
         "ctyPhoneCode": "235",
         "ctyNationality": "TD",
         "ctyNameEnglish": "Chad",
-        "id": 2234
+        "id": 2234,
+        "isGafiMember": false
       }
     },
     {
@@ -308,7 +338,8 @@
         "ctyPhoneCode": "56",
         "ctyNationality": "CL",
         "ctyNameEnglish": "Chile",
-        "id": 2235
+        "id": 2235,
+        "isGafiMember": false
       }
     },
     {
@@ -318,7 +349,8 @@
         "ctyPhoneCode": "86",
         "ctyNationality": "CN",
         "ctyNameEnglish": "China",
-        "id": 2236
+        "id": 2236,
+        "isGafiMember": true
       }
     },
     {
@@ -328,7 +360,8 @@
         "ctyPhoneCode": "57",
         "ctyNationality": "CO",
         "ctyNameEnglish": "Colombia",
-        "id": 2237
+        "id": 2237,
+        "isGafiMember": false
       }
     },
     {
@@ -338,7 +371,8 @@
         "ctyPhoneCode": "269",
         "ctyNationality": "KM",
         "ctyNameEnglish": "Comoros",
-        "id": 2238
+        "id": 2238,
+        "isGafiMember": false
       }
     },
     {
@@ -348,7 +382,8 @@
         "ctyPhoneCode": "243",
         "ctyNationality": "CD",
         "ctyNameEnglish": "Congo Democratic Republic",
-        "id": 2239
+        "id": 2239,
+        "isGafiMember": false
       }
     },
     {
@@ -358,7 +393,8 @@
         "ctyPhoneCode": "242",
         "ctyNationality": "CG",
         "ctyNameEnglish": "Congo-Brazaville",
-        "id": 2240
+        "id": 2240,
+        "isGafiMember": false
       }
     },
     {
@@ -368,7 +404,8 @@
         "ctyPhoneCode": "682",
         "ctyNationality": "CK",
         "ctyNameEnglish": "Cook Islands",
-        "id": 2241
+        "id": 2241,
+        "isGafiMember": false
       }
     },
     {
@@ -378,7 +415,8 @@
         "ctyPhoneCode": "506",
         "ctyNationality": "CR",
         "ctyNameEnglish": "Costa Rica",
-        "id": 2242
+        "id": 2242,
+        "isGafiMember": false
       }
     },
     {
@@ -388,7 +426,8 @@
         "ctyPhoneCode": "385",
         "ctyNationality": "HR",
         "ctyNameEnglish": "Croatia",
-        "id": 2243
+        "id": 2243,
+        "isGafiMember": false
       }
     },
     {
@@ -398,7 +437,8 @@
         "ctyPhoneCode": "357",
         "ctyNationality": "CY",
         "ctyNameEnglish": "Cyprus",
-        "id": 2244
+        "id": 2244,
+        "isGafiMember": false
       }
     },
     {
@@ -408,7 +448,8 @@
         "ctyPhoneCode": "420",
         "ctyNationality": "CZ",
         "ctyNameEnglish": "Czech Republic",
-        "id": 2245
+        "id": 2245,
+        "isGafiMember": false
       }
     },
     {
@@ -418,7 +459,8 @@
         "ctyPhoneCode": "45",
         "ctyNationality": "DK",
         "ctyNameEnglish": "Denmark",
-        "id": 2246
+        "id": 2246,
+        "isGafiMember": true
       }
     },
     {
@@ -428,7 +470,8 @@
         "ctyPhoneCode": "253",
         "ctyNationality": "DJ",
         "ctyNameEnglish": "Djibouti",
-        "id": 2247
+        "id": 2247,
+        "isGafiMember": false
       }
     },
     {
@@ -438,7 +481,8 @@
         "ctyPhoneCode": "1",
         "ctyNationality": "DM",
         "ctyNameEnglish": "Dominica",
-        "id": 2248
+        "id": 2248,
+        "isGafiMember": false
       }
     },
     {
@@ -448,7 +492,8 @@
         "ctyPhoneCode": "1",
         "ctyNationality": "DO",
         "ctyNameEnglish": "Dominican Republic",
-        "id": 2249
+        "id": 2249,
+        "isGafiMember": false
       }
     },
     {
@@ -458,7 +503,8 @@
         "ctyPhoneCode": "593",
         "ctyNationality": "EC",
         "ctyNameEnglish": "Ecuador",
-        "id": 2250
+        "id": 2250,
+        "isGafiMember": false
       }
     },
     {
@@ -468,7 +514,8 @@
         "ctyPhoneCode": "20",
         "ctyNationality": "EG",
         "ctyNameEnglish": "Egypt",
-        "id": 2251
+        "id": 2251,
+        "isGafiMember": false
       }
     },
     {
@@ -478,7 +525,8 @@
         "ctyPhoneCode": "503",
         "ctyNationality": "SV",
         "ctyNameEnglish": "El Salvador",
-        "id": 2252
+        "id": 2252,
+        "isGafiMember": false
       }
     },
     {
@@ -488,7 +536,8 @@
         "ctyPhoneCode": "240",
         "ctyNationality": "GQ",
         "ctyNameEnglish": "Equatorial Guinea",
-        "id": 2253
+        "id": 2253,
+        "isGafiMember": false
       }
     },
     {
@@ -498,7 +547,8 @@
         "ctyPhoneCode": "291",
         "ctyNationality": "ER",
         "ctyNameEnglish": "Eritrea",
-        "id": 2254
+        "id": 2254,
+        "isGafiMember": false
       }
     },
     {
@@ -508,7 +558,8 @@
         "ctyPhoneCode": "372",
         "ctyNationality": "EE",
         "ctyNameEnglish": "Estonia",
-        "id": 2255
+        "id": 2255,
+        "isGafiMember": false
       }
     },
     {
@@ -518,7 +569,8 @@
         "ctyPhoneCode": "268",
         "ctyNationality": "SZ",
         "ctyNameEnglish": "Eswatini",
-        "id": 2256
+        "id": 2256,
+        "isGafiMember": false
       }
     },
     {
@@ -528,7 +580,8 @@
         "ctyPhoneCode": "251",
         "ctyNationality": "ET",
         "ctyNameEnglish": "Ethiopia",
-        "id": 2257
+        "id": 2257,
+        "isGafiMember": false
       }
     },
     {
@@ -538,7 +591,8 @@
         "ctyPhoneCode": "679",
         "ctyNationality": "FJ",
         "ctyNameEnglish": "Fiji",
-        "id": 2258
+        "id": 2258,
+        "isGafiMember": false
       }
     },
     {
@@ -548,7 +602,8 @@
         "ctyPhoneCode": "358",
         "ctyNationality": "FI",
         "ctyNameEnglish": "Finland",
-        "id": 2259
+        "id": 2259,
+        "isGafiMember": true
       }
     },
     {
@@ -558,7 +613,8 @@
         "ctyPhoneCode": "33",
         "ctyNationality": "FR",
         "ctyNameEnglish": "France",
-        "id": 2260
+        "id": 2260,
+        "isGafiMember": true
       }
     },
     {
@@ -568,7 +624,8 @@
         "ctyPhoneCode": "241",
         "ctyNationality": "GA",
         "ctyNameEnglish": "Gabon",
-        "id": 2261
+        "id": 2261,
+        "isGafiMember": false
       }
     },
     {
@@ -578,7 +635,8 @@
         "ctyPhoneCode": "220",
         "ctyNationality": "GM",
         "ctyNameEnglish": "Gambia",
-        "id": 2262
+        "id": 2262,
+        "isGafiMember": false
       }
     },
     {
@@ -588,7 +646,8 @@
         "ctyPhoneCode": "995",
         "ctyNationality": "GE",
         "ctyNameEnglish": "Georgia",
-        "id": 2263
+        "id": 2263,
+        "isGafiMember": false
       }
     },
     {
@@ -598,7 +657,8 @@
         "ctyPhoneCode": "49",
         "ctyNationality": "DE",
         "ctyNameEnglish": "Germany",
-        "id": 2264
+        "id": 2264,
+        "isGafiMember": true
       }
     },
     {
@@ -608,7 +668,8 @@
         "ctyPhoneCode": "233",
         "ctyNationality": "GH",
         "ctyNameEnglish": "Ghana",
-        "id": 2265
+        "id": 2265,
+        "isGafiMember": false
       }
     },
     {
@@ -618,7 +679,8 @@
         "ctyPhoneCode": "350",
         "ctyNationality": "GI",
         "ctyNameEnglish": "Gibraltar",
-        "id": 2266
+        "id": 2266,
+        "isGafiMember": false
       }
     },
     {
@@ -628,7 +690,8 @@
         "ctyPhoneCode": "30",
         "ctyNationality": "GR",
         "ctyNameEnglish": "Greece",
-        "id": 2267
+        "id": 2267,
+        "isGafiMember": true
       }
     },
     {
@@ -638,7 +701,8 @@
         "ctyPhoneCode": "502",
         "ctyNationality": "GT",
         "ctyNameEnglish": "Guatemala",
-        "id": 2268
+        "id": 2268,
+        "isGafiMember": false
       }
     },
     {
@@ -648,7 +712,8 @@
         "ctyPhoneCode": "224",
         "ctyNationality": "GN",
         "ctyNameEnglish": "Guinea",
-        "id": 2269
+        "id": 2269,
+        "isGafiMember": false
       }
     },
     {
@@ -658,7 +723,8 @@
         "ctyPhoneCode": "245",
         "ctyNationality": "GW",
         "ctyNameEnglish": "Guinea-Bissau",
-        "id": 2270
+        "id": 2270,
+        "isGafiMember": false
       }
     },
     {
@@ -668,7 +734,8 @@
         "ctyPhoneCode": "592",
         "ctyNationality": "GY",
         "ctyNameEnglish": "Guyana",
-        "id": 2271
+        "id": 2271,
+        "isGafiMember": false
       }
     },
     {
@@ -678,7 +745,8 @@
         "ctyPhoneCode": "509",
         "ctyNationality": "HT",
         "ctyNameEnglish": "Haiti",
-        "id": 2272
+        "id": 2272,
+        "isGafiMember": false
       }
     },
     {
@@ -688,7 +756,8 @@
         "ctyPhoneCode": "379",
         "ctyNationality": "VA",
         "ctyNameEnglish": "Holy See (Vatican City State)",
-        "id": 2273
+        "id": 2273,
+        "isGafiMember": false
       }
     },
     {
@@ -698,7 +767,8 @@
         "ctyPhoneCode": "504",
         "ctyNationality": "HN",
         "ctyNameEnglish": "Honduras",
-        "id": 2274
+        "id": 2274,
+        "isGafiMember": false
       }
     },
     {
@@ -708,7 +778,8 @@
         "ctyPhoneCode": "852",
         "ctyNationality": "HK",
         "ctyNameEnglish": "Hong Kong",
-        "id": 2275
+        "id": 2275,
+        "isGafiMember": true
       }
     },
     {
@@ -718,7 +789,8 @@
         "ctyPhoneCode": "36",
         "ctyNationality": "HU",
         "ctyNameEnglish": "Hungary",
-        "id": 2276
+        "id": 2276,
+        "isGafiMember": false
       }
     },
     {
@@ -728,7 +800,8 @@
         "ctyPhoneCode": "354",
         "ctyNationality": "IS",
         "ctyNameEnglish": "Iceland",
-        "id": 2277
+        "id": 2277,
+        "isGafiMember": true
       }
     },
     {
@@ -738,7 +811,8 @@
         "ctyPhoneCode": "91",
         "ctyNationality": "IN",
         "ctyNameEnglish": "India",
-        "id": 2278
+        "id": 2278,
+        "isGafiMember": true
       }
     },
     {
@@ -748,7 +822,8 @@
         "ctyPhoneCode": "62",
         "ctyNationality": "ID",
         "ctyNameEnglish": "Indonesia",
-        "id": 2279
+        "id": 2279,
+        "isGafiMember": true
       }
     },
     {
@@ -758,7 +833,8 @@
         "ctyPhoneCode": "964",
         "ctyNationality": "IQ",
         "ctyNameEnglish": "Iraq",
-        "id": 2280
+        "id": 2280,
+        "isGafiMember": false
       }
     },
     {
@@ -768,7 +844,8 @@
         "ctyPhoneCode": "353",
         "ctyNationality": "IE",
         "ctyNameEnglish": "Ireland",
-        "id": 2281
+        "id": 2281,
+        "isGafiMember": true
       }
     },
     {
@@ -778,7 +855,8 @@
         "ctyPhoneCode": "972",
         "ctyNationality": "IL",
         "ctyNameEnglish": "Israel",
-        "id": 2282
+        "id": 2282,
+        "isGafiMember": true
       }
     },
     {
@@ -788,7 +866,8 @@
         "ctyPhoneCode": "39",
         "ctyNationality": "IT",
         "ctyNameEnglish": "Italy",
-        "id": 2283
+        "id": 2283,
+        "isGafiMember": true
       }
     },
     {
@@ -798,7 +877,8 @@
         "ctyPhoneCode": "225",
         "ctyNationality": "CI",
         "ctyNameEnglish": "Ivory Coast",
-        "id": 2284
+        "id": 2284,
+        "isGafiMember": false
       }
     },
     {
@@ -808,7 +888,8 @@
         "ctyPhoneCode": "1",
         "ctyNationality": "JM",
         "ctyNameEnglish": "Jamaica",
-        "id": 2285
+        "id": 2285,
+        "isGafiMember": false
       }
     },
     {
@@ -818,7 +899,8 @@
         "ctyPhoneCode": "81",
         "ctyNationality": "JP",
         "ctyNameEnglish": "Japan",
-        "id": 2286
+        "id": 2286,
+        "isGafiMember": true
       }
     },
     {
@@ -828,7 +910,8 @@
         "ctyPhoneCode": "962",
         "ctyNationality": "JO",
         "ctyNameEnglish": "Jordan",
-        "id": 2287
+        "id": 2287,
+        "isGafiMember": false
       }
     },
     {
@@ -838,7 +921,8 @@
         "ctyPhoneCode": "7",
         "ctyNationality": "KZ",
         "ctyNameEnglish": "Kazakhstan",
-        "id": 2288
+        "id": 2288,
+        "isGafiMember": false
       }
     },
     {
@@ -848,7 +932,8 @@
         "ctyPhoneCode": "254",
         "ctyNationality": "KE",
         "ctyNameEnglish": "Kenya",
-        "id": 2289
+        "id": 2289,
+        "isGafiMember": false
       }
     },
     {
@@ -858,7 +943,8 @@
         "ctyPhoneCode": "82",
         "ctyNationality": "KR",
         "ctyNameEnglish": "Korea South",
-        "id": 2290
+        "id": 2290,
+        "isGafiMember": true
       }
     },
     {
@@ -868,7 +954,8 @@
         "ctyPhoneCode": "383",
         "ctyNationality": "KV",
         "ctyNameEnglish": "Kosovo",
-        "id": 2291
+        "id": 2291,
+        "isGafiMember": false
       }
     },
     {
@@ -878,7 +965,8 @@
         "ctyPhoneCode": "965",
         "ctyNationality": "KW",
         "ctyNameEnglish": "Kuwait",
-        "id": 2292
+        "id": 2292,
+        "isGafiMember": false
       }
     },
     {
@@ -888,7 +976,8 @@
         "ctyPhoneCode": "996",
         "ctyNationality": "KG",
         "ctyNameEnglish": "Kyrgyzstan",
-        "id": 2293
+        "id": 2293,
+        "isGafiMember": false
       }
     },
     {
@@ -898,7 +987,8 @@
         "ctyPhoneCode": "856",
         "ctyNationality": "LA",
         "ctyNameEnglish": "Laos",
-        "id": 2294
+        "id": 2294,
+        "isGafiMember": false
       }
     },
     {
@@ -908,7 +998,8 @@
         "ctyPhoneCode": "371",
         "ctyNationality": "LV",
         "ctyNameEnglish": "Latvia",
-        "id": 2295
+        "id": 2295,
+        "isGafiMember": false
       }
     },
     {
@@ -918,7 +1009,8 @@
         "ctyPhoneCode": "961",
         "ctyNationality": "LB",
         "ctyNameEnglish": "Lebanon",
-        "id": 2296
+        "id": 2296,
+        "isGafiMember": false
       }
     },
     {
@@ -928,7 +1020,8 @@
         "ctyPhoneCode": "266",
         "ctyNationality": "LS",
         "ctyNameEnglish": "Lesotho",
-        "id": 2297
+        "id": 2297,
+        "isGafiMember": false
       }
     },
     {
@@ -938,7 +1031,8 @@
         "ctyPhoneCode": "231",
         "ctyNationality": "LR",
         "ctyNameEnglish": "Liberia",
-        "id": 2298
+        "id": 2298,
+        "isGafiMember": false
       }
     },
     {
@@ -948,7 +1042,8 @@
         "ctyPhoneCode": "423",
         "ctyNationality": "LI",
         "ctyNameEnglish": "Liechtenstein",
-        "id": 2299
+        "id": 2299,
+        "isGafiMember": false
       }
     },
     {
@@ -958,7 +1053,8 @@
         "ctyPhoneCode": "370",
         "ctyNationality": "LT",
         "ctyNameEnglish": "Lithuania",
-        "id": 2300
+        "id": 2300,
+        "isGafiMember": false
       }
     },
     {
@@ -968,7 +1064,8 @@
         "ctyPhoneCode": "352",
         "ctyNationality": "LU",
         "ctyNameEnglish": "Luxembourg",
-        "id": 2301
+        "id": 2301,
+        "isGafiMember": true
       }
     },
     {
@@ -978,7 +1075,8 @@
         "ctyPhoneCode": "853",
         "ctyNationality": "MO",
         "ctyNameEnglish": "Macau",
-        "id": 2302
+        "id": 2302,
+        "isGafiMember": false
       }
     },
     {
@@ -988,7 +1086,8 @@
         "ctyPhoneCode": "261",
         "ctyNationality": "MG",
         "ctyNameEnglish": "Madagascar",
-        "id": 2303
+        "id": 2303,
+        "isGafiMember": false
       }
     },
     {
@@ -998,7 +1097,8 @@
         "ctyPhoneCode": "265",
         "ctyNationality": "MW",
         "ctyNameEnglish": "Malawi",
-        "id": 2304
+        "id": 2304,
+        "isGafiMember": false
       }
     },
     {
@@ -1008,7 +1108,8 @@
         "ctyPhoneCode": "60",
         "ctyNationality": "MY",
         "ctyNameEnglish": "Malaysia",
-        "id": 2305
+        "id": 2305,
+        "isGafiMember": true
       }
     },
     {
@@ -1018,7 +1119,8 @@
         "ctyPhoneCode": "960",
         "ctyNationality": "MV",
         "ctyNameEnglish": "Maldives",
-        "id": 2306
+        "id": 2306,
+        "isGafiMember": false
       }
     },
     {
@@ -1028,7 +1130,8 @@
         "ctyPhoneCode": "223",
         "ctyNationality": "ML",
         "ctyNameEnglish": "Mali",
-        "id": 2307
+        "id": 2307,
+        "isGafiMember": false
       }
     },
     {
@@ -1038,7 +1141,8 @@
         "ctyPhoneCode": "356",
         "ctyNationality": "MT",
         "ctyNameEnglish": "Malta",
-        "id": 2308
+        "id": 2308,
+        "isGafiMember": false
       }
     },
     {
@@ -1048,7 +1152,8 @@
         "ctyPhoneCode": "692",
         "ctyNationality": "MH",
         "ctyNameEnglish": "Marshall Islands",
-        "id": 2309
+        "id": 2309,
+        "isGafiMember": false
       }
     },
     {
@@ -1058,7 +1163,8 @@
         "ctyPhoneCode": "222",
         "ctyNationality": "MR",
         "ctyNameEnglish": "Mauritania",
-        "id": 2310
+        "id": 2310,
+        "isGafiMember": false
       }
     },
     {
@@ -1068,7 +1174,8 @@
         "ctyPhoneCode": "230",
         "ctyNationality": "MU",
         "ctyNameEnglish": "Mauritius",
-        "id": 2311
+        "id": 2311,
+        "isGafiMember": false
       }
     },
     {
@@ -1078,7 +1185,8 @@
         "ctyPhoneCode": "52",
         "ctyNationality": "MX",
         "ctyNameEnglish": "Mexico",
-        "id": 2312
+        "id": 2312,
+        "isGafiMember": true
       }
     },
     {
@@ -1088,7 +1196,8 @@
         "ctyPhoneCode": "373",
         "ctyNationality": "MD",
         "ctyNameEnglish": "Moldova Republic of",
-        "id": 2313
+        "id": 2313,
+        "isGafiMember": false
       }
     },
     {
@@ -1098,7 +1207,8 @@
         "ctyPhoneCode": "377",
         "ctyNationality": "MC",
         "ctyNameEnglish": "Monaco",
-        "id": 2314
+        "id": 2314,
+        "isGafiMember": false
       }
     },
     {
@@ -1108,7 +1218,8 @@
         "ctyPhoneCode": "976",
         "ctyNationality": "MN",
         "ctyNameEnglish": "Mongolia",
-        "id": 2315
+        "id": 2315,
+        "isGafiMember": false
       }
     },
     {
@@ -1118,7 +1229,8 @@
         "ctyPhoneCode": "382",
         "ctyNationality": "ME",
         "ctyNameEnglish": "Montenegro",
-        "id": 2316
+        "id": 2316,
+        "isGafiMember": false
       }
     },
     {
@@ -1128,7 +1240,8 @@
         "ctyPhoneCode": "212",
         "ctyNationality": "MA",
         "ctyNameEnglish": "Morocco",
-        "id": 2317
+        "id": 2317,
+        "isGafiMember": false
       }
     },
     {
@@ -1138,7 +1251,8 @@
         "ctyPhoneCode": "258",
         "ctyNationality": "MZ",
         "ctyNameEnglish": "Mozambique",
-        "id": 2318
+        "id": 2318,
+        "isGafiMember": false
       }
     },
     {
@@ -1148,7 +1262,8 @@
         "ctyPhoneCode": "95",
         "ctyNationality": "MM",
         "ctyNameEnglish": "Myanmar",
-        "id": 2319
+        "id": 2319,
+        "isGafiMember": false
       }
     },
     {
@@ -1158,7 +1273,8 @@
         "ctyPhoneCode": "264",
         "ctyNationality": "NA",
         "ctyNameEnglish": "Namibia",
-        "id": 2320
+        "id": 2320,
+        "isGafiMember": false
       }
     },
     {
@@ -1168,7 +1284,8 @@
         "ctyPhoneCode": "977",
         "ctyNationality": "NP",
         "ctyNameEnglish": "Nepal",
-        "id": 2321
+        "id": 2321,
+        "isGafiMember": false
       }
     },
     {
@@ -1178,7 +1295,8 @@
         "ctyPhoneCode": "31",
         "ctyNationality": "NL",
         "ctyNameEnglish": "Netherlands",
-        "id": 2322
+        "id": 2322,
+        "isGafiMember": true
       }
     },
     {
@@ -1188,7 +1306,8 @@
         "ctyPhoneCode": "64",
         "ctyNationality": "NZ",
         "ctyNameEnglish": "New Zealand",
-        "id": 2323
+        "id": 2323,
+        "isGafiMember": true
       }
     },
     {
@@ -1198,7 +1317,8 @@
         "ctyPhoneCode": "505",
         "ctyNationality": "NI",
         "ctyNameEnglish": "Nicaragua",
-        "id": 2324
+        "id": 2324,
+        "isGafiMember": false
       }
     },
     {
@@ -1208,7 +1328,8 @@
         "ctyPhoneCode": "227",
         "ctyNationality": "NE",
         "ctyNameEnglish": "Niger Republic of",
-        "id": 2325
+        "id": 2325,
+        "isGafiMember": false
       }
     },
     {
@@ -1218,7 +1339,8 @@
         "ctyPhoneCode": "234",
         "ctyNationality": "NG",
         "ctyNameEnglish": "Nigeria",
-        "id": 2326
+        "id": 2326,
+        "isGafiMember": false
       }
     },
     {
@@ -1228,7 +1350,8 @@
         "ctyPhoneCode": "389",
         "ctyNationality": "MK",
         "ctyNameEnglish": "North Macedonia",
-        "id": 2327
+        "id": 2327,
+        "isGafiMember": false
       }
     },
     {
@@ -1238,7 +1361,8 @@
         "ctyPhoneCode": "47",
         "ctyNationality": "NO",
         "ctyNameEnglish": "Norway",
-        "id": 2328
+        "id": 2328,
+        "isGafiMember": true
       }
     },
     {
@@ -1248,7 +1372,8 @@
         "ctyPhoneCode": "968",
         "ctyNationality": "OM",
         "ctyNameEnglish": "Oman",
-        "id": 2329
+        "id": 2329,
+        "isGafiMember": false
       }
     },
     {
@@ -1258,7 +1383,8 @@
         "ctyPhoneCode": "92",
         "ctyNationality": "PK",
         "ctyNameEnglish": "Pakistan",
-        "id": 2330
+        "id": 2330,
+        "isGafiMember": false
       }
     },
     {
@@ -1268,7 +1394,8 @@
         "ctyPhoneCode": "970",
         "ctyNationality": "PS",
         "ctyNameEnglish": "Palestine",
-        "id": 2331
+        "id": 2331,
+        "isGafiMember": false
       }
     },
     {
@@ -1278,7 +1405,8 @@
         "ctyPhoneCode": "507",
         "ctyNationality": "PA",
         "ctyNameEnglish": "Panama",
-        "id": 2332
+        "id": 2332,
+        "isGafiMember": false
       }
     },
     {
@@ -1288,7 +1416,8 @@
         "ctyPhoneCode": "675",
         "ctyNationality": "PG",
         "ctyNameEnglish": "Papua New Guinea",
-        "id": 2333
+        "id": 2333,
+        "isGafiMember": false
       }
     },
     {
@@ -1298,7 +1427,8 @@
         "ctyPhoneCode": "595",
         "ctyNationality": "PY",
         "ctyNameEnglish": "Paraguay",
-        "id": 2334
+        "id": 2334,
+        "isGafiMember": false
       }
     },
     {
@@ -1308,7 +1438,8 @@
         "ctyPhoneCode": "51",
         "ctyNationality": "PE",
         "ctyNameEnglish": "Peru",
-        "id": 2335
+        "id": 2335,
+        "isGafiMember": false
       }
     },
     {
@@ -1318,7 +1449,8 @@
         "ctyPhoneCode": "63",
         "ctyNationality": "PH",
         "ctyNameEnglish": "Philippines",
-        "id": 2336
+        "id": 2336,
+        "isGafiMember": false
       }
     },
     {
@@ -1328,7 +1460,8 @@
         "ctyPhoneCode": "48",
         "ctyNationality": "PL",
         "ctyNameEnglish": "Poland",
-        "id": 2337
+        "id": 2337,
+        "isGafiMember": false
       }
     },
     {
@@ -1338,7 +1471,8 @@
         "ctyPhoneCode": "351",
         "ctyNationality": "PT",
         "ctyNameEnglish": "Portugal",
-        "id": 2338
+        "id": 2338,
+        "isGafiMember": true
       }
     },
     {
@@ -1348,7 +1482,8 @@
         "ctyPhoneCode": "1",
         "ctyNationality": "PR",
         "ctyNameEnglish": "Puerto Rico",
-        "id": 2339
+        "id": 2339,
+        "isGafiMember": false
       }
     },
     {
@@ -1358,7 +1493,8 @@
         "ctyPhoneCode": "974",
         "ctyNationality": "QA",
         "ctyNameEnglish": "Qatar",
-        "id": 2340
+        "id": 2340,
+        "isGafiMember": false
       }
     },
     {
@@ -1368,7 +1504,8 @@
         "ctyPhoneCode": "40",
         "ctyNationality": "RO",
         "ctyNameEnglish": "Romania",
-        "id": 2341
+        "id": 2341,
+        "isGafiMember": false
       }
     },
     {
@@ -1378,7 +1515,8 @@
         "ctyPhoneCode": "250",
         "ctyNationality": "RW",
         "ctyNameEnglish": "Rwanda",
-        "id": 2342
+        "id": 2342,
+        "isGafiMember": false
       }
     },
     {
@@ -1388,7 +1526,8 @@
         "ctyPhoneCode": "1",
         "ctyNationality": "KN",
         "ctyNameEnglish": "Saint Kitts And Nevis",
-        "id": 2343
+        "id": 2343,
+        "isGafiMember": false
       }
     },
     {
@@ -1398,7 +1537,8 @@
         "ctyPhoneCode": "685",
         "ctyNationality": "WS",
         "ctyNameEnglish": "Samoa",
-        "id": 2344
+        "id": 2344,
+        "isGafiMember": false
       }
     },
     {
@@ -1408,7 +1548,8 @@
         "ctyPhoneCode": "378",
         "ctyNationality": "SM",
         "ctyNameEnglish": "San Marino",
-        "id": 2345
+        "id": 2345,
+        "isGafiMember": false
       }
     },
     {
@@ -1418,7 +1559,8 @@
         "ctyPhoneCode": "239",
         "ctyNationality": "ST",
         "ctyNameEnglish": "Sao tome and principe",
-        "id": 2346
+        "id": 2346,
+        "isGafiMember": false
       }
     },
     {
@@ -1428,7 +1570,8 @@
         "ctyPhoneCode": "966",
         "ctyNationality": "SA",
         "ctyNameEnglish": "Saudi Arabia",
-        "id": 2347
+        "id": 2347,
+        "isGafiMember": true
       }
     },
     {
@@ -1438,7 +1581,8 @@
         "ctyPhoneCode": "221",
         "ctyNationality": "SN",
         "ctyNameEnglish": "Senegal",
-        "id": 2348
+        "id": 2348,
+        "isGafiMember": false
       }
     },
     {
@@ -1448,7 +1592,8 @@
         "ctyPhoneCode": "381",
         "ctyNationality": "RS",
         "ctyNameEnglish": "Serbia",
-        "id": 2349
+        "id": 2349,
+        "isGafiMember": false
       }
     },
     {
@@ -1458,7 +1603,8 @@
         "ctyPhoneCode": "248",
         "ctyNationality": "SC",
         "ctyNameEnglish": "Seychelles",
-        "id": 2350
+        "id": 2350,
+        "isGafiMember": false
       }
     },
     {
@@ -1468,7 +1614,8 @@
         "ctyPhoneCode": "232",
         "ctyNationality": "SL",
         "ctyNameEnglish": "Sierra Leone",
-        "id": 2351
+        "id": 2351,
+        "isGafiMember": false
       }
     },
     {
@@ -1478,7 +1625,8 @@
         "ctyPhoneCode": "65",
         "ctyNationality": "SG",
         "ctyNameEnglish": "Singapore",
-        "id": 2352
+        "id": 2352,
+        "isGafiMember": true
       }
     },
     {
@@ -1488,7 +1636,8 @@
         "ctyPhoneCode": "421",
         "ctyNationality": "SK",
         "ctyNameEnglish": "Slovakia",
-        "id": 2353
+        "id": 2353,
+        "isGafiMember": false
       }
     },
     {
@@ -1498,7 +1647,8 @@
         "ctyPhoneCode": "386",
         "ctyNationality": "SI",
         "ctyNameEnglish": "Slovenia",
-        "id": 2354
+        "id": 2354,
+        "isGafiMember": false
       }
     },
     {
@@ -1508,7 +1658,8 @@
         "ctyPhoneCode": "677",
         "ctyNationality": "SB",
         "ctyNameEnglish": "Solomon Islands",
-        "id": 2355
+        "id": 2355,
+        "isGafiMember": false
       }
     },
     {
@@ -1518,7 +1669,8 @@
         "ctyPhoneCode": "252",
         "ctyNationality": "SO",
         "ctyNameEnglish": "Somalia",
-        "id": 2356
+        "id": 2356,
+        "isGafiMember": false
       }
     },
     {
@@ -1528,7 +1680,8 @@
         "ctyPhoneCode": "27",
         "ctyNationality": "ZA",
         "ctyNameEnglish": "South Africa",
-        "id": 2357
+        "id": 2357,
+        "isGafiMember": true
       }
     },
     {
@@ -1538,7 +1691,8 @@
         "ctyPhoneCode": "34",
         "ctyNationality": "ES",
         "ctyNameEnglish": "Spain",
-        "id": 2358
+        "id": 2358,
+        "isGafiMember": true
       }
     },
     {
@@ -1548,7 +1702,8 @@
         "ctyPhoneCode": "94",
         "ctyNationality": "LK",
         "ctyNameEnglish": "Sri Lanka",
-        "id": 2359
+        "id": 2359,
+        "isGafiMember": false
       }
     },
     {
@@ -1558,7 +1713,8 @@
         "ctyPhoneCode": "249",
         "ctyNationality": "SD",
         "ctyNameEnglish": "Sudan",
-        "id": 2360
+        "id": 2360,
+        "isGafiMember": false
       }
     },
     {
@@ -1568,7 +1724,8 @@
         "ctyPhoneCode": "597",
         "ctyNationality": "SR",
         "ctyNameEnglish": "Suriname",
-        "id": 2361
+        "id": 2361,
+        "isGafiMember": false
       }
     },
     {
@@ -1578,7 +1735,8 @@
         "ctyPhoneCode": "46",
         "ctyNationality": "SE",
         "ctyNameEnglish": "Sweden",
-        "id": 2362
+        "id": 2362,
+        "isGafiMember": true
       }
     },
     {
@@ -1588,7 +1746,8 @@
         "ctyPhoneCode": "41",
         "ctyNationality": "CH",
         "ctyNameEnglish": "Switzerland",
-        "id": 2363
+        "id": 2363,
+        "isGafiMember": true
       }
     },
     {
@@ -1598,7 +1757,8 @@
         "ctyPhoneCode": "963",
         "ctyNationality": "SY",
         "ctyNameEnglish": "Syria",
-        "id": 2364
+        "id": 2364,
+        "isGafiMember": false
       }
     },
     {
@@ -1608,7 +1768,8 @@
         "ctyPhoneCode": "992",
         "ctyNationality": "TJ",
         "ctyNameEnglish": "Tajikistan",
-        "id": 2365
+        "id": 2365,
+        "isGafiMember": false
       }
     },
     {
@@ -1618,7 +1779,8 @@
         "ctyPhoneCode": "255",
         "ctyNationality": "TZ",
         "ctyNameEnglish": "Tanzania",
-        "id": 2366
+        "id": 2366,
+        "isGafiMember": false
       }
     },
     {
@@ -1628,7 +1790,8 @@
         "ctyPhoneCode": "66",
         "ctyNationality": "TH",
         "ctyNameEnglish": "Thailand",
-        "id": 2367
+        "id": 2367,
+        "isGafiMember": false
       }
     },
     {
@@ -1638,7 +1801,8 @@
         "ctyPhoneCode": "670",
         "ctyNationality": "TL",
         "ctyNameEnglish": "Timor-Leste",
-        "id": 2368
+        "id": 2368,
+        "isGafiMember": false
       }
     },
     {
@@ -1648,7 +1812,8 @@
         "ctyPhoneCode": "228",
         "ctyNationality": "TG",
         "ctyNameEnglish": "Togo",
-        "id": 2369
+        "id": 2369,
+        "isGafiMember": false
       }
     },
     {
@@ -1658,7 +1823,8 @@
         "ctyPhoneCode": "676",
         "ctyNationality": "TO",
         "ctyNameEnglish": "Tonga",
-        "id": 2370
+        "id": 2370,
+        "isGafiMember": false
       }
     },
     {
@@ -1668,7 +1834,8 @@
         "ctyPhoneCode": "1",
         "ctyNationality": "TT",
         "ctyNameEnglish": "Trinidad and Tobago",
-        "id": 2371
+        "id": 2371,
+        "isGafiMember": false
       }
     },
     {
@@ -1678,7 +1845,8 @@
         "ctyPhoneCode": "216",
         "ctyNationality": "TN",
         "ctyNameEnglish": "Tunisia",
-        "id": 2372
+        "id": 2372,
+        "isGafiMember": false
       }
     },
     {
@@ -1688,7 +1856,8 @@
         "ctyPhoneCode": "90",
         "ctyNationality": "TR",
         "ctyNameEnglish": "Turkey",
-        "id": 2373
+        "id": 2373,
+        "isGafiMember": true
       }
     },
     {
@@ -1698,7 +1867,8 @@
         "ctyPhoneCode": "1",
         "ctyNationality": "TC",
         "ctyNameEnglish": "Turks and Caicos Islands",
-        "id": 2374
+        "id": 2374,
+        "isGafiMember": false
       }
     },
     {
@@ -1708,7 +1878,8 @@
         "ctyPhoneCode": "256",
         "ctyNationality": "UG",
         "ctyNameEnglish": "Uganda",
-        "id": 2375
+        "id": 2375,
+        "isGafiMember": false
       }
     },
     {
@@ -1718,7 +1889,8 @@
         "ctyPhoneCode": "380",
         "ctyNationality": "UA",
         "ctyNameEnglish": "Ukraine",
-        "id": 2376
+        "id": 2376,
+        "isGafiMember": false
       }
     },
     {
@@ -1728,7 +1900,8 @@
         "ctyPhoneCode": "971",
         "ctyNationality": "AE",
         "ctyNameEnglish": "United Arab Emirates",
-        "id": 2377
+        "id": 2377,
+        "isGafiMember": false
       }
     },
     {
@@ -1738,7 +1911,8 @@
         "ctyPhoneCode": "44",
         "ctyNationality": "UK",
         "ctyNameEnglish": "United Kingdom",
-        "id": 2378
+        "id": 2378,
+        "isGafiMember": true
       }
     },
     {
@@ -1748,7 +1922,8 @@
         "ctyPhoneCode": "1",
         "ctyNationality": "US",
         "ctyNameEnglish": "United States",
-        "id": 2379
+        "id": 2379,
+        "isGafiMember": true
       }
     },
     {
@@ -1758,7 +1933,8 @@
         "ctyPhoneCode": "598",
         "ctyNationality": "UY",
         "ctyNameEnglish": "Uruguay",
-        "id": 2380
+        "id": 2380,
+        "isGafiMember": false
       }
     },
     {
@@ -1768,7 +1944,8 @@
         "ctyPhoneCode": "998",
         "ctyNationality": "UZ",
         "ctyNameEnglish": "Uzbekistan",
-        "id": 2381
+        "id": 2381,
+        "isGafiMember": false
       }
     },
     {
@@ -1778,7 +1955,8 @@
         "ctyPhoneCode": "678",
         "ctyNationality": "VU",
         "ctyNameEnglish": "Vanuatu",
-        "id": 2382
+        "id": 2382,
+        "isGafiMember": false
       }
     },
     {
@@ -1788,7 +1966,8 @@
         "ctyPhoneCode": "58",
         "ctyNationality": "VE",
         "ctyNameEnglish": "Venezuela",
-        "id": 2383
+        "id": 2383,
+        "isGafiMember": false
       }
     },
     {
@@ -1798,7 +1977,8 @@
         "ctyPhoneCode": "84",
         "ctyNationality": "VN",
         "ctyNameEnglish": "Vietnam",
-        "id": 2384
+        "id": 2384,
+        "isGafiMember": false
       }
     },
     {
@@ -1808,7 +1988,8 @@
         "ctyPhoneCode": "1",
         "ctyNationality": "VI",
         "ctyNameEnglish": "Virgin Islands US",
-        "id": 2385
+        "id": 2385,
+        "isGafiMember": false
       }
     },
     {
@@ -1818,7 +1999,8 @@
         "ctyPhoneCode": "967",
         "ctyNationality": "YE",
         "ctyNameEnglish": "Yemen",
-        "id": 2386
+        "id": 2386,
+        "isGafiMember": false
       }
     },
     {
@@ -1828,7 +2010,8 @@
         "ctyPhoneCode": "260",
         "ctyNationality": "ZM",
         "ctyNameEnglish": "Zambia",
-        "id": 2387
+        "id": 2387,
+        "isGafiMember": false
       }
     },
     {
@@ -1838,7 +2021,8 @@
         "ctyPhoneCode": "263",
         "ctyNationality": "ZW",
         "ctyNameEnglish": "Zimbabwe",
-        "id": 2388
+        "id": 2388,
+        "isGafiMember": false
       }
     }
   ]

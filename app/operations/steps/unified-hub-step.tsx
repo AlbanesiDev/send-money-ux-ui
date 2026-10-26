@@ -676,58 +676,63 @@ export function UnifiedHubStep({
         </div>
       </div>
 
-      <div className="absolute right-4 bottom-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
-        <span className="select-none">Demo:</span>
-        {DEMO_CUSTOMERS.flatMap((item) =>
-          item.documentNumbers.map((number) => (
-            <div key={number} className="flex gap-0.5">
-              <button
-                type="button"
-                onClick={() => fillDemoDocument(number)}
-                className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
-              >
-                {number}
-              </button>
-              <span className="select-none">
-                {item.status === "blocked"
-                  ? "(cliente bloqueado)"
-                  : "(cliente)"}
-              </span>
-            </div>
-          )),
-        )}
-        <div className="flex gap-0.5">
-          <button
-            type="button"
-            onClick={() => fillDemoDocument(DEMO_NEW_CLIENT_DOCUMENT)}
-            className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
-          >
-            {DEMO_NEW_CLIENT_DOCUMENT}
-          </button>
-          <span className="select-none">(cliente nuevo)</span>
-        </div>
-        <div className="flex gap-0.5">
-          <button
-            type="button"
-            onClick={() => fillDemoDocument(SEARCH_ERROR_DOCUMENT)}
-            className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
-          >
-            {SEARCH_ERROR_DOCUMENT}
-          </button>
-          <span className="select-none">(error)</span>
-        </div>
-        {DEMO_OPERATIONS.map((item) => (
-          <div key={item.number} className="flex gap-0.5">
+      <div className="absolute right-4 bottom-4 flex flex-col gap-1 text-xs text-muted-foreground">
+        <div className="flex flex-wrap gap-2">
+          <span className="select-none">Envíos:</span>
+          {DEMO_CUSTOMERS.flatMap((item) =>
+            item.documentNumbers.map((number) => (
+              <div key={number} className="flex gap-0.5">
+                <button
+                  type="button"
+                  onClick={() => fillDemoDocument(number)}
+                  className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
+                >
+                  {number}
+                </button>
+                <span className="select-none">
+                  {item.status === "blocked"
+                    ? "(cliente bloqueado)"
+                    : "(cliente)"}
+                </span>
+              </div>
+            )),
+          )}
+          <div className="flex gap-0.5">
             <button
               type="button"
-              onClick={() => fillDemoPin(item.number)}
+              onClick={() => fillDemoDocument(DEMO_NEW_CLIENT_DOCUMENT)}
               className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
             >
-              {item.number}
+              {DEMO_NEW_CLIENT_DOCUMENT}
             </button>
-            <span className="select-none">({item.label})</span>
+            <span className="select-none">(cliente nuevo)</span>
           </div>
-        ))}
+          <div className="flex gap-0.5">
+            <button
+              type="button"
+              onClick={() => fillDemoDocument(SEARCH_ERROR_DOCUMENT)}
+              className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
+            >
+              {SEARCH_ERROR_DOCUMENT}
+            </button>
+            <span className="select-none">(error)</span>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <span className="select-none">Pagos:</span>
+          {DEMO_OPERATIONS.map((item) => (
+            <div key={item.number} className="flex gap-0.5">
+              <button
+                type="button"
+                onClick={() => fillDemoPin(item.number)}
+                className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground hover:decoration-foreground"
+              >
+                {item.number}
+              </button>
+              <span className="select-none">({item.label})</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {customer !== null && (

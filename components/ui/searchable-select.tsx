@@ -332,7 +332,7 @@ export function SearchableSelect({
       >
         {label} {required && <span className="text-destructive">*</span>}
       </span>
-      <div className="relative">
+      <div className={hasError ? "relative mb-3.5" : "relative"}>
         <button
           ref={fieldRef}
           aria-label={

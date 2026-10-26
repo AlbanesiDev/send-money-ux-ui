@@ -129,6 +129,7 @@ export function AdditionalInfoForm({
         value={form.fundsOrigin}
         options={FUNDS_ORIGIN_OPTIONS}
         required
+        clearable
         onChange={(value) => onChange("fundsOrigin", value)}
       />
       <Field

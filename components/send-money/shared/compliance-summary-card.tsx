@@ -64,10 +64,9 @@ export function ComplianceSummaryCard({
           <ShieldAlertIcon className="mt-0.5 size-3.5 shrink-0" aria-hidden />
           <div className="min-w-0 flex-1">
             <p className="text-xs font-semibold">
-              El país destino es considerado de alto riesgo por GAFI. Se requiere
-              información adicional.
+              El país destino es considerado de alto riesgo.
             </p>
-            {!additionalInfoMarked && (
+            {/* {!additionalInfoMarked && (
               <button
                 type="button"
                 onClick={onEditAdditionalInfo}
@@ -75,7 +74,7 @@ export function ComplianceSummaryCard({
               >
                 Completar información adicional
               </button>
-            )}
+            )} */}
           </div>
         </div>
       )}
@@ -86,21 +85,25 @@ export function ComplianceSummaryCard({
           label="Origen de los Fondos"
           value={fundsOrigin}
           options={FUNDS_ORIGIN_OPTIONS}
-          required
+          required={additionalInfoRequired}
+          clearable
           onChange={onFundsOriginChange}
         />
         <Field
           inputRef={resourceDestinationRef}
           label="Destino recursos"
           value={resourceDestination}
-          required
+          required={additionalInfoRequired}
           maxLength={50}
           onChange={onResourceDestinationChange}
         />
       </div>
 
       {additionalInfoError !== "" && (
-        <p role="alert" className="mt-1.5 text-xs font-semibold text-destructive">
+        <p
+          role="alert"
+          className="mt-1.5 text-xs font-semibold text-destructive"
+        >
           {additionalInfoError}
         </p>
       )}

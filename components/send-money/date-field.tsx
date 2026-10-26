@@ -290,7 +290,7 @@ export function DateField({
       <span className="mb-1 block text-sm font-semibold text-foreground">
         {label} {required && <span className="text-destructive">*</span>}
       </span>
-      <div className="relative">
+      <div className={hasError ? "relative mb-3.5" : "relative"}>
         <input
           ref={textInputRef}
           name={name}

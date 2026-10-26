@@ -101,7 +101,7 @@ export function Field({
       <span className="mb-1 block text-sm font-semibold text-foreground">
         {label} {required && <span className="text-destructive">*</span>}
       </span>
-      <span className="relative block">
+      <span className={hasError ? "relative mb-3.5 block" : "relative block"}>
         <input
           ref={resolvedInputRef}
           name={name}
